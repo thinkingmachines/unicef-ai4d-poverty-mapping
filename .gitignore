@@ -192,3 +192,7 @@ Temporary Items
 ### Custom ###
 # Add additional files and directories to ignore here
 data/
+
+/env/
+/.quarto/
+/_site/
