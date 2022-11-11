@@ -1,0 +1,13 @@
+black
+earthengine-api
+gdal
+geopandas
+geowrangler
+jupyterlab
+loguru
+numpy
+pandas
+pre-commit
+pytest
+rasterio
+rasterstats
