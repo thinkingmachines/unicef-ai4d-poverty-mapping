@@ -13,6 +13,8 @@ website:
         text: Main
       - href: about.qmd
         text: About
+      - href: progress.qmd
+        text: Progress
 
 format:
   html:
