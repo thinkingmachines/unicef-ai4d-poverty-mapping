@@ -62,6 +62,13 @@ conda activate ./env
 make setup
 ```
 
+4. To test if the setup was successful, run the tests.
+```
+make test
+```
+
+You should get a message that the tests passed.
+
 ## 🐍 Testing
 To run automated tests, simply run `make test`.
 
@@ -82,7 +89,8 @@ When you add new python libs, please do the ff:
 
 3. Commit both the `requirements.in` and `requirements.txt` files so other devs can get the updated list of project requirements.
 
-Note: When you are the one updating your python env to follow library changes from other devs (reflected through an updated `requirements.txt` file), simply run `pip-sync requirements.txt`
+> Note: When you are the one updating your python env to follow library changes from other devs (reflected through an updated `requirements.txt` file), simply run `pip-sync requirements.txt`
+
 
 ## 📜Documentation 
 
