@@ -3,3 +3,4 @@ title: Progress Report
 ---
 
 * 11/11/2022 - created working repo for Poverty Mapping project
+* 21/11/2022 - update packages and README, link repo to project for tracking
