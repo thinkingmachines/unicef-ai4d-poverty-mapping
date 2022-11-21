@@ -83,3 +83,28 @@ When you add new python libs, please do the ff:
 3. Commit both the `requirements.in` and `requirements.txt` files so other devs can get the updated list of project requirements.
 
 Note: When you are the one updating your python env to follow library changes from other devs (reflected through an updated `requirements.txt` file), simply run `pip-sync requirements.txt`
+
+## 📜Documentation 
+
+We are using [Quarto](https://quarto.org/) to maintain the Unicef AI4D Poverty Mapping [documentation site](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/) 
+
+Here are some quick tips to running quarto/updating the doc site:
+
+* Download: 
+[quarto download](https://quarto.org/docs/get-started/)
+
+* Install:
+```
+sudo dpkg -i quarto-1.2.247-linux-amd64.deb
+```
+
+* Preview the site locally (view in [http://localhost:4444](http://localhost:4444)) :
+```
+quarto preview --port 4444 --no-browser
+```
+
+* Update the site (must have maintainer role):
+```
+quarto publish gh-pages --no-browser
+```
+* **Pro-tip** : If you are using VS Code as your code editor, install the [Quarto extension](https://marketplace.visualstudio.com/items?itemName=quarto.quarto) to make editing/previewing the doc site a lot smoother.
