@@ -32,23 +32,23 @@ development across Southeast Asia.
 
 # ⚙️ Local Setup for Development
 
-This repo assumes the use of [conda](https://docs.conda.io/en/latest/miniconda.html) for simplicity in installing GDAL.
+This repo assumes the use of [conda/mamba](https://github.com/conda-forge/miniforge#mambaforge) for simplicity in installing GDAL.
 
 
 ## Requirements
 
 1. Python 3.9
 2. make
-3. conda
+3. mamba/conda
 
 
 ## 🐍 One-time Set-up
 Run this the very first time you are setting-up the project on a machine to set-up a local Python environment for this project.
 
-1. Install [miniconda](https://docs.conda.io/en/latest/miniconda.html) for your environment if you don't have it yet.
+1. Install [mamba](https://github.com/conda-forge/miniforge#mambaforge) for your environment if you don't have it yet.
 ```bash
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh
+wget "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
+bash Mambaforge-$(uname)-$(uname -m).sh
 ```
 
 2. Create a local conda env and activate it. This will create a conda env folder in your project directory.
