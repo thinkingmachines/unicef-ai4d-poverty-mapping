@@ -1,13 +1,29 @@
 black
 earthengine-api
+fastcore
+fiona
 gdal
 geopandas
 geowrangler
+haversine
 jupyterlab
+libclang
+lightgbm
 loguru
+matplotlib
 numpy
+osmium
 pandas
 pre-commit
+pygeos --no-binary pygeos
 pytest
+pyyaml
 rasterio
 rasterstats
+scikit-learn
+seaborn
+shapely --no-binary shapely
+tqdm
+tune-sklearn
+typed-ast
+xgboost
