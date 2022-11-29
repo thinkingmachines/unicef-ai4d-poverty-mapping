@@ -1,4 +1,4 @@
-.PHONY: help conda-env setup requirements test
+.PHONY: help conda-env setup requirements requirements-dev test
 .DEFAULT_GOAL := help
 -include .env
 
@@ -16,6 +16,10 @@ setup:
 requirements:
 	pip-compile requirements.in -o requirements.txt -v
 	pip-sync requirements.txt
+
+requirements-dev:
+	pip-compile requirements-dev.in requirements.txt  -o requirements-dev.txt -v
+	pip-sync requirements-dev.txt
 
 test:
 	pytest -v tests/
