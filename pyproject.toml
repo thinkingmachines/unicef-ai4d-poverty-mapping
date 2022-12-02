@@ -1,3 +1,8 @@
+
+[project]
+name = "poverty_mapping"
+version = "0.0.1"
+
 [tool.black]
 line-length = 88
 include = '\.pyi?$'
@@ -30,3 +35,16 @@ force_grid_wrap = 0
 use_parentheses = "True"
 ensure_newline_before_comments = "True"
 line_length = 88
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests"
+]
+[tool.pyright]
+reportShadowedImports = false
+
+[build-system]
+build-backend = 'setuptools.build_meta'
+requires = [
+    'setuptools >= 43.0.0',
+]
