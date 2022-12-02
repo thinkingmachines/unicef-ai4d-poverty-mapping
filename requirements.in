@@ -17,6 +17,9 @@ pandas
 pre-commit
 pygeos --no-binary pygeos
 pytest
+pytest-mock
+pytest-cov
+pytest-xdist
 pyyaml
 rasterio
 rasterstats
