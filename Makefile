@@ -12,6 +12,7 @@ setup:
 	mamba install -c conda-forge gdal -y
 	pip install pip-tools
 	pip-sync requirements.txt
+	pip install -e .
 
 requirements:
 	pip-compile requirements.in -o requirements.txt -v
