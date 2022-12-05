@@ -17,10 +17,12 @@ setup:
 requirements:
 	pip-compile requirements.in -o requirements.txt -v
 	pip-sync requirements.txt
+	pip install -e .
 
 requirements-dev:
 	pip-compile requirements-dev.in requirements.txt  -o requirements-dev.txt -v
 	pip-sync requirements-dev.txt
+	pip install -e .
 
 test:
-	pytest -v tests/
+	pytest
