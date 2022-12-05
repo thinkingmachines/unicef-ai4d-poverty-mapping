@@ -1,4 +1,4 @@
-from poverty_mapping.utils.data_utils import get_dhs_dict
+from povertymapping.utils.data_utils import get_dhs_dict
 
 DHS_SAMPLE_DATA_DIR = 'test_data/dhs_sample'
 

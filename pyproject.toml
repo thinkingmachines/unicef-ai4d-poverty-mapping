@@ -1,6 +1,6 @@
 
 [project]
-name = "poverty_mapping"
+name = "povertymapping"
 version = "0.0.1"
 
 [tool.black]
