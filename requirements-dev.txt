@@ -108,6 +108,10 @@ contourpy==1.0.6
     # via
     #   -r requirements.txt
     #   matplotlib
+coverage[toml]==6.5.0
+    # via
+    #   -r requirements.txt
+    #   pytest-cov
 cycler==0.11.0
     # via
     #   -r requirements.txt
@@ -138,6 +142,10 @@ exceptiongroup==1.0.4
     # via
     #   -r requirements.txt
     #   pytest
+execnet==1.9.0
+    # via
+    #   -r requirements.txt
+    #   pytest-xdist
 executing==1.2.0
     # via
     #   -r requirements.txt
@@ -573,6 +581,16 @@ pyrsistent==0.19.2
     #   -r requirements.txt
     #   jsonschema
 pytest==7.2.0
+    # via
+    #   -r requirements.txt
+    #   pytest-cov
+    #   pytest-mock
+    #   pytest-xdist
+pytest-cov==4.0.0
+    # via -r requirements.txt
+pytest-mock==3.10.0
+    # via -r requirements.txt
+pytest-xdist==3.0.2
     # via -r requirements.txt
 python-dateutil==2.8.2
     # via
@@ -712,6 +730,7 @@ tomli==2.0.1
     # via
     #   -r requirements.txt
     #   black
+    #   coverage
     #   jupyterlab
     #   pytest
 tornado==6.2

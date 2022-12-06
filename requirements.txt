@@ -75,6 +75,8 @@ cligj==0.7.2
     #   rasterstats
 contourpy==1.0.6
     # via matplotlib
+coverage[toml]==6.5.0
+    # via pytest-cov
 cycler==0.11.0
     # via matplotlib
 debugpy==1.6.3
@@ -91,6 +93,8 @@ entrypoints==0.4
     # via jupyter-client
 exceptiongroup==1.0.4
     # via pytest
+execnet==1.9.0
+    # via pytest-xdist
 executing==1.2.0
     # via stack-data
 fastcore==1.5.27
@@ -407,6 +411,16 @@ pyproj==3.4.0
 pyrsistent==0.19.2
     # via jsonschema
 pytest==7.2.0
+    # via
+    #   -r requirements.in
+    #   pytest-cov
+    #   pytest-mock
+    #   pytest-xdist
+pytest-cov==4.0.0
+    # via -r requirements.in
+pytest-mock==3.10.0
+    # via -r requirements.in
+pytest-xdist==3.0.2
     # via -r requirements.in
 python-dateutil==2.8.2
     # via
@@ -513,6 +527,7 @@ toml==0.10.2
 tomli==2.0.1
     # via
     #   black
+    #   coverage
     #   jupyterlab
     #   pytest
 tornado==6.2
