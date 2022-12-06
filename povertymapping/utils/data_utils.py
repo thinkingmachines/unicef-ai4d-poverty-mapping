@@ -87,42 +87,203 @@ def extract_recode():
     # we will store them as pairs of lists
 
     # floor recode
-    floor_code = [11, 12, 13, 21, 22, 23, 31, 32, \
-        33, 34, 35, 36, 37, 38, 41, 96, 99, 24, 39]
+    floor_code = [
+        11,
+        12,
+        13,
+        21,
+        22,
+        23,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        41,
+        96,
+        99,
+        24,
+        39,
+    ]
     floor_qual = [1, 1, 3, 4, 4, 3, 5, 4, 5, 4, 3, 4, 4, 3, 2, 1, 1, 5, 5]
-    floor_recode = pd.DataFrame({
-        "floor_code": floor_code,
-        "floor_qual": floor_qual
-    })
+    floor_recode = pd.DataFrame({"floor_code": floor_code, "floor_qual": floor_qual})
 
     # toilet recode
-    toilet_code = [11, 12, 13, 14, 15, 17, 18, 19, 21, 22, 23, 24, 25, \
-        26, 27, 28, 29, 31, 32, 41, 42, 43, 44, 45, 51, 61, 71, 91, 92, \
-            96, 99, 30, 16]
-    toilet_qual = [5, 5, 4, 5, 5, 5, 5, 1, 4, 3, 2, 3, 2, 2, 3, 3, 1, 1, \
-        1, 4, 2, 3, 4, 3, 1, 1, 1, 4, 2, 1, 1, 1, 4]
-    toilet_recode = pd.DataFrame({
-        "toilet_code": toilet_code,
-        "toilet_qual": toilet_qual
-    })
+    toilet_code = [
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        31,
+        32,
+        41,
+        42,
+        43,
+        44,
+        45,
+        51,
+        61,
+        71,
+        91,
+        92,
+        96,
+        99,
+        30,
+        16,
+    ]
+    toilet_qual = [
+        5,
+        5,
+        4,
+        5,
+        5,
+        5,
+        5,
+        1,
+        4,
+        3,
+        2,
+        3,
+        2,
+        2,
+        3,
+        3,
+        1,
+        1,
+        1,
+        4,
+        2,
+        3,
+        4,
+        3,
+        1,
+        1,
+        1,
+        4,
+        2,
+        1,
+        1,
+        1,
+        4,
+    ]
+    toilet_recode = pd.DataFrame(
+        {"toilet_code": toilet_code, "toilet_qual": toilet_qual}
+    )
 
     # water recode
-    water_code = [11, 12, 13, 14, 21, 22, 23, 24, 25, 26, 31, 32, 33, 34, \
-        35, 36, 41, 42, 43, 44, 45, 46, 51, 52, 53, 54, 55, 61, 62, 63, 64, \
-            71, 72, 73, 81, 82, 91, 92, 96, 99, 37, 38, 15]
-    water_qual = [5, 5, 5, 4, 3, 3, 3, 2, 2, 1, 4, 4, 4, 4, 3, 2, 1, 1, 1, 1,\
-        1, 1, 1, 1, 2, 2, 3, 4, 4, 2, 3, 5, 5, 3, 1, 2, 4, 3, 1, 1, 2, 2, 4]
-    water_recode = pd.DataFrame({
-        "water_code": water_code,
-        "water_qual": water_qual
-    })
+    water_code = [
+        11,
+        12,
+        13,
+        14,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        51,
+        52,
+        53,
+        54,
+        55,
+        61,
+        62,
+        63,
+        64,
+        71,
+        72,
+        73,
+        81,
+        82,
+        91,
+        92,
+        96,
+        99,
+        37,
+        38,
+        15,
+    ]
+    water_qual = [
+        5,
+        5,
+        5,
+        4,
+        3,
+        3,
+        3,
+        2,
+        2,
+        1,
+        4,
+        4,
+        4,
+        4,
+        3,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        3,
+        4,
+        4,
+        2,
+        3,
+        5,
+        5,
+        3,
+        1,
+        2,
+        4,
+        3,
+        1,
+        1,
+        2,
+        2,
+        4,
+    ]
+    water_recode = pd.DataFrame({"water_code": water_code, "water_qual": water_qual})
 
     feats = ["floor", "toilet", "water"]
     recode_dfs = [floor_recode, toilet_recode, water_recode]
     recode_dict = dict(zip(feats, recode_dfs))
 
     return recode_dict
-
 
 
 def assign_index(
@@ -144,7 +305,7 @@ def assign_index(
     use_pca=True,
     threshold=False,
     normalize=False,
-    config=None
+    config=None,
 ):
     """Compute and assign new wealth index on a subset of features
     Args:
@@ -157,9 +318,7 @@ def assign_index(
     asset_df = process_asset_features(df, features)
 
     # apply individual threshold (as in sustainbench)
-    asset_df.loc[:, "rooms"] = asset_df["rooms"].apply(
-        lambda x: 25 if x > 25 else x
-    )
+    asset_df.loc[:, "rooms"] = asset_df["rooms"].apply(lambda x: 25 if x > 25 else x)
 
     # apply recode (as in sustainbench)
     recode_dict = extract_recode()
@@ -167,7 +326,6 @@ def assign_index(
 
         col_abb = col.split()[-1]
         asset_df.loc[:, col] = asset_df[col].replace(recode_dict[col_abb])
-
 
     if normalize:
         asset_df = asset_df.apply(normalize_array, axis=1)
@@ -186,8 +344,6 @@ def assign_index(
         first_comp_vec_scaled = s[0] * orthog_pc1_proj
 
     df.loc[:, f"Recomputed Wealth Index{file_suff}"] = first_comp_vec_scaled
-
-
 
 
 def quarter_start(year: int, q: int):
@@ -325,7 +481,7 @@ def save_cmap(
     """Save color map plot"""
 
     # plot
-    fig, ax = plt.subplots(figsize=(12,10))
+    fig, ax = plt.subplots(figsize=(12, 10))
 
     if remove_white:
         # remove white/light color from cmap
@@ -481,7 +637,6 @@ def generate_osm_bbox(centroid_lat, centroid_lon, distance_km):
         distance_km / 2,
         Direction.SOUTH,
     )
-
 
     north, west = top_left
     south, east = bottom_right
