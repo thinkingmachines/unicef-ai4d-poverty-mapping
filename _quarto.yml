@@ -15,6 +15,13 @@ website:
         text: About
       - href: progress.qmd
         text: Progress
+      - section: "Data Preparation"
+        contents:
+          - test-notebooks/explore_dhs.ipynb
+          - test-notebooks/explore_kh_dhs.ipynb
+          - test-notebooks/explore_mm_dhs.ipynb
+          - test-notebooks/explore_ph_dhs.ipynb
+          - test-notebooks/explore_tl_dhs.ipynb
 
 format:
   html:
