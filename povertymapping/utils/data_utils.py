@@ -17,30 +17,6 @@ from shapely.ops import transform
 from sklearn.decomposition import PCA
 
 
-def get_dhs_dict(dhs_dict_file):
-    """Process .do file into dictionary"""
-    # TODO: refactor code to support progress bar
-    dhs_dict = dict()
-    with open(dhs_dict_file, "r", errors="replace") as file:
-        line = file.readline()
-        while line:
-            line = file.readline()
-            if "label variable" in line:
-                code = line.split()[2]
-                colname = " ".join([x.strip('"') for x in line.split()[3:]])
-                dhs_dict[code] = colname
-    return dhs_dict
-
-
-def get_base_dhs_df(dhs_file, dhs_dict_file):
-    """Combina .do with .dta file"""
-    print("Combining data dict to form base dhs data...")
-    dhs = pd.read_stata(dhs_file, convert_categoricals=False)
-    dhs_dict = get_dhs_dict(dhs_dict_file)
-    return dhs.rename(columns=dhs_dict)  # without dropping cols with nas
-    # we'll just drop rows with nas
-    # return dhs.rename(columns=dhs_dict).dropna(axis=1)
-
 def process_asset_features(
     dhs,
     features=[
@@ -212,53 +188,6 @@ def assign_index(
     df.loc[:, f"Recomputed Wealth Index{file_suff}"] = first_comp_vec_scaled
 
 
-# TODO: Add more relevant columns for model training
-#       Add population estimate by cluster (feature)
-def aggregate_dhs(dhs):
-    """Aggregate dhs (obtained from method above) by cluster"""
-
-    print("Aggregating by cluster...")
-
-    cols = dhs.columns
-    # search for columns corresp. asset index and cluster number
-
-    # for the cluster number the casing might change so we do a search for
-    # cluster
-
-    def get_cluster_col(cols, kwds):
-
-        query_set = set(kwds.split())
-        cluster_col_name_list = [
-            col for col in cols if query_set.issubset(set(col.lower().split()))
-        ]
-        if len(cluster_col_name_list) == 0:
-            raise Exception("Cluster column not found! :(")
-        return cluster_col_name_list[0]
-
-    # cluster_col_name = cluster_col_name_list[0]
-    # cluster_col_name_list = [col for col in cols if 'cluster' in col.lower()]
-    # if len(cluster_col_name_list) == 0:
-    #     raise Exception('Cluster column not found! :(')
-    # cluster_col_name = cluster_col_name_list[0]
-
-    # extract col name corresp to 'DHSCLUST'
-    cluster_col_name = get_cluster_col(cols, kwds="cluster")
-    # extract col name corresp to 'Wealth Index'
-    wealth_col_name = get_cluster_col(cols, kwds="wealth index factor")
-
-    result_cols = ["DHSCLUST", "Wealth Index"]
-    col_vals = [cluster_col_name, wealth_col_name]
-
-    col_dict = {}
-    for col, col_val in zip(result_cols, col_vals):
-        col_dict[col] = col_val
-    col_dict
-
-    result_data = dhs[list(col_dict.values())].groupby(cluster_col_name).mean()
-    result_data = result_data.reset_index()
-    result_data.columns = list(col_dict.keys())
-
-    return result_data
 
 
 def quarter_start(year: int, q: int):

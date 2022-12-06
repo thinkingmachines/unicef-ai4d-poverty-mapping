@@ -1,9 +1,6 @@
 import os
-import warnings
 import geopandas as gpd
 import pandas as pd
-# import yaml
-from utils.data_utils import aggregate_dhs, get_base_dhs_df
 import geowrangler.dhs as gdhs
 class MissingDataException(Exception):
     pass
@@ -11,11 +8,11 @@ class MissingDataException(Exception):
 wealth_col_name = "Wealth Index"
 cluster_col_name = "DHSCLUST"
 
-def dhs_data_proc(config):
+def process_dhs_data(config):
 
     save_path = config["save_path"]
     if not os.path.isdir(save_path):
-        os.makedirs(save_path)
+        os.makedirs(save_path,exist_ok=True)
 
     folder_name = config["dhs_folder"]  
     dhs_zip_folder = config["dhs_zip_folder"]
@@ -60,8 +57,8 @@ def dhs_data_proc(config):
     )
 
     # combine survey with geo data
-    survey_geo = pd.merge(survey_data, dhs_shp, on="DHSCLUST")
-    survey_geo_output_file = "{dhs_zip_folder}_{dhs_geo_zip_folder}_by_cluster.csv"
+    survey_geo = pd.merge(survey_data, dhs_shp, on=cluster_col_name)
+    survey_geo_output_file = f"{dhs_zip_folder}_{dhs_geo_zip_folder}_by_cluster.csv"
     survey_geo.to_csv(
         os.path.join(save_path, survey_geo_output_file)
     )
