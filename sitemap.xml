@@ -2,18 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/about.html</loc>
-    <lastmod>2022-11-21T07:33:33.199Z</lastmod>
+    <lastmod>2022-12-06T11:02:38.479Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_tl_dhs.html</loc>
+    <lastmod>2022-12-06T11:02:38.869Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_kh_dhs.html</loc>
+    <lastmod>2022-12-06T11:02:39.279Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/prepare_dhs.html</loc>
+    <lastmod>2022-12-06T11:02:39.689Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_dhs.html</loc>
+    <lastmod>2022-12-06T11:02:40.139Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_mm_dhs.html</loc>
+    <lastmod>2022-12-06T11:02:40.609Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_ph_dhs.html</loc>
+    <lastmod>2022-12-06T11:02:41.169Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/wiki/dhs.html</loc>
+    <lastmod>2022-12-06T11:02:41.639Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/CODE_OF_CONDUCT.html</loc>
-    <lastmod>2022-11-21T07:33:33.619Z</lastmod>
+    <lastmod>2022-12-06T11:02:42.269Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/index.html</loc>
-    <lastmod>2022-11-21T07:33:33.929Z</lastmod>
+    <lastmod>2022-12-06T11:02:43.089Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/progress.html</loc>
-    <lastmod>2022-11-21T07:33:34.189Z</lastmod>
+    <lastmod>2022-12-06T11:02:44.149Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/datasets.html</loc>
+    <lastmod>2022-12-06T11:02:44.959Z</lastmod>
   </url>
 </urlset>
