@@ -387,10 +387,10 @@ def create_polygon_buffer(lon, lat, r):
 
     center = Point(float(lon), float(lat))
     point_transformed = transform(wgs84_to_aeqd, center)
-    buffer = point_transformed.buffer(r)
+    point_buffer = point_transformed.buffer(r)
 
     # Get the polygon with lat lon coordinates
-    circle_poly = transform(aeqd_to_wgs84, buffer)
+    circle_poly = transform(aeqd_to_wgs84, point_buffer)
     return circle_poly
 
 
@@ -421,7 +421,8 @@ def add_buffer_geom(cluster_centroid_df, r=4000):
     cluster_centroid_df["geometry"] = buffer_geometry
 
 
-def compute_feat_by_adm(boundaries_df, features_by_cluster, features_list, config):
+# def compute_feat_by_adm(boundaries_df, features_by_cluster, features_list, config):
+def compute_feat_by_adm(boundaries_df, features_by_cluster, config):
     """Return feature mean, grouping by adm level
     Args:
         boundaries_df (geopandas.GeoDataFrame): geo dataframe containing adm level boundary shapes

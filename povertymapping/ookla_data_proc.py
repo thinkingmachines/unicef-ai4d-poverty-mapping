@@ -1,82 +1,82 @@
 import os
 
-import geopandas as gp
-import matplotlib.pyplot as plt
+import geopandas as gpd
+# import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import yaml
+# import yaml
 from utils.data_utils import (
     add_buffer_geom,
     compute_feat_by_adm,
-    get_title_url,
+    # get_title_url,
     plot_feature_by_adm,
 )
 
 
-def compute_ookla_stats(tiles_in_country, country_boundaries):
-    """Compute internat speed wt by number of tests"""
-    # average download speed by admin level
-    # weighted by the number of tests
-    wt_avg_by_adm = tiles_in_country.groupby(["ADM3_PCODE", "ADM3_EN"]).apply(
-        lambda x: pd.Series(
-            {"avg_d_mbps_wt": np.average(x["avg_d_mbps"], weights=x["tests"])}
-        )
-    )
-    # add test sum column
-    country_adm_stats = wt_avg_by_adm.merge(
-        tiles_in_country.groupby(["ADM3_PCODE", "ADM3_EN"])
-        .agg(tests=("tests", "sum"))
-        .reset_index(),
-        on=["ADM3_PCODE", "ADM3_EN"],
-    )
+# def compute_ookla_stats(tiles_in_country, country_boundaries):
+#     """Compute internat speed wt by number of tests"""
+#     # average download speed by admin level
+#     # weighted by the number of tests
+#     wt_avg_by_adm = tiles_in_country.groupby(["ADM3_PCODE", "ADM3_EN"]).apply(
+#         lambda x: pd.Series(
+#             {"avg_d_mbps_wt": np.average(x["avg_d_mbps"], weights=x["tests"])}
+#         )
+#     )
+#     # add test sum column
+#     country_adm_stats = wt_avg_by_adm.merge(
+#         tiles_in_country.groupby(["ADM3_PCODE", "ADM3_EN"])
+#         .agg(tests=("tests", "sum"))
+#         .reset_index(),
+#         on=["ADM3_PCODE", "ADM3_EN"],
+#     )
 
-    # extract adms with highest download speed with at least 50 tests
-    top_20_download_adm = (
-        country_adm_stats.loc[country_adm_stats["tests"] >= 50]
-        .nlargest(20, "avg_d_mbps_wt")
-        .sort_values("avg_d_mbps_wt", ascending=False)
-        .round(2)
-    )
+#     # extract adms with highest download speed with at least 50 tests
+#     top_20_download_adm = (
+#         country_adm_stats.loc[country_adm_stats["tests"] >= 50]
+#         .nlargest(20, "avg_d_mbps_wt")
+#         .sort_values("avg_d_mbps_wt", ascending=False)
+#         .round(2)
+#     )
 
-    # map the adm levels
-    admin_data = country_boundaries[["ADM3_PCODE", "geometry"]].merge(
-        country_adm_stats, on="ADM3_PCODE"
-    )
+#     # map the adm levels
+#     admin_data = country_boundaries[["ADM3_PCODE", "geometry"]].merge(
+#         country_adm_stats, on="ADM3_PCODE"
+#     )
 
-    return admin_data, top_20_download_adm
-
-
-def plot_buffer_size(dataframe, buffer_df, point=False):
-    """Plot cluster locations on boundary shapes"""
-    # plot on boundary
-    fig, ax = plt.subplots()
-
-    # plot shapes in the background
-    dataframe.plot(facecolor="none", edgecolor="black", linewidth=0.1, ax=ax)
-
-    boundary_outline = f"output/{country}_boundary_shapes2.jpeg"
-
-    if point:
-        cluster_buffers = gp.GeoDataFrame(
-            buffer_df,
-            geometry=gp.points_from_xy(buffer_df.longitude, buffer_df.latitude),
-        )
-    else:
-        cluster_buffers = gp.GeoDataFrame(buffer_df, geometry="geometry")
-
-    # merge/extract feature corresponding to clusters
-    cluster_result = mean_download_by_cluster.merge(
-        cluster_buffers, on="DHSID", how="left"
-    )
-    cluster_result.plot(column="avg_d_mbps", color="red", ax=ax)
-
-    fig.savefig(boundary_outline)
+#     return admin_data, top_20_download_adm
 
 
-if __name__ == "__main__":
+# def plot_buffer_size(dataframe, buffer_df, point=False):
+#     """Plot cluster locations on boundary shapes"""
+#     # plot on boundary
+#     fig, ax = plt.subplots()
 
+#     # plot shapes in the background
+#     dataframe.plot(facecolor="none", edgecolor="black", linewidth=0.1, ax=ax)
+
+#     boundary_outline = f"output/{country}_boundary_shapes2.jpeg"
+
+#     if point:
+#         cluster_buffers = gpd.GeoDataFrame(
+#             buffer_df,
+#             geometry=gpd.points_from_xy(buffer_df.longitude, buffer_df.latitude),
+#         )
+#     else:
+#         cluster_buffers = gpd.GeoDataFrame(buffer_df, geometry="geometry")
+
+#     # merge/extract feature corresponding to clusters
+#     cluster_result = mean_download_by_cluster.merge(
+#         cluster_buffers, on="DHSID", how="left"
+#     )
+#     cluster_result.plot(column="avg_d_mbps", color="red", ax=ax)
+
+#     fig.savefig(boundary_outline)
+
+
+# if __name__ == "__main__":
+def process_ookla_data(config):
     # read in config file
-    config = yaml.safe_load(open("config.yml"))
+    # config = yaml.safe_load(open("config.yml"))
 
     # create output path directory if it doesn't exist
     save_path = config["save_path"]
@@ -84,56 +84,51 @@ if __name__ == "__main__":
         os.makedirs(save_path)
 
     # extract some config params
-    on_disk = config["upload_from_disk"]
     boundary_file = config["boundary_file"]  # make this more generic
     year = config["year"]
     quarter = config["quarter"]
     crs = config["crs"]
-    folder_name = config["hdx_folder"]
-    data_dir = os.path.join(
-        config["data_dir"].split("/")[-1], folder_name
-    )
     feature = config["ookla_feature"]
 
-    # get path of merged file on disk
-    ookla_s3_download_url = get_title_url("fixed", year, quarter)
 
     repo_path = config["repo_path"]
-    country_data_path = os.path.join(repo_path, config["data_dir"])
 
-    ookla_dvc_folder = config["ookla_target_folder_name"]
+    # ookla_dvc_folder = config["ookla_target_folder_name"]
     ookla_folder = config["ookla_folder"]
 
-    def path_map(x, folder_name):
-        return os.path.join(repo_path, config["data_dir"], x, folder_name)
+    # def path_map(x, folder_name):
+    #     return os.path.join(repo_path, config["data_dir"], x, folder_name)
 
-    ookla_reg_path, ookla_dvc_path = list(
-        map(path_map, ["", ookla_dvc_folder], [ookla_folder, ookla_folder])
-    )
+    # ookla_reg_path, ookla_dvc_path = list(
+    #     map(path_map, ["", ookla_dvc_folder], [ookla_folder, ookla_folder])
+    # )
+    # ookla_reg_path = path_map(ookla_folder,ookla_folder)
+    ookla_reg_path = os.path.join(repo_path, config["data_dir"], ookla_folder )
 
     if os.path.exists(ookla_reg_path):
         ookla_data_path = ookla_reg_path  # or some function of reg_path
-    elif os.path.exists(ookla_dvc_path):
-        ookla_data_path = ookla_dvc_path  # or some function of dvc_path
+    # elif os.path.exists(ookla_dvc_path):
+    #     ookla_data_path = ookla_dvc_path  # or some function of dvc_path
     else:
-        raise Exception("OOkla data missing!")
+        raise Exception(f"Ookla data file {ookla_reg_path} is missing")
 
     hdx_folder = config["hdx_folder"]
-    hdx_dvc_folder = config["hdx_target_folder_name"]
+    # hdx_dvc_folder = config["hdx_target_folder_name"]
 
-    hdx_reg_path, hdx_dvc_path = list(
-        map(path_map, ["", hdx_dvc_folder], [hdx_folder, hdx_folder])
-    )
+    # hdx_reg_path, hdx_dvc_path = list(
+    #     map(path_map, ["", hdx_dvc_folder], [hdx_folder, hdx_folder])
+    # )
+    hdx_reg_path = os.path.join(repo_path, config["data_dir"], hdx_folder)
 
     if os.path.exists(hdx_reg_path):
         hdx_data_path = hdx_reg_path  # or some function of reg_path
-    elif os.path.exists(hdx_dvc_path):
-        hdx_data_path = hdx_dvc_path  # or some function of dvc_path
+    # elif os.path.exists(hdx_dvc_path):
+    #     hdx_data_path = hdx_dvc_path  # or some function of dvc_path
     else:
-        raise Exception("Boundary data missing!")
+        raise Exception(f"Boundary data file {hdx_reg_path} is missing!")
 
     # save geojson file in data dir
-    country = config["osm_country"]
+    country = config["country"]
     merged_file_path = os.path.join(
         ookla_data_path, f"{country}_{year}_{quarter}_ookla.geojson"
     )
@@ -147,7 +142,7 @@ if __name__ == "__main__":
     if not os.path.exists(merged_file_path):
         raise Exception("Filtered ookla data not found!")
 
-    country_boundaries = gp.read_file(boundary_file_path).to_crs(crs)
+    country_boundaries = gpd.read_file(boundary_file_path).to_crs(crs)
 
 
     # NOTE: the quarterly ookla speed data covers the whole globe (6.9M rows of geometries)
@@ -160,7 +155,7 @@ if __name__ == "__main__":
     # for now we will use the finest adm level merged data
     # to obtain internet speed aggregates with cluster buffers
 
-    tiles_in_country = gp.read_file(merged_file_path)
+    tiles_in_country = gpd.read_file(merged_file_path)
 
     # convert to Mbps for easier reading
     tiles_in_country["avg_d_mbps"] = tiles_in_country["avg_d_kbps"] / 1000
@@ -168,9 +163,8 @@ if __name__ == "__main__":
 
     dhs_geo_zip_folder = config["dhs_geo_zip_folder"]
     cluster_coords_filename = f"{dhs_geo_zip_folder}_cluster_coords"
-    cluster_centroid_df = pd.read_csv(
-        os.path.join(config["save_path"], f"{cluster_coords_filename}.csv")
-    )
+    cluster_centroids_df_path = os.path.join(config["save_path"], f"{cluster_coords_filename}.csv")
+    cluster_centroid_df = pd.read_csv(cluster_centroids_df_path)
 
     # sample clusters
     if config["sample"]:
@@ -190,10 +184,10 @@ if __name__ == "__main__":
     # add geometry column
     add_buffer_geom(cluster_centroid_df, r=config['clust_rad'])
     # convert to geodataframe
-    cluster_centroid_df = gp.GeoDataFrame(cluster_centroid_df, geometry="geometry")
+    cluster_centroid_df = gpd.GeoDataFrame(cluster_centroid_df, geometry="geometry")
     cluster_centroid_df.crs = f"EPSG:{crs}"
 
-    buffer_aggregate_country = gp.sjoin(
+    buffer_aggregate_country = gpd.sjoin(
         cluster_centroid_df,
         tiles_in_country.drop(["index_right"], axis=1),
         how="inner",
@@ -221,9 +215,9 @@ if __name__ == "__main__":
         # in order words, treat geometry_and_mean as ookla data
         # and repeat the spatial join inside the methods compute_ookla_stats
 
-        features_list = [feature]
+        # features_list = [feature]
         to_map_data_left = compute_feat_by_adm(
-            country_boundaries, geometry_and_mean, features_list, config
+            country_boundaries, geometry_and_mean, config
         )
 
         plot_feature_by_adm(to_map_data_left, config, feature)
