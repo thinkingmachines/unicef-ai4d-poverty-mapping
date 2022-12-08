@@ -1,7 +1,7 @@
 import pytest
 import shutil
 
-# import pandas as pd
+import pandas as pd
 # import geopandas as gpd
 import os
 from pathlib import Path
@@ -49,18 +49,5 @@ def test_process_ookla_data(ooklaconfig, capsys):
     assert Path(save_path).exists()
     assert (Path(save_path)/"tl_2019_2_avg_d_mbps.csv").exists()
     assert (Path(save_path)/"new_suco_map_avg_d_mbps.jpeg").exists()
-
-    # TODO: Fix path where jpeg is saved
-    # raw = pd.read_csv(Path(save_path) / "dhs_ph_raw.csv")
-    # assert raw.shape == (1000, 15)
-    # base = pd.read_csv(Path(save_path) / "dhs_ph_base.csv")
-    # assert base.shape == (1000, 15)
-    # coords = pd.read_csv(Path(save_path) / "dhs_ph_cluster_coords.csv")
-    # assert coords.shape == (679, 8)
-    # cluster = pd.read_csv(Path(save_path) / "dhs_ph_dhs_ph_by_cluster.csv")
-    # assert cluster.shape == (679, 9)
-    # gdf = gpd.read_file(Path(save_path) / "dhs_ph_dhs_ph_by_cluster.geojson")
-    # assert gdf.shape == (679, 9)
-    # assert gdf.crs == "EPSG:4326"
-    # cap = capsys.readouterr()
-    # assert cap.out == expected_out
+    ookla_by_cluster_df = pd.read_csv(Path(save_path)/"tl_2019_2_avg_d_mbps.csv")
+    assert len(ookla_by_cluster_df) == 28
