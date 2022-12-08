@@ -405,7 +405,7 @@ def add_buffer_geom(cluster_centroid_df, r=4000):
     """
 
     centroids = list(
-        zip(cluster_centroid_df["latitude"], cluster_centroid_df["longitude"])
+        zip(cluster_centroid_df["LATNUM"], cluster_centroid_df["LONGNUM"])
     )
     buffer_geometry = []
     print("Adding buffer geometry...")
