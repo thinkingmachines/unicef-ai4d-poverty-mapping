@@ -73,10 +73,7 @@ from povertymapping.utils.data_utils import (
 #     fig.savefig(boundary_outline)
 
 
-# if __name__ == "__main__":
 def process_ookla_data(config):
-    # read in config file
-    # config = yaml.safe_load(open("config.yml"))
 
     # create output path directory if it doesn't exist
     save_path = config["save_path"]
