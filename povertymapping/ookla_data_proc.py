@@ -5,7 +5,7 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 # import yaml
-from utils.data_utils import (
+from povertymapping.utils.data_utils import (
     add_buffer_geom,
     compute_feat_by_adm,
     # get_title_url,
