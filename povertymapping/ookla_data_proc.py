@@ -118,21 +118,26 @@ def process_ookla_data(config):
         # although the following steps might seem circular
         # this is the best we've got to sort out feature geo spatial mapping.
         # merge mean_download with cluster_buffers
-        geometry_and_mean = pd.merge(
-            cluster_centroid_df, mean_download_by_cluster, on="DHSID", how="inner"
-        )
+        geometry_and_mean = cluster_centroid_df.merge(mean_download_by_cluster, on="DHSID", how="inner")
         # how many rows will the dataframe above have? Hmmm
         # no aggregate by adm3 level, assuming there will be more than several
         # buffers intersecting adm shape regions
         # in order words, treat geometry_and_mean as ookla data
         # and repeat the spatial join inside the methods compute_ookla_stats
 
-        # features_list = [feature]
+
         to_map_data_left = compute_feat_by_adm(
             country_boundaries, geometry_and_mean, config
         )
-
         plot_feature_by_adm(to_map_data_left, config, feature)
+        # save compute_feat_by_adm
+        use_pcode = config["use_pcode"]
+        if use_pcode:
+            adm_level = config["adm_level"]
+            aggregate = f"pcode_adm{adm_level}"       
+        else:
+            aggregate = [config["shape_label"]]
+        to_map_data_left.to_file(os.path.join(save_path,f"{country}_{year}_{quarter}_{feature}_by_{aggregate.lower()}.geojson"), driver="GeoJSON")
 
     result_file_path = os.path.join(
         save_path, f"{country}_{year}_{quarter}_{feature}.csv"

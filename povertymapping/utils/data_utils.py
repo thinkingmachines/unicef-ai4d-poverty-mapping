@@ -421,7 +421,7 @@ def add_buffer_geom(cluster_centroid_df, r=4000):
     cluster_centroid_df["geometry"] = buffer_geometry
 
 
-# def compute_feat_by_adm(boundaries_df, features_by_cluster, features_list, config):
+
 def compute_feat_by_adm(boundaries_df, features_by_cluster, config):
     """Return feature mean, grouping by adm level
     Args:
@@ -451,22 +451,13 @@ def compute_feat_by_adm(boundaries_df, features_by_cluster, config):
 
     # perform left outer join
     geom_label = group_indices[0]
-    to_map_data_left = pd.merge(
-        boundaries_df[[geom_label, "geometry"]],
+    to_map_data_left = boundaries_df[[geom_label, "geometry"]].merge(
         geometry_and_mean_by_adm,
         on=geom_label,
         how="left",
     )
 
     return to_map_data_left
-
-    # group_indices = [f"ADM{adm_level}_PCODE", f"ADM{adm_level}_EN"]
-    # geometry_and_mean_by_adm = geometry_and_cluster_features.groupby(group_indices).mean().reset_index()
-
-    # # perform left outer join
-    # to_map_data_left = pd.merge(boundaries_df[[f"ADM{adm_level}_PCODE", "geometry"]], geometry_and_mean_by_adm, on=f"ADM{adm_level}_PCODE", how='left')
-
-    # return to_map_data_left
 
 
 def save_cmap(
