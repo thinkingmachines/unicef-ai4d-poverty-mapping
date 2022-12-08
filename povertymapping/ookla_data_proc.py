@@ -1,76 +1,12 @@
 import os
 
 import geopandas as gpd
-# import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-# import yaml
 from povertymapping.utils.data_utils import (
     add_buffer_geom,
     compute_feat_by_adm,
-    # get_title_url,
     plot_feature_by_adm,
 )
-
-
-# def compute_ookla_stats(tiles_in_country, country_boundaries):
-#     """Compute internat speed wt by number of tests"""
-#     # average download speed by admin level
-#     # weighted by the number of tests
-#     wt_avg_by_adm = tiles_in_country.groupby(["ADM3_PCODE", "ADM3_EN"]).apply(
-#         lambda x: pd.Series(
-#             {"avg_d_mbps_wt": np.average(x["avg_d_mbps"], weights=x["tests"])}
-#         )
-#     )
-#     # add test sum column
-#     country_adm_stats = wt_avg_by_adm.merge(
-#         tiles_in_country.groupby(["ADM3_PCODE", "ADM3_EN"])
-#         .agg(tests=("tests", "sum"))
-#         .reset_index(),
-#         on=["ADM3_PCODE", "ADM3_EN"],
-#     )
-
-#     # extract adms with highest download speed with at least 50 tests
-#     top_20_download_adm = (
-#         country_adm_stats.loc[country_adm_stats["tests"] >= 50]
-#         .nlargest(20, "avg_d_mbps_wt")
-#         .sort_values("avg_d_mbps_wt", ascending=False)
-#         .round(2)
-#     )
-
-#     # map the adm levels
-#     admin_data = country_boundaries[["ADM3_PCODE", "geometry"]].merge(
-#         country_adm_stats, on="ADM3_PCODE"
-#     )
-
-#     return admin_data, top_20_download_adm
-
-
-# def plot_buffer_size(dataframe, buffer_df, point=False):
-#     """Plot cluster locations on boundary shapes"""
-#     # plot on boundary
-#     fig, ax = plt.subplots()
-
-#     # plot shapes in the background
-#     dataframe.plot(facecolor="none", edgecolor="black", linewidth=0.1, ax=ax)
-
-#     boundary_outline = f"output/{country}_boundary_shapes2.jpeg"
-
-#     if point:
-#         cluster_buffers = gpd.GeoDataFrame(
-#             buffer_df,
-#             geometry=gpd.points_from_xy(buffer_df.longitude, buffer_df.latitude),
-#         )
-#     else:
-#         cluster_buffers = gpd.GeoDataFrame(buffer_df, geometry="geometry")
-
-#     # merge/extract feature corresponding to clusters
-#     cluster_result = mean_download_by_cluster.merge(
-#         cluster_buffers, on="DHSID", how="left"
-#     )
-#     cluster_result.plot(column="avg_d_mbps", color="red", ax=ax)
-
-#     fig.savefig(boundary_outline)
 
 
 def process_ookla_data(config):
@@ -90,54 +26,30 @@ def process_ookla_data(config):
 
     repo_path = config["repo_path"]
 
-    # ookla_dvc_folder = config["ookla_target_folder_name"]
     ookla_folder = config["ookla_folder"]
+    ookla_data_path = os.path.join(repo_path, config["data_dir"], ookla_folder )
 
-    # def path_map(x, folder_name):
-    #     return os.path.join(repo_path, config["data_dir"], x, folder_name)
-
-    # ookla_reg_path, ookla_dvc_path = list(
-    #     map(path_map, ["", ookla_dvc_folder], [ookla_folder, ookla_folder])
-    # )
-    # ookla_reg_path = path_map(ookla_folder,ookla_folder)
-    ookla_reg_path = os.path.join(repo_path, config["data_dir"], ookla_folder )
-
-    if os.path.exists(ookla_reg_path):
-        ookla_data_path = ookla_reg_path  # or some function of reg_path
-    # elif os.path.exists(ookla_dvc_path):
-    #     ookla_data_path = ookla_dvc_path  # or some function of dvc_path
-    else:
-        raise Exception(f"Ookla data file {ookla_reg_path} is missing")
+    if not os.path.exists(ookla_data_path):
+        raise Exception(f"Ookla data folder {ookla_data_path} is missing")
 
     hdx_folder = config["hdx_folder"]
-    # hdx_dvc_folder = config["hdx_target_folder_name"]
+    hdx_data_path = os.path.join(repo_path, config["data_dir"], hdx_folder)
 
-    # hdx_reg_path, hdx_dvc_path = list(
-    #     map(path_map, ["", hdx_dvc_folder], [hdx_folder, hdx_folder])
-    # )
-    hdx_reg_path = os.path.join(repo_path, config["data_dir"], hdx_folder)
-
-    if os.path.exists(hdx_reg_path):
-        hdx_data_path = hdx_reg_path  # or some function of reg_path
-    # elif os.path.exists(hdx_dvc_path):
-    #     hdx_data_path = hdx_dvc_path  # or some function of dvc_path
-    else:
-        raise Exception(f"Boundary data file {hdx_reg_path} is missing!")
+    if not os.path.exists(hdx_data_path):
+        raise Exception(f"Boundary data file {hdx_data_path} is missing!")
 
     # save geojson file in data dir
     country = config["country"]
     merged_file_path = os.path.join(
         ookla_data_path, f"{country}_{year}_{quarter}_ookla.geojson"
     )
-
-    # TODO: come up with naming conventions
-    boundary_file_path = os.path.join(hdx_data_path, boundary_file)
-
-    if not os.path.exists(boundary_file_path):
-        raise Exception("Cannot continue, boundary shapes missing!")
-
     if not os.path.exists(merged_file_path):
-        raise Exception("Filtered ookla data not found!")
+        raise Exception(f"Filtered ookla data file {merged_file_path} not found!")
+
+    boundary_file_path = os.path.join(hdx_data_path, boundary_file)
+    if not os.path.exists(boundary_file_path):
+        raise Exception(f"Cannot continue, boundary shapes file {boundary_file_path} missing!")
+
 
     country_boundaries = gpd.read_file(boundary_file_path).to_crs(crs)
 
@@ -183,7 +95,10 @@ def process_ookla_data(config):
     # convert to geodataframe
     cluster_centroid_df = gpd.GeoDataFrame(cluster_centroid_df, geometry="geometry")
     cluster_centroid_df.crs = f"EPSG:{crs}"
+    
 
+    # compute mean feature by cluster centroid as aoi, tiles_in_country as data
+    # TODO: replace with geowrangler area zonal stats?
     buffer_aggregate_country = gpd.sjoin(
         cluster_centroid_df,
         tiles_in_country.drop(["index_right"], axis=1),
@@ -191,7 +106,7 @@ def process_ookla_data(config):
         predicate="intersects",
     )
     mean_download_by_cluster = (
-        buffer_aggregate_country[["DHSID", "avg_d_mbps"]]
+        buffer_aggregate_country[["DHSID", feature]]
         .groupby(["DHSID"])
         .mean()
         .reset_index()

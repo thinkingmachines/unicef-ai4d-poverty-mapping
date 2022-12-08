@@ -42,9 +42,8 @@ def test_process_ookla_data(ooklaconfig, capsys):
     shutil.rmtree(save_path, ignore_errors=True)
     # setup dhs data
     os.makedirs(Path(save_path))
-    # copy dhs preproc data from tl process_dhs_data - TLGE71FL_cluster_coords.csv
+    # copy dhs preproc data from output of tl process_dhs_data - TLGE71FL_cluster_coords.csv to save path
     shutil.copy("test_data/real_outputs/dhs_tl/TLGE71FL_cluster_coords.csv",(Path(save_path)/"TLGE71FL_cluster_coords.csv").as_posix())
-    # to save_path
     process_ookla_data(ooklaconfig)
     assert Path(save_path).exists()
     assert (Path(save_path)/"tl_2019_2_avg_d_mbps.csv").exists()
