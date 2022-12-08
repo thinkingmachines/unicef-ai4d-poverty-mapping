@@ -10,15 +10,15 @@ from povertymapping.dhs_data_proc import process_dhs_data
 @pytest.fixture()
 def dhsconfig():
     yield dict(
-        save_path="test_data/outputs/dhs",
-        repo_path="test_data/inputs",
-        data_dir="ph",
-        dhs_folder="dhs_ph",
-        dhs_zip_folder="PHHR71DT",
-        dhs_file="PHHR71DT.DTA",
-        country="ph",
-        dhs_geo_zip_folder="PHGE71FL",
-        dhs_geo_file="PHGE71FL.shp",
+        save_path="test_data/outputs/dhs", # output directory
+        repo_path="test_data/inputs", # input directory root
+        data_dir="ph", # input dir folder (usually country)
+        country="ph", # country
+        dhs_folder="dhs_ph", # dhs folder
+        dhs_zip_folder="PHHR71DT", # folder holding DHS stata files
+        dhs_file="PHHR71DT.DTA", # filename of DHS stata file 
+        dhs_geo_zip_folder="PHGE71FL", # folder holding DHS shape files
+        dhs_geo_file="PHGE71FL.shp", # filename of DHS 
     )
 
 
