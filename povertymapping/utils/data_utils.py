@@ -542,17 +542,17 @@ def save_cmap(
     # save figure
     # make sure save_file_path
     # has not white space
-    plot_title_stripped = "_".join(plot_title.split())
-    path_comps = save_file_path.split("/")
-    file_name = (
-        "_".join(["_".join(path_comps[1:-1]), "".join(path_comps[-1].split())])[:-5]
-        + plot_title_stripped
-        + ".jpeg"
-    )
-    dir_path = path_comps[
-        0
-    ]  # TODO: can you do this by passing **args to os.path.join method ???
-    save_file_path = os.path.join(dir_path, file_name)
+    # plot_title_stripped = "_".join(plot_title.lower().split())
+    # path_comps = save_file_path.split("/")
+    # file_name = (
+    #     "_".join(["_".join(path_comps[1:-1]), "".join(path_comps[-1].split())])[:-5]
+    #     + "_" + plot_title_stripped
+    #     + ".jpeg"
+    # )
+    # dir_path = path_comps[
+    #     0
+    # ]  # TODO: can you do this by passing **args to os.path.join method ???
+    # save_file_path = os.path.join(dir_path, file_name)
 
     fig.savefig(save_file_path)
 
