@@ -129,15 +129,17 @@ def process_ookla_data(config):
         to_map_data_left = compute_feat_by_adm(
             country_boundaries, geometry_and_mean, config
         )
-        plot_feature_by_adm(to_map_data_left, config, feature)
+        
         # save compute_feat_by_adm
         use_pcode = config["use_pcode"]
         if use_pcode:
             adm_level = config["adm_level"]
             aggregate = f"pcode_adm{adm_level}"       
         else:
-            aggregate = [config["shape_label"]]
+            aggregate = config["shape_label"]
         to_map_data_left.to_file(os.path.join(save_path,f"{country}_{year}_{quarter}_{feature}_by_{aggregate.lower()}.geojson"), driver="GeoJSON")
+        # bin and plot features
+        plot_feature_by_adm(to_map_data_left, config, feature)
 
     result_file_path = os.path.join(
         save_path, f"{country}_{year}_{quarter}_{feature}.csv"

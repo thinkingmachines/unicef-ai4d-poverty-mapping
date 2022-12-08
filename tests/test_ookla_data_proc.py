@@ -2,7 +2,7 @@ import pytest
 import shutil
 
 import pandas as pd
-# import geopandas as gpd
+import geopandas as gpd
 import os
 from pathlib import Path
 from povertymapping.ookla_data_proc import process_ookla_data
@@ -47,6 +47,9 @@ def test_process_ookla_data(ooklaconfig, capsys):
     process_ookla_data(ooklaconfig)
     assert Path(save_path).exists()
     assert (Path(save_path)/"tl_2019_2_avg_d_mbps.csv").exists()
+    assert (Path(save_path)/"tl_2019_2_avg_d_mbps_by_suco_numcd.geojson").exists()
     assert (Path(save_path)/"new_suco_map_avg_d_mbps.jpeg").exists()
     ookla_by_cluster_df = pd.read_csv(Path(save_path)/"tl_2019_2_avg_d_mbps.csv")
     assert len(ookla_by_cluster_df) == 28
+    ookla_by_suco_numcd = gpd.read_file(Path(save_path)/"tl_2019_2_avg_d_mbps_by_suco_numcd.geojson")
+    assert len(ookla_by_suco_numcd) == 456
