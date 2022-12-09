@@ -11,7 +11,7 @@ from povertymapping.ookla_data_proc import process_ookla_data
 @pytest.fixture()
 def ooklaconfig():
     yield dict(
-        save_path="test_data/outputs/ookla",
+        save_path="test_data/test_outputs/ookla",
         repo_path="test_data/inputs",
         data_dir="tl",
         country="tl",
@@ -43,7 +43,7 @@ def test_process_ookla_data(ooklaconfig, capsys):
     # setup dhs data
     os.makedirs(Path(save_path))
     # copy dhs preproc data from output of tl process_dhs_data - TLGE71FL_cluster_coords.csv to save path
-    shutil.copy("test_data/real_outputs/dhs_tl/TLGE71FL_cluster_coords.csv",(Path(save_path)/"TLGE71FL_cluster_coords.csv").as_posix())
+    shutil.copy("data/outputs/dhs_tl/TLGE71FL_cluster_coords.csv",(Path(save_path)/"TLGE71FL_cluster_coords.csv").as_posix())
     process_ookla_data(ooklaconfig)
     assert Path(save_path).exists()
     assert (Path(save_path)/"tl_2019_2_avg_d_mbps.csv").exists()

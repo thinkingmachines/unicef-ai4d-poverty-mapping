@@ -10,7 +10,7 @@ from povertymapping.dhs_data_proc import process_dhs_data
 @pytest.fixture()
 def dhsconfig():
     yield dict(
-        save_path="test_data/outputs/dhs", # output directory
+        save_path="test_data/test_outputs/dhs", # output directory
         repo_path="test_data/inputs", # input directory root
         data_dir="ph", # input dir folder (usually country)
         country="ph", # country
