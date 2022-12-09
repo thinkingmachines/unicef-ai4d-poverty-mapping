@@ -2,50 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/about.html</loc>
-    <lastmod>2022-12-06T11:02:38.479Z</lastmod>
+    <lastmod>2022-12-09T03:05:56.530Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_tl_dhs.html</loc>
-    <lastmod>2022-12-06T11:02:38.869Z</lastmod>
+    <lastmod>2022-12-09T03:05:56.950Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_mm_ookla.html</loc>
+    <lastmod>2022-12-09T03:05:57.480Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_ph_ookla.html</loc>
+    <lastmod>2022-12-09T03:05:57.970Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_kh_dhs.html</loc>
-    <lastmod>2022-12-06T11:02:39.279Z</lastmod>
+    <lastmod>2022-12-09T03:05:58.280Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_ookla_data.html</loc>
+    <lastmod>2022-12-09T03:05:58.640Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_tl_ookla.html</loc>
+    <lastmod>2022-12-09T03:05:59.090Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/prepare_dhs.html</loc>
-    <lastmod>2022-12-06T11:02:39.689Z</lastmod>
+    <lastmod>2022-12-09T03:05:59.380Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_dhs.html</loc>
-    <lastmod>2022-12-06T11:02:40.139Z</lastmod>
+    <lastmod>2022-12-09T03:05:59.710Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_kh_ookla.html</loc>
+    <lastmod>2022-12-09T03:06:00.180Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_ookla.html</loc>
+    <lastmod>2022-12-09T03:06:00.610Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_mm_dhs.html</loc>
-    <lastmod>2022-12-06T11:02:40.609Z</lastmod>
+    <lastmod>2022-12-09T03:06:00.980Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/explore_ph_dhs.html</loc>
-    <lastmod>2022-12-06T11:02:41.169Z</lastmod>
+    <lastmod>2022-12-09T03:06:01.390Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/wiki/dhs.html</loc>
-    <lastmod>2022-12-06T11:02:41.639Z</lastmod>
+    <lastmod>2022-12-09T03:06:01.770Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/CODE_OF_CONDUCT.html</loc>
-    <lastmod>2022-12-06T11:02:42.269Z</lastmod>
+    <lastmod>2022-12-09T03:06:02.210Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/index.html</loc>
-    <lastmod>2022-12-06T11:02:43.089Z</lastmod>
+    <lastmod>2022-12-09T03:06:02.580Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/progress.html</loc>
-    <lastmod>2022-12-06T11:02:44.149Z</lastmod>
+    <lastmod>2022-12-09T03:06:03.260Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/datasets.html</loc>
-    <lastmod>2022-12-06T11:02:44.959Z</lastmod>
+    <lastmod>2022-12-09T03:06:03.900Z</lastmod>
   </url>
 </urlset>
