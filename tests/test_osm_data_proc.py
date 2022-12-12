@@ -1,8 +1,8 @@
 import pytest
 import shutil
 from types import SimpleNamespace
-import pandas as pd
-import geopandas as gpd
+# import pandas as pd
+# import geopandas as gpd
 from pathlib import Path
 from povertymapping.osm_data_proc import process_osm_data
 import os
@@ -17,23 +17,19 @@ def osmconfig():
         country="tl", # country
         dhs_folder="dhs_tl", # dhs folder
         dhs_geo_zip_folder="TLGE71FL", # folder holding DHS shape files
-        dhs_geo_file="TLGE71FL.shp", # filename of DHS 
         use_pbf=False,
-        multiprocess=True,
+        multiprocess=False,
         args=args,
         osm_country="tl",
-        osm_year=2022,
-        osm_month=5,
-        osm_day=30,
         osm_folder="osm_tl",
         sample=False,
         no_samples=60,
         random_sample=False,
         random_seed=42,
         buffer_side_length=4.0,
-        use_pbf=False,
         crs="4683",
         osm_shp_filename="east-timor-latest-free.shp",
+        osm_pbf_filename="east-timor-latest.osm.pbf",
         clust_rad=2000
     )
 

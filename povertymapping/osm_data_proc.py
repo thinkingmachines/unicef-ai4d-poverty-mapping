@@ -8,7 +8,7 @@ import pandas as pd
 import tqdm
 import yaml
 from povertymapping.preprocess_data import preprocess_osm_pbf
-from utils.data_utils import (
+from povertymapping.utils.data_utils import (
     generate_osm_bbox,
     get_bbox_str,
     get_building_no,
@@ -89,7 +89,7 @@ def process_osm_data(config):
 
     # extract some osm config params
     country = config["osm_country"]
-    year, month, day = config["osm_year"], config["osm_month"], config["osm_day"]
+    # year, month, day = config["osm_year"], config["osm_month"], config["osm_day"]
 
     repo_path = config["repo_path"]
     osm_folder = config["osm_folder"]
