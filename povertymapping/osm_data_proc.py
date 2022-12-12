@@ -59,54 +59,29 @@ class TagGenomeHandler(osmium.SimpleHandler):
 
 # if __name__ == "__main__":  # noqa
 def process_osm_data(config):
-    # parse args for multiprocessing
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument("--slice_interval", help="wait", default="[0, 100]")
-    # TODO: Find a solution to pass two arguments when pooling processes
-
-    # args = parser.parse_args()
-    args = config["args"]
-
-    # read in config file
-    # config = yaml.safe_load(open("config.yml"))
 
     if config["multiprocess"]:
+        args = config["args"]
         interval_str = args.slice_interval
         interval = eval(interval_str)
 
 
-    # OSM path
-    osm_filename = config[
-        "osm_pbf_filename"
-    ]
     data_dir = config["data_dir"]
-    # filepath = os.path.join(data_dir, osm_filename)
-
-    # create output path directory if it doesn't exist
     save_path = config["save_path"]
     if not os.path.isdir(save_path):
         os.makedirs(save_path)
 
     # extract some osm config params
     country = config["osm_country"]
-    # year, month, day = config["osm_year"], config["osm_month"], config["osm_day"]
 
     repo_path = config["repo_path"]
     osm_folder = config["osm_folder"]
 
-    # def path_map(x):
-    #     return os.path.join(repo_path, config["data_dir"], x, osm_folder)
-
-    # osm_dvc_folder = config["osm_target_folder_name"]
-
-    # osm_reg_path, osm_dvc_path = list(map(path_map, ["", osm_dvc_folder]))
     osm_reg_path = os.path.join(repo_path, data_dir, osm_folder)
 
 
     if os.path.exists(osm_reg_path):
         osm_data_path = osm_reg_path  # or some function of reg_path
-    # elif os.path.exists(osm_dvc_path):
-    #     osm_data_path = osm_dvc_path  # or some function of dvc_path
     else:
         raise Exception(f"OSM data folder {osm_reg_path} is missing!")
 
@@ -114,17 +89,6 @@ def process_osm_data(config):
 
 
     # read in househould cluster geo data
-    # if config["use_sb_dhs"]:  
-    #     sb_region = config["sb_region"]
-    #     cluster_coords_filename = f"sustainbench_labels_{sb_region}"
-    #     cluster_centroid_df = pd.read_csv(
-    #         os.path.join(
-    #             repo_path,
-    #             data_dir,
-    #             f"{cluster_coords_filename}.csv"
-    #         )
-    #     )
-    # else:
     dhs_geo_zip_folder = config["dhs_geo_zip_folder"]
 
     cluster_coords_filename = f"{dhs_geo_zip_folder}_cluster_coords"
@@ -159,8 +123,6 @@ def process_osm_data(config):
     result_dict = defaultdict(list)
 
     distance_km = config["buffer_side_length"] #4.0  # units are in km
-
-    # feature_names = ["no_roads", "no_buildings", "no_intersections"]
 
     if not config["use_pbf"]:
         print()
@@ -197,6 +159,11 @@ def process_osm_data(config):
 
         # use pbf
         if config["use_pbf"]:
+            # OSM pbf path
+            osm_filename = config[
+                "osm_pbf_filename"
+            ]
+
             extract_path = os.path.join(data_dir_osm, "pbf", osm_filename)
             # osmium bbox param
             centroid_bbox = generate_osm_bbox(centroid_lat, centroid_lon, distance_km)
@@ -250,18 +217,4 @@ def process_osm_data(config):
     result_save_path = os.path.join(save_path, result_file_name)
 
     result_df.to_csv(result_save_path)
-
-# if __name__ == "__main__":  # noqa
-
-#     # parse args for multiprocessing
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument("--slice_interval", help="wait", default="[0, 100]")
-#     # TODO: Find a solution to pass two arguments when pooling processes
-
-#     args = parser.parse_args()
-
-#     # read in config file
-#     config = yaml.safe_load(open("config.yml"))
-#     config["args"] = args
-#     process_osm_data(config)
 
