@@ -7,7 +7,7 @@ import osmium
 import pandas as pd
 import tqdm
 import yaml
-from preprocess_data import preprocess_osm_pbf
+from povertymapping.preprocess_data import preprocess_osm_pbf
 from utils.data_utils import (
     generate_osm_bbox,
     get_bbox_str,
@@ -57,17 +57,18 @@ class TagGenomeHandler(osmium.SimpleHandler):
         self.tag_inventory(r, "relation")
 
 
-if __name__ == "__main__":  # noqa
-
+# if __name__ == "__main__":  # noqa
+def process_osm_data(config):
     # parse args for multiprocessing
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--slice_interval", help="wait", default="[0, 100]")
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("--slice_interval", help="wait", default="[0, 100]")
     # TODO: Find a solution to pass two arguments when pooling processes
 
-    args = parser.parse_args()
+    # args = parser.parse_args()
+    args = config["args"]
 
     # read in config file
-    config = yaml.safe_load(open("config.yml"))
+    # config = yaml.safe_load(open("config.yml"))
 
     if config["multiprocess"]:
         interval_str = args.slice_interval
@@ -79,7 +80,7 @@ if __name__ == "__main__":  # noqa
         "osm_pbf_filename"
     ]
     data_dir = config["data_dir"]
-    filepath = os.path.join(data_dir, osm_filename)
+    # filepath = os.path.join(data_dir, osm_filename)
 
     # create output path directory if it doesn't exist
     save_path = config["save_path"]
@@ -93,41 +94,43 @@ if __name__ == "__main__":  # noqa
     repo_path = config["repo_path"]
     osm_folder = config["osm_folder"]
 
-    def path_map(x):
-        return os.path.join(repo_path, config["data_dir"], x, osm_folder)
+    # def path_map(x):
+    #     return os.path.join(repo_path, config["data_dir"], x, osm_folder)
 
-    osm_dvc_folder = config["osm_target_folder_name"]
+    # osm_dvc_folder = config["osm_target_folder_name"]
 
-    osm_reg_path, osm_dvc_path = list(map(path_map, ["", osm_dvc_folder]))
+    # osm_reg_path, osm_dvc_path = list(map(path_map, ["", osm_dvc_folder]))
+    osm_reg_path = os.path.join(repo_path, data_dir, osm_folder)
+
 
     if os.path.exists(osm_reg_path):
         osm_data_path = osm_reg_path  # or some function of reg_path
-    elif os.path.exists(osm_dvc_path):
-        osm_data_path = osm_dvc_path  # or some function of dvc_path
+    # elif os.path.exists(osm_dvc_path):
+    #     osm_data_path = osm_dvc_path  # or some function of dvc_path
     else:
-        raise Exception("Boundary data missing!")
+        raise Exception(f"OSM data folder {osm_reg_path} is missing!")
 
     data_dir_osm = osm_data_path
 
 
     # read in househould cluster geo data
-    if config["use_sb_dhs"]:
-        region = config["sb_region"]
-        cluster_coords_filename = f"sustainbench_labels_{region}"
-        cluster_centroid_df = pd.read_csv(
-            os.path.join(
-                repo_path,
-                data_dir,
-                f"{cluster_coords_filename}.csv"
-            )
-        )
-    else:
-        dhs_geo_zip_folder = config["dhs_geo_zip_folder"]
+    # if config["use_sb_dhs"]:  
+    #     sb_region = config["sb_region"]
+    #     cluster_coords_filename = f"sustainbench_labels_{sb_region}"
+    #     cluster_centroid_df = pd.read_csv(
+    #         os.path.join(
+    #             repo_path,
+    #             data_dir,
+    #             f"{cluster_coords_filename}.csv"
+    #         )
+    #     )
+    # else:
+    dhs_geo_zip_folder = config["dhs_geo_zip_folder"]
 
-        cluster_coords_filename = f"{dhs_geo_zip_folder}_cluster_coords"
-        cluster_centroid_df = pd.read_csv(
-            os.path.join(save_path, f"{cluster_coords_filename}.csv")
-        )
+    cluster_coords_filename = f"{dhs_geo_zip_folder}_cluster_coords"
+    cluster_centroid_df = pd.read_csv(
+        os.path.join(save_path, f"{cluster_coords_filename}.csv")
+    )
 
     # sample clusters
     if config["sample"]:
@@ -148,8 +151,8 @@ if __name__ == "__main__":  # noqa
 
     # we can perform a simple computation to count the number of buildings within a certain
     # distance_km using haversine distance
-    lats = cluster_centroid_df["latitude"]
-    lons = cluster_centroid_df["longitude"]
+    lats = cluster_centroid_df["LATNUM"]
+    lons = cluster_centroid_df["LONGNUM"]
     ids = cluster_centroid_df["DHSCLUST"]
 
     cluster_centroids = list(zip(lats, lons, ids))
@@ -157,7 +160,7 @@ if __name__ == "__main__":  # noqa
 
     distance_km = config["buffer_side_length"] #4.0  # units are in km
 
-    feature_names = ["no_roads", "no_buildings", "no_intersections"]
+    # feature_names = ["no_roads", "no_buildings", "no_intersections"]
 
     if not config["use_pbf"]:
         print()
@@ -247,3 +250,18 @@ if __name__ == "__main__":  # noqa
     result_save_path = os.path.join(save_path, result_file_name)
 
     result_df.to_csv(result_save_path)
+
+# if __name__ == "__main__":  # noqa
+
+#     # parse args for multiprocessing
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument("--slice_interval", help="wait", default="[0, 100]")
+#     # TODO: Find a solution to pass two arguments when pooling processes
+
+#     args = parser.parse_args()
+
+#     # read in config file
+#     config = yaml.safe_load(open("config.yml"))
+#     config["args"] = args
+#     process_osm_data(config)
+
