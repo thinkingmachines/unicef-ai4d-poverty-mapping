@@ -2,11 +2,11 @@ import os
 
 import geopandas as gp
 import pandas as pd
-import yaml
+# import yaml
 
-from process.utils.data_utils import (
+from povertymapping.utils.data_utils import (
     add_buffer_geom,
-    compute_feat_by_adm,
+    # compute_feat_by_adm,
     get_missing_data_dist,
 )
 
@@ -28,11 +28,11 @@ def get_geoframe(hrsl_path):
     return hrsl_geo
 
 
-if __name__ == "__main__":
-
+# if __name__ == "__main__":
+def process_train_test(config):
     # read in config
-    config = yaml.safe_load(open("config.yml"))
-    country = config["osm_country"]
+    # config = yaml.safe_load(open("config.yml"))
+    # country = config["osm_country"]
     # create output directory
     save_path = config["save_path"]
     if not os.path.isdir(save_path):
@@ -48,7 +48,9 @@ if __name__ == "__main__":
     dhs_geo_zip_folder = config["dhs_geo_zip_folder"]
 
     cluster_coords_filename = f"{dhs_geo_zip_folder}_cluster_coords"
-    cluster_centroid_df = pd.read_csv(os.path.join(save_path, f"{cluster_coords_filename}.csv"))
+    cluster_centroid_df = pd.read_csv(
+        os.path.join(save_path, f"{cluster_coords_filename}.csv")
+    )
 
     # sample clusters
     if config["sample"]:
@@ -64,34 +66,33 @@ if __name__ == "__main__":
     dhs_geo_zip_folder = config["dhs_geo_zip_folder"]
     osm_path = f"{dhs_geo_zip_folder}_cluster_coords_osm_agg.csv"
     # from guild run
-    osm_df = pd.read_csv(osm_path)
+    # osm_df = pd.read_csv(osm_path)
     # # from repo
-    # osm_df = pd.read_csv(os.path.join(save_path, osm_path))
+    osm_df = pd.read_csv(os.path.join(save_path, osm_path))
 
-    if config["use_gee"]:
-        gee_path = f"{dhs_geo_zip_folder}_cluster_coords_gee_agg.csv"
+    if config["use_ntl"]:
+        if "ntl_path" in config:
+            ntl_path = config["ntl_path"]
+        else:
+            ntl_path = f"{dhs_geo_zip_folder}_cluster_coords_gee_agg.csv"
         # from guild run
-        gee_df = pd.read_csv(gee_path)
+        # gee_df = pd.read_csv(ntl_path)
         # # from repo
-        # gee_df = pd.read_csv(os.path.join(save_path, gee_path))
+        gee_df = pd.read_csv(os.path.join(save_path, ntl_path))
 
-        _, complete_gee_feats = get_missing_data_dist(
-            gee_df, null_val=None, start_idx=3, end_idx=-1
-        )
+        _, complete_gee_feats = get_missing_data_dist(gee_df, null_val=None)
 
     # exclude rows with null wealth index labels
     data_wo_null = data[~data["Wealth Index"].isna()]
 
     # extract boundary data
-    repo_dir = config[
-        "repo_dir"
-    ]
-    data_dir = os.path.join(repo_dir, config["data_dir"], config["hdx_folder"])
+    # repo_dir = config["repo_dir"]
+    # data_dir = os.path.join(repo_dir, config["data_dir"], config["hdx_folder"])
 
-    boundary_file_path = os.path.join(data_dir, config["boundary_file"])
+    # boundary_file_path = os.path.join(data_dir, config["boundary_file"])
     crs = config["crs"]
 
-    ph_boundaries = gp.read_file(boundary_file_path).to_crs(crs)
+    # ph_boundaries = gp.read_file(boundary_file_path).to_crs(crs)
 
     # restrict to clusters used in 2017 paper
     if config["use_filt_clt"]:
@@ -124,42 +125,44 @@ if __name__ == "__main__":
         DHSCLUST_to_exclude = geometry_and_mean_cluster[
             geometry_and_mean_cluster[pop_col_names[0]] < thresh
         ]["DHSCLUST"]
-        filtered_DHSCLUST = list(
-            set(cluster_centroid_df.DHSCLUST) - set(DHSCLUST_to_exclude)
-        )
+        # filtered_DHSCLUST = list(
+        #     set(cluster_centroid_df.DHSCLUST) - set(DHSCLUST_to_exclude)
+        # )
 
-        geometry_and_mean_cluster_geo = gp.GeoDataFrame(
-            pd.merge(
-                geometry_and_mean_cluster,
-                geometry_and_mean[["DHSID", "geometry"]],
-                how="inner",
-            ),
-            geometry="geometry",
-        )
+        # geometry_and_mean_cluster_geo = gp.GeoDataFrame(
+        #     pd.merge(
+        #         geometry_and_mean_cluster,
+        #         geometry_and_mean[["DHSID", "geometry"]],
+        #         how="inner",
+        #     ),
+        #     geometry="geometry",
+        # )
 
         # for visualization
-        feature = "population_2015"
-        features_list = [feature]
-        to_map_data_left = compute_feat_by_adm(
-            ph_boundaries, geometry_and_mean_cluster_geo, features_list, config
-        )
+        # feature = "population_2015"
+        # features_list = [feature]
+        # to_map_data_left = compute_feat_by_adm(
+        #     ph_boundaries, geometry_and_mean_cluster_geo, features_list, config
+        # )
 
         data_wo_null = data_wo_null[~data_wo_null.DHSCLUST.isin(DHSCLUST_to_exclude)]
 
-    else:
-        # the following csv only applies to ph
-        if country == "ph":
-            # osm_roads_path = "/home/butchtm/work/povmap/povmap-int/output/osm_roads.csv"  # 'osm_roads.csv'
-            osm_roads_path = os.path.join(repo_dir,"output/osm_roads.csv")  # 'osm_roads.csv'
-            osm_roads = pd.read_csv(osm_roads_path)
-            # check with clusters ids in osm_roads
-            data_wo_null = data_wo_null[data_wo_null.DHSCLUST.isin(osm_roads.DHSCLUST)]
-        else:
-            # perform some operation on data_wo_null that doesn't require population estimate data
-            # e.g. select a specific demographic or region
-            data_wo_null = data_wo_null  # TODO: implement filtering by region
+    # else:
+    #     # the following csv only applies to ph
+    #     if country == "ph":
+    #         # osm_roads_path = "/home/butchtm/work/povmap/povmap-int/output/osm_roads.csv"  # 'osm_roads.csv'
+    #         osm_roads_path = os.path.join(
+    #             repo_dir, "output/osm_roads.csv"
+    #         )  # 'osm_roads.csv'
+    #         osm_roads = pd.read_csv(osm_roads_path)
+    #         # check with clusters ids in osm_roads
+    #         data_wo_null = data_wo_null[data_wo_null.DHSCLUST.isin(osm_roads.DHSCLUST)]
+    #     else:
+    #         # perform some operation on data_wo_null that doesn't require population estimate data
+    #         # e.g. select a specific demographic or region
+    #         data_wo_null = data_wo_null  # TODO: implement filtering by region
 
-    print("Filtered!")
+    # print("Filtered!")
 
     # restrict to subset of columns for train
     columns = []
@@ -169,7 +172,7 @@ if __name__ == "__main__":
     # label
     columns.append("Wealth Index")
     # features
-    if config["use_gee"]:
+    if config["use_ntl"]:
         features.extend(complete_gee_feats)
     # # add binned radiance feature
     # features.extend(quartile_features)
