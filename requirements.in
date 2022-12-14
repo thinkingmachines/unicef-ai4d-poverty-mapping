@@ -30,3 +30,4 @@ tqdm
 tune-sklearn
 typed-ast
 xgboost
+adapt
