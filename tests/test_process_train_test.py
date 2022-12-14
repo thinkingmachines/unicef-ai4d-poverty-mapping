@@ -1,6 +1,6 @@
 import pytest
 import shutil
-from types import SimpleNamespace
+# from types import SimpleNamespace
 # import pandas as pd
 # import geopandas as gpd
 from pathlib import Path
@@ -9,7 +9,7 @@ import os
 
 @pytest.fixture()
 def process_train_test_config():
-    args = SimpleNamespace(slice_interval="[0,100]")
+    # args = SimpleNamespace(slice_interval="[0,100]")
     yield dict(
         save_path="test_data/test_outputs/tl", # output directory
         repo_path="test_data/inputs", # input directory root
@@ -22,7 +22,7 @@ def process_train_test_config():
         use_filt_clt=False,
         multiprocess=False,
         ntl_path = "TLGE71FL_cluster_coords_gee_agg.csv",
-        args=args,
+        # args=args,
         osm_country="tl",
         osm_folder="osm_tl",
         sample=False,
