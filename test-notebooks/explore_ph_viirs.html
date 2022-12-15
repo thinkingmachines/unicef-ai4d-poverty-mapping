@@ -1,0 +1,3286 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.247">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>UNICEF AI4D Poverty Mapping Project - Explore VIIRS Data (Philippines)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Explore VIIRS Data (Philippines)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Main</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../progress.html" class="sidebar-item-text sidebar-link">Progress</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data Preparation (DHS)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_dhs.html" class="sidebar-item-text sidebar-link">Explore DHS Test Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_kh_dhs.html" class="sidebar-item-text sidebar-link">Explore DHS (Cambodia) Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_mm_dhs.html" class="sidebar-item-text sidebar-link">Explore DHS (Myanmar) Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ph_dhs.html" class="sidebar-item-text sidebar-link">Explore DHS (Philippines) Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_tl_dhs.html" class="sidebar-item-text sidebar-link">Explore DHS (Timor Leste) Data</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Data Preparation (Ookla)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ookla.html" class="sidebar-item-text sidebar-link">Explore Ookla Test Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ookla_data.html" class="sidebar-item-text sidebar-link">Explore Ookla Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_kh_ookla.html" class="sidebar-item-text sidebar-link">Explore Ookla Data (Cambodia)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_mm_ookla.html" class="sidebar-item-text sidebar-link">Explore Ookla Data (Myanmar)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ph_ookla.html" class="sidebar-item-text sidebar-link">Explore Ookla Data (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_tl_ookla.html" class="sidebar-item-text sidebar-link">Explore Ookla Data (Timor Leste)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Data Preparation (OSM)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_osm.html" class="sidebar-item-text sidebar-link">Explore OSM Test Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ph_osm.html" class="sidebar-item-text sidebar-link">Explore OSM Data (Philippines)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Data Preparation (Night Lights)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ph_viirs.html" class="sidebar-item-text sidebar-link active">Explore VIIRS Data (Philippines)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Data Preparation (Training Data Prep)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/ph_prepare_train.html" class="sidebar-item-text sidebar-link">Prepare Model Training Data (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_process_train_test.html" class="sidebar-item-text sidebar-link">Explore Process TrainTest on Test Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ph_process_train_test.html" class="sidebar-item-text sidebar-link">Explore Process TrainTest Philippines</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Model Training and Evaluation</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/ph_train.html" class="sidebar-item-text sidebar-link">Model Training (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/ph_evaluate.html" class="sidebar-item-text sidebar-link">Model Evaluation (Philippines)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#dev-process_viirs_data" id="toc-dev-process_viirs_data" class="nav-link active" data-scroll-target="#dev-process_viirs_data">Dev process_viirs_data()</a></li>
+  <li><a href="#eda-compare-with-kahlils-output-using-qgis" id="toc-eda-compare-with-kahlils-output-using-qgis" class="nav-link" data-scroll-target="#eda-compare-with-kahlils-output-using-qgis">EDA: Compare with Kahlil’s output using QGIS</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Explore VIIRS Data (Philippines)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<blockquote class="blockquote">
+<p>This notebook creates the ntlights preprocessed dataset from the EOG ntlights tiff files</p>
+</blockquote>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>reload_ext autoreload</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>autoreload <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.plot <span class="im">import</span> show</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> Polygon</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> colorConverter</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geowrangler.raster_zonal_stats <span class="im">as</span> rzs</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> haversine <span class="im">import</span> Direction, inverse_haversine</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/jc_tm/project_repos/unicef-ai4d-poverty-mapping/env/lib/python3.9/site-packages/geopandas/_compat.py:111: UserWarning: The Shapely GEOS version (3.10.3-CAPI-1.16.1) is incompatible with the GEOS version PyGEOS was compiled with (3.10.1-CAPI-1.16.0). Conversions between both will be slow.
+  warnings.warn(</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: implement function as separate module when ready</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># import povertymapping.viirs_data_proc as viirs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>viirs_config <span class="op">=</span> <span class="bu">dict</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        save_path<span class="op">=</span><span class="st">"../data/outputs/viirs_ph"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        repo_path<span class="op">=</span><span class="st">"../data/SVII_PH_KH_MM_TL"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        viirs_tif_path<span class="op">=</span><span class="st">"../data/outputs/viirs_ph/eog_PH_2017.tif"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        data_dir<span class="op">=</span><span class="st">"ph"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        country<span class="op">=</span><span class="st">"ph"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        viirs_folder<span class="op">=</span><span class="st">"viirs_ph"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        hdx_folder<span class="op">=</span><span class="st">"hdx_ph"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        dhs_folder<span class="op">=</span><span class="st">"dhs_ph"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        dhs_geo_zip_folder<span class="op">=</span><span class="st">"PHGE71FL"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        dhs_zip_folder<span class="op">=</span><span class="st">"PHHR71DT"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"4683"</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        viirs_feature<span class="op">=</span><span class="st">"avg_rad"</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        boundary_file<span class="op">=</span><span class="st">"phl_adminboundaries_candidate_adm3"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        year<span class="op">=</span><span class="st">"2017"</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># sample=False,</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># random_sample=False,</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># no_samples=60,</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># random_seed=42,</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        clust_rad<span class="op">=</span><span class="dv">2000</span>,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        plot_viirs_features<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        adm_level<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        use_pcode<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        shape_label<span class="op">=</span><span class="st">'ADM3_PCODE'</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        bins<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        show_legend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # uncomment and run the following to clear out the preprocessed files </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># !rm -rf {viirs_config['save_path']}</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># !mkdir -p {viirs_config['save_path']}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cluster_coords_path <span class="op">=</span> Path(viirs_config[<span class="st">'save_path'</span>])<span class="op">/</span><span class="st">'..'</span><span class="op">/</span>viirs_config[<span class="st">'dhs_folder'</span>]<span class="op">/</span><span class="ss">f"</span><span class="sc">{</span>viirs_config[<span class="st">'dhs_geo_zip_folder'</span>]<span class="sc">}</span><span class="ss">_cluster_coords.csv"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cluster_coords_path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>PosixPath('../data/outputs/viirs_ph/../dhs_ph/PHGE71FL_cluster_coords.csv')</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cp {cluster_coords_path} {viirs_config[<span class="st">'save_path'</span>]}<span class="op">/</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="dev-process_viirs_data" class="level3">
+<h3 class="anchored" data-anchor-id="dev-process_viirs_data">Dev process_viirs_data()</h3>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>viirs_tif_path <span class="op">=</span> viirs_config[<span class="st">'viirs_tif_path'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="open-the-tif-file" class="level4">
+<h4 class="anchored" data-anchor-id="open-the-tif-file">Open the tif file</h4>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rio.<span class="bu">open</span>(viirs_tif_path) <span class="im">as</span> dst:</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> dst.read(<span class="dv">1</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[0.18399812 0.19208178 0.2039444  ... 0.15316088 0.1800387  0.17428316]
+ [0.17762764 0.19316964 0.20672373 ... 0.17014433 0.18852577 0.182408  ]
+ [0.18640055 0.19541879 0.18461716 ... 0.17492227 0.1974811  0.20390633]
+ ...
+ [0.24877347 0.25129357 0.280608   ... 0.18944512 0.19984274 0.23967312]
+ [0.25689214 0.24893636 0.26223662 ... 0.2096378  0.22604159 0.25103217]
+ [0.236746   0.22991171 0.2760854  ... 0.1685332  0.1776291  0.23493679]]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cluster_centroids_df <span class="op">=</span> pd.read_csv(cluster_coords_path)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove clusters with latitude == 0 </span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>cluster_centroids_df <span class="op">=</span> cluster_centroids_df[cluster_centroids_df.LATNUM <span class="op">&gt;</span> <span class="fl">0.0</span>]</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>cluster_centroids_df.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>DHSCC</th>
+      <th>DHSYEAR</th>
+      <th>DHSCLUST</th>
+      <th>CCFIPS</th>
+      <th>ADM1FIPS</th>
+      <th>ADM1FIPSNA</th>
+      <th>ADM1SALBNA</th>
+      <th>ADM1SALBCO</th>
+      <th>ADM1DHS</th>
+      <th>...</th>
+      <th>DHSREGCO</th>
+      <th>DHSREGNA</th>
+      <th>SOURCE</th>
+      <th>URBAN_RURA</th>
+      <th>LATNUM</th>
+      <th>LONGNUM</th>
+      <th>ALT_GPS</th>
+      <th>ALT_DEM</th>
+      <th>DATUM</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH201700000386</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>386.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>Ilocos</td>
+      <td>GPS</td>
+      <td>R</td>
+      <td>18.271892</td>
+      <td>120.564542</td>
+      <td>9999.0</td>
+      <td>17.0</td>
+      <td>WGS84</td>
+      <td>POINT (120.56454229 18.2718920623)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PH201700000387</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>387.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>Ilocos</td>
+      <td>GPS</td>
+      <td>U</td>
+      <td>18.202195</td>
+      <td>120.568506</td>
+      <td>9999.0</td>
+      <td>10.0</td>
+      <td>WGS84</td>
+      <td>POINT (120.568506409 18.2021947961)</td>
+    </tr>
+  </tbody>
+</table>
+<p>2 rows × 21 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cluster_centroids_gdf <span class="op">=</span> gpd.GeoDataFrame(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    cluster_centroids_df,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    geometry<span class="op">=</span>gpd.GeoSeries.from_wkt(cluster_centroids_df[<span class="st">"geometry"</span>], crs<span class="op">=</span><span class="st">'epsg:4326'</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>cluster_centroids_gdf.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>DHSCC</th>
+      <th>DHSYEAR</th>
+      <th>DHSCLUST</th>
+      <th>CCFIPS</th>
+      <th>ADM1FIPS</th>
+      <th>ADM1FIPSNA</th>
+      <th>ADM1SALBNA</th>
+      <th>ADM1SALBCO</th>
+      <th>ADM1DHS</th>
+      <th>...</th>
+      <th>DHSREGCO</th>
+      <th>DHSREGNA</th>
+      <th>SOURCE</th>
+      <th>URBAN_RURA</th>
+      <th>LATNUM</th>
+      <th>LONGNUM</th>
+      <th>ALT_GPS</th>
+      <th>ALT_DEM</th>
+      <th>DATUM</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH201700000386</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>386.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>Ilocos</td>
+      <td>GPS</td>
+      <td>R</td>
+      <td>18.271892</td>
+      <td>120.564542</td>
+      <td>9999.0</td>
+      <td>17.0</td>
+      <td>WGS84</td>
+      <td>POINT (120.56454 18.27189)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PH201700000387</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>387.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>Ilocos</td>
+      <td>GPS</td>
+      <td>U</td>
+      <td>18.202195</td>
+      <td>120.568506</td>
+      <td>9999.0</td>
+      <td>10.0</td>
+      <td>WGS84</td>
+      <td>POINT (120.56851 18.20219)</td>
+    </tr>
+  </tbody>
+</table>
+<p>2 rows × 21 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cluster_centroids_gdf.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>&lt;Geographic 2D CRS: EPSG:4326&gt;
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- name: World.
+- bounds: (-180.0, -90.0, 180.0, 90.0)
+Datum: World Geodetic System 1984 ensemble
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cluster_centroids_gdf.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>&lt;AxesSubplot: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-16-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="function-for-creating-the-cluster-bounding-box" class="level4">
+<h4 class="anchored" data-anchor-id="function-for-creating-the-cluster-bounding-box">Function for creating the cluster bounding box</h4>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_polygon_bbox(centroid_lat, centroid_lon, distance_km):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Return bbox edge locations using haversine distance function</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">    The output is specified as (west, south, east, north)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">    distance_km specifies the distance of each edge from the centroid</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    centroid <span class="op">=</span> (centroid_lat, centroid_lon)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    top_left <span class="op">=</span> inverse_haversine(</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>        inverse_haversine(centroid, distance_km, Direction.WEST),</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>        distance_km,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        Direction.NORTH,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    bottom_right <span class="op">=</span> inverse_haversine(</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>        inverse_haversine(centroid, distance_km, Direction.EAST),</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>        distance_km,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>        Direction.SOUTH,</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    north, west <span class="op">=</span> top_left</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    south, east <span class="op">=</span> bottom_right</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># check inequalities</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> west <span class="op">&lt;</span> east</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> south <span class="op">&lt;</span> north</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    bbox_coord_list <span class="op">=</span> [west, south, east, north]</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    bbox <span class="op">=</span> Polygon([[west, south], [east, south], [east, north], [west, north]])</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bbox</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>create_polygon_bbox(<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<p><img src="explore_ph_viirs_files/figure-html/cell-18-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_bbox_geom(cluster_centroids_gdf, distance_km, output_col<span class="op">=</span><span class="st">'bbox'</span>):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Add bbox geometry to dhs cluster data (i.e. 6th column)</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">        cluster_centroid_gdf (gpd.GeoDataFrame): DHS data frame</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">        length (int): buffer radius in meters</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">        geopandas.GeoDataFrame</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    cluster_centroids_gdf <span class="op">=</span> cluster_centroids_gdf.copy()</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    centroids <span class="op">=</span> <span class="bu">list</span>(</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">zip</span>(cluster_centroids_gdf[<span class="st">"LATNUM"</span>], cluster_centroids_gdf[<span class="st">"LONGNUM"</span>])</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    bbox_geometry <span class="op">=</span> []</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Adding buffer geometry..."</span>)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> centroid <span class="kw">in</span> tqdm(centroids):</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>        centroid_lat, centroid_lon <span class="op">=</span> centroid</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>        bbox <span class="op">=</span> create_polygon_bbox(centroid_lat, centroid_lon, distance_km)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>        bbox_geometry.append(bbox)</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    cluster_centroids_gdf[output_col] <span class="op">=</span> bbox_geometry</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cluster_centroids_gdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>cluster_bbox_gdf <span class="op">=</span> add_bbox_geom(cluster_centroids_gdf, <span class="dv">2</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>cluster_bbox_gdf[<span class="st">'geometry'</span>] <span class="op">=</span> cluster_bbox_gdf[<span class="st">'bbox'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Adding buffer geometry...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>100%|██████████| 1214/1214 [00:00&lt;00:00, 23675.48it/s]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>cluster_bbox_gdf.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>&lt;AxesSubplot: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-21-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="raster-zonal-stats" class="level4">
+<h4 class="anchored" data-anchor-id="raster-zonal-stats">Raster zonal stats</h4>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>cluster_zonal_stats_gdf <span class="op">=</span> rzs.create_raster_zonal_stats(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    cluster_bbox_gdf,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    viirs_tif_path,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    aggregation<span class="op">=</span><span class="bu">dict</span>(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># func=["min", "max", "mean", "median", "kurtosis", "var"],</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        func<span class="op">=</span>[<span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"mean"</span>, <span class="st">"median"</span>, <span class="st">"std"</span>],</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        column<span class="op">=</span><span class="st">"avg_rad"</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    extra_args<span class="op">=</span><span class="bu">dict</span>(band_num<span class="op">=</span><span class="dv">1</span>, nodata<span class="op">=-</span><span class="dv">999</span>),</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>cluster_zonal_stats_gdf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>DHSCC</th>
+      <th>DHSYEAR</th>
+      <th>DHSCLUST</th>
+      <th>CCFIPS</th>
+      <th>ADM1FIPS</th>
+      <th>ADM1FIPSNA</th>
+      <th>ADM1SALBNA</th>
+      <th>ADM1SALBCO</th>
+      <th>ADM1DHS</th>
+      <th>...</th>
+      <th>ALT_GPS</th>
+      <th>ALT_DEM</th>
+      <th>DATUM</th>
+      <th>geometry</th>
+      <th>bbox</th>
+      <th>avg_rad_min</th>
+      <th>avg_rad_max</th>
+      <th>avg_rad_mean</th>
+      <th>avg_rad_std</th>
+      <th>avg_rad_median</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH201700000386</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>386.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>9999.0</td>
+      <td>17.0</td>
+      <td>WGS84</td>
+      <td>POLYGON ((120.54560 18.25390, 120.58348 18.253...</td>
+      <td>POLYGON ((120.54560084371413 18.25390472288926...</td>
+      <td>0.196119</td>
+      <td>1.391538</td>
+      <td>0.410263</td>
+      <td>0.260675</td>
+      <td>0.279534</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PH201700000387</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>387.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>9999.0</td>
+      <td>10.0</td>
+      <td>WGS84</td>
+      <td>POLYGON ((120.54957 18.18421, 120.58744 18.184...</td>
+      <td>POLYGON ((120.54957255328522 18.18420746049634...</td>
+      <td>0.389053</td>
+      <td>7.300686</td>
+      <td>2.008298</td>
+      <td>1.305749</td>
+      <td>1.690995</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH201700000388</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>388.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>9999.0</td>
+      <td>39.0</td>
+      <td>WGS84</td>
+      <td>POLYGON ((120.67219 18.05593, 120.71003 18.055...</td>
+      <td>POLYGON ((120.67219287500379 18.05592686509549...</td>
+      <td>0.246468</td>
+      <td>0.511665</td>
+      <td>0.347220</td>
+      <td>0.056467</td>
+      <td>0.338678</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PH201700000389</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>389.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>9999.0</td>
+      <td>13.0</td>
+      <td>WGS84</td>
+      <td>POLYGON ((120.49128 18.04303, 120.52912 18.043...</td>
+      <td>POLYGON ((120.4912846023381 18.04302918609864,...</td>
+      <td>0.268062</td>
+      <td>6.462383</td>
+      <td>0.901461</td>
+      <td>1.259600</td>
+      <td>0.446334</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>PH201700000390</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>390.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>9999.0</td>
+      <td>126.0</td>
+      <td>WGS84</td>
+      <td>POLYGON ((120.64414 18.13771, 120.68200 18.137...</td>
+      <td>POLYGON ((120.64414493860735 18.13770683763467...</td>
+      <td>0.319517</td>
+      <td>2.658939</td>
+      <td>0.610296</td>
+      <td>0.413121</td>
+      <td>0.499302</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 27 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>cluster_zonal_stats_gdf.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
+Int64Index: 1214 entries, 0 to 1249
+Data columns (total 27 columns):
+ #   Column          Non-Null Count  Dtype   
+---  ------          --------------  -----   
+ 0   DHSID           1214 non-null   object  
+ 1   DHSCC           1214 non-null   object  
+ 2   DHSYEAR         1214 non-null   float64 
+ 3   DHSCLUST        1214 non-null   float64 
+ 4   CCFIPS          0 non-null      float64 
+ 5   ADM1FIPS        0 non-null      float64 
+ 6   ADM1FIPSNA      0 non-null      float64 
+ 7   ADM1SALBNA      0 non-null      float64 
+ 8   ADM1SALBCO      0 non-null      float64 
+ 9   ADM1DHS         1214 non-null   float64 
+ 10  ADM1NAME        1214 non-null   object  
+ 11  DHSREGCO        1214 non-null   float64 
+ 12  DHSREGNA        1214 non-null   object  
+ 13  SOURCE          1214 non-null   object  
+ 14  URBAN_RURA      1214 non-null   object  
+ 15  LATNUM          1214 non-null   float64 
+ 16  LONGNUM         1214 non-null   float64 
+ 17  ALT_GPS         1214 non-null   float64 
+ 18  ALT_DEM         1214 non-null   float64 
+ 19  DATUM           1214 non-null   object  
+ 20  geometry        1214 non-null   geometry
+ 21  bbox            1214 non-null   object  
+ 22  avg_rad_min     1178 non-null   float64 
+ 23  avg_rad_max     1178 non-null   float64 
+ 24  avg_rad_mean    1178 non-null   float64 
+ 25  avg_rad_std     1178 non-null   float64 
+ 26  avg_rad_median  1178 non-null   float64 
+dtypes: float64(18), geometry(1), object(8)
+memory usage: 297.9+ KB</code></pre>
+</div>
+</div>
+</section>
+<section id="prepare-output-files" class="level4">
+<h4 class="anchored" data-anchor-id="prepare-output-files">Prepare output files</h4>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>output_gpkg_path <span class="op">=</span> Path(viirs_config[<span class="st">'save_path'</span>])<span class="op">/</span><span class="st">'ph_2017_viirs_avg_rad_zonal_stats.gpkg'</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>output_csv_path <span class="op">=</span> Path(viirs_config[<span class="st">'save_path'</span>])<span class="op">/</span><span class="st">'ph_2017_viirs_avg_rad_zonal_stats.csv'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">## GPKG</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>output_gdf <span class="op">=</span> cluster_zonal_stats_gdf.copy()</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>output_gdf[<span class="st">'latitude'</span>] <span class="op">=</span> output_gdf[<span class="st">'LATNUM'</span>]</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>output_gdf[<span class="st">'longitude'</span>] <span class="op">=</span> output_gdf[<span class="st">'LONGNUM'</span>]</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>usecols <span class="op">=</span> [</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DHSID"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"longitude"</span>,</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"latitude"</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_min"</span>,</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_max"</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_mean"</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_std"</span>,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_median"</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"geometry"</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>output_gdf <span class="op">=</span> output_gdf[usecols]</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>output_gdf.to_file(output_gpkg_path, driver<span class="op">=</span><span class="st">"GPKG"</span>)</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>output_gdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/jc_tm/project_repos/unicef-ai4d-poverty-mapping/env/lib/python3.9/site-packages/geopandas/io/file.py:362: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
+  pd.Int64Index,</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>longitude</th>
+      <th>latitude</th>
+      <th>avg_rad_min</th>
+      <th>avg_rad_max</th>
+      <th>avg_rad_mean</th>
+      <th>avg_rad_std</th>
+      <th>avg_rad_median</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH201700000386</td>
+      <td>120.564542</td>
+      <td>18.271892</td>
+      <td>0.196119</td>
+      <td>1.391538</td>
+      <td>0.410263</td>
+      <td>0.260675</td>
+      <td>0.279534</td>
+      <td>POLYGON ((120.54560 18.25390, 120.58348 18.253...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PH201700000387</td>
+      <td>120.568506</td>
+      <td>18.202195</td>
+      <td>0.389053</td>
+      <td>7.300686</td>
+      <td>2.008298</td>
+      <td>1.305749</td>
+      <td>1.690995</td>
+      <td>POLYGON ((120.54957 18.18421, 120.58744 18.184...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH201700000388</td>
+      <td>120.691113</td>
+      <td>18.073914</td>
+      <td>0.246468</td>
+      <td>0.511665</td>
+      <td>0.347220</td>
+      <td>0.056467</td>
+      <td>0.338678</td>
+      <td>POLYGON ((120.67219 18.05593, 120.71003 18.055...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PH201700000389</td>
+      <td>120.510203</td>
+      <td>18.061017</td>
+      <td>0.268062</td>
+      <td>6.462383</td>
+      <td>0.901461</td>
+      <td>1.259600</td>
+      <td>0.446334</td>
+      <td>POLYGON ((120.49128 18.04303, 120.52912 18.043...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>PH201700000390</td>
+      <td>120.663074</td>
+      <td>18.155694</td>
+      <td>0.319517</td>
+      <td>2.658939</td>
+      <td>0.610296</td>
+      <td>0.413121</td>
+      <td>0.499302</td>
+      <td>POLYGON ((120.64414 18.13771, 120.68200 18.137...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1245</th>
+      <td>PH201700000722</td>
+      <td>122.014801</td>
+      <td>12.480412</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POLYGON ((121.99638 12.46243, 122.03322 12.462...</td>
+    </tr>
+    <tr>
+      <th>1246</th>
+      <td>PH201700000723</td>
+      <td>121.948492</td>
+      <td>12.332112</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POLYGON ((121.93008 12.31413, 121.96690 12.314...</td>
+    </tr>
+    <tr>
+      <th>1247</th>
+      <td>PH201700000724</td>
+      <td>122.082036</td>
+      <td>12.825163</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POLYGON ((122.06359 12.80718, 122.10048 12.807...</td>
+    </tr>
+    <tr>
+      <th>1248</th>
+      <td>PH201700000725</td>
+      <td>122.308962</td>
+      <td>12.506513</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POLYGON ((122.29054 12.48853, 122.32739 12.488...</td>
+    </tr>
+    <tr>
+      <th>1249</th>
+      <td>PH201700000726</td>
+      <td>122.641823</td>
+      <td>12.359617</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POLYGON ((122.62341 12.34163, 122.66024 12.341...</td>
+    </tr>
+  </tbody>
+</table>
+<p>1214 rows × 9 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">## CSV</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>usecols <span class="op">=</span> [</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DHSID"</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"longitude"</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"latitude"</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_min"</span>,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_max"</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_mean"</span>,</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_std"</span>,</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_median"</span>,</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>output_df <span class="op">=</span> output_gdf[usecols]</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>output_df.to_csv(output_csv_path)</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>output_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>longitude</th>
+      <th>latitude</th>
+      <th>avg_rad_min</th>
+      <th>avg_rad_max</th>
+      <th>avg_rad_mean</th>
+      <th>avg_rad_std</th>
+      <th>avg_rad_median</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH201700000386</td>
+      <td>120.564542</td>
+      <td>18.271892</td>
+      <td>0.196119</td>
+      <td>1.391538</td>
+      <td>0.410263</td>
+      <td>0.260675</td>
+      <td>0.279534</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PH201700000387</td>
+      <td>120.568506</td>
+      <td>18.202195</td>
+      <td>0.389053</td>
+      <td>7.300686</td>
+      <td>2.008298</td>
+      <td>1.305749</td>
+      <td>1.690995</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH201700000388</td>
+      <td>120.691113</td>
+      <td>18.073914</td>
+      <td>0.246468</td>
+      <td>0.511665</td>
+      <td>0.347220</td>
+      <td>0.056467</td>
+      <td>0.338678</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PH201700000389</td>
+      <td>120.510203</td>
+      <td>18.061017</td>
+      <td>0.268062</td>
+      <td>6.462383</td>
+      <td>0.901461</td>
+      <td>1.259600</td>
+      <td>0.446334</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>PH201700000390</td>
+      <td>120.663074</td>
+      <td>18.155694</td>
+      <td>0.319517</td>
+      <td>2.658939</td>
+      <td>0.610296</td>
+      <td>0.413121</td>
+      <td>0.499302</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1245</th>
+      <td>PH201700000722</td>
+      <td>122.014801</td>
+      <td>12.480412</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1246</th>
+      <td>PH201700000723</td>
+      <td>121.948492</td>
+      <td>12.332112</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1247</th>
+      <td>PH201700000724</td>
+      <td>122.082036</td>
+      <td>12.825163</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1248</th>
+      <td>PH201700000725</td>
+      <td>122.308962</td>
+      <td>12.506513</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1249</th>
+      <td>PH201700000726</td>
+      <td>122.641823</td>
+      <td>12.359617</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>1214 rows × 8 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Upload to gcs bucket</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> gsutil cp {<span class="bu">str</span>(output_gpkg_path)} gs:<span class="op">//</span>poverty<span class="op">-</span>mapping<span class="op">/</span>outputs<span class="op">/</span>viirs_ph<span class="op">/</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> gsutil cp {<span class="bu">str</span>(output_csv_path)} gs:<span class="op">//</span>poverty<span class="op">-</span>mapping<span class="op">/</span>outputs<span class="op">/</span>viirs_ph<span class="op">/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Updates are available for some Google Cloud CLI components.  To install them,
+please run:
+  $ gcloud components update
+
+Copying file://../data/outputs/viirs_ph/ph_2017_viirs_avg_rad_zonal_stats.gpkg [Content-Type=application/octet-stream]...
+Reauthentication required.0 KiB]                                                
+Please enter your password:Caught CTRL-C (signal 2) - exiting</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="eda-compare-with-kahlils-output-using-qgis" class="level3">
+<h3 class="anchored" data-anchor-id="eda-compare-with-kahlils-output-using-qgis">EDA: Compare with Kahlil’s output using QGIS</h3>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>kahlil_cluster_zonal_stats_gdf <span class="op">=</span> gpd.read_file(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"../data/outputs/viirs_ph/rzs_dhs_viirs_ph_2017.gpkg"</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>kahlil_cluster_zonal_stats_gdf.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSCLUST</th>
+      <th>Wealth Index</th>
+      <th>DHSID</th>
+      <th>DHSCC</th>
+      <th>DHSYEAR</th>
+      <th>CCFIPS</th>
+      <th>ADM1FIPS</th>
+      <th>ADM1FIPSNA</th>
+      <th>ADM1SALBNA</th>
+      <th>ADM1SALBCO</th>
+      <th>...</th>
+      <th>ALT_GPS</th>
+      <th>ALT_DEM</th>
+      <th>DATUM</th>
+      <th>rzs_mean</th>
+      <th>rzs_median</th>
+      <th>rzs_stdev</th>
+      <th>rzs_min</th>
+      <th>rzs_max</th>
+      <th>rzs_variance</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>-31881.608696</td>
+      <td>PH201700000001</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>...</td>
+      <td>9999.0</td>
+      <td>10.0</td>
+      <td>WGS84</td>
+      <td>0.265912</td>
+      <td>0.261700</td>
+      <td>0.029590</td>
+      <td>0.222937</td>
+      <td>0.375542</td>
+      <td>0.000876</td>
+      <td>MULTIPOLYGON (((403606.834 739871.878, 403606....</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>-2855.375000</td>
+      <td>PH201700000002</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>...</td>
+      <td>9999.0</td>
+      <td>5.0</td>
+      <td>WGS84</td>
+      <td>0.981981</td>
+      <td>0.346526</td>
+      <td>1.325483</td>
+      <td>0.224869</td>
+      <td>6.881082</td>
+      <td>1.756904</td>
+      <td>MULTIPOLYGON (((406060.603 738497.001, 406060....</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>-57647.047619</td>
+      <td>PH201700000003</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>...</td>
+      <td>9999.0</td>
+      <td>47.0</td>
+      <td>WGS84</td>
+      <td>0.328983</td>
+      <td>0.288842</td>
+      <td>0.115563</td>
+      <td>0.224655</td>
+      <td>0.865518</td>
+      <td>0.013355</td>
+      <td>MULTIPOLYGON (((411300.477 734017.843, 411300....</td>
+    </tr>
+  </tbody>
+</table>
+<p>3 rows × 28 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>kahlil_cluster_zonal_stats_gdf[kahlil_cluster_zonal_stats_gdf[<span class="st">'DHSID'</span>] <span class="op">==</span> <span class="st">'PH201700000020'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSCLUST</th>
+      <th>Wealth Index</th>
+      <th>DHSID</th>
+      <th>DHSCC</th>
+      <th>DHSYEAR</th>
+      <th>CCFIPS</th>
+      <th>ADM1FIPS</th>
+      <th>ADM1FIPSNA</th>
+      <th>ADM1SALBNA</th>
+      <th>ADM1SALBCO</th>
+      <th>...</th>
+      <th>ALT_GPS</th>
+      <th>ALT_DEM</th>
+      <th>DATUM</th>
+      <th>rzs_mean</th>
+      <th>rzs_median</th>
+      <th>rzs_stdev</th>
+      <th>rzs_min</th>
+      <th>rzs_max</th>
+      <th>rzs_variance</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>19</th>
+      <td>20</td>
+      <td>-104656.428571</td>
+      <td>PH201700000020</td>
+      <td>PH</td>
+      <td>2017.0</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>NULL</td>
+      <td>...</td>
+      <td>9999.0</td>
+      <td>9999.0</td>
+      <td>WGS84</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>MULTIPOLYGON (((-7272487.381 19997929.886, -72...</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 28 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>kahlil_cluster_zonal_stats_gdf.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
+RangeIndex: 1249 entries, 0 to 1248
+Data columns (total 28 columns):
+ #   Column        Non-Null Count  Dtype   
+---  ------        --------------  -----   
+ 0   DHSCLUST      1249 non-null   int64   
+ 1   Wealth Index  1249 non-null   float64 
+ 2   DHSID         1249 non-null   object  
+ 3   DHSCC         1249 non-null   object  
+ 4   DHSYEAR       1249 non-null   float64 
+ 5   CCFIPS        1249 non-null   object  
+ 6   ADM1FIPS      1249 non-null   object  
+ 7   ADM1FIPSNA    1249 non-null   object  
+ 8   ADM1SALBNA    1249 non-null   object  
+ 9   ADM1SALBCO    1249 non-null   object  
+ 10  ADM1DHS       1249 non-null   float64 
+ 11  ADM1NAME      1249 non-null   object  
+ 12  DHSREGCO      1249 non-null   float64 
+ 13  DHSREGNA      1249 non-null   object  
+ 14  SOURCE        1249 non-null   object  
+ 15  URBAN_RURA    1249 non-null   object  
+ 16  LATNUM        1249 non-null   float64 
+ 17  LONGNUM       1249 non-null   float64 
+ 18  ALT_GPS       1249 non-null   float64 
+ 19  ALT_DEM       1249 non-null   float64 
+ 20  DATUM         1249 non-null   object  
+ 21  rzs_mean      1213 non-null   float64 
+ 22  rzs_median    1213 non-null   float64 
+ 23  rzs_stdev     1213 non-null   float64 
+ 24  rzs_min       1213 non-null   float64 
+ 25  rzs_max       1213 non-null   float64 
+ 26  rzs_variance  1213 non-null   float64 
+ 27  geometry      1249 non-null   geometry
+dtypes: float64(14), geometry(1), int64(1), object(12)
+memory usage: 273.3+ KB</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>usecols_left <span class="op">=</span> [</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DHSID"</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_min"</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_max"</span>,</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_mean"</span>,</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_std"</span>,</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_median"</span>,</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"geometry"</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>cluster_zonal_stats_gdf <span class="op">=</span> cluster_zonal_stats_gdf[usecols_left]</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>cluster_zonal_stats_gdf.head() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_min</th>
+      <th>avg_rad_max</th>
+      <th>avg_rad_mean</th>
+      <th>avg_rad_std</th>
+      <th>avg_rad_median</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH201700000386</td>
+      <td>0.196119</td>
+      <td>1.391538</td>
+      <td>0.410263</td>
+      <td>0.260675</td>
+      <td>0.279534</td>
+      <td>POLYGON ((120.54560 18.25390, 120.58348 18.253...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PH201700000387</td>
+      <td>0.389053</td>
+      <td>7.300686</td>
+      <td>2.008298</td>
+      <td>1.305749</td>
+      <td>1.690995</td>
+      <td>POLYGON ((120.54957 18.18421, 120.58744 18.184...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH201700000388</td>
+      <td>0.246468</td>
+      <td>0.511665</td>
+      <td>0.347220</td>
+      <td>0.056467</td>
+      <td>0.338678</td>
+      <td>POLYGON ((120.67219 18.05593, 120.71003 18.055...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PH201700000389</td>
+      <td>0.268062</td>
+      <td>6.462383</td>
+      <td>0.901461</td>
+      <td>1.259600</td>
+      <td>0.446334</td>
+      <td>POLYGON ((120.49128 18.04303, 120.52912 18.043...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>PH201700000390</td>
+      <td>0.319517</td>
+      <td>2.658939</td>
+      <td>0.610296</td>
+      <td>0.413121</td>
+      <td>0.499302</td>
+      <td>POLYGON ((120.64414 18.13771, 120.68200 18.137...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>cluster_zonal_stats_gdf.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
+Int64Index: 1214 entries, 0 to 1249
+Data columns (total 7 columns):
+ #   Column          Non-Null Count  Dtype   
+---  ------          --------------  -----   
+ 0   DHSID           1214 non-null   object  
+ 1   avg_rad_min     1178 non-null   float64 
+ 2   avg_rad_max     1178 non-null   float64 
+ 3   avg_rad_mean    1178 non-null   float64 
+ 4   avg_rad_std     1178 non-null   float64 
+ 5   avg_rad_median  1178 non-null   float64 
+ 6   geometry        1214 non-null   geometry
+dtypes: float64(5), geometry(1), object(1)
+memory usage: 108.2+ KB</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>usecols_right <span class="op">=</span> [</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DHSID"</span>,</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rzs_min"</span>,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rzs_max"</span>,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rzs_mean"</span>,</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rzs_stdev"</span>,</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rzs_median"</span>,</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>kahlil_cluster_zonal_stats_gdf <span class="op">=</span> kahlil_cluster_zonal_stats_gdf[usecols_right]</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>kahlil_cluster_zonal_stats_gdf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>rzs_min</th>
+      <th>rzs_max</th>
+      <th>rzs_mean</th>
+      <th>rzs_stdev</th>
+      <th>rzs_median</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH201700000001</td>
+      <td>0.222937</td>
+      <td>0.375542</td>
+      <td>0.265912</td>
+      <td>0.029590</td>
+      <td>0.261700</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PH201700000002</td>
+      <td>0.224869</td>
+      <td>6.881082</td>
+      <td>0.981981</td>
+      <td>1.325483</td>
+      <td>0.346526</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH201700000003</td>
+      <td>0.224655</td>
+      <td>0.865518</td>
+      <td>0.328983</td>
+      <td>0.115563</td>
+      <td>0.288842</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PH201700000004</td>
+      <td>0.184109</td>
+      <td>0.341882</td>
+      <td>0.230732</td>
+      <td>0.022960</td>
+      <td>0.226286</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>PH201700000005</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>kahlil_cluster_zonal_stats_gdf.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 1249 entries, 0 to 1248
+Data columns (total 6 columns):
+ #   Column      Non-Null Count  Dtype  
+---  ------      --------------  -----  
+ 0   DHSID       1249 non-null   object 
+ 1   rzs_min     1213 non-null   float64
+ 2   rzs_max     1213 non-null   float64
+ 3   rzs_mean    1213 non-null   float64
+ 4   rzs_stdev   1213 non-null   float64
+ 5   rzs_median  1213 non-null   float64
+dtypes: float64(5), object(1)
+memory usage: 58.7+ KB</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>cluster_zonal_stats_gdf[<span class="st">'DHSID'</span>] <span class="op">=</span> cluster_zonal_stats_gdf[<span class="st">'DHSID'</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>kahlil_cluster_zonal_stats_gdf[<span class="st">'DHSID'</span>] <span class="op">=</span> kahlil_cluster_zonal_stats_gdf[<span class="st">'DHSID'</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>combined_zonal_stats <span class="op">=</span> cluster_zonal_stats_gdf.merge(kahlil_cluster_zonal_stats_gdf, on<span class="op">=</span>[<span class="st">"DHSID"</span>], how<span class="op">=</span><span class="st">"outer"</span>)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>combined_zonal_stats.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_min</th>
+      <th>avg_rad_max</th>
+      <th>avg_rad_mean</th>
+      <th>avg_rad_std</th>
+      <th>avg_rad_median</th>
+      <th>geometry</th>
+      <th>rzs_min</th>
+      <th>rzs_max</th>
+      <th>rzs_mean</th>
+      <th>rzs_stdev</th>
+      <th>rzs_median</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH201700000386</td>
+      <td>0.196119</td>
+      <td>1.391538</td>
+      <td>0.410263</td>
+      <td>0.260675</td>
+      <td>0.279534</td>
+      <td>POLYGON ((120.54560 18.25390, 120.58348 18.253...</td>
+      <td>0.196119</td>
+      <td>1.391538</td>
+      <td>0.405251</td>
+      <td>0.259855</td>
+      <td>0.275098</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PH201700000387</td>
+      <td>0.389053</td>
+      <td>7.300686</td>
+      <td>2.008298</td>
+      <td>1.305749</td>
+      <td>1.690995</td>
+      <td>POLYGON ((120.54957 18.18421, 120.58744 18.184...</td>
+      <td>0.389053</td>
+      <td>8.644136</td>
+      <td>2.131632</td>
+      <td>1.524006</td>
+      <td>1.712358</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH201700000388</td>
+      <td>0.246468</td>
+      <td>0.511665</td>
+      <td>0.347220</td>
+      <td>0.056467</td>
+      <td>0.338678</td>
+      <td>POLYGON ((120.67219 18.05593, 120.71003 18.055...</td>
+      <td>0.246468</td>
+      <td>0.511665</td>
+      <td>0.347220</td>
+      <td>0.056467</td>
+      <td>0.338678</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PH201700000389</td>
+      <td>0.268062</td>
+      <td>6.462383</td>
+      <td>0.901461</td>
+      <td>1.259600</td>
+      <td>0.446334</td>
+      <td>POLYGON ((120.49128 18.04303, 120.52912 18.043...</td>
+      <td>0.268062</td>
+      <td>6.462383</td>
+      <td>0.872115</td>
+      <td>1.223619</td>
+      <td>0.415388</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>PH201700000390</td>
+      <td>0.319517</td>
+      <td>2.658939</td>
+      <td>0.610296</td>
+      <td>0.413121</td>
+      <td>0.499302</td>
+      <td>POLYGON ((120.64414 18.13771, 120.68200 18.137...</td>
+      <td>0.318214</td>
+      <td>2.658939</td>
+      <td>0.603239</td>
+      <td>0.409725</td>
+      <td>0.483755</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>zonal_stat_pairs <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(usecols_left,usecols_right))[<span class="dv">1</span>:]</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>zonal_stat_pairs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<pre><code>[('avg_rad_min', 'rzs_min'),
+ ('avg_rad_max', 'rzs_max'),
+ ('avg_rad_mean', 'rzs_mean'),
+ ('avg_rad_std', 'rzs_stdev'),
+ ('avg_rad_median', 'rzs_median')]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pair <span class="kw">in</span> zonal_stat_pairs:</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    usecols <span class="op">=</span> [<span class="st">"DHSID"</span>] <span class="op">+</span> <span class="bu">list</span>(pair)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(usecols)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> combined_zonal_stats[usecols].dropna(how<span class="op">=</span><span class="st">"any"</span>).copy()</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"abs_diff"</span>] <span class="op">=</span> np.<span class="bu">abs</span>(df[pair[<span class="dv">0</span>]].sub(df[pair[<span class="dv">1</span>]]))</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"avg"</span>] <span class="op">=</span> (df[pair[<span class="dv">0</span>]] <span class="op">+</span> df[pair[<span class="dv">1</span>]]) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"pct_diff"</span>] <span class="op">=</span> (df[<span class="st">"abs_diff"</span>] <span class="op">/</span> df[<span class="st">'avg'</span>]) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>    display(df.sort_values(by<span class="op">=</span><span class="st">"pct_diff"</span>, ascending<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    display(df.info())</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    display(df[df[<span class="st">'abs_diff'</span>]<span class="op">==</span><span class="dv">0</span>])</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>    colors <span class="op">=</span> [<span class="st">"lightblue"</span>, <span class="st">"salmon"</span>]</span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, stat <span class="kw">in</span> <span class="bu">enumerate</span>(pair):</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>        facecolor <span class="op">=</span> colorConverter.to_rgba(colors[i], alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>        edgecolor <span class="op">=</span> colors[i]</span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>        df[stat].hist(</span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>            ax<span class="op">=</span>ax,</span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span>stat,</span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>            facecolor<span class="op">=</span>facecolor,</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>            edgecolor<span class="op">=</span>edgecolor,</span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>            bins<span class="op">=</span>np.arange(<span class="dv">0</span>, np.<span class="bu">max</span>(df[stat]), <span class="dv">2</span>),</span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>    fig.legend()</span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>    fig.suptitle(<span class="ss">f"</span><span class="sc">{</span>pair[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> vs </span><span class="sc">{</span>pair[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a>    df.dropna(how<span class="op">=</span><span class="st">"any"</span>).boxplot(<span class="st">"pct_diff"</span>)</span>
+<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['DHSID', 'avg_rad_min', 'rzs_min']</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_min</th>
+      <th>rzs_min</th>
+      <th>abs_diff</th>
+      <th>avg</th>
+      <th>pct_diff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>927</th>
+      <td>PH201700000326</td>
+      <td>0.165500</td>
+      <td>20.654139</td>
+      <td>20.488639</td>
+      <td>10.409819</td>
+      <td>196.820315</td>
+    </tr>
+    <tr>
+      <th>926</th>
+      <td>PH201700000325</td>
+      <td>0.223607</td>
+      <td>20.654139</td>
+      <td>20.430531</td>
+      <td>10.438873</td>
+      <td>195.715872</td>
+    </tr>
+    <tr>
+      <th>936</th>
+      <td>PH201700000335</td>
+      <td>0.167861</td>
+      <td>14.963068</td>
+      <td>14.795207</td>
+      <td>7.565465</td>
+      <td>195.562430</td>
+    </tr>
+    <tr>
+      <th>934</th>
+      <td>PH201700000333</td>
+      <td>0.176862</td>
+      <td>15.516428</td>
+      <td>15.339566</td>
+      <td>7.846645</td>
+      <td>195.492042</td>
+    </tr>
+    <tr>
+      <th>822</th>
+      <td>PH201700001250</td>
+      <td>15.841383</td>
+      <td>0.196275</td>
+      <td>15.645108</td>
+      <td>8.018829</td>
+      <td>195.104650</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>PH201700000395</td>
+      <td>0.280226</td>
+      <td>0.280226</td>
+      <td>0.000000</td>
+      <td>0.280226</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>PH201700000396</td>
+      <td>0.161995</td>
+      <td>0.161995</td>
+      <td>0.000000</td>
+      <td>0.161995</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>PH201700000397</td>
+      <td>0.346775</td>
+      <td>0.346775</td>
+      <td>0.000000</td>
+      <td>0.346775</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>PH201700000401</td>
+      <td>0.409413</td>
+      <td>0.409413</td>
+      <td>0.000000</td>
+      <td>0.409413</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>PH201700000386</td>
+      <td>0.196119</td>
+      <td>0.196119</td>
+      <td>0.000000</td>
+      <td>0.196119</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+<p>1177 rows × 6 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 1177 entries, 0 to 1177
+Data columns (total 6 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   DHSID        1177 non-null   object 
+ 1   avg_rad_min  1177 non-null   float64
+ 2   rzs_min      1177 non-null   float64
+ 3   abs_diff     1177 non-null   float64
+ 4   avg          1177 non-null   float64
+ 5   pct_diff     1177 non-null   float64
+dtypes: float64(5), object(1)
+memory usage: 64.4+ KB</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>None</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_min</th>
+      <th>rzs_min</th>
+      <th>abs_diff</th>
+      <th>avg</th>
+      <th>pct_diff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH201700000386</td>
+      <td>0.196119</td>
+      <td>0.196119</td>
+      <td>0.0</td>
+      <td>0.196119</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PH201700000387</td>
+      <td>0.389053</td>
+      <td>0.389053</td>
+      <td>0.0</td>
+      <td>0.389053</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH201700000388</td>
+      <td>0.246468</td>
+      <td>0.246468</td>
+      <td>0.0</td>
+      <td>0.246468</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PH201700000389</td>
+      <td>0.268062</td>
+      <td>0.268062</td>
+      <td>0.0</td>
+      <td>0.268062</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>PH201700000391</td>
+      <td>0.193072</td>
+      <td>0.193072</td>
+      <td>0.0</td>
+      <td>0.193072</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>PH201700000392</td>
+      <td>0.291583</td>
+      <td>0.291583</td>
+      <td>0.0</td>
+      <td>0.291583</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>PH201700000393</td>
+      <td>0.196885</td>
+      <td>0.196885</td>
+      <td>0.0</td>
+      <td>0.196885</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>PH201700000394</td>
+      <td>0.246468</td>
+      <td>0.246468</td>
+      <td>0.0</td>
+      <td>0.246468</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>PH201700000395</td>
+      <td>0.280226</td>
+      <td>0.280226</td>
+      <td>0.0</td>
+      <td>0.280226</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>PH201700000396</td>
+      <td>0.161995</td>
+      <td>0.161995</td>
+      <td>0.0</td>
+      <td>0.161995</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>PH201700000397</td>
+      <td>0.346775</td>
+      <td>0.346775</td>
+      <td>0.0</td>
+      <td>0.346775</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>PH201700000399</td>
+      <td>0.199084</td>
+      <td>0.199084</td>
+      <td>0.0</td>
+      <td>0.199084</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>PH201700000400</td>
+      <td>0.198065</td>
+      <td>0.198065</td>
+      <td>0.0</td>
+      <td>0.198065</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>PH201700000401</td>
+      <td>0.409413</td>
+      <td>0.409413</td>
+      <td>0.0</td>
+      <td>0.409413</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>PH201700000402</td>
+      <td>0.242476</td>
+      <td>0.242476</td>
+      <td>0.0</td>
+      <td>0.242476</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>PH201700000403</td>
+      <td>0.211108</td>
+      <td>0.211108</td>
+      <td>0.0</td>
+      <td>0.211108</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-39-output-6.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-39-output-7.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['DHSID', 'avg_rad_max', 'rzs_max']</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_max</th>
+      <th>rzs_max</th>
+      <th>abs_diff</th>
+      <th>avg</th>
+      <th>pct_diff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>934</th>
+      <td>PH201700000333</td>
+      <td>0.235426</td>
+      <td>104.334267</td>
+      <td>104.098841</td>
+      <td>52.284846</td>
+      <td>199.099449</td>
+    </tr>
+    <tr>
+      <th>936</th>
+      <td>PH201700000335</td>
+      <td>0.242813</td>
+      <td>80.001572</td>
+      <td>79.758759</td>
+      <td>40.122192</td>
+      <td>198.789632</td>
+    </tr>
+    <tr>
+      <th>937</th>
+      <td>PH201700000336</td>
+      <td>0.256106</td>
+      <td>80.001572</td>
+      <td>79.745466</td>
+      <td>40.128839</td>
+      <td>198.723581</td>
+    </tr>
+    <tr>
+      <th>935</th>
+      <td>PH201700000334</td>
+      <td>0.282405</td>
+      <td>80.001572</td>
+      <td>79.719167</td>
+      <td>40.141988</td>
+      <td>198.592972</td>
+    </tr>
+    <tr>
+      <th>933</th>
+      <td>PH201700000332</td>
+      <td>0.283060</td>
+      <td>80.001572</td>
+      <td>79.718512</td>
+      <td>40.142316</td>
+      <td>198.589719</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>PH201700000401</td>
+      <td>7.289020</td>
+      <td>7.289020</td>
+      <td>0.000000</td>
+      <td>7.289020</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>PH201700000402</td>
+      <td>0.593529</td>
+      <td>0.593529</td>
+      <td>0.000000</td>
+      <td>0.593529</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>194</th>
+      <td>PH201700000584</td>
+      <td>3.201763</td>
+      <td>3.201763</td>
+      <td>0.000000</td>
+      <td>3.201763</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>152</th>
+      <td>PH201700000542</td>
+      <td>28.368755</td>
+      <td>28.368755</td>
+      <td>0.000000</td>
+      <td>28.368755</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>PH201700000386</td>
+      <td>1.391538</td>
+      <td>1.391538</td>
+      <td>0.000000</td>
+      <td>1.391538</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+<p>1177 rows × 6 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 1177 entries, 0 to 1177
+Data columns (total 6 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   DHSID        1177 non-null   object 
+ 1   avg_rad_max  1177 non-null   float64
+ 2   rzs_max      1177 non-null   float64
+ 3   abs_diff     1177 non-null   float64
+ 4   avg          1177 non-null   float64
+ 5   pct_diff     1177 non-null   float64
+dtypes: float64(5), object(1)
+memory usage: 64.4+ KB</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>None</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_max</th>
+      <th>rzs_max</th>
+      <th>abs_diff</th>
+      <th>avg</th>
+      <th>pct_diff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PH201700000386</td>
+      <td>1.391538</td>
+      <td>1.391538</td>
+      <td>0.0</td>
+      <td>1.391538</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH201700000388</td>
+      <td>0.511665</td>
+      <td>0.511665</td>
+      <td>0.0</td>
+      <td>0.511665</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>PH201700000389</td>
+      <td>6.462383</td>
+      <td>6.462383</td>
+      <td>0.0</td>
+      <td>6.462383</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>PH201700000390</td>
+      <td>2.658939</td>
+      <td>2.658939</td>
+      <td>0.0</td>
+      <td>2.658939</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>PH201700000391</td>
+      <td>0.368501</td>
+      <td>0.368501</td>
+      <td>0.0</td>
+      <td>0.368501</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>PH201700000392</td>
+      <td>14.821279</td>
+      <td>14.821279</td>
+      <td>0.0</td>
+      <td>14.821279</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>PH201700000393</td>
+      <td>0.592741</td>
+      <td>0.592741</td>
+      <td>0.0</td>
+      <td>0.592741</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>PH201700000394</td>
+      <td>0.511665</td>
+      <td>0.511665</td>
+      <td>0.0</td>
+      <td>0.511665</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>PH201700000395</td>
+      <td>4.128791</td>
+      <td>4.128791</td>
+      <td>0.0</td>
+      <td>4.128791</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>PH201700000396</td>
+      <td>0.797952</td>
+      <td>0.797952</td>
+      <td>0.0</td>
+      <td>0.797952</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>PH201700000397</td>
+      <td>14.821279</td>
+      <td>14.821279</td>
+      <td>0.0</td>
+      <td>14.821279</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>PH201700000398</td>
+      <td>9.056686</td>
+      <td>9.056686</td>
+      <td>0.0</td>
+      <td>9.056686</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>PH201700000399</td>
+      <td>0.454071</td>
+      <td>0.454071</td>
+      <td>0.0</td>
+      <td>0.454071</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>PH201700000400</td>
+      <td>0.308333</td>
+      <td>0.308333</td>
+      <td>0.0</td>
+      <td>0.308333</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>PH201700000401</td>
+      <td>7.289020</td>
+      <td>7.289020</td>
+      <td>0.0</td>
+      <td>7.289020</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>PH201700000402</td>
+      <td>0.593529</td>
+      <td>0.593529</td>
+      <td>0.0</td>
+      <td>0.593529</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>PH201700000440</td>
+      <td>2.235905</td>
+      <td>2.235905</td>
+      <td>0.0</td>
+      <td>2.235905</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>152</th>
+      <td>PH201700000542</td>
+      <td>28.368755</td>
+      <td>28.368755</td>
+      <td>0.0</td>
+      <td>28.368755</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>194</th>
+      <td>PH201700000584</td>
+      <td>3.201763</td>
+      <td>3.201763</td>
+      <td>0.0</td>
+      <td>3.201763</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-39-output-13.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-39-output-14.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['DHSID', 'avg_rad_mean', 'rzs_mean']</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_mean</th>
+      <th>rzs_mean</th>
+      <th>abs_diff</th>
+      <th>avg</th>
+      <th>pct_diff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>934</th>
+      <td>PH201700000333</td>
+      <td>0.208300</td>
+      <td>37.934890</td>
+      <td>3.772659e+01</td>
+      <td>19.071595</td>
+      <td>1.978156e+02</td>
+    </tr>
+    <tr>
+      <th>931</th>
+      <td>PH201700000330</td>
+      <td>0.239898</td>
+      <td>39.595623</td>
+      <td>3.935573e+01</td>
+      <td>19.917761</td>
+      <td>1.975911e+02</td>
+    </tr>
+    <tr>
+      <th>822</th>
+      <td>PH201700001250</td>
+      <td>37.225815</td>
+      <td>0.241771</td>
+      <td>3.698404e+01</td>
+      <td>18.733793</td>
+      <td>1.974189e+02</td>
+    </tr>
+    <tr>
+      <th>927</th>
+      <td>PH201700000326</td>
+      <td>0.203769</td>
+      <td>31.056626</td>
+      <td>3.085286e+01</td>
+      <td>15.630197</td>
+      <td>1.973926e+02</td>
+    </tr>
+    <tr>
+      <th>936</th>
+      <td>PH201700000335</td>
+      <td>0.207031</td>
+      <td>29.402678</td>
+      <td>2.919565e+01</td>
+      <td>14.804854</td>
+      <td>1.972032e+02</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH201700000388</td>
+      <td>0.347220</td>
+      <td>0.347220</td>
+      <td>6.806703e-09</td>
+      <td>0.347220</td>
+      <td>1.960341e-06</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>PH201700000392</td>
+      <td>2.197849</td>
+      <td>2.197849</td>
+      <td>3.973643e-08</td>
+      <td>2.197849</td>
+      <td>1.807969e-06</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>PH201700000399</td>
+      <td>0.289558</td>
+      <td>0.289558</td>
+      <td>4.139211e-09</td>
+      <td>0.289558</td>
+      <td>1.429492e-06</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>PH201700000402</td>
+      <td>0.368128</td>
+      <td>0.368128</td>
+      <td>4.415159e-09</td>
+      <td>0.368128</td>
+      <td>1.199355e-06</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>PH201700000395</td>
+      <td>1.339914</td>
+      <td>1.339914</td>
+      <td>8.094458e-09</td>
+      <td>1.339914</td>
+      <td>6.041026e-07</td>
+    </tr>
+  </tbody>
+</table>
+<p>1177 rows × 6 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 1177 entries, 0 to 1177
+Data columns (total 6 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   DHSID         1177 non-null   object 
+ 1   avg_rad_mean  1177 non-null   float64
+ 2   rzs_mean      1177 non-null   float64
+ 3   abs_diff      1177 non-null   float64
+ 4   avg           1177 non-null   float64
+ 5   pct_diff      1177 non-null   float64
+dtypes: float64(5), object(1)
+memory usage: 64.4+ KB</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>None</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_mean</th>
+      <th>rzs_mean</th>
+      <th>abs_diff</th>
+      <th>avg</th>
+      <th>pct_diff</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-39-output-20.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-39-output-21.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['DHSID', 'avg_rad_std', 'rzs_stdev']</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_std</th>
+      <th>rzs_stdev</th>
+      <th>abs_diff</th>
+      <th>avg</th>
+      <th>pct_diff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>934</th>
+      <td>PH201700000333</td>
+      <td>0.010745</td>
+      <td>21.045409</td>
+      <td>2.103466e+01</td>
+      <td>10.528077</td>
+      <td>1.997959e+02</td>
+    </tr>
+    <tr>
+      <th>822</th>
+      <td>PH201700001250</td>
+      <td>16.332844</td>
+      <td>0.018257</td>
+      <td>1.631459e+01</td>
+      <td>8.175550</td>
+      <td>1.995534e+02</td>
+    </tr>
+    <tr>
+      <th>937</th>
+      <td>PH201700000336</td>
+      <td>0.014798</td>
+      <td>12.150881</td>
+      <td>1.213608e+01</td>
+      <td>6.082840</td>
+      <td>1.995134e+02</td>
+    </tr>
+    <tr>
+      <th>706</th>
+      <td>PH201700001135</td>
+      <td>13.676804</td>
+      <td>0.018170</td>
+      <td>1.365863e+01</td>
+      <td>6.847487</td>
+      <td>1.994693e+02</td>
+    </tr>
+    <tr>
+      <th>935</th>
+      <td>PH201700000334</td>
+      <td>0.017697</td>
+      <td>12.977068</td>
+      <td>1.295937e+01</td>
+      <td>6.497382</td>
+      <td>1.994553e+02</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>PH201700000397</td>
+      <td>2.692361</td>
+      <td>2.692361</td>
+      <td>6.661338e-15</td>
+      <td>2.692361</td>
+      <td>2.474162e-13</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>PH201700000399</td>
+      <td>0.060621</td>
+      <td>0.060621</td>
+      <td>1.457168e-16</td>
+      <td>0.060621</td>
+      <td>2.403751e-13</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>PH201700000402</td>
+      <td>0.072370</td>
+      <td>0.072370</td>
+      <td>1.526557e-16</td>
+      <td>0.072370</td>
+      <td>2.109373e-13</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>PH201700000392</td>
+      <td>2.795605</td>
+      <td>2.795605</td>
+      <td>0.000000e+00</td>
+      <td>2.795605</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>PH201700000395</td>
+      <td>0.859464</td>
+      <td>0.859464</td>
+      <td>0.000000e+00</td>
+      <td>0.859464</td>
+      <td>0.000000e+00</td>
+    </tr>
+  </tbody>
+</table>
+<p>1177 rows × 6 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 1177 entries, 0 to 1177
+Data columns (total 6 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   DHSID        1177 non-null   object 
+ 1   avg_rad_std  1177 non-null   float64
+ 2   rzs_stdev    1177 non-null   float64
+ 3   abs_diff     1177 non-null   float64
+ 4   avg          1177 non-null   float64
+ 5   pct_diff     1177 non-null   float64
+dtypes: float64(5), object(1)
+memory usage: 64.4+ KB</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>None</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_std</th>
+      <th>rzs_stdev</th>
+      <th>abs_diff</th>
+      <th>avg</th>
+      <th>pct_diff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6</th>
+      <td>PH201700000392</td>
+      <td>2.795605</td>
+      <td>2.795605</td>
+      <td>0.0</td>
+      <td>2.795605</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>PH201700000395</td>
+      <td>0.859464</td>
+      <td>0.859464</td>
+      <td>0.0</td>
+      <td>0.859464</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-39-output-27.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-39-output-28.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['DHSID', 'avg_rad_median', 'rzs_median']</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_median</th>
+      <th>rzs_median</th>
+      <th>abs_diff</th>
+      <th>avg</th>
+      <th>pct_diff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>934</th>
+      <td>PH201700000333</td>
+      <td>0.208723</td>
+      <td>31.935932</td>
+      <td>31.727209</td>
+      <td>16.072328</td>
+      <td>197.402705</td>
+    </tr>
+    <tr>
+      <th>425</th>
+      <td>PH201700000378</td>
+      <td>37.072456</td>
+      <td>0.242767</td>
+      <td>36.829689</td>
+      <td>18.657612</td>
+      <td>197.397661</td>
+    </tr>
+    <tr>
+      <th>931</th>
+      <td>PH201700000330</td>
+      <td>0.225248</td>
+      <td>33.502945</td>
+      <td>33.277697</td>
+      <td>16.864096</td>
+      <td>197.328668</td>
+    </tr>
+    <tr>
+      <th>929</th>
+      <td>PH201700000328</td>
+      <td>0.235627</td>
+      <td>35.018345</td>
+      <td>34.782718</td>
+      <td>17.626986</td>
+      <td>197.326523</td>
+    </tr>
+    <tr>
+      <th>927</th>
+      <td>PH201700000326</td>
+      <td>0.199338</td>
+      <td>29.279701</td>
+      <td>29.080363</td>
+      <td>14.739520</td>
+      <td>197.295185</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>PH201700000395</td>
+      <td>1.121043</td>
+      <td>1.121043</td>
+      <td>0.000000</td>
+      <td>1.121043</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>PH201700000391</td>
+      <td>0.226768</td>
+      <td>0.226768</td>
+      <td>0.000000</td>
+      <td>0.226768</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>PH201700000388</td>
+      <td>0.338678</td>
+      <td>0.338678</td>
+      <td>0.000000</td>
+      <td>0.338678</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>PH201700000402</td>
+      <td>0.372673</td>
+      <td>0.372673</td>
+      <td>0.000000</td>
+      <td>0.372673</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>PH201700000397</td>
+      <td>0.919298</td>
+      <td>0.919298</td>
+      <td>0.000000</td>
+      <td>0.919298</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+<p>1177 rows × 6 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 1177 entries, 0 to 1177
+Data columns (total 6 columns):
+ #   Column          Non-Null Count  Dtype  
+---  ------          --------------  -----  
+ 0   DHSID           1177 non-null   object 
+ 1   avg_rad_median  1177 non-null   float64
+ 2   rzs_median      1177 non-null   float64
+ 3   abs_diff        1177 non-null   float64
+ 4   avg             1177 non-null   float64
+ 5   pct_diff        1177 non-null   float64
+dtypes: float64(5), object(1)
+memory usage: 64.4+ KB</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>None</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>DHSID</th>
+      <th>avg_rad_median</th>
+      <th>rzs_median</th>
+      <th>abs_diff</th>
+      <th>avg</th>
+      <th>pct_diff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>PH201700000388</td>
+      <td>0.338678</td>
+      <td>0.338678</td>
+      <td>0.0</td>
+      <td>0.338678</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>PH201700000391</td>
+      <td>0.226768</td>
+      <td>0.226768</td>
+      <td>0.0</td>
+      <td>0.226768</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>PH201700000394</td>
+      <td>0.332365</td>
+      <td>0.332365</td>
+      <td>0.0</td>
+      <td>0.332365</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>PH201700000395</td>
+      <td>1.121043</td>
+      <td>1.121043</td>
+      <td>0.0</td>
+      <td>1.121043</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>PH201700000397</td>
+      <td>0.919298</td>
+      <td>0.919298</td>
+      <td>0.0</td>
+      <td>0.919298</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>PH201700000402</td>
+      <td>0.372673</td>
+      <td>0.372673</td>
+      <td>0.0</td>
+      <td>0.372673</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-39-output-34.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="explore_ph_viirs_files/figure-html/cell-39-output-35.png" class="img-fluid"></p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.247">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>UNICEF AI4D Poverty Mapping Project - Prepare Model Training Data (Philippines)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Prepare Model Training Data (Philippines)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Main</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../progress.html" class="sidebar-item-text sidebar-link">Progress</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Data Preparation (DHS)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_dhs.html" class="sidebar-item-text sidebar-link">Explore DHS Test Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_kh_dhs.html" class="sidebar-item-text sidebar-link">Explore DHS (Cambodia) Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_mm_dhs.html" class="sidebar-item-text sidebar-link">Explore DHS (Myanmar) Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ph_dhs.html" class="sidebar-item-text sidebar-link">Explore DHS (Philippines) Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_tl_dhs.html" class="sidebar-item-text sidebar-link">Explore DHS (Timor Leste) Data</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Data Preparation (Ookla)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ookla.html" class="sidebar-item-text sidebar-link">Explore Ookla Test Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ookla_data.html" class="sidebar-item-text sidebar-link">Explore Ookla Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_kh_ookla.html" class="sidebar-item-text sidebar-link">Explore Ookla Data (Cambodia)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_mm_ookla.html" class="sidebar-item-text sidebar-link">Explore Ookla Data (Myanmar)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ph_ookla.html" class="sidebar-item-text sidebar-link">Explore Ookla Data (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_tl_ookla.html" class="sidebar-item-text sidebar-link">Explore Ookla Data (Timor Leste)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Data Preparation (OSM)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_osm.html" class="sidebar-item-text sidebar-link">Explore OSM Test Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ph_osm.html" class="sidebar-item-text sidebar-link">Explore OSM Data (Philippines)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Data Preparation (Night Lights)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ph_viirs.html" class="sidebar-item-text sidebar-link">Explore VIIRS Data (Philippines)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Data Preparation (Training Data Prep)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/ph_prepare_train.html" class="sidebar-item-text sidebar-link active">Prepare Model Training Data (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_process_train_test.html" class="sidebar-item-text sidebar-link">Explore Process TrainTest on Test Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/explore_ph_process_train_test.html" class="sidebar-item-text sidebar-link">Explore Process TrainTest Philippines</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Model Training and Evaluation</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/ph_train.html" class="sidebar-item-text sidebar-link">Model Training (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../test-notebooks/ph_evaluate.html" class="sidebar-item-text sidebar-link">Model Evaluation (Philippines)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#set-the-configuration-for-this-notebook" id="toc-set-the-configuration-for-this-notebook" class="nav-link active" data-scroll-target="#set-the-configuration-for-this-notebook">Set the configuration for this notebook</a></li>
+  <li><a href="#download-the-different-datasets-from-the-cloud-storage-bucket" id="toc-download-the-different-datasets-from-the-cloud-storage-bucket" class="nav-link" data-scroll-target="#download-the-different-datasets-from-the-cloud-storage-bucket">Download the different datasets from the cloud storage bucket</a></li>
+  <li><a href="#load-the-datasets" id="toc-load-the-datasets" class="nav-link" data-scroll-target="#load-the-datasets">Load the datasets</a></li>
+  <li><a href="#process-datasets" id="toc-process-datasets" class="nav-link" data-scroll-target="#process-datasets">Process datasets</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Prepare Model Training Data (Philippines)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<blockquote class="blockquote">
+<p>This notebook prepare the data for the poverty mapping model for the Philippines.</p>
+</blockquote>
+<div class="cell" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yaml</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="set-the-configuration-for-this-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="set-the-configuration-for-this-notebook">Set the configuration for this notebook</h2>
+<div class="cell" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>prepare_config <span class="op">=</span> <span class="bu">dict</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    save_path<span class="op">=</span><span class="st">"../data/outputs/ph"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    repo_path<span class="op">=</span><span class="st">"../data/SVII_PH_KH_MM_TL"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    download_gcs_uri<span class="op">=</span><span class="st">"gs://poverty-mapping/outputs/"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    output_gcs_uri<span class="op">=</span><span class="st">"gs://poverty-mapping/outputs/"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    data_dir<span class="op">=</span><span class="st">"ph"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    country<span class="op">=</span><span class="st">"ph"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ookla_folder<span class="op">=</span><span class="st">"ookla_ph"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    hdx_folder<span class="op">=</span><span class="st">"hdx_ph"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    dhs_folder<span class="op">=</span><span class="st">"dhs_ph"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    osm_folder<span class="op">=</span><span class="st">"osm_ph"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    dhs_geo_zip_folder<span class="op">=</span><span class="st">"PHGE71FL"</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    dhs_zip_folder<span class="op">=</span><span class="st">"PHHR71DT"</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    viirs_folder<span class="op">=</span><span class="st">"viirs_ph"</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># crs="4683",</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ookla_feature="avg_d_mbps",</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># boundary_file="phl_adminboundaries_candidate_adm3",</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    year<span class="op">=</span><span class="st">"2020"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    quarter<span class="op">=</span><span class="st">"2"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    sample<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    random_sample<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    no_samples<span class="op">=</span><span class="dv">60</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    random_seed<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># clust_rad=2000,</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot_ookla_features=True,</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adm_level=3,</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use_pcode=True,</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># shape_label="ADM3_PCODE",</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># bins=6,</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># show_legend=False,</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    use_ookla<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    use_viirs<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    use_osm<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="download-the-different-datasets-from-the-cloud-storage-bucket" class="level2">
+<h2 class="anchored" data-anchor-id="download-the-different-datasets-from-the-cloud-storage-bucket">Download the different datasets from the cloud storage bucket</h2>
+<div class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dataset_folder_keys <span class="op">=</span> [<span class="st">"ookla_folder"</span>, <span class="st">"dhs_folder"</span>, <span class="st">"viirs_folder"</span>, <span class="st">"osm_folder"</span>]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key <span class="kw">in</span> dataset_folder_keys:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    gcs_download_folder <span class="op">=</span> prepare_config[<span class="st">'download_gcs_uri'</span>] <span class="op">+</span>  prepare_config[key] </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    save_path <span class="op">=</span> prepare_config[<span class="st">'save_path'</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    subprocess.call([<span class="ss">f'gsutil -m cp -n -r </span><span class="sc">{</span>gcs_download_folder<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>save_path<span class="sc">}</span><span class="ss">'</span>], shell<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Skipping existing item: file://../data/outputs/ph/ookla_ph/PHGE71FL_cluster_coords.csv
+Skipping existing item: file://../data/outputs/ph/ookla_ph/ph_2020_2_avg_d_mbps.csv
+Skipping existing item: file://../data/outputs/ph/ookla_ph/ph_2020_2_avg_d_mbps_by_pcode_adm3.geojson
+Skipping existing item: file://../data/outputs/ph/ookla_ph/phl_adminboundaries_candidate_adm3_avg_d_mbps.jpeg
+Skipping existing item: file://../data/outputs/ph/dhs_ph/PHGE71FL_cluster_coords.csv
+Skipping existing item: file://../data/outputs/ph/dhs_ph/PHHR71DT_PHGE71FL_by_cluster.csv
+Skipping existing item: file://../data/outputs/ph/dhs_ph/PHHR71DT_PHGE71FL_by_cluster.geojson
+Skipping existing item: file://../data/outputs/ph/dhs_ph/PHHR71DT_base.csv
+Skipping existing item: file://../data/outputs/ph/dhs_ph/PHHR71DT_raw.csv
+Skipping existing item: file://../data/outputs/ph/viirs_ph/ph_2017_viirs_avg_rad_zonal_stats.csv
+Skipping existing item: file://../data/outputs/ph/viirs_ph/ph_2017_viirs_avg_rad_zonal_stats.gpkg
+Skipping existing item: file://../data/outputs/ph/viirs_ph/qgis_viirs/qgis_rzs_dhs_viirs_ph_2017.geojson
+Skipping existing item: file://../data/outputs/ph/viirs_ph/qgis_viirs/qgis_rzs_dhs_viirs_ph_2017.gpkg
+Skipping existing item: file://../data/outputs/ph/osm_ph/PHGE71FL_cluster_coords.csv
+Skipping existing item: file://../data/outputs/ph/osm_ph/PHGE71FL_cluster_coords_osm_agg.csv</code></pre>
+</div>
+</div>
+</section>
+<section id="load-the-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="load-the-datasets">Load the datasets</h2>
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Filepaths</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">## hardcoded for now</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">## </span><span class="al">TODO</span><span class="co">: Integrate into config once working</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>cluster_coords_labels_filepath <span class="op">=</span> <span class="st">"../data/outputs/ph/dhs_ph/PHGE71FL_cluster_coords.csv"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ookla_filepath <span class="op">=</span> <span class="st">'../data/outputs/ph/ookla_ph/ph_2020_2_avg_d_mbps.csv'</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>viirs_filepath <span class="op">=</span> <span class="st">'../data/outputs/ph/viirs_ph/ph_2017_viirs_avg_rad_zonal_stats.csv'</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>osm_filepath <span class="op">=</span> <span class="st">'../data/outputs/ph/osm_ph/PHGE71FL_cluster_coords_osm_agg.csv'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="process-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="process-datasets">Process datasets</h2>
+<div class="cell" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Config flags</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">## hardcoded for now</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">## </span><span class="al">TODO</span><span class="co">: Integrate into config once working</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>sample<span class="op">=</span><span class="va">True</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>no_samples<span class="op">=</span><span class="dv">60</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>random_sample<span class="op">=</span><span class="va">False</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>random_seed<span class="op">=</span><span class="dv">42</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>save_path <span class="op">=</span> prepare_config[<span class="st">'save_path'</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the cluster centroid df</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>cluster_centroid_df <span class="op">=</span> pd.read_csv(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    os.path.join(cluster_coords_labels_filepath)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># sample clusters</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> prepare_config[<span class="st">"sample"</span>]:</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    no_samples <span class="op">=</span> prepare_config[<span class="st">"no_samples"</span>]</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    seed <span class="op">=</span> prepare_config[<span class="st">"random_seed"</span>]</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> prepare_config[<span class="st">"random_sample"</span>]:</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        cluster_centroid_df <span class="op">=</span> cluster_centroid_df.sample(</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            no_samples, random_state<span class="op">=</span>seed</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        cluster_centroid_df <span class="op">=</span> cluster_centroid_df.head(no_samples)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframes to add</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>data_frames <span class="op">=</span> []</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># first add our cluster df</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>data_frames.append(cluster_centroid_df)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># ookla</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> prepare_config[<span class="st">"use_ookla"</span>]:</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">## </span><span class="al">NOTE</span><span class="co">: Commented out these code cells for building the filepaths</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">## to save time; opting to hardcode instead </span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="co">## </span><span class="al">TODO</span><span class="co">: Redo these cells when we have figured out the desired folder</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="co">## structure</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ookla_feature = "avg_d_mbps"</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># country = prepare_config["country"]</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># year = prepare_config["year"]</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># quarter = prepare_config["quarter"]</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # # from repo dir</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # result_file_path = os.path.join(</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># #     save_path, f"{country}_{year}_{quarter}_{ookla_feature}.csv"</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # )</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # from guild run output</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># result_file_path = f"{country}_{year}_{quarter}_{ookla_feature}.csv"</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    mean_download_by_cluster <span class="op">=</span> pd.read_csv(ookla_filepath)</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># append</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    data_frames.append(mean_download_by_cluster)</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="co"># viirs</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> prepare_config[<span class="st">"use_viirs"</span>]:</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    <span class="co">## </span><span class="al">NOTE</span><span class="co">: Commented out these code cells for building the filepaths</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    <span class="co">## to save time; opting to hardcode instead </span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>    <span class="co">## </span><span class="al">TODO</span><span class="co">: Redo these cells when we have figured out the desired folder</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    <span class="co">## structure</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>    <span class="co"># satellite_result_file_name = f"{cluster_coords_filename}_gee_agg.csv"</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # from repo dir</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># satellite_result_save_path = os.path.join(save_path, satellite_result_file_name)</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># from guild run</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>    <span class="co"># satellite_result_save_path = satellite_result_file_name</span></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>    viirs_result <span class="op">=</span> pd.read_csv(viirs_filepath)</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>    data_frames.append(viirs_result)</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="co"># # osm</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> prepare_config[<span class="st">"use_osm"</span>]:</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>    <span class="co">## </span><span class="al">NOTE</span><span class="co">: Commented out these code cells for building the filepaths</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>    <span class="co">## to save time; opting to hardcode instead </span></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>    <span class="co">## </span><span class="al">TODO</span><span class="co">: Redo these cells when we have figured out the desired folder</span></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>    <span class="co">## structure</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># osm_result_file_name = f"{cluster_coords_filename}_osm_agg.csv"</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # from repo dir</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>    <span class="co"># osm_result_save_path = os.path.join(save_path, osm_result_file_name)</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>    <span class="co"># from guild run</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>    <span class="co"># osm_result_save_path = osm_result_file_name</span></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>    osm_result <span class="op">=</span> pd.read_csv(osm_filepath)</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>    data_frames.append(osm_result)</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>df_merged <span class="op">=</span> <span class="bu">reduce</span>(</span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> left, right: pd.merge(left, right, on<span class="op">=</span>[<span class="st">"DHSID"</span>], how<span class="op">=</span><span class="st">"outer"</span>),</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>    data_frames,</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="co"># filter out redundant columns</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: find edge cases and change comprehension below accordingly</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>relev_columns <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df_merged.columns <span class="cf">if</span> col.split(<span class="st">"_"</span>)[<span class="op">-</span><span class="dv">1</span>] <span class="kw">not</span> <span class="kw">in</span> <span class="st">"xy"</span>]</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>df_merged <span class="op">=</span> df_merged[relev_columns]</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>unnamed_col_labels <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df_merged.columns <span class="cf">if</span> <span class="st">"Unnamed"</span> <span class="kw">in</span> col]</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>df_merged <span class="op">=</span> df_merged.drop(unnamed_col_labels, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>data_labels_filepath <span class="op">=</span> os.path.join(save_path, <span class="st">"data_labels.csv"</span>) </span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>df_merged.to_csv(data_labels_filepath)</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>df_merged.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 1250 entries, 0 to 1249
+Data columns (total 65 columns):
+ #   Column                  Non-Null Count  Dtype  
+---  ------                  --------------  -----  
+ 0   DHSID                   1250 non-null   object 
+ 1   DHSCC                   1250 non-null   object 
+ 2   DHSYEAR                 1250 non-null   float64
+ 3   DHSCLUST                1250 non-null   float64
+ 4   CCFIPS                  0 non-null      float64
+ 5   ADM1FIPS                0 non-null      float64
+ 6   ADM1FIPSNA              0 non-null      float64
+ 7   ADM1SALBNA              0 non-null      float64
+ 8   ADM1SALBCO              0 non-null      float64
+ 9   ADM1DHS                 1250 non-null   float64
+ 10  ADM1NAME                1250 non-null   object 
+ 11  DHSREGCO                1250 non-null   float64
+ 12  DHSREGNA                1250 non-null   object 
+ 13  SOURCE                  1250 non-null   object 
+ 14  URBAN_RURA              1250 non-null   object 
+ 15  LATNUM                  1250 non-null   float64
+ 16  LONGNUM                 1250 non-null   float64
+ 17  ALT_GPS                 1250 non-null   float64
+ 18  ALT_DEM                 1250 non-null   float64
+ 19  DATUM                   1250 non-null   object 
+ 20  geometry                1250 non-null   object 
+ 21  avg_d_mbps              988 non-null    float64
+ 22  avg_rad_min             1178 non-null   float64
+ 23  avg_rad_max             1178 non-null   float64
+ 24  avg_rad_mean            1178 non-null   float64
+ 25  avg_rad_std             1178 non-null   float64
+ 26  avg_rad_median          1178 non-null   float64
+ 27  building_ct             1250 non-null   int64  
+ 28  no_roads                1250 non-null   int64  
+ 29  no_primary_roads        1250 non-null   int64  
+ 30  no_trunk_roads          1250 non-null   int64  
+ 31  marketplace_count       1250 non-null   int64  
+ 32  charging_station_count  1250 non-null   int64  
+ 33  post_box_count          1250 non-null   int64  
+ 34  post_office_count       1250 non-null   int64  
+ 35  pharmacy_count          1250 non-null   int64  
+ 36  hospital_count          1250 non-null   int64  
+ 37  dentist_count           1250 non-null   int64  
+ 38  restaurant_count        1250 non-null   int64  
+ 39  food_court_count        1250 non-null   int64  
+ 40  cafe_count              1250 non-null   int64  
+ 41  fast_food_count         1250 non-null   int64  
+ 42  police_count            1250 non-null   int64  
+ 43  townhall_count          1250 non-null   int64  
+ 44  fire_station_count      1250 non-null   int64  
+ 45  social_facility_count   1250 non-null   int64  
+ 46  courthouse_count        1250 non-null   int64  
+ 47  fuel_count              1250 non-null   int64  
+ 48  bus_station_count       1250 non-null   int64  
+ 49  bank_count              1250 non-null   int64  
+ 50  atm_count               1250 non-null   int64  
+ 51  library_count           1250 non-null   int64  
+ 52  helipad_count           1250 non-null   int64  
+ 53  aerodrome_count         1250 non-null   int64  
+ 54  subway_entrance_count   1250 non-null   int64  
+ 55  hotel_count             1250 non-null   int64  
+ 56  camp_site_count         1250 non-null   int64  
+ 57  city_count              1250 non-null   int64  
+ 58  convenience_count       1250 non-null   int64  
+ 59  supermarket_count       1250 non-null   int64  
+ 60  car_repair_count        1250 non-null   int64  
+ 61  department_store_count  1250 non-null   int64  
+ 62  computer_count          1250 non-null   int64  
+ 63  playground_count        1250 non-null   int64  
+ 64  monument_count          1250 non-null   int64  
+dtypes: float64(19), int64(38), object(8)
+memory usage: 644.5+ KB</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> gsutil cp {data_labels_filepath} {prepare_config[<span class="st">'download_gcs_uri'</span>] <span class="op">+</span> <span class="st">'training_ph/'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Copying file://../data/outputs/ph/data_labels.csv [Content-Type=text/csv]...
+- [1 files][421.9 KiB/421.9 KiB]                                                
+Operation completed over 1 objects/421.9 KiB.                                    </code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>UNICEF AI4D Poverty Mapping Project - Explore DHS Test Data</title>
+<title>UNICEF AI4D Poverty Mapping Project - Explore Process TrainTest on Test Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -140,7 +140,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Explore DHS Test Data</h1>
+      <h1 class="quarto-secondary-nav-title">Explore Process TrainTest on Test Data</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -178,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../test-notebooks/explore_dhs.html" class="sidebar-item-text sidebar-link active">Explore DHS Test Data</a>
+  <a href="../test-notebooks/explore_dhs.html" class="sidebar-item-text sidebar-link">Explore DHS Test Data</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -293,7 +293,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../test-notebooks/explore_process_train_test.html" class="sidebar-item-text sidebar-link">Explore Process TrainTest on Test Data</a>
+  <a href="../test-notebooks/explore_process_train_test.html" class="sidebar-item-text sidebar-link active">Explore Process TrainTest on Test Data</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -341,7 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Explore DHS Test Data</h1>
+<h1 class="title d-none d-lg-block">Explore Process TrainTest on Test Data</h1>
 </div>
 
 
@@ -357,20 +357,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <blockquote class="blockquote">
-<p>exploration of the sample dhs data in <code>test_data/inputs/ph/dhs_ph</code></p>
+<p>exploration of the sample train test data in <code>test_data/inputs/inputs/tl/prepare_train_test_tl</code></p>
 </blockquote>
-<p><strong>Note</strong>: the data for testing/playing around with dhs test data does not contain the actual Philippine data but is only made available for testing</p>
-<div class="cell" data-tags="[]" data-execution_count="25">
+<div class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>reload_ext autoreload</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>autoreload <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shutil</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> povertymapping.dhs_data_proc <span class="im">as</span> pdhs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> povertymapping.process_train_test <span class="im">as</span> ptrain</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="configuration" class="level3">
@@ -384,66 +387,83 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <pre><code>+ 
 +save_path +
-           + &lt;dhs_zip_folder&gt;_raw.csv  # the raw dhs data as a csv file (incl. wealth index)
-           + &lt;dhs_zip_folder&gt;_base.csv # the raw dhs data with renamed column names (incl. weath index)
-           + &lt;dhs_geo_zip_folder&gt;_cluster_coords.csv # the geotagged cluster data
-           + &lt;dhs_zip_folder&gt;_&lt;dhs_geo_zip_folder&gt;_by_cluster.csv # the geotagged dhs cluster wealth index  
-           + &lt;dhs_zip_folder&gt;_&lt;dhs_geo_zip_folder&gt;_by_cluster.geojson  # the geotagged dhs cluster wealth index as a geojson file</code></pre>
+           + data_final.pkl  # the preprocessed dataset for model training 
+           + &lt;dhs_geo_zip_folder&gt;_labels.pkl  # the preprocessed labels for model training
+           + &lt;dhs_geo_zip_folder&gt;_features.pkl  # the preprocessed labels for model training</code></pre>
 <ul>
 <li>The input files are required:</li>
 </ul>
-<pre><code>+
-+repo_path +
-           + data_dir +
-                      + dhs_folder +
-                                   + dhs_zip_folder +
-                                                    + dhs_file  # name of the '.DTA' stata file containing DHS data
-                                   + dhs_geo_zip_folder +
-                                                        + dhs_geo_file # name of the '.shp' shape file containing the geotagged DHSCLUST ids</code></pre>
-<div class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dhs_config <span class="op">=</span> <span class="bu">dict</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        save_path<span class="op">=</span><span class="st">"../test_data/test_outputs/dhs"</span>, <span class="co"># where the output datasets will be written</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        repo_path<span class="op">=</span><span class="st">"../test_data"</span>, <span class="co"># the base path of the input files</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        data_dir<span class="op">=</span><span class="st">"inputs"</span>, <span class="co"># the folder</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        dhs_folder<span class="op">=</span><span class="st">"ph"</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        dhs_zip_folder<span class="op">=</span><span class="st">"dhs_ph"</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        dhs_file<span class="op">=</span><span class="st">"ph.DTA"</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        country<span class="op">=</span><span class="st">"ph"</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        dhs_geo_zip_folder<span class="op">=</span><span class="st">"dhs_ph"</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        dhs_geo_file<span class="op">=</span><span class="st">"ph_gps.shp"</span>,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># you can also create a yaml file or json file</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># and load it in.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>+save_path +
+           + &lt;dhs_geo_zip_folder&gt;_cluster_coords.csv # the geotagged cluster data 
+           + &lt;dhs_geo_zip_folder&gt;_cluster_coords_osm_agg.csv # the aggregated osm data
+           + &lt;ntl_path&gt;  # the aggregated night lights data.
+               </code></pre>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="bu">dict</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        save_path<span class="op">=</span><span class="st">"../test_data/test_outputs/tl"</span>, <span class="co"># output directory</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        dhs_geo_zip_folder<span class="op">=</span><span class="st">"TLGE71FL"</span>, <span class="co"># folder holding DHS shape files</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        use_ntl<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        use_filt_clt<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        multiprocess<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        ntl_path <span class="op">=</span> <span class="st">"TLGE71FL_cluster_coords_gee_agg.csv"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        sample<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        no_samples<span class="op">=</span><span class="dv">60</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        random_sample<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        random_seed<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"4683"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        clust_rad<span class="op">=</span><span class="dv">2000</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># you can also create a yaml file or json file</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># and load it in.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Run the <code>process_dhs_data</code>, passing your config object</p>
-<div class="cell" data-execution_count="31">
+<p>Run the <code>process_ookla_data</code>, passing your config object</p>
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uncomment and run the following to clear out the preprocessed files </span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm <span class="op">-</span>rf {dhs_config[<span class="st">'save_path'</span>]}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># !rm -rf {config['save_path']}</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># !mkdir -p {config['save_path']}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pdhs.process_dhs_data(dhs_config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>save_path <span class="op">=</span> config[<span class="st">'save_path'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># shutil.rmtree(save_path, ignore_errors=True)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># #</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># os.makedirs(Path(save_path))</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># # copy dhs preproc data from output of tl process_dhs_data - TLGE71FL_cluster_coords.csv to save path</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># shutil.copy("../data/outputs/dhs_tl/TLGE71FL_cluster_coords.csv",(Path(save_path)/"TLGE71FL_cluster_coords.csv").as_posix())</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># shutil.copy("../data/outputs/osm_tl/TLGE71FL_cluster_coords_osm_agg.csv",(Path(save_path)/"TLGE71FL_cluster_coords_osm_agg.csv").as_posix())</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># shutil.copy("../data/outputs/ntl_tl/TLGE71FL_cluster_coords_gee_agg.csv",(Path(save_path)/"TLGE71FL_cluster_coords_gee_agg.csv").as_posix())</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># shutil.copy("../test_data/inputs/tl/prepare_train_tl/data_labels.csv",(Path(save_path)/"data_labels.csv").as_posix())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !cp ../data/outputs/dhs_tl/{ookla_config['dhs_geo_zip_folder']}_cluster_coords.csv {ookla_config['save_path']}/.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ptrain.process_train_test(config)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Data Dimensions: (1000, 15)
-Data Dimensions: (679, 1)
-CPU times: user 238 ms, sys: 0 ns, total: 238 ms
-Wall time: 237 ms</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/butchtm/work/povmap/unicef-ai4d-poverty-mapping/env/lib/python3.9/site-packages/geopandas/io/file.py:362: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
-  pd.Int64Index,</code></pre>
+<pre><code>CPU times: user 2 µs, sys: 1 µs, total: 3 µs
+Wall time: 7.39 µs</code></pre>
 </div>
 </div>
 <p>Check that the preprocessed files have been created</p>
-<div class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dhs_df <span class="op">=</span> pd.read_csv(Path(dhs_config[<span class="st">'save_path'</span>])<span class="op">/</span><span class="st">'dhs_ph_base.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> gpd.read_file(Path(dhs_config[<span class="st">'save_path'</span>])<span class="op">/</span><span class="st">'dhs_ph_dhs_ph_by_cluster.geojson'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>final_df <span class="op">=</span> pd.read_pickle(Path(config[<span class="st">'save_path'</span>])<span class="op">/</span><span class="st">'data_final.pkl'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gdf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="35">
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(final_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>455</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>final_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
 
 <div>
 
@@ -451,87 +471,186 @@ Wall time: 237 ms</code></pre>
   <thead>
     <tr>
       <th></th>
-      <th>DHSCLUST</th>
-      <th>Wealth Index</th>
-      <th>Unnamed_ 0</th>
       <th>DHSID</th>
-      <th>DHSCC</th>
-      <th>DHSYEAR</th>
-      <th>LATNUM</th>
-      <th>LONGNUM</th>
-      <th>geometry</th>
+      <th>Wealth Index</th>
+      <th>sur_refl_b01_min</th>
+      <th>avg_rad_kurtosis</th>
+      <th>sur_refl_b02_var</th>
+      <th>Unnamed: 0</th>
+      <th>avg_rad_min</th>
+      <th>sur_refl_b02_mean</th>
+      <th>sur_refl_b01_mean</th>
+      <th>sur_refl_b01_var</th>
+      <th>...</th>
+      <th>camp_site_count</th>
+      <th>city_count</th>
+      <th>convenience_count</th>
+      <th>supermarket_count</th>
+      <th>car_repair_count</th>
+      <th>department_store_count</th>
+      <th>computer_count</th>
+      <th>playground_count</th>
+      <th>monument_count</th>
+      <th>avg_d_mbps</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>3</td>
-      <td>-232188.0</td>
-      <td>357</td>
-      <td>PH20XX003</td>
-      <td>PH</td>
+      <td>TL201600000001</td>
+      <td>32166.600000</td>
+      <td>320</td>
+      <td>1.920641</td>
+      <td>1.447538e+06</td>
       <td>0</td>
-      <td>0.609945</td>
-      <td>0.350830</td>
-      <td>POINT (0.35083 0.60995)</td>
+      <td>0.000000</td>
+      <td>3488.282958</td>
+      <td>1675.051447</td>
+      <td>2.825906e+06</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>4</td>
-      <td>228860.0</td>
-      <td>868</td>
-      <td>PH20XX004</td>
-      <td>PH</td>
+      <td>TL201600000002</td>
+      <td>-34063.923077</td>
+      <td>280</td>
+      <td>1.982492</td>
+      <td>1.821108e+06</td>
+      <td>1</td>
+      <td>-0.062518</td>
+      <td>3373.077170</td>
+      <td>1765.601286</td>
+      <td>3.146018e+06</td>
+      <td>...</td>
       <td>0</td>
-      <td>0.363843</td>
-      <td>0.281563</td>
-      <td>POINT (0.28156 0.36384)</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>5</td>
-      <td>157620.0</td>
-      <td>436</td>
-      <td>PH20XX005</td>
-      <td>PH</td>
+      <td>TL201600000003</td>
+      <td>39230.590909</td>
+      <td>316</td>
+      <td>0.757446</td>
+      <td>1.588555e+06</td>
+      <td>2</td>
+      <td>0.000000</td>
+      <td>3297.003215</td>
+      <td>1680.636656</td>
+      <td>2.779579e+06</td>
+      <td>...</td>
       <td>0</td>
-      <td>0.715438</td>
-      <td>0.145014</td>
-      <td>POINT (0.14501 0.71544)</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>6</td>
-      <td>40308.5</td>
-      <td>492</td>
-      <td>PH20XX006</td>
-      <td>PH</td>
+      <td>TL201600000004</td>
+      <td>-82140.227273</td>
+      <td>209</td>
+      <td>0.531066</td>
+      <td>2.128854e+06</td>
+      <td>3</td>
+      <td>-0.089588</td>
+      <td>3774.241158</td>
+      <td>2036.620579</td>
+      <td>4.333556e+06</td>
+      <td>...</td>
       <td>0</td>
-      <td>0.758501</td>
-      <td>0.628373</td>
-      <td>POINT (0.62837 0.75850)</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>7</td>
-      <td>-37595.5</td>
-      <td>526</td>
-      <td>PH20XX007</td>
-      <td>PH</td>
+      <td>TL201600000005</td>
+      <td>-56203.423077</td>
+      <td>220</td>
+      <td>-1.021963</td>
+      <td>1.713456e+06</td>
+      <td>4</td>
+      <td>-0.019353</td>
+      <td>3708.511254</td>
+      <td>1824.990354</td>
+      <td>3.674980e+06</td>
+      <td>...</td>
       <td>0</td>
-      <td>0.095306</td>
-      <td>0.661080</td>
-      <td>POINT (0.66108 0.09531)</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
     </tr>
   </tbody>
 </table>
+<p>5 rows × 60 columns</p>
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(gdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="37">
-<pre><code>679</code></pre>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data_labels_df <span class="op">=</span> pd.read_csv(Path(save_path)<span class="op">/</span><span class="st">'data_labels.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data_labels_df.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>Index(['Unnamed: 0', 'DHSCLUST', 'Wealth Index', 'DHSID', 'avg_d_mbps',
+       'avg_rad_min', 'avg_rad_max', 'avg_rad_mean', 'avg_rad_median',
+       'avg_rad_kurtosis', 'avg_rad_var', 'sur_refl_b01_min',
+       'sur_refl_b01_max', 'sur_refl_b01_mean', 'sur_refl_b01_median',
+       'sur_refl_b01_kurtosis', 'sur_refl_b01_var', 'sur_refl_b02_min',
+       'sur_refl_b02_max', 'sur_refl_b02_mean', 'sur_refl_b02_median',
+       'sur_refl_b02_kurtosis', 'sur_refl_b02_var', 'ST_B6_min', 'ST_B6_max',
+       'ST_B6_mean', 'ST_B6_median', 'ST_B6_kurtosis', 'ST_B6_var',
+       'ST_ATRAN_min', 'ST_ATRAN_max', 'ST_ATRAN_mean', 'ST_ATRAN_median',
+       'ST_ATRAN_kurtosis', 'ST_ATRAN_var', 'ST_QA_min', 'ST_QA_max',
+       'ST_QA_mean', 'ST_QA_median', 'ST_QA_kurtosis', 'ST_QA_var',
+       'longitude', 'latitude', 'building_ct', 'no_roads', 'no_primary_roads',
+       'no_trunk_roads', 'marketplace_count', 'charging_station_count',
+       'post_box_count', 'post_office_count', 'pharmacy_count',
+       'hospital_count', 'dentist_count', 'restaurant_count',
+       'food_court_count', 'cafe_count', 'fast_food_count', 'police_count',
+       'townhall_count', 'fire_station_count', 'social_facility_count',
+       'courthouse_count', 'fuel_count', 'bus_station_count', 'bank_count',
+       'atm_count', 'library_count', 'helipad_count', 'aerodrome_count',
+       'subway_entrance_count', 'hotel_count', 'camp_site_count', 'city_count',
+       'convenience_count', 'supermarket_count', 'car_repair_count',
+       'department_store_count', 'computer_count', 'playground_count',
+       'monument_count'],
+      dtype='object')</code></pre>
 </div>
 </div>
 
