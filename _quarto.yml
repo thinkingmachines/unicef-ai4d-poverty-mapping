@@ -30,6 +30,36 @@ website:
           - test-notebooks/explore_mm_ookla.ipynb
           - test-notebooks/explore_ph_ookla.ipynb
           - test-notebooks/explore_tl_ookla.ipynb
+      - section: "Data Preparation (OSM)"
+        contents:
+          - test-notebooks/explore_osm.ipynb
+          - test-notebooks/explore_ph_osm.ipynb
+      - section: "Data Preparation (Night Lights)"
+        contents:
+          - test-notebooks/explore_ph_viirs.ipynb
+      - section: "Data Preparation (Training Data Prep)"
+        contents:
+          - test-notebooks/ph_prepare_train.ipynb
+          - test-notebooks/explore_process_train_test.ipynb
+          - test-notebooks/explore_ph_process_train_test.ipynb
+      - section: "Model Training and Evaluation"
+        contents:
+          - test-notebooks/ph_train.ipynb
+          - test-notebooks/ph_evaluate.ipynb
+      - section: "Wiki Notes"
+        contents:
+          - href: wiki/index.md
+            text: "Unicef AI4D Poverty Mapping Wiki"
+          - href: wiki/dhs.md
+            text: "DHS"
+          - href: wiki/osm.md
+            text: "OSM"
+          - href: wiki/ookla.md
+            text: "Ookla"
+
+      
+
+
 
 format:
   html:
