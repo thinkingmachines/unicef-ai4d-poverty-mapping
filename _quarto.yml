@@ -46,18 +46,6 @@ website:
         contents:
           - test-notebooks/ph_train.ipynb
           - test-notebooks/ph_evaluate.ipynb
-      - section: "Wiki Notes"
-        contents:
-          - href: wiki/index.md
-            text: "Unicef AI4D Poverty Mapping Wiki"
-          - href: wiki/dhs.md
-            text: "DHS"
-          - href: wiki/osm.md
-            text: "OSM"
-          - href: wiki/ookla.md
-            text: "Ookla"
-
-      
 
 
 
