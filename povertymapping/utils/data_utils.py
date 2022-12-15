@@ -978,11 +978,12 @@ def plot_feature_distribution(
     plt.clf()
 
 
-def get_missing_data_dist(df, null_val=0, start_idx=3, end_idx=-1):
+def get_missing_data_dist(df, null_val=0, skip_columns=["DHSID","longitude","latitude"]):
     """Find distribution of features with null or missing values"""
     missing_data = {}
     complete_cols = []
-    for col_name in df.columns[start_idx:end_idx]:
+    test_columns = list(set(list(df.columns.values)) - set(skip_columns))
+    for col_name in test_columns:
         if null_val == 0:
             null_count = (df[col_name] == null_val).sum()
         elif null_val is None:
