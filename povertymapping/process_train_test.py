@@ -90,12 +90,12 @@ def process_train_test(config):
     # data_dir = os.path.join(repo_dir, config["data_dir"], config["hdx_folder"])
 
     # boundary_file_path = os.path.join(data_dir, config["boundary_file"])
-    crs = config["crs"]
 
     # ph_boundaries = gp.read_file(boundary_file_path).to_crs(crs)
 
     # restrict to clusters used in 2017 paper
     if config["use_filt_clt"]:
+        crs = config["crs"]
 
         hrsl_path = config["filt_filename"]
         hrsl_geo = get_geoframe(hrsl_path)
