@@ -28,12 +28,7 @@ def get_geoframe(hrsl_path):
     return hrsl_geo
 
 
-# if __name__ == "__main__":
 def process_train_test(config):
-    # read in config
-    # config = yaml.safe_load(open("config.yml"))
-    # country = config["osm_country"]
-    # create output directory
     save_path = config["save_path"]
     if not os.path.isdir(save_path):
         os.makedirs(save_path)
@@ -65,9 +60,6 @@ def process_train_test(config):
 
     dhs_geo_zip_folder = config["dhs_geo_zip_folder"]
     osm_path = f"{dhs_geo_zip_folder}_cluster_coords_osm_agg.csv"
-    # from guild run
-    # osm_df = pd.read_csv(osm_path)
-    # # from repo
     osm_df = pd.read_csv(os.path.join(save_path, osm_path))
 
     if config["use_ntl"]:
@@ -75,23 +67,12 @@ def process_train_test(config):
             ntl_path = config["ntl_path"]
         else:
             ntl_path = f"{dhs_geo_zip_folder}_cluster_coords_gee_agg.csv"
-        # from guild run
-        # gee_df = pd.read_csv(ntl_path)
-        # # from repo
         gee_df = pd.read_csv(os.path.join(save_path, ntl_path))
 
         _, complete_gee_feats = get_missing_data_dist(gee_df, null_val=None)
 
     # exclude rows with null wealth index labels
     data_wo_null = data[~data["Wealth Index"].isna()]
-
-    # extract boundary data
-    # repo_dir = config["repo_dir"]
-    # data_dir = os.path.join(repo_dir, config["data_dir"], config["hdx_folder"])
-
-    # boundary_file_path = os.path.join(data_dir, config["boundary_file"])
-
-    # ph_boundaries = gp.read_file(boundary_file_path).to_crs(crs)
 
     # restrict to clusters used in 2017 paper
     if config["use_filt_clt"]:
@@ -125,44 +106,10 @@ def process_train_test(config):
         DHSCLUST_to_exclude = geometry_and_mean_cluster[
             geometry_and_mean_cluster[pop_col_names[0]] < thresh
         ]["DHSCLUST"]
-        # filtered_DHSCLUST = list(
-        #     set(cluster_centroid_df.DHSCLUST) - set(DHSCLUST_to_exclude)
-        # )
-
-        # geometry_and_mean_cluster_geo = gp.GeoDataFrame(
-        #     pd.merge(
-        #         geometry_and_mean_cluster,
-        #         geometry_and_mean[["DHSID", "geometry"]],
-        #         how="inner",
-        #     ),
-        #     geometry="geometry",
-        # )
-
-        # for visualization
-        # feature = "population_2015"
-        # features_list = [feature]
-        # to_map_data_left = compute_feat_by_adm(
-        #     ph_boundaries, geometry_and_mean_cluster_geo, features_list, config
-        # )
 
         data_wo_null = data_wo_null[~data_wo_null.DHSCLUST.isin(DHSCLUST_to_exclude)]
 
-    # else:
-    #     # the following csv only applies to ph
-    #     if country == "ph":
-    #         # osm_roads_path = "/home/butchtm/work/povmap/povmap-int/output/osm_roads.csv"  # 'osm_roads.csv'
-    #         osm_roads_path = os.path.join(
-    #             repo_dir, "output/osm_roads.csv"
-    #         )  # 'osm_roads.csv'
-    #         osm_roads = pd.read_csv(osm_roads_path)
-    #         # check with clusters ids in osm_roads
-    #         data_wo_null = data_wo_null[data_wo_null.DHSCLUST.isin(osm_roads.DHSCLUST)]
-    #     else:
-    #         # perform some operation on data_wo_null that doesn't require population estimate data
-    #         # e.g. select a specific demographic or region
-    #         data_wo_null = data_wo_null  # TODO: implement filtering by region
 
-    # print("Filtered!")
 
     # restrict to subset of columns for train
     columns = []
@@ -174,8 +121,6 @@ def process_train_test(config):
     # features
     if config["use_ntl"]:
         features.extend(complete_gee_feats)
-    # # add binned radiance feature
-    # features.extend(quartile_features)
 
     osm_features = osm_df.columns[3:-1]
     features.extend(osm_features)
