@@ -7,28 +7,30 @@ from tqdm import tqdm
 from shapely.geometry import Polygon
 # from matplotlib.colors import colorConverter
 import geowrangler.raster_zonal_stats as rzs
-from haversine import Direction, inverse_haversine
+from haversine import Direction, inverse_haversine, Unit
 import os
 # import sys
 
 
 from pathlib import Path
 
-def create_polygon_bbox(centroid_lat, centroid_lon, distance_km):
+def create_polygon_bbox(centroid_lat, centroid_lon, distance_m):
     """Return bbox edge locations using haversine distance function
     The output is specified as (west, south, east, north)
     distance_km specifies the distance of each edge from the centroid
     """
     centroid = (centroid_lat, centroid_lon)
     top_left = inverse_haversine(
-        inverse_haversine(centroid, distance_km, Direction.WEST),
-        distance_km,
+        inverse_haversine(centroid, distance_m, Direction.WEST, Unit.METERS),
+        distance_m,
         Direction.NORTH,
+        Unit.METERS
     )
     bottom_right = inverse_haversine(
-        inverse_haversine(centroid, distance_km, Direction.EAST),
-        distance_km,
+        inverse_haversine(centroid, distance_m, Direction.EAST, Unit.METERS),
+        distance_m,
         Direction.SOUTH,
+        Unit.METERS
     )
 
     north, west = top_left
@@ -44,7 +46,7 @@ def create_polygon_bbox(centroid_lat, centroid_lon, distance_km):
     return bbox
 
 
-def add_bbox_geom(cluster_centroids_gdf, distance_km, output_col='bbox'):
+def add_bbox_geom(cluster_centroids_gdf, distance_m, output_col='bbox'):
     """Add bbox geometry to dhs cluster data (i.e. 6th column)
     Args:
         cluster_centroid_gdf (gpd.GeoDataFrame): DHS data frame
@@ -62,7 +64,7 @@ def add_bbox_geom(cluster_centroids_gdf, distance_km, output_col='bbox'):
     print("Adding buffer geometry...")
     for centroid in tqdm(centroids):
         centroid_lat, centroid_lon = centroid
-        bbox = create_polygon_bbox(centroid_lat, centroid_lon, distance_km)
+        bbox = create_polygon_bbox(centroid_lat, centroid_lon, distance_m)
         
         bbox_geometry.append(bbox)
     cluster_centroids_gdf[output_col] = bbox_geometry
@@ -135,8 +137,8 @@ def process_viirs_data(config):
         cluster_centroids_df,
         geometry=gpd.GeoSeries.from_wkt(cluster_centroids_df["geometry"], crs=f'epsg:{crs}')
     )
-
-    cluster_bbox_gdf = add_bbox_geom(cluster_centroids_gdf, 2)
+    bbox_size = config['bbox_size'] # bbox size in meters (distance from box center to side) 
+    cluster_bbox_gdf = add_bbox_geom(cluster_centroids_gdf, bbox_size)
     cluster_bbox_gdf['geometry'] = cluster_bbox_gdf['bbox']
 
     # cluster_bbox_gdf.plot()
@@ -151,9 +153,9 @@ def process_viirs_data(config):
         ),
         extra_args=dict(band_num=1, nodata=-999),
     )
-
-    output_gpkg_path = Path(config['save_path'])/f'{config["ntl_path"]}.gpkg'
-    output_csv_path = Path(config['save_path'])/f'{config["ntl_path"]}.csv'
+    save_name = f'{config["country"]}_{config["year"]}_viirs_{config["viirs_feature"]}_zonal_stats'
+    output_gpkg_path = Path(config['save_path'])/f'{save_name}.gpkg'
+    output_csv_path = Path(config['save_path'])/f'{save_name}.csv'
 
     ## GPKG
     output_gdf = cluster_zonal_stats_gdf.copy()
