@@ -1,7 +1,9 @@
 black
+branca
 earthengine-api
 fastcore
 fiona
+folium
 gdal
 geopandas
 geowrangler
@@ -10,6 +12,7 @@ jupyterlab
 libclang
 lightgbm
 loguru
+mapclassify
 matplotlib
 numpy
 osmium
