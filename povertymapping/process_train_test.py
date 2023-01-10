@@ -2,6 +2,7 @@ import os
 
 import geopandas as gp
 import pandas as pd
+
 # import yaml
 
 from povertymapping.utils.data_utils import (
@@ -68,8 +69,10 @@ def process_train_test(config):
         else:
             ntl_path = f"{dhs_geo_zip_folder}_cluster_coords_gee_agg.csv"
         gee_df = pd.read_csv(os.path.join(save_path, ntl_path))
+        display(gee_df)
 
-        _, complete_gee_feats = get_missing_data_dist(gee_df, null_val=None)
+        # _, complete_gee_feats = get_missing_data_dist(gee_df, null_val=None)
+        gee_feats = [x for x in gee_df.columns if "avg_rad" in x]
 
     # exclude rows with null wealth index labels
     data_wo_null = data[~data["Wealth Index"].isna()]
@@ -109,8 +112,6 @@ def process_train_test(config):
 
         data_wo_null = data_wo_null[~data_wo_null.DHSCLUST.isin(DHSCLUST_to_exclude)]
 
-
-
     # restrict to subset of columns for train
     columns = []
     features = []
@@ -120,7 +121,8 @@ def process_train_test(config):
     columns.append("Wealth Index")
     # features
     if config["use_ntl"]:
-        features.extend(complete_gee_feats)
+        # features.extend(complete_gee_feats)
+        features.extend(gee_feats)
 
     osm_features = osm_df.columns[3:-1]
     features.extend(osm_features)
