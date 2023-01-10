@@ -34,3 +34,5 @@ tune-sklearn
 typed-ast
 xgboost
 adapt
+pyarrow
+fastparquet
