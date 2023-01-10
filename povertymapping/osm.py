@@ -10,25 +10,131 @@ from geowrangler import vector_zonal_stats as vzs
 from geowrangler.datasets import geofabrik
 from loguru import logger
 
-from povertymapping import settings
+DEFAULT_POI_TYPES = [
+    "atm",
+    "bank",
+    "bus_station",
+    "cafe",
+    "charging_station",
+    "courthouse",
+    "dentist",
+    "fast_food",
+    "fire_station",
+    "food_court",
+    "fuel",
+    "hospital",
+    "library",
+    "marketplace",
+    "pharmacy",
+    "police",
+    "post_box",
+    "post_office",
+    "restaurant",
+    "social_facility",
+    "supermarket",
+    "townhall",
+]
 
-DEFAULT_POI_TYPES = ["restaurant", "school", "bank", "supermarket", "mall", "atm"]
+
+def add_osm_poi_features(
+    aoi,
+    country,
+    osm_data_manager,
+    use_cache=True,
+    poi_types=DEFAULT_POI_TYPES,
+    metric_crs="epsg:3857",
+    inplace=False,
+    nearest_poi_max_distance=10000,
+):
+    """Generates features for the AOI based on OSM POI data (POIs, roads, etc)."""
+
+    # Load-in the OSM POIs data
+    osm = osm_data_manager.load_pois(country, use_cache=use_cache)
+
+    # Create a copy of the AOI gdf if not inplace to avoid modifying the original gdf
+    if not inplace:
+        aoi = aoi.copy()
+
+    # GeoWrangler: Count number of all POIs per tile
+    aoi = vzs.create_zonal_stats(
+        aoi,
+        osm,
+        overlap_method="intersects",
+        aggregations=[{"func": "count", "output": "poi_count", "fillna": True}],
+    )
+
+    # Count specific aoi types
+    for poi_type in poi_types:
+        # GeoWrangler: Count with vector zonal stats
+        aoi = vzs.create_zonal_stats(
+            aoi,
+            osm[osm["fclass"] == poi_type],
+            overlap_method="intersects",
+            aggregations=[
+                {"func": "count", "output": f"{poi_type}_count", "fillna": True}
+            ],
+        )
+
+        # GeoWrangler: Distance with distance zonal stats
+        col_name = f"{poi_type}_nearest"
+        aoi = dzs.create_distance_zonal_stats(
+            aoi.to_crs(metric_crs),
+            osm[osm["fclass"] == poi_type].to_crs(metric_crs),
+            max_distance=nearest_poi_max_distance,
+            aggregations=[],
+            distance_col=col_name,
+        ).to_crs("epsg:4326")
+
+        # If no POI was found within the distance limit, set the distance to the max distance
+        aoi[col_name] = aoi[col_name].fillna(value=nearest_poi_max_distance)
+
+    return aoi
+
+
+def add_osm_road_features(
+    aoi, country, osm_data_manager, use_cache=True, inplace=False
+):
+    """Generates features for the AOI based on OSM road data"""
+    roads_gdf = osm_data_manager.load_roads(country, use_cache=use_cache)
+    assert aoi.crs == roads_gdf.crs
+
+    if not inplace:
+        aoi = aoi.copy()
+
+    # Create a temporary ID column to use for our processing
+    # Assign simple integer values
+    temp_id = str(uuid.uuid4())
+    aoi[temp_id] = list(range(len(aoi)))
+
+    # Get intersections between the AOIs and the roads
+    joined = gpd.sjoin(aoi, roads_gdf, how="inner", predicate="intersects")
+
+    # Count the number of roads that intersected
+    road_stats_df = joined.groupby(temp_id)["index_right"].agg(road_count="count")
+    # Join back to the original AOI gdf
+    aoi = aoi.join(road_stats_df, how="left", on=temp_id)
+
+    # There might be AOIs that did not intersect with any roads at all
+    aoi["road_count"] = aoi["road_count"].fillna(0)
+
+    # Remove the temporary ID column
+    del aoi[temp_id]
+
+    return aoi
 
 
 class OsmDataManager:
-    """An instance of this class provides convenience functoins for loading and caching OSM data"""
+    """An instance of this class provides convenience functions for loading and caching OSM data"""
 
     DEFAULT_CACHE_DIR = "~/.geowrangler/osm"
 
     def __init__(self, cache_dir=DEFAULT_CACHE_DIR):
+        self.cache_dir = cache_dir
         self.pois_cache = {}
         self.roads_cache = {}
-        self.cache_dir = cache_dir
 
     def load_pois(self, country, use_cache=True):
         # Get from RAM cache if already available
-
-        logger.debug(f"Contents of POIs cache: {list(self.roads_cache.keys())}")
         if country in self.pois_cache:
             logger.debug(f"OSM POIs for {country} found in cache.")
             return self.pois_cache[country]
@@ -48,7 +154,6 @@ class OsmDataManager:
 
     def load_roads(self, country, use_cache=True):
         # Get from RAM cache if already available
-        logger.debug(f"Contents of roads cache: {list(self.roads_cache.keys())}")
         if country in self.roads_cache:
             logger.debug(f"OSM Roads for {country} found in cache.")
             return self.roads_cache[country]
@@ -110,88 +215,3 @@ def download_osm_country_data(country, cache_dir, use_cache=True):
         )
 
     return country_cache_dir
-
-
-def add_osm_poi_features(
-    aoi,
-    country,
-    osm_data_manager,
-    use_cache=True,
-    poi_types=DEFAULT_POI_TYPES,
-    metric_crs="epsg:3123",
-    inplace=False,
-):
-    """Generates features for the AOI based on OSM POI data (POIs, roads, etc)."""
-
-    # Load-in the OSM POIs data
-    osm = osm_data_manager.load_pois(country, use_cache=use_cache)
-
-    # Create a copy of the AOI gdf if not inplace to avoid modifying the original gdf
-    if not inplace:
-        aoi = aoi.copy()
-
-    # GeoWrangler: Count number of all POIs per tile
-    aoi = vzs.create_zonal_stats(
-        aoi,
-        osm,
-        overlap_method="intersects",
-        aggregations=[{"func": "count", "output": "poi_count", "fillna": True}],
-    )
-
-    # Count specific aoi types
-    for poi_type in poi_types:
-        # GeoWrangler: Count with vector zonal stats
-        aoi = vzs.create_zonal_stats(
-            aoi,
-            osm[osm["fclass"] == poi_type],
-            overlap_method="intersects",
-            aggregations=[
-                {"func": "count", "output": f"{poi_type}_count", "fillna": True}
-            ],
-        )
-
-        # GeoWrangler: Distance with distance zonal stats
-        col_name = f"{poi_type}_nearest"
-        aoi = dzs.create_distance_zonal_stats(
-            aoi.to_crs(metric_crs),
-            osm[osm["fclass"] == poi_type].to_crs(metric_crs),
-            max_distance=10_000,
-            aggregations=[],
-            distance_col=col_name,
-        ).to_crs("epsg:4326")
-
-        # If no POI was found within the distance limit, set the distance to a really high value
-        aoi[col_name] = aoi[col_name].fillna(value=999999)
-
-    return aoi
-
-
-def add_osm_road_features(
-    aoi, country, osm_data_manager, use_cache=True, inplace=False
-):
-    roads_gdf = osm_data_manager.load_roads(country, use_cache=use_cache)
-    assert aoi.crs == roads_gdf.crs
-
-    if not inplace:
-        aoi = aoi.copy()
-
-    # Create a temporary ID column to use for our processing
-    # Assign simple integer values
-    temp_id = str(uuid.uuid4())
-    aoi[temp_id] = list(range(len(aoi)))
-
-    # Get intersections between the AOIs and the roads
-    joined = gpd.sjoin(aoi, roads_gdf, how="inner", predicate="intersects")
-
-    # Count the number of roads that intersected
-    road_stats_df = joined.groupby(temp_id)["index_right"].agg(road_count="count")
-    # Join back to the original AOI gdf
-    aoi = aoi.join(road_stats_df, how="left", on=temp_id)
-
-    # There might be AOIs that did not intersect with any roads at all
-    aoi["road_count"] = aoi["road_count"].fillna(0)
-
-    # Remove the temporary ID column
-    del aoi[temp_id]
-
-    return aoi
