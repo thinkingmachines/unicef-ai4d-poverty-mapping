@@ -1,15 +1,11 @@
 import os
 import shutil
-import uuid
 from pathlib import Path
-from zipfile import ZipFile
 import hashlib
-import json
 import numpy as np
 
 import pandas as pd
 import geopandas as gpd
-from geowrangler import distance_zonal_stats as dzs
 from geowrangler import grids
 import geowrangler.area_zonal_stats as azs
 from geowrangler.datasets.ookla import download_ookla_file, OoklaFile, list_ookla_files
@@ -17,8 +13,6 @@ from geowrangler.datasets.ookla import download_ookla_file, OoklaFile, list_ookl
 from loguru import logger
 
 from povertymapping import settings
-
-DEFAULT_POI_TYPES = ["restaurant", "school", "bank", "supermarket", "mall", "atm"]
 
 
 def get_OoklaFile(filename):
@@ -40,6 +34,17 @@ class OoklaDataManager:
     def __init__(self, cache_dir=DEFAULT_CACHE_DIR):
         self.data_cache = {}
         self.cache_dir = cache_dir
+        self.processed_cache_dir = os.path.join(self.cache_dir, "ookla/processed/")
+        Path(self.processed_cache_dir).mkdir(parents=True, exist_ok=True)
+
+    def reinitialize_processed_cache(self):
+        "Reinitialize processed_cache_dir to start over from scratch."
+        shutil.rmtree(self.processed_cache_dir, ignore_errors=True)
+        response = Path(self.processed_cache_dir).mkdir(parents=True, exist_ok=True)
+        logger.info(
+            f"{self.processed_cache_dir} reintialized. All cached processed data in this folder has been deleted."
+        )
+        return response
 
     def load_type_year_data(
         self, aoi, type_, year, use_cache=True, return_geometry=False
@@ -52,6 +57,7 @@ class OoklaDataManager:
             np.array2string(aoi_bounds),
             str(type_),
             str(year),
+            str(return_geometry),
         )
         m = hashlib.md5()
         for item in data_tuple:
@@ -66,7 +72,32 @@ class OoklaDataManager:
             )
             return self.data_cache[data_key]
 
-        ## TODO: Check if file exists in filesystem
+        ## Get cached data from filesystem if saved
+        cached_file_path = (
+            os.path.join(self.processed_cache_dir, f"{data_key}.geojson")
+            if return_geometry
+            else os.path.join(self.processed_cache_dir, f"{data_key}.csv")
+        )
+
+        cached_data_available = os.path.exists(cached_file_path)
+        logger.info(
+            f"Cached data available at {cached_file_path}? {cached_data_available}"
+        )
+
+        if cached_data_available:
+            logger.debug(
+                f"Processed Ookla data for aoi, {type_} {year} (key: {data_key}) found in filesystem. Loading in cache."
+            )
+            if not return_geometry:
+                df = pd.read_csv(cached_file_path)
+                self.data_cache[data_key] = df
+                return df
+            else:
+                gdf = gpd.read_file(cached_file_path, driver="GeoJSON")
+                self.data_cache[data_key] = gdf
+                return gdf
+
+        logger.debug("No cached data found. Processing Ookla data from scratch.")
 
         # Otherwise, load from raw file and add to RAM cache
         type_year_cache_dir = download_ookla_year_data(
@@ -111,11 +142,13 @@ class OoklaDataManager:
         #       by quadkey.
         if not return_geometry:
             self.data_cache[data_key] = df
+            df.to_csv(cached_file_path, index=False)
             return df
         else:
             logger.debug(f"Converting Ookla data into geodataframe")
             gdf = gpd.GeoDataFrame(df, geometry=gpd.GeoSeries.from_wkt(df["tile"]))
             self.data_cache[data_key] = gdf
+            gdf.to_file(cached_file_path, driver="GeoJSON")
             return gdf
 
 
