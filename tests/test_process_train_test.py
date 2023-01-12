@@ -13,7 +13,7 @@ def process_train_test_config():
         use_ntl=True,
         use_filt_clt=False,
         multiprocess=False,
-        ntl_path = "TLGE71FL_cluster_coords_gee_agg.csv",
+        ntl_path = "TLGE71FL_cluster_coords_gee_agg",
         sample=False,
         no_samples=60,
         random_sample=False,

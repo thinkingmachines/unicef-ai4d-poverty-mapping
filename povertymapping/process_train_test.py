@@ -64,7 +64,7 @@ def process_train_test(config):
 
     if config["use_ntl"]:
         if "ntl_path" in config:
-            ntl_path = config["ntl_path"]
+            ntl_path = f'{config["ntl_path"]}.csv'
         else:
             ntl_path = f"{dhs_geo_zip_folder}_cluster_coords_gee_agg.csv"
         gee_df = pd.read_csv(os.path.join(save_path, ntl_path))
