@@ -4,7 +4,9 @@ fastcore
 fiona
 gdal
 geopandas
-geowrangler
+# geowrangler
+# use latest version not yet on pypi
+git+https://github.com/thinkingmachines/geowrangler.git
 haversine
 jupyterlab
 libclang
@@ -31,3 +33,6 @@ tune-sklearn
 typed-ast
 xgboost
 adapt
+rio-cogeo
+fastprogress
+countryinfo
