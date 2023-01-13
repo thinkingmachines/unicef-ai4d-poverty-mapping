@@ -16,7 +16,7 @@ from urllib.error import HTTPError, ContentTooShortError
 from fastcore.net import urlopen, urldest, urlclean
 from loguru import logger
 
-DEFAULT_EOG_CREDS_PATH = "~/.eog_creds/eog_access_token" 
+DEFAULT_EOG_CREDS_PATH = "~/.eog_creds/eog_access_token"
 EOG_ENV_VAR = "EOG_ACCESS_TOKEN"
 NIGHTLIGHTS_CACHE_DIR = "~/.geowrangler/nightlights"
 # Retrieve access token
@@ -43,15 +43,15 @@ def get_eog_access_token(
     access_token = access_token_dict.get("access_token")
 
     if save_token:
-        logger.info(f'Saving access_token to {save_path}')
+        logger.info(f"Saving access_token to {save_path}")
         save_path = Path(os.path.expanduser(save_path))
         if not save_path.parent.exists():
-            logger.info(f'Creating access token directory {save_path.parent}')
+            logger.info(f"Creating access token directory {save_path.parent}")
             save_path.parent.mkdir(mode=510, parents=True, exist_ok=True)
         with open(save_path, "w") as f:
             f.write(access_token)
     if set_env:
-        logger.info(f'Adding access token to environmentt var {env_token_var}')
+        logger.info(f"Adding access token to environmentt var {env_token_var}")
         os.environ[env_token_var] = access_token
 
     return access_token
@@ -69,7 +69,7 @@ def clear_eog_access_token(
         logger.info(f"Clearing eog access token file {save_file}")
         save_path.unlink()
     if clear_env:
-        logger.info(f'Clearing eog access token environment var {env_var}')
+        logger.info(f"Clearing eog access token environment var {env_var}")
         os.environ[env_var] = ""
 
 
@@ -118,7 +118,7 @@ def download_url(
     headers=None,
     timeout=None,
     show_progress=True,
-    chunksize=1024*1024,
+    chunksize=1024 * 1024,
     env_var=EOG_ENV_VAR,
     creds_file=DEFAULT_EOG_CREDS_PATH,
 ):
@@ -157,7 +157,7 @@ def download_url(
             headers = dict(Authorization=auth)
 
     dest = urldest(url, dest)
-    if not dest.parent.is_dir(): # parent dir should always exist
+    if not dest.parent.is_dir():  # parent dir should always exist
         dest.parent.mkdir(parents=True, exist_ok=True)
 
     nm, resp, fp = urlretrieve(
@@ -178,39 +178,42 @@ def download_url(
         )
     return nm
 
+
 def unzip_eog_gzip(gz_file, dest=None, delete_src=False):
-    
+
     if gz_file is None:
-        raise ValueError('gz_file cannot be empty')
-        
+        raise ValueError("gz_file cannot be empty")
+
     if type(gz_file) == str:
         gz_file = Path(gz_file)
-        
+
     if not gz_file.exists():
-        raise ValueError(f'gzip file {gz_file} does not exist!')
-        
+        raise ValueError(f"gzip file {gz_file} does not exist!")
+
     if gz_file.is_dir():
-        raise ValueError(f'gzip file {gz_file} is a directory')
-                         
+        raise ValueError(f"gzip file {gz_file} is a directory")
+
     if dest is None:
-        output_file = gz_file.parent/gz_file.stem
+        output_file = gz_file.parent / gz_file.stem
     else:
         if type(dest) == str:
             dest = Path(dest)
-            
+
         if dest.is_dir():
-            output_file = dest/gz_file.stem
+            output_file = dest / gz_file.stem
         else:
             output_file = dest
-    logger.info(f"Unzipping {gz_file} into {output_file}")        
-    with gzip.open(gz_file,'rb') as f_in: 
-        with open(output_file,'wb') as f_out:
+    logger.info(f"Unzipping {gz_file} into {output_file}")
+    with gzip.open(gz_file, "rb") as f_in:
+        with open(output_file, "wb") as f_out:
             # TODO implement https://stackoverflow.com/questions/29967487/get-progress-back-from-shutil-file-copy-thread to add progress callback
             shutil.copyfileobj(f_in, f_out)
 
-    if delete_src:     
+    if delete_src:
         if not output_file.exists():
-            raise ValueError("Something went wrong with creating the output file, source file not deleted")
+            raise ValueError(
+                "Something went wrong with creating the output file, source file not deleted"
+            )
         logger.info(f"Deleting {gz_file}")
         gz_file.unlink()
 
@@ -221,29 +224,45 @@ def get_bounding_polygon(bounds, buffer=None):
     if buffer is None:
         return box(*bounds)
     return box(*bounds).buffer(buffer)
-    
-def clip_raster(input_raster_file,
-                dest,
-                bounds,
-                buffer=None):
-    logger.info(f"Generating clipped raster file from {input_raster_file} to {dest} with bounds {bounds} and buffer {buffer}")
-    bounds_poly = get_bounding_polygon(bounds,buffer=buffer)            
-    rp.query_window_by_polygon(input_raster_file, dest,bounds_poly)
+
+
+def clip_raster(input_raster_file, dest, bounds, buffer=None):
+    logger.info(
+        f"Generating clipped raster file from {input_raster_file} to {dest} with bounds {bounds} and buffer {buffer}"
+    )
+    bounds_poly = get_bounding_polygon(bounds, buffer=buffer)
+    rp.query_window_by_polygon(input_raster_file, dest, bounds_poly)
     return Path(dest)
 
-def make_url(year, viirs_data_type = 'average', ntlights_base_url = 'https://eogdata.mines.edu/nighttime_light',version = 'v21', product = 'annual',coverage = 'global'):
-    url_format = f'{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp_{year}_{coverage}_vcmslcfg_c202205302300.{viirs_data_type}.dat.tif.gz'
+
+def make_url(
+    year,
+    viirs_data_type="average",
+    ntlights_base_url="https://eogdata.mines.edu/nighttime_light",
+    version="v21",
+    product="annual",
+    coverage="global",
+):
+    url_format = f"{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp_{year}_{coverage}_vcmslcfg_c202205302300.{viirs_data_type}.dat.tif.gz"
     return url_format
 
-def make_clip_hash(year, bounds, viirs_data_type='average', version='v21', product='annual', coverage='global'):
-    # Generate hash from aoi, type_, and year, which will act as a hash key for the cache     
+
+def make_clip_hash(
+    year,
+    bounds,
+    viirs_data_type="average",
+    version="v21",
+    product="annual",
+    coverage="global",
+):
+    # Generate hash from aoi, type_, and year, which will act as a hash key for the cache
     data_tuple = (
         np.array2string(bounds),
         str(year),
         viirs_data_type,
         version,
         product,
-        coverage
+        coverage,
     )
     m = hashlib.md5()
     for item in data_tuple:
@@ -251,51 +270,113 @@ def make_clip_hash(year, bounds, viirs_data_type='average', version='v21', produ
     data_key = m.hexdigest()
     return data_key
 
-def generate_clipped_raster(year, bounds, dest, viirs_data_type='average', version='v21', product='annual', coverage='global', cache_dir=NIGHTLIGHTS_CACHE_DIR):
-    viirs_cache_dir = Path(os.path.expanduser(cache_dir))/'global'
+
+def generate_clipped_raster(
+    year,
+    bounds,
+    dest,
+    viirs_data_type="average",
+    version="v21",
+    product="annual",
+    coverage="global",
+    cache_dir=NIGHTLIGHTS_CACHE_DIR,
+):
+    viirs_cache_dir = Path(os.path.expanduser(cache_dir)) / "global"
     viirs_cache_dir.mkdir(parents=True, exist_ok=True)
 
-    viirs_url = make_url(year,viirs_data_type=viirs_data_type,version=version,product=product,coverage=coverage)
+    viirs_url = make_url(
+        year,
+        viirs_data_type=viirs_data_type,
+        version=version,
+        product=product,
+        coverage=coverage,
+    )
     viirs_zipped_filename = urlclean(viirs_url)
-    viirs_unzip_filename = ".".join(viirs_zipped_filename.split(".")[:-1]) # remove .gz
-    viirs_unzip_file = viirs_cache_dir/viirs_unzip_filename
+    viirs_unzip_filename = ".".join(viirs_zipped_filename.split(".")[:-1])  # remove .gz
+    viirs_unzip_file = viirs_cache_dir / viirs_unzip_filename
     if not viirs_unzip_file.exists():
-        viirs_zip_file = download_url(viirs_url,dest=viirs_cache_dir)
-        viirs_unzip_file = unzip_eog_gzip(viirs_zip_file,dest=viirs_cache_dir,delete_src=True)
-    clipped_raster = clip_raster(viirs_unzip_file.as_posix(),dest.as_posix(), bounds, buffer=0.1)
+        viirs_zip_file = download_url(viirs_url, dest=viirs_cache_dir)
+        viirs_unzip_file = unzip_eog_gzip(
+            viirs_zip_file, dest=viirs_cache_dir, delete_src=True
+        )
+    clipped_raster = clip_raster(
+        viirs_unzip_file.as_posix(), dest.as_posix(), bounds, buffer=0.1
+    )
     return clipped_raster
-    
-def generate_clipped_metadata(year, bounds, viirs_data_type, version, product, coverage, clip_cache_dir):
-    key = make_clip_hash(year,bounds, viirs_data_type,version,product,coverage)
-    clip_meta_data = dict( 
+
+
+def generate_clipped_metadata(
+    year, bounds, viirs_data_type, version, product, coverage, clip_cache_dir
+):
+    key = make_clip_hash(year, bounds, viirs_data_type, version, product, coverage)
+    clip_meta_data = dict(
         bounds=np.array2string(bounds),
         year=str(year),
         viirs_data_type=viirs_data_type,
         version=version,
         product=product,
-        coverage=coverage
+        coverage=coverage,
     )
-    clipped_metadata_file = clip_cache_dir/f'{key}.metadata.json'
+    clipped_metadata_file = clip_cache_dir / f"{key}.metadata.json"
     logger.info(f"Adding metadata.json file {clipped_metadata_file}")
-    with open(clipped_metadata_file,'w') as f:
+    with open(clipped_metadata_file, "w") as f:
         f.write(json.dumps(clip_meta_data))
 
-def get_clipped_raster(year, bounds, viirs_data_type='average', version='v21', product='annual', coverage='global', cache_dir=NIGHTLIGHTS_CACHE_DIR):
-    key = make_clip_hash(year,bounds, viirs_data_type,version,product,coverage)
-    clip_cache_dir = Path(os.path.expanduser(cache_dir))/'clip'
+
+def get_clipped_raster(
+    year,
+    bounds,
+    viirs_data_type="average",
+    version="v21",
+    product="annual",
+    coverage="global",
+    cache_dir=NIGHTLIGHTS_CACHE_DIR,
+):
+    key = make_clip_hash(year, bounds, viirs_data_type, version, product, coverage)
+    clip_cache_dir = Path(os.path.expanduser(cache_dir)) / "clip"
     clip_cache_dir.mkdir(parents=True, exist_ok=True)
-    clipped_file = clip_cache_dir/f'{key}.tif'
+    clipped_file = clip_cache_dir / f"{key}.tif"
     if clipped_file.exists():
         logger.info(f"Retrieving clipped raster file {clipped_file}")
         return clipped_file
     # generate clipped raster
-    clipped_file = generate_clipped_raster(year,bounds,clipped_file, viirs_data_type=viirs_data_type,version=version,product=product,coverage=coverage)
-    generate_clipped_metadata(year,bounds,viirs_data_type, version, product, coverage, clip_cache_dir)
+    clipped_file = generate_clipped_raster(
+        year,
+        bounds,
+        clipped_file,
+        viirs_data_type=viirs_data_type,
+        version=version,
+        product=product,
+        coverage=coverage,
+    )
+    generate_clipped_metadata(
+        year, bounds, viirs_data_type, version, product, coverage, clip_cache_dir
+    )
     return clipped_file
-    
 
-def generate_nightlights_feature(aoi, year,viirs_data_type='average', version='v21', product='annual', coverage='global', cache_dir=NIGHTLIGHTS_CACHE_DIR, extra_args=dict(band_num=1, nodata=-999), func=["min", "max", "mean", "median", "std"],column="avg_rad",copy=False):
-    clipped_raster_file = get_clipped_raster(year, aoi.total_bounds, viirs_data_type=viirs_data_type,version=version,product=product,coverage=coverage, cache_dir=cache_dir) 
+
+def generate_nightlights_feature(
+    aoi,
+    year,
+    viirs_data_type="average",
+    version="v21",
+    product="annual",
+    coverage="global",
+    cache_dir=NIGHTLIGHTS_CACHE_DIR,
+    extra_args=dict(band_num=1, nodata=-999),
+    func=["min", "max", "mean", "median", "std"],
+    column="avg_rad",
+    copy=False,
+):
+    clipped_raster_file = get_clipped_raster(
+        year,
+        aoi.total_bounds,
+        viirs_data_type=viirs_data_type,
+        version=version,
+        product=product,
+        coverage=coverage,
+        cache_dir=cache_dir,
+    )
     if copy:
         aoi = aoi.copy()
     aoi = rzs.create_raster_zonal_stats(
@@ -309,4 +390,3 @@ def generate_nightlights_feature(aoi, year,viirs_data_type='average', version='v
         extra_args=dict(band_num=1, nodata=-999),
     )
     return aoi
-
