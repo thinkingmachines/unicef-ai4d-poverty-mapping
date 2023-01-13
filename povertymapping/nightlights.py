@@ -13,7 +13,8 @@ import hashlib
 import numpy as np
 
 from urllib.error import HTTPError, ContentTooShortError
-from fastcore.net import urlopen, urldest
+from fastcore.net import urlopen, urldest, urlclean
+from loguru import logger
 
 DEFAULT_EOG_CREDS_PATH = "~/.eog_creds/eog_access_token" 
 EOG_ENV_VAR = "EOG_ACCESS_TOKEN"
@@ -42,12 +43,15 @@ def get_eog_access_token(
     access_token = access_token_dict.get("access_token")
 
     if save_token:
+        logger.info(f'Saving access_token to {save_path}')
         save_path = Path(os.path.expanduser(save_path))
         if not save_path.parent.exists():
+            logger.info(f'Creating access token directory {save_path.parent}')
             save_path.parent.mkdir(mode=510, parents=True, exist_ok=True)
         with open(save_path, "w") as f:
             f.write(access_token)
     if set_env:
+        logger.info(f'Adding access token to environmentt var {env_token_var}')
         os.environ[env_token_var] = access_token
 
     return access_token
@@ -60,10 +64,12 @@ def clear_eog_access_token(
     clear_env=True,
 ):
     save_path = Path(os.path.expanduser(save_file))
-    if clear_file:
-        if save_path.exists():
-            save_path.unlink()
+
+    if clear_file and save_path.exists():
+        logger.info(f"Clearing eog access token file {save_file}")
+        save_path.unlink()
     if clear_env:
+        logger.info(f'Clearing eog access token environment var {env_var}')
         os.environ[env_var] = ""
 
 
@@ -77,7 +83,7 @@ def urlretrieve(
         urlopen(url, data=None, headers=headers, timeout=timeout)
     ) as fp:
         respheaders = fp.info()
-
+        logger.info(f"Retrieving {url} into {filename}")
         with open(filename, "wb") as tfp:
             size = -1
             read = 0
@@ -134,10 +140,12 @@ def download_url(
             os.environ.get(env_var, None) is not None
             and len(os.environ.get(env_var)) > 0
         ):
+            logger.info(f"Using access token from environment var {env_var}")
             access_token = os.environ.get(env_var)
         else:
             save_path = Path(os.path.expanduser(creds_file))
             if save_path.exists():
+                logger.info(f"Using access token from saved file {save_path}")
                 with open(save_path) as f:
                     access_token = f.read()
 
@@ -149,7 +157,8 @@ def download_url(
             headers = dict(Authorization=auth)
 
     dest = urldest(url, dest)
-    dest.parent.mkdir(parents=True, exist_ok=True)
+    if not dest.parent.is_dir(): # parent dir should always exist
+        dest.parent.mkdir(parents=True, exist_ok=True)
 
     nm, resp, fp = urlretrieve(
         url,
@@ -193,15 +202,16 @@ def unzip_eog_gzip(gz_file, dest=None, delete_src=False):
             output_file = dest/gz_file.stem
         else:
             output_file = dest
-        
+    logger.info(f"Unzipping {gz_file} into {output_file}")        
     with gzip.open(gz_file,'rb') as f_in: 
         with open(output_file,'wb') as f_out:
             # TODO implement https://stackoverflow.com/questions/29967487/get-progress-back-from-shutil-file-copy-thread to add progress callback
             shutil.copyfileobj(f_in, f_out)
 
-    if delete_src:
+    if delete_src:     
         if not output_file.exists():
             raise ValueError("Something went wrong with creating the output file, source file not deleted")
+        logger.info(f"Deleting {gz_file}")
         gz_file.unlink()
 
     return output_file
@@ -216,6 +226,7 @@ def clip_raster(input_raster_file,
                 dest,
                 bounds,
                 buffer=None):
+    logger.info(f"Generating clipped raster file from {input_raster_file} to {dest} with bounds {bounds} and buffer {buffer}")
     bounds_poly = get_bounding_polygon(bounds,buffer=buffer)            
     rp.query_window_by_polygon(input_raster_file, dest,bounds_poly)
     return Path(dest)
@@ -242,35 +253,51 @@ def make_clip_hash(year, bounds, viirs_data_type='average', version='v21', produ
 
 def generate_clipped_raster(year, bounds, dest, viirs_data_type='average', version='v21', product='annual', coverage='global', cache_dir=NIGHTLIGHTS_CACHE_DIR):
     viirs_cache_dir = Path(os.path.expanduser(cache_dir))/'global'
+    viirs_cache_dir.mkdir(parents=True, exist_ok=True)
+
     viirs_url = make_url(year,viirs_data_type=viirs_data_type,version=version,product=product,coverage=coverage)
-    viirs_zipped_filename = viirs_url.split('/')[-1]
-    viirs_unzip_filename = ".".join(viirs_zipped_filename.split(".")[:-1])
+    viirs_zipped_filename = urlclean(viirs_url)
+    viirs_unzip_filename = ".".join(viirs_zipped_filename.split(".")[:-1]) # remove .gz
     viirs_unzip_file = viirs_cache_dir/viirs_unzip_filename
     if not viirs_unzip_file.exists():
-        # create viirs_cache if not exist
-        viirs_cache_dir.parent.mkdir(parents=True,exist_ok=True)
-        # download viirs file and unzip
         viirs_zip_file = download_url(viirs_url,dest=viirs_cache_dir)
         viirs_unzip_file = unzip_eog_gzip(viirs_zip_file,dest=viirs_cache_dir,delete_src=True)
     clipped_raster = clip_raster(viirs_unzip_file.as_posix(),dest.as_posix(), bounds, buffer=0.1)
     return clipped_raster
     
+def generate_clipped_metadata(year, bounds, viirs_data_type, version, product, coverage, clip_cache_dir):
+    key = make_clip_hash(year,bounds, viirs_data_type,version,product,coverage)
+    clip_meta_data = dict( 
+        bounds=np.array2string(bounds),
+        year=str(year),
+        viirs_data_type=viirs_data_type,
+        version=version,
+        product=product,
+        coverage=coverage
+    )
+    clipped_metadata_file = clip_cache_dir/f'{key}.metadata.json'
+    logger.info(f"Adding metadata.json file {clipped_metadata_file}")
+    with open(clipped_metadata_file,'w') as f:
+        f.write(json.dumps(clip_meta_data))
 
 def get_clipped_raster(year, bounds, viirs_data_type='average', version='v21', product='annual', coverage='global', cache_dir=NIGHTLIGHTS_CACHE_DIR):
     key = make_clip_hash(year,bounds, viirs_data_type,version,product,coverage)
     clip_cache_dir = Path(os.path.expanduser(cache_dir))/'clip'
+    clip_cache_dir.mkdir(parents=True, exist_ok=True)
     clipped_file = clip_cache_dir/f'{key}.tif'
     if clipped_file.exists():
+        logger.info(f"Retrieving clipped raster file {clipped_file}")
         return clipped_file
-    # create clip cache dir if not exist
-    clipped_file.parent.mkdir(parents=True,exist_ok=True)
     # generate clipped raster
     clipped_file = generate_clipped_raster(year,bounds,clipped_file, viirs_data_type=viirs_data_type,version=version,product=product,coverage=coverage)
+    generate_clipped_metadata(year,bounds,viirs_data_type, version, product, coverage, clip_cache_dir)
     return clipped_file
     
 
-def generate_nightlights_feature(aoi, year,viirs_data_type='average', version='v21', product='annual', coverage='global', cache_dir=NIGHTLIGHTS_CACHE_DIR):
+def generate_nightlights_feature(aoi, year,viirs_data_type='average', version='v21', product='annual', coverage='global', cache_dir=NIGHTLIGHTS_CACHE_DIR, extra_args=dict(band_num=1, nodata=-999), func=["min", "max", "mean", "median", "std"],column="avg_rad",copy=False):
     clipped_raster_file = get_clipped_raster(year, aoi.total_bounds, viirs_data_type=viirs_data_type,version=version,product=product,coverage=coverage, cache_dir=cache_dir) 
+    if copy:
+        aoi = aoi.copy()
     aoi = rzs.create_raster_zonal_stats(
         aoi,
         clipped_raster_file.as_posix(),
