@@ -383,10 +383,10 @@ def generate_nightlights_feature(
         aoi,
         clipped_raster_file.as_posix(),
         aggregation=dict(
-            # func=["min", "max", "mean", "median", "kurtosis", "var"],
-            func=["min", "max", "mean", "median", "std"],
-            column="avg_rad",
+          
+            func=func,
+            column=column,
         ),
-        extra_args=dict(band_num=1, nodata=-999),
+        extra_args=extra_args,
     )
     return aoi
