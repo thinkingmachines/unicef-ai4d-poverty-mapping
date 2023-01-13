@@ -15,6 +15,7 @@ import numpy as np
 from urllib.error import HTTPError, ContentTooShortError
 from fastcore.net import urlopen, urldest, urlclean
 from loguru import logger
+from types import SimpleNamespace
 
 DEFAULT_EOG_CREDS_PATH = "~/.eog_creds/eog_access_token"
 EOG_ENV_VAR = "EOG_ACCESS_TOKEN"
@@ -234,26 +235,91 @@ def clip_raster(input_raster_file, dest, bounds, buffer=None):
     rp.query_window_by_polygon(input_raster_file, dest, bounds_poly)
     return Path(dest)
 
+URLFORM = {
+    "annual_v21" : "{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp_{year}{year_suffix}_{coverage}_{vcmcfg}_{process_suffix}.{viirs_data_type}.dat.tif.gz",
+    "annual_v2" : "{ntlights_base_url}/{product}/{version}0/{year}/VNL_{version}_npp_{year}{year_suffix}_{coverage}_{vcmcfg}_{process_suffix}.{viirs_data_type}.dat.tif.gz",
+}
 
-def make_url(
-    year,
-    viirs_data_type="average",
-    ntlights_base_url="https://eogdata.mines.edu/nighttime_light",
-    version="v21",
-    product="annual",
-    coverage="global",
-):
-    url_format = f"{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp_{year}_{coverage}_vcmslcfg_c202205302300.{viirs_data_type}.dat.tif.gz"
-    return url_format
+EOG_VIIRS_DATA_TYPE = SimpleNamespace(
+    AVERAGE = 'average',
+    AVERAGE_MASKED = 'average_masked',
+    CF_CVG = 'cf_cvg',
+    CVG = 'cvg',
+    LIT_MASK = 'lit_mask',
+    MAXIMUM = 'maximum',
+    MEDIAN = 'median',
+    MEDIAN_MASKED = 'median_masked',
+    MINIMUM = 'minimum',
+)
+EOG_PRODUCT = SimpleNamespace(
+    ANNUAL = 'annual'
+)
+EOG_PRODUCT_VERSION = SimpleNamespace(
+    VER21 = 'v21',
+)
+EOG_COVERAGE = SimpleNamespace(
+    GLOBAL = 'global'
+)
+ 
+def make_url(year,
+              viirs_data_type=EOG_VIIRS_DATA_TYPE.AVERAGE,
+              ntlights_base_url='https://eogdata.mines.edu/nighttime_light',
+              version=EOG_PRODUCT_VERSION.VER21,
+              product=EOG_PRODUCT.ANNUAL,
+              coverage=EOG_COVERAGE.GLOBAL,
+             ):
+    year_suffix = ''
+    if type(year) != str:
+        year = str(year)
+        
+    vcmcfg = 'vcmslcfg'
+    process_suffix = 'c202205302300'
+    if product == 'annual' and version == 'v21':
+        if int(year) < 2012 or int(year) > 2021:
+            raise ValueError(f'No {product} {version} EOG data for {year}')
+            
+        if year == '2012':
+            year_suffix = '04-201303'
+        if year in ['2012','2013']:
+            vcmcfg = 'vcmcfg'
+    # 
+    url_format = URLFORM.get(f'{product}_{version}',None)
+    if url_format is None:
+        raise ValueError(f'Unsupported product version {product} {version}')
+    format_params = dict(
+        ntlights_base_url=ntlights_base_url,
+        product=product,
+        version=version,
+        year=year,
+        year_suffix=year_suffix,
+        coverage=coverage,
+        vcmcfg=vcmcfg,
+        process_suffix=process_suffix,
+        viirs_data_type=viirs_data_type
+    )
+    url = url_format.format(**format_params)
+    return url
+    
+
+# def make_url(
+#     year,
+#     viirs_data_type="average",
+#     ntlights_base_url="https://eogdata.mines.edu/nighttime_light",
+#     version="v21",
+#     product="annual",
+#     coverage="global",
+# ):
+#     url_format = f"{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp_{year}_{coverage}_vcmslcfg_c202205302300.{viirs_data_type}.dat.tif.gz"
+#     return url_format
 
 
 def make_clip_hash(
     year,
     bounds,
-    viirs_data_type="average",
-    version="v21",
-    product="annual",
-    coverage="global",
+    viirs_data_type=EOG_VIIRS_DATA_TYPE.AVERAGE,
+    version=EOG_PRODUCT_VERSION.VER21,
+    product=EOG_PRODUCT.ANNUAL,
+    coverage=EOG_COVERAGE.GLOBAL,
 ):
     # Generate hash from aoi, type_, and year, which will act as a hash key for the cache
     data_tuple = (
@@ -275,10 +341,10 @@ def generate_clipped_raster(
     year,
     bounds,
     dest,
-    viirs_data_type="average",
-    version="v21",
-    product="annual",
-    coverage="global",
+    viirs_data_type=EOG_VIIRS_DATA_TYPE.AVERAGE,
+    version=EOG_PRODUCT_VERSION.VER21,
+    product=EOG_PRODUCT.ANNUAL,
+    coverage=EOG_COVERAGE.GLOBAL,
     cache_dir=NIGHTLIGHTS_CACHE_DIR,
 ):
     viirs_cache_dir = Path(os.path.expanduser(cache_dir)) / "global"
@@ -326,10 +392,10 @@ def generate_clipped_metadata(
 def get_clipped_raster(
     year,
     bounds,
-    viirs_data_type="average",
-    version="v21",
-    product="annual",
-    coverage="global",
+    viirs_data_type=EOG_VIIRS_DATA_TYPE.AVERAGE,
+    version=EOG_PRODUCT_VERSION.VER21,
+    product=EOG_PRODUCT.ANNUAL,
+    coverage=EOG_COVERAGE.GLOBAL,
     cache_dir=NIGHTLIGHTS_CACHE_DIR,
 ):
     key = make_clip_hash(year, bounds, viirs_data_type, version, product, coverage)
@@ -358,10 +424,10 @@ def get_clipped_raster(
 def generate_nightlights_feature(
     aoi,
     year,
-    viirs_data_type="average",
-    version="v21",
-    product="annual",
-    coverage="global",
+    viirs_data_type=EOG_VIIRS_DATA_TYPE.AVERAGE,
+    version=EOG_PRODUCT_VERSION.VER21,
+    product=EOG_PRODUCT.ANNUAL,
+    coverage=EOG_COVERAGE.GLOBAL,
     cache_dir=NIGHTLIGHTS_CACHE_DIR,
     extra_args=dict(band_num=1, nodata=-999),
     func=["min", "max", "mean", "median", "std"],
