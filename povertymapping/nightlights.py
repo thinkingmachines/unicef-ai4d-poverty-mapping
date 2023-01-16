@@ -15,6 +15,7 @@ import numpy as np
 from urllib.error import HTTPError, ContentTooShortError
 from fastcore.net import urlopen, urldest, urlclean
 from loguru import logger
+from types import SimpleNamespace
 
 DEFAULT_EOG_CREDS_PATH = "~/.eog_creds/eog_access_token"
 EOG_ENV_VAR = "EOG_ACCESS_TOKEN"
@@ -234,26 +235,84 @@ def clip_raster(input_raster_file, dest, bounds, buffer=None):
     rp.query_window_by_polygon(input_raster_file, dest, bounds_poly)
     return Path(dest)
 
+URLFORM = {
+    "annual_v21" : "{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp_{year}{year_suffix}_{coverage}_{vcmcfg}_{process_suffix}.{viirs_data_type}.dat.tif.gz",
+    "annual_v2" : "{ntlights_base_url}/{product}/{version}0/{year}/VNL_{version}_npp_{year}{year_suffix}_{coverage}_{vcmcfg}_{process_suffix}.{viirs_data_type}.dat.tif.gz",
+}
 
-def make_url(
-    year,
-    viirs_data_type="average",
-    ntlights_base_url="https://eogdata.mines.edu/nighttime_light",
-    version="v21",
-    product="annual",
-    coverage="global",
-):
-    url_format = f"{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp_{year}_{coverage}_vcmslcfg_c202205302300.{viirs_data_type}.dat.tif.gz"
-    return url_format
+EOG_VIIRS_DATA_TYPE = SimpleNamespace(
+    AVERAGE = 'average',
+    AVERAGE_MASKED = 'average_masked',
+    CF_CVG = 'cf_cvg',
+    CVG = 'cvg',
+    LIT_MASK = 'lit_mask',
+    MAXIMUM = 'maximum',
+    MEDIAN = 'median',
+    MEDIAN_MASKED = 'median_masked',
+    MINIMUM = 'minimum',
+)
+EOG_PRODUCT = SimpleNamespace(
+    ANNUAL = 'annual'
+)
+EOG_PRODUCT_VERSION = SimpleNamespace(
+    VER21 = 'v21',
+)
+EOG_COVERAGE = SimpleNamespace(
+    GLOBAL = 'global'
+)
+ 
+def make_url(year,
+              viirs_data_type=EOG_VIIRS_DATA_TYPE.AVERAGE,
+              ntlights_base_url='https://eogdata.mines.edu/nighttime_light',
+              version=EOG_PRODUCT_VERSION.VER21,
+              product=EOG_PRODUCT.ANNUAL,
+              coverage=EOG_COVERAGE.GLOBAL,
+              process_suffix = 'c202205302300',
+              vcmcfg = 'vcmslcfg'
+             ):
+    year_suffix = ''
+    if type(year) != str:
+        year = str(year)
+        
+    if product == 'annual' and version == 'v21':
+        if int(year) < 2012 or int(year) > 2021:
+            raise ValueError(f'No {product} {version} EOG data for {year}')
+            
+        if year == '2012':
+            year_suffix = '04-201303'
+        if year in ['2012','2013']:
+            vcmcfg = 'vcmcfg'
+    # 
+    url_format = URLFORM.get(f'{product}_{version}',None)
+    if url_format is None:
+        raise ValueError(f'Unsupported product version {product} {version}')
+    format_params = dict(
+        ntlights_base_url=ntlights_base_url,
+        product=product,
+        version=version,
+        year=year,
+        year_suffix=year_suffix,
+        coverage=coverage,
+        vcmcfg=vcmcfg,
+        process_suffix=process_suffix,
+        viirs_data_type=viirs_data_type
+    )
+    url = url_format.format(**format_params)
+    return url
+    
+
 
 
 def make_clip_hash(
     year,
     bounds,
-    viirs_data_type="average",
-    version="v21",
-    product="annual",
-    coverage="global",
+    viirs_data_type=EOG_VIIRS_DATA_TYPE.AVERAGE,
+    version=EOG_PRODUCT_VERSION.VER21,
+    product=EOG_PRODUCT.ANNUAL,
+    coverage=EOG_COVERAGE.GLOBAL,
+    process_suffix = 'c202205302300',
+    vcmcfg = 'vcmslcfg'
+
 ):
     # Generate hash from aoi, type_, and year, which will act as a hash key for the cache
     data_tuple = (
@@ -263,6 +322,8 @@ def make_clip_hash(
         version,
         product,
         coverage,
+        process_suffix,
+        vcmcfg
     )
     m = hashlib.md5()
     for item in data_tuple:
@@ -275,11 +336,14 @@ def generate_clipped_raster(
     year,
     bounds,
     dest,
-    viirs_data_type="average",
-    version="v21",
-    product="annual",
-    coverage="global",
+    viirs_data_type=EOG_VIIRS_DATA_TYPE.AVERAGE,
+    version=EOG_PRODUCT_VERSION.VER21,
+    product=EOG_PRODUCT.ANNUAL,
+    coverage=EOG_COVERAGE.GLOBAL,
     cache_dir=NIGHTLIGHTS_CACHE_DIR,
+    process_suffix = 'c202205302300',
+    vcmcfg = 'vcmslcfg'
+
 ):
     viirs_cache_dir = Path(os.path.expanduser(cache_dir)) / "global"
     viirs_cache_dir.mkdir(parents=True, exist_ok=True)
@@ -290,6 +354,8 @@ def generate_clipped_raster(
         version=version,
         product=product,
         coverage=coverage,
+        process_suffix=process_suffix,
+        vcmcfg=vcmcfg
     )
     viirs_zipped_filename = urlclean(viirs_url)
     viirs_unzip_filename = ".".join(viirs_zipped_filename.split(".")[:-1])  # remove .gz
@@ -306,9 +372,9 @@ def generate_clipped_raster(
 
 
 def generate_clipped_metadata(
-    year, bounds, viirs_data_type, version, product, coverage, clip_cache_dir
+    year, bounds, viirs_data_type, version, product, coverage, clip_cache_dir, process_suffix, vcmcfg
 ):
-    key = make_clip_hash(year, bounds, viirs_data_type, version, product, coverage)
+    key = make_clip_hash(year, bounds, viirs_data_type, version, product, coverage, process_suffix, vcmcfg)
     clip_meta_data = dict(
         bounds=np.array2string(bounds),
         year=str(year),
@@ -316,6 +382,8 @@ def generate_clipped_metadata(
         version=version,
         product=product,
         coverage=coverage,
+        process_suffix=process_suffix,
+        vcmcfg=vcmcfg
     )
     clipped_metadata_file = clip_cache_dir / f"{key}.metadata.json"
     logger.info(f"Adding metadata.json file {clipped_metadata_file}")
@@ -326,13 +394,15 @@ def generate_clipped_metadata(
 def get_clipped_raster(
     year,
     bounds,
-    viirs_data_type="average",
-    version="v21",
-    product="annual",
-    coverage="global",
+    viirs_data_type=EOG_VIIRS_DATA_TYPE.AVERAGE,
+    version=EOG_PRODUCT_VERSION.VER21,
+    product=EOG_PRODUCT.ANNUAL,
+    coverage=EOG_COVERAGE.GLOBAL,
     cache_dir=NIGHTLIGHTS_CACHE_DIR,
+    process_suffix = 'c202205302300',
+    vcmcfg = 'vcmslcfg'
 ):
-    key = make_clip_hash(year, bounds, viirs_data_type, version, product, coverage)
+    key = make_clip_hash(year, bounds, viirs_data_type, version, product, coverage, process_suffix, vcmcfg )
     clip_cache_dir = Path(os.path.expanduser(cache_dir)) / "clip"
     clip_cache_dir.mkdir(parents=True, exist_ok=True)
     clipped_file = clip_cache_dir / f"{key}.tif"
@@ -348,9 +418,11 @@ def get_clipped_raster(
         version=version,
         product=product,
         coverage=coverage,
+        process_suffix=process_suffix,
+        vcmcfg=vcmcfg
     )
     generate_clipped_metadata(
-        year, bounds, viirs_data_type, version, product, coverage, clip_cache_dir
+        year, bounds, viirs_data_type, version, product, coverage, clip_cache_dir, process_suffix, vcmcfg
     )
     return clipped_file
 
@@ -358,11 +430,13 @@ def get_clipped_raster(
 def generate_nightlights_feature(
     aoi,
     year,
-    viirs_data_type="average",
-    version="v21",
-    product="annual",
-    coverage="global",
+    viirs_data_type=EOG_VIIRS_DATA_TYPE.AVERAGE,
+    version=EOG_PRODUCT_VERSION.VER21,
+    product=EOG_PRODUCT.ANNUAL,
+    coverage=EOG_COVERAGE.GLOBAL,
     cache_dir=NIGHTLIGHTS_CACHE_DIR,
+    process_suffix = 'c202205302300',
+    vcmcfg = 'vcmslcfg',
     extra_args=dict(band_num=1, nodata=-999),
     func=["min", "max", "mean", "median", "std"],
     column="avg_rad",
@@ -376,6 +450,8 @@ def generate_nightlights_feature(
         product=product,
         coverage=coverage,
         cache_dir=cache_dir,
+        process_suffix=process_suffix,
+        vcmcfg=vcmcfg
     )
     if copy:
         aoi = aoi.copy()
