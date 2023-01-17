@@ -15,6 +15,9 @@ website:
         text: About
       - href: progress.qmd
         text: Progress
+      - section: "PH Model"
+        contents:
+          - notebooks/model_ph.ipynb
       - section: "Data Preparation (DHS)"
         contents:
           - test-notebooks/explore_dhs.ipynb
