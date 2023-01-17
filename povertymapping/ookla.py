@@ -29,11 +29,11 @@ def get_OoklaFile(filename):
 class OoklaDataManager:
     """An instance of this class provides convenience functoins for loading and caching Ookla data"""
 
-    DEFAULT_CACHE_DIR = "~/.geowrangler/ookla"
+    DEFAULT_CACHE_DIR = "~/.geowrangler"
 
     def __init__(self, cache_dir=DEFAULT_CACHE_DIR):
         self.data_cache = {}
-        self.cache_dir = cache_dir
+        self.cache_dir = os.path.expanduser(cache_dir)
         self.processed_cache_dir = os.path.join(self.cache_dir, "ookla/processed/")
         Path(self.processed_cache_dir).mkdir(parents=True, exist_ok=True)
 
