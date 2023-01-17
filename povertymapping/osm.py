@@ -3,13 +3,16 @@ import shutil
 import uuid
 from pathlib import Path
 from zipfile import ZipFile
+from fastprogress.fastprogress import progress_bar
 
+import requests
 import geopandas as gpd
 from geowrangler import distance_zonal_stats as dzs
 from geowrangler import vector_zonal_stats as vzs
-from geowrangler.datasets import geofabrik
+from geowrangler.datasets.geofabrik import list_geofabrik_regions
 from loguru import logger
-
+from urllib.parse import urlparse
+from povertymapping.nightlights import urlretrieve
 DEFAULT_POI_TYPES = [
     "atm",
     "bank",
@@ -133,7 +136,7 @@ class OsmDataManager:
         self.pois_cache = {}
         self.roads_cache = {}
 
-    def load_pois(self, country, use_cache=True):
+    def load_pois(self, country, use_cache=True, chunksize=1024*1024, show_progress=True):
         # Get from RAM cache if already available
         if country in self.pois_cache:
             logger.debug(f"OSM POIs for {country} found in cache.")
@@ -144,6 +147,8 @@ class OsmDataManager:
             country,
             cache_dir=self.cache_dir,
             use_cache=use_cache,
+            chunksize=chunksize,
+            show_progress=show_progress,
         )
         osm_pois_filepath = os.path.join(country_cache_dir, "gis_osm_pois_free_1.shp")
         logger.debug(f"OSM POIs for {country} being loaded from {osm_pois_filepath}")
@@ -152,7 +157,7 @@ class OsmDataManager:
 
         return gdf
 
-    def load_roads(self, country, use_cache=True):
+    def load_roads(self, country, use_cache=True, chunksize=1024*1024, show_progress=True):
         # Get from RAM cache if already available
         if country in self.roads_cache:
             logger.debug(f"OSM Roads for {country} found in cache.")
@@ -163,6 +168,8 @@ class OsmDataManager:
             country,
             cache_dir=self.cache_dir,
             use_cache=use_cache,
+            chunksize=chunksize,
+            show_progress=show_progress
         )
         osm_roads_filepath = os.path.join(country_cache_dir, "gis_osm_roads_free_1.shp")
         logger.debug(f"OSM Roads for {country} being loaded from {osm_roads_filepath}")
@@ -171,8 +178,46 @@ class OsmDataManager:
 
         return gdf
 
+# TODO: update geowrangler.download_geofabrik_region to add progress bar
+def download_geofabrik_region(
+    region: str, directory: str = "data/", overwrite=False,
+    show_progress=True,
+    chunksize=8192,
+) -> Path:
+    """Download geofabrik region to path"""
+    if not os.path.isdir(directory):
+        os.makedirs(directory)
+    geofabrik_info = list_geofabrik_regions()
+    if region not in geofabrik_info:
+        raise ValueError(
+            f"{region} not found in geofabrik. Run list_geofabrik_regions() to learn more about available areas"
+        )
+    url = geofabrik_info[region]
 
-def download_osm_country_data(country, cache_dir, use_cache=True):
+    parsed_url = urlparse(url)
+    filename = Path(os.path.basename(parsed_url.path))
+    filepath = directory / filename
+
+    if not filepath.exists() or overwrite:
+        if show_progress:
+            pbar = progress_bar([])
+
+            def progress(count=1, bsize=1, tsize=None):
+                pbar.total = tsize
+                pbar.update(count * bsize)
+
+            reporthook = progress
+        else:
+            reporthook = None
+
+        filepath = urlretrieve(parsed_url, filepath, reporthook=reporthook, chunksize=chunksize)
+        response = requests.get(url, stream=True)
+        with open(filepath, "wb") as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+    return filepath
+
+
+def download_osm_country_data(country, cache_dir, use_cache=True, chunksize=8192, show_progress=True):
 
     osm_cache_dir = os.path.join(cache_dir, "osm/")
     # TODO consider incorporating year or quarter to automatically avoid using stale data
@@ -200,7 +245,7 @@ def download_osm_country_data(country, cache_dir, use_cache=True):
 
         # This downloads a zip file to the country cache dir
         logger.info(f"OSM Data: Downloading Geofabrik zip file...")
-        zipfile_path = geofabrik.download_geofabrik_region(country, country_cache_dir)
+        zipfile_path = download_geofabrik_region(country, country_cache_dir, show_progress=show_progress, chunksize=chunksize)
 
         # Unzip the zip file
         logger.info(f"OSM Data: Unzipping the zip file...")
