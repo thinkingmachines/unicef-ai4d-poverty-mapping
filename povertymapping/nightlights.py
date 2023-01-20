@@ -112,30 +112,18 @@ def urlretrieve(
         )
     return filename, respheaders, fp
 
+def make_report_hook(show_progress):  
+    if not show_progress:
+        return None
+    pbar = progress_bar([])
 
-def download_url(
-    url,
-    dest=None,
-    access_token=None,
-    headers=None,
-    timeout=None,
-    show_progress=True,
-    chunksize=1024 * 1024,
-    env_var=EOG_ENV_VAR,
-    creds_file=DEFAULT_EOG_CREDS_PATH,
-):
-    "Download `url` to `dest` and show progress"
-    if show_progress:
-        pbar = progress_bar([])
+    def progress(count=1, bsize=1, tsize=None):
+        pbar.total = tsize
+        pbar.update(count * bsize)
 
-        def progress(count=1, bsize=1, tsize=None):
-            pbar.total = tsize
-            pbar.update(count * bsize)
+    return progress
 
-        reporthook = progress
-    else:
-        reporthook = None
-
+def setup_eog_auth_headers(headers, access_token, env_var, creds_file):    
     if access_token is None:
         # try getting it from environ
         if (
@@ -157,6 +145,23 @@ def download_url(
             headers.update(dict(Authorization=auth))
         else:
             headers = dict(Authorization=auth)
+    return headers
+
+def download_url(
+    url,
+    dest=None,
+    access_token=None,
+    headers=None,
+    timeout=None,
+    show_progress=True,
+    chunksize=1024 * 1024,
+    env_var=EOG_ENV_VAR,
+    creds_file=DEFAULT_EOG_CREDS_PATH,
+):
+    "Download `url` to `dest` and show progress"
+    reporthook = make_report_hook(show_progress)
+    
+    headers = setup_eog_auth_headers(headers, access_token, env_var, creds_file)
 
     dest = urldest(url, dest)
     if not dest.parent.is_dir():  # parent dir should always exist
