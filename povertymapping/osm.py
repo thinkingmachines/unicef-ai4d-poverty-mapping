@@ -3,16 +3,15 @@ import shutil
 import uuid
 from pathlib import Path
 from zipfile import ZipFile
-from fastprogress.fastprogress import progress_bar
-
-import requests
+from urllib.request import HTTPError
 import geopandas as gpd
 from geowrangler import distance_zonal_stats as dzs
 from geowrangler import vector_zonal_stats as vzs
 from geowrangler.datasets.geofabrik import list_geofabrik_regions
 from loguru import logger
 from urllib.parse import urlparse
-from povertymapping.nightlights import urlretrieve
+from povertymapping.nightlights import urlretrieve, make_report_hook
+from typing import Union
 DEFAULT_POI_TYPES = [
     "atm",
     "bank",
@@ -38,11 +37,13 @@ DEFAULT_POI_TYPES = [
     "townhall",
 ]
 
+DEFAULT_CACHE_DIR = "~/.geowrangler"
 
 def add_osm_poi_features(
     aoi,
     country,
     osm_data_manager,
+    year=None,
     use_cache=True,
     poi_types=DEFAULT_POI_TYPES,
     metric_crs="epsg:3857",
@@ -52,7 +53,7 @@ def add_osm_poi_features(
     """Generates features for the AOI based on OSM POI data (POIs, roads, etc)."""
 
     # Load-in the OSM POIs data
-    osm = osm_data_manager.load_pois(country, use_cache=use_cache)
+    osm = osm_data_manager.load_pois(country, year=year, use_cache=use_cache)
 
     # Create a copy of the AOI gdf if not inplace to avoid modifying the original gdf
     if not inplace:
@@ -95,10 +96,10 @@ def add_osm_poi_features(
 
 
 def add_osm_road_features(
-    aoi, country, osm_data_manager, use_cache=True, inplace=False
+    aoi, country, osm_data_manager, year=None, use_cache=True, inplace=False
 ):
     """Generates features for the AOI based on OSM road data"""
-    roads_gdf = osm_data_manager.load_roads(country, use_cache=use_cache)
+    roads_gdf = osm_data_manager.load_roads(country, year=year, use_cache=use_cache)
     assert aoi.crs == roads_gdf.crs
 
     if not inplace:
@@ -129,61 +130,101 @@ def add_osm_road_features(
 class OsmDataManager:
     """An instance of this class provides convenience functions for loading and caching OSM data"""
 
-    DEFAULT_CACHE_DIR = "~/.geowrangler"
 
     def __init__(self, cache_dir=DEFAULT_CACHE_DIR):
         self.cache_dir = os.path.expanduser(cache_dir)
         self.pois_cache = {}
         self.roads_cache = {}
 
-    def load_pois(self, country, use_cache=True, chunksize=1024*1024, show_progress=True):
+    def load_pois(self, country, year=None, use_cache=True, chunksize=1024*1024, show_progress=True):
         # Get from RAM cache if already available
-        if country in self.pois_cache:
-            logger.debug(f"OSM POIs for {country} found in cache.")
-            return self.pois_cache[country]
+        if year is None:
+            if country in self.pois_cache:
+                logger.debug(f"OSM POIs for {country} found in cache.")
+                return self.pois_cache[country]
+            else:
+                short_year = str(year)[-2:]
+                lookup = f'{country}_{short_year}'
+                if lookup in self.pois_cache[lookup]:
+                    logger.debug(f"OSM POIs for {country} and year {year} found in cache.")
+                    return self.pois_cache[lookup]
 
         # Otherwise, load from file and add to cache
         country_cache_dir = download_osm_country_data(
             country,
+            year=year,
             cache_dir=self.cache_dir,
             use_cache=use_cache,
             chunksize=chunksize,
             show_progress=show_progress,
         )
+        if country_cache_dir is None:
+            return None
+
         osm_pois_filepath = os.path.join(country_cache_dir, "gis_osm_pois_free_1.shp")
-        logger.debug(f"OSM POIs for {country} being loaded from {osm_pois_filepath}")
+        if year is None:
+            logger.debug(f"OSM POIs for {country} being loaded from {osm_pois_filepath}")
+        else:
+            logger.debug(f"OSM POIs for {country} and year {year} being loaded from {osm_pois_filepath}")
         gdf = gpd.read_file(osm_pois_filepath)
-        self.pois_cache[country] = gdf
+
+        if year is None:
+            self.pois_cache[country] = gdf
+        else:
+            short_year = str(year)[-2:]
+            lookup = f'{country}_{short_year}'
+            self.pois_cache[lookup] = gdf
 
         return gdf
 
-    def load_roads(self, country, use_cache=True, chunksize=1024*1024, show_progress=True):
+    def load_roads(self, country, year=None, use_cache=True, chunksize=1024*1024, show_progress=True):
         # Get from RAM cache if already available
-        if country in self.roads_cache:
-            logger.debug(f"OSM Roads for {country} found in cache.")
-            return self.roads_cache[country]
+        if year is None:
+            if country in self.roads_cache:
+                logger.debug(f"OSM POIs for {country} found in cache.")
+                return self.roads_cache[country]
+            else:
+                short_year = str(year)[-2:]
+                lookup = f'{country}_{short_year}'
+                if lookup in self.roads_cache[lookup]:
+                    logger.debug(f"OSM POIs for {country} and year {year} found in cache.")
+                    return self.roads_cache[lookup]
 
         # Otherwise, load from file and add to cache
         country_cache_dir = download_osm_country_data(
             country,
+            year=year,
             cache_dir=self.cache_dir,
             use_cache=use_cache,
             chunksize=chunksize,
             show_progress=show_progress
         )
+
+        if country_cache_dir is None:
+            return None
+
         osm_roads_filepath = os.path.join(country_cache_dir, "gis_osm_roads_free_1.shp")
-        logger.debug(f"OSM Roads for {country} being loaded from {osm_roads_filepath}")
+        if year is None:
+            logger.debug(f"OSM Roads for {country} being loaded from {osm_roads_filepath}")
+        else:
+            logger.debug(f"OSM Roads for {country} and year {year} being loaded from {osm_roads_filepath}")
         gdf = gpd.read_file(osm_roads_filepath)
-        self.roads_cache[country] = gdf
+
+        if year is None:
+            self.roads_cache[country] = gdf
+        else:
+            short_year = str(year)[-2:]
+            lookup = f'{country}_{short_year}'
+            self.roads_cache[lookup] = gdf
 
         return gdf
 
 # TODO: update geowrangler.download_geofabrik_region to add progress bar
 def download_geofabrik_region(
-    region: str, directory: str = "data/", overwrite=False,
+    region: str, year=None, directory: str = "data/", overwrite=False,
     show_progress=True,
     chunksize=8192,
-) -> Path:
+) -> Union[Path,None]:
     """Download geofabrik region to path"""
     if not os.path.isdir(directory):
         os.makedirs(directory)
@@ -193,31 +234,33 @@ def download_geofabrik_region(
             f"{region} not found in geofabrik. Run list_geofabrik_regions() to learn more about available areas"
         )
     url = geofabrik_info[region]
+    if year is not None:
+        short_year = str(year)[-2:] # take last 2 digits
+        year_prefix = f'{short_year}0101'
+        url = url.replace('latest',year_prefix)
 
     parsed_url = urlparse(url)
     filename = Path(os.path.basename(parsed_url.path))
     filepath = directory / filename
-
     if not filepath.exists() or overwrite:
-        if show_progress:
-            pbar = progress_bar([])
+        reporthook = make_report_hook(show_progress)
 
-            def progress(count=1, bsize=1, tsize=None):
-                pbar.total = tsize
-                pbar.update(count * bsize)
+        try:
+            filepath, _, _ = urlretrieve(url, filepath, reporthook=reporthook, chunksize=chunksize)
+        except HTTPError as err:
+            if err.code == 404:
+                if year is not None:
+                    logger.warning(f'No data found for year {year} in region {region} : {url}')
+                else:
+                    logger.warning(f'No url found for region {region} : {url} ')
+                return None
+            else:
+                raise err
 
-            reporthook = progress
-        else:
-            reporthook = None
-
-        filepath = urlretrieve(parsed_url, filepath, reporthook=reporthook, chunksize=chunksize)
-        response = requests.get(url, stream=True)
-        with open(filepath, "wb") as out_file:
-            shutil.copyfileobj(response.raw, out_file)
-    return filepath
+    return filepath.as_posix()
 
 
-def download_osm_country_data(country, cache_dir, use_cache=True, chunksize=8192, show_progress=True):
+def download_osm_country_data(country, year=None, cache_dir=DEFAULT_CACHE_DIR, use_cache=True, chunksize=8192, show_progress=True):
 
     osm_cache_dir = os.path.join(cache_dir, "osm/")
     # TODO consider incorporating year or quarter to automatically avoid using stale data
@@ -245,10 +288,11 @@ def download_osm_country_data(country, cache_dir, use_cache=True, chunksize=8192
 
         # This downloads a zip file to the country cache dir
         logger.info(f"OSM Data: Downloading Geofabrik zip file...")
-        zipfile_path = download_geofabrik_region(country, country_cache_dir, show_progress=show_progress, chunksize=chunksize)
-
+        zipfile_path = download_geofabrik_region(country, year=year, directory=country_cache_dir, show_progress=show_progress, chunksize=chunksize)
+        if zipfile_path is None:
+            return None
         # Unzip the zip file
-        logger.info(f"OSM Data: Unzipping the zip file...")
+        logger.info(f"OSM Data: Unzipping the zip file {zipfile_path}...")
         with ZipFile(zipfile_path, "r") as zip_object:
             zip_object.extractall(country_cache_dir)
 
