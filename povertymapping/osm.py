@@ -59,7 +59,7 @@ class OsmDataManager:
         else:
             short_year = str(year)[-2:]
             lookup = f'{country}_{short_year}'
-            if lookup in self.pois_cache[lookup]:
+            if lookup in self.pois_cache:
                 logger.debug(f"OSM POIs for {country} and year {year} found in cache.")
                 return self.pois_cache[lookup]
 
@@ -100,7 +100,7 @@ class OsmDataManager:
         else:
             short_year = str(year)[-2:]
             lookup = f'{country}_{short_year}'
-            if lookup in self.roads_cache[lookup]:
+            if lookup in self.roads_cache:
                 logger.debug(f"OSM POIs for {country} and year {year} found in cache.")
                 return self.roads_cache[lookup]
 
