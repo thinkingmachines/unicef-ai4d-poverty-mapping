@@ -11,6 +11,7 @@ from geowrangler.datasets.geofabrik import list_geofabrik_regions
 from loguru import logger
 from urllib.parse import urlparse
 from povertymapping.nightlights import urlretrieve, make_report_hook
+from fastcore.all import urlcheck
 from typing import Union
 DEFAULT_POI_TYPES = [
     "atm",
@@ -172,6 +173,18 @@ def download_geofabrik_region(
 
     return filepath.as_posix()
 
+def get_osm_download_url(region, year=None):
+    geofabrik_info = list_geofabrik_regions()
+    if region not in geofabrik_info:
+        raise ValueError(
+            f"{region} not found in geofabrik. Run list_geofabrik_regions() to learn more about available areas"
+        )
+    url = geofabrik_info[region]
+    if year is not None:
+        short_year = str(year)[-2:] # take last 2 digits
+        year_prefix = f'{short_year}0101'
+        url = url.replace('latest',year_prefix)
+    return url
 
 def download_osm_country_data(country, year=None, cache_dir=DEFAULT_CACHE_DIR, use_cache=True, chunksize=8192, show_progress=True):
 
@@ -201,6 +214,14 @@ def download_osm_country_data(country, year=None, cache_dir=DEFAULT_CACHE_DIR, u
 
     # Download if cache is invalid or user specified use_cache = False
     if not cached_data_available or not use_cache:
+        url = get_osm_download_url(country, year=year)
+        if not urlcheck(url):
+            if year is None:
+                logger.warning(f'OSM data for {country} is not available')
+            else:
+                logger.warning(f'OSM data for {country} and year {year} is not available')
+            return None
+
         logger.info(
             f"OSM Data: Re-initializing OSM country cache dir at {country_cache_dir}..."
         )
