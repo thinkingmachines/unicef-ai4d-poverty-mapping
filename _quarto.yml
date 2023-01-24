@@ -15,12 +15,12 @@ website:
         text: About
       - href: progress.qmd
         text: Progress
-      - section: "Sprint 1B"
+      - section: "Sprint 1"
         contents:
-          - href: notebooks/2022-01-17-initial-model-ph-mm-tl-kh/model_ph.ipynb
-          - href: notebooks/2022-01-17-initial-model-ph-mm-tl-kh/model_kh.ipynb
-          - href: notebooks/2022-01-17-initial-model-ph-mm-tl-kh/model_mm.ipynb
-          - href: notebooks/2022-01-17-initial-model-ph-mm-tl-kh/model_tl.ipynb
+          - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.ipynb
+          - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_kh.ipynb
+          - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_mm.ipynb
+          - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.ipynb
 
 
 format:
