@@ -3,17 +3,20 @@ import shutil
 from pathlib import Path
 import hashlib
 import numpy as np
+import json
 
 import pandas as pd
 import geopandas as gpd
 from geowrangler import grids
 import geowrangler.area_zonal_stats as azs
-from geowrangler.datasets.ookla import download_ookla_file, OoklaFile, list_ookla_files
-
+from geowrangler.datasets.ookla import OoklaFile, list_ookla_files
+from povertymapping.nightlights import urlretrieve,make_report_hook
 from loguru import logger
-
+from urllib.parse import urlparse
+from urllib.request import HTTPError
 from povertymapping import settings
-
+from typing import Union
+from fastcore.parallel import parallel
 
 def get_OoklaFile(filename):
     """Get the corresponding OoklaFile tuple given the filename
@@ -25,6 +28,33 @@ def get_OoklaFile(filename):
         if ooklafile_item == filename:
             return ooklafile_tuple
 
+def compute_datakey(aoi_bounds, type_, year, return_geometry ):
+    data_tuple = (
+        np.array2string(aoi_bounds, precision=6),
+        str(type_),
+        str(year),
+        str(return_geometry),
+    )
+    m = hashlib.md5()
+    for item in data_tuple:
+        m.update(item.encode())
+    data_key = m.hexdigest()
+    return data_key
+
+def write_ookla_metajson(cache_dir, data_key, total_bounds, type_, year, return_geometry):
+    cached_metajson_file_path = (
+        os.path.join(cache_dir, f"{data_key}.geojson.metadata.json")
+        if return_geometry
+        else os.path.join(cache_dir, f"{data_key}.csv.metadata.json")
+    )
+    with open(cached_metajson_file_path,"w") as f:
+        f.write(json.dumps({
+            "bounds": np.array2string(total_bounds, precision=6),
+            "type_": type_,
+            "year": year,
+            "with_geom": return_geometry
+
+        }))
 
 class OoklaDataManager:
     """An instance of this class provides convenience functoins for loading and caching Ookla data"""
@@ -52,18 +82,7 @@ class OoklaDataManager:
         "Load Ookla data across all quarters for a specified aoi, type (fixed, mobile) and year"
 
         # Generate hash from aoi, type_, and year, which will act as a hash key for the cache
-        aoi_bounds = aoi.total_bounds
-        data_tuple = (
-            np.array2string(aoi_bounds),
-            str(type_),
-            str(year),
-            str(return_geometry),
-        )
-        m = hashlib.md5()
-        for item in data_tuple:
-            m.update(item.encode())
-        data_key = m.hexdigest()
-
+        data_key = compute_datakey(aoi.total_bounds, type_, year, return_geometry)
         # Get from RAM cache if already available
         logger.debug(f"Contents of data cache: {list(self.data_cache.keys())}")
         if data_key in self.data_cache:
@@ -108,6 +127,7 @@ class OoklaDataManager:
         )
 
         # Generate the bing tile quadkeys that intersect with the input aoi
+        logger.debug(f"Generating bing tile grids for aoi total bounds {np.array2string(aoi.total_bounds, precision=6)}")
         bing_tile_grid_generator_no_geom = grids.BingTileGridGenerator(
             16, return_geometry=False
         )
@@ -140,17 +160,79 @@ class OoklaDataManager:
         # NOTE: Since there will be groupby operations in processing, we don't return
         #       a geodataframe by default since it does not work well with aggregations
         #       by quadkey.
+        write_ookla_metajson(self.processed_cache_dir, data_key, aoi.total_bounds, type_, year, return_geometry)
+
         if not return_geometry:
+            logger.debug(f"Saving Ookla data into csv file {cached_file_path}")
             self.data_cache[data_key] = df
             df.to_csv(cached_file_path, index=False)
             return df
         else:
-            logger.debug(f"Converting Ookla data into geodataframe")
+            logger.debug(f"Converting Ookla data into geodataframe file")
             gdf = gpd.GeoDataFrame(df, geometry=gpd.GeoSeries.from_wkt(df["tile"]))
             self.data_cache[data_key] = gdf
+            logger.debug(f"Saving Ookla data into geojson file {cached_file_path}")            
             gdf.to_file(cached_file_path, driver="GeoJSON")
             return gdf
 
+
+
+def download_ookla_file(
+    type_: str,  # Internet connection type: 'fixed' or 'mobile'
+    year: str,  # Year (e.g. '2020')
+    quarter: str,  # Quarter (valid values: '1','2','3','4')
+    directory: str = "data/",  # Download directory
+    overwrite: bool = False,  # Overwrite if existing
+    show_progress=True,
+    chunksize=8192,
+    reporthook=None,
+) -> Union[Path,None]:
+    """Download ookla file to path"""
+    if not os.path.isdir(directory):
+        os.makedirs(directory)
+    ookla_info = list_ookla_files()
+    key = OoklaFile(type_, str(year), str(quarter))
+    if key not in ookla_info:
+        raise ValueError(
+            f"{key} not found in ookla. Run list_ookla_data() to learn more about available files"
+        )
+    fname = ookla_info[key]
+    url = f"https://ookla-open-data.s3.us-west-2.amazonaws.com/parquet/performance/type={type_}/year={year}/quarter={quarter}/{fname}"
+    parsed_url = urlparse(url)
+    filename = Path(os.path.basename(parsed_url.path))
+    filepath = directory / filename
+    if not filepath.exists() or overwrite:
+        if reporthook is None:
+            reporthook = make_report_hook(show_progress)
+
+        try:
+            filepath, _, _ = urlretrieve(url, filepath, reporthook=reporthook, chunksize=chunksize)
+        except HTTPError as err:
+            if err.code == 404:
+                logger.warning(f'No url found for type {type_} year {year} and {quarter} : {url} ')
+                return None
+            else:
+                raise err
+
+        # response = requests.get(url, stream=True)
+        # with open(filepath, "wb") as out_file:
+        #     shutil.copyfileobj(response.raw, out_file)
+    return filepath
+def parallel_download(item):
+    quarter, type_, year, directory = item # unpack tuple
+    logger.info(
+        f"Ookla Data: Downloading Ookla parquet file for quarter {quarter}... type: {type_} year: {year} in {directory}"
+    )
+    return download_ookla_file(
+        type_=type_,
+        year=year,
+        quarter=quarter,
+        directory=directory,
+    )
+
+def download_ookla_parallel(num_expected_ookla_files, type_, year, directory):
+    items = [(str(i), type_, year, directory) for i in range(1, num_expected_ookla_files + 1, 1)]
+    parallel(parallel_download, items, threadpool=True, progress=True)
 
 def download_ookla_year_data(type_, year, cache_dir, use_cache=True):
 
@@ -198,16 +280,7 @@ def download_ookla_year_data(type_, year, cache_dir, use_cache=True):
         Path(type_year_cache_dir).mkdir(parents=True, exist_ok=True)
 
         # This downloads a parquet file to the type_year_dir for each quarter
-        for quarter in range(1, num_expected_ookla_files + 1, 1):
-            logger.info(
-                f"Ookla Data: Downloading Ookla parquet file for quarter {quarter}..."
-            )
-            download_path = download_ookla_file(
-                type_=type_,
-                year=year,
-                quarter=str(quarter),
-                directory=type_year_cache_dir,
-            )
+        download_ookla_parallel(num_expected_ookla_files, type_, year, type_year_cache_dir)
 
         logger.info(
             f"Ookla Data: Successfully downloaded and cached Ookla data for {type_} and {year} at {type_year_cache_dir}!"
@@ -220,7 +293,7 @@ def add_ookla_features(
     aoi,
     type_,
     year,
-    ookla_data_manager,
+    ookla_data_manager:OoklaDataManager,
     use_cache=True,
     metric_crs="epsg:3123",
     inplace=False,
@@ -238,6 +311,8 @@ def add_ookla_features(
     # Combine quarterly data from Ookla into yearly aggregate data
     # Geometries are stored separately and rejoined after aggregation by quadkey
     # TODO: incorporate parametrized aggregations, take inspiration from GeoWrangler agg spec
+    
+    logger.info(f"Aggregating ookla data for bounds {np.array2string(aoi.total_bounds, precision=6)} type {type_} year {year} ")
     ookla_geoms = ookla[["quadkey", "tile"]].drop_duplicates().reset_index(drop=True)
     ookla_yearly = (
         ookla.groupby("quadkey")
@@ -272,6 +347,7 @@ def add_ookla_features(
     feature_aggregrations = [
         dict(func=agg_funcs, column=feature) for feature in features
     ]
+    logger.info(f"Creating ookla zonal stats for bounds {np.array2string(aoi.total_bounds, precision=6)} type {type_} year {year} ")    
     aoi = azs.create_area_zonal_stats(
         aoi.to_crs(metric_crs), ookla_yearly.to_crs(metric_crs), feature_aggregrations
     ).to_crs("epsg:4326")
