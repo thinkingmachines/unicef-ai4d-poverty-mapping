@@ -56,12 +56,12 @@ class OsmDataManager:
             if country in self.pois_cache:
                 logger.debug(f"OSM POIs for {country} found in cache.")
                 return self.pois_cache[country]
-            else:
-                short_year = str(year)[-2:]
-                lookup = f'{country}_{short_year}'
-                if lookup in self.pois_cache[lookup]:
-                    logger.debug(f"OSM POIs for {country} and year {year} found in cache.")
-                    return self.pois_cache[lookup]
+        else:
+            short_year = str(year)[-2:]
+            lookup = f'{country}_{short_year}'
+            if lookup in self.pois_cache[lookup]:
+                logger.debug(f"OSM POIs for {country} and year {year} found in cache.")
+                return self.pois_cache[lookup]
 
         # Otherwise, load from file and add to cache
         country_cache_dir = download_osm_country_data(
@@ -93,16 +93,16 @@ class OsmDataManager:
 
     def load_roads(self, country, year=None, use_cache=True, chunksize=1024*1024, show_progress=True):
         # Get from RAM cache if already available
-        if year is None:
+        if year is None: 
             if country in self.roads_cache:
                 logger.debug(f"OSM POIs for {country} found in cache.")
                 return self.roads_cache[country]
-            else:
-                short_year = str(year)[-2:]
-                lookup = f'{country}_{short_year}'
-                if lookup in self.roads_cache[lookup]:
-                    logger.debug(f"OSM POIs for {country} and year {year} found in cache.")
-                    return self.roads_cache[lookup]
+        else:
+            short_year = str(year)[-2:]
+            lookup = f'{country}_{short_year}'
+            if lookup in self.roads_cache[lookup]:
+                logger.debug(f"OSM POIs for {country} and year {year} found in cache.")
+                return self.roads_cache[lookup]
 
         # Otherwise, load from file and add to cache
         country_cache_dir = download_osm_country_data(
@@ -316,7 +316,7 @@ def add_osm_poi_features(
 
 
 def add_osm_road_features(
-    aoi, country, osm_data_manager, year=None, use_cache=True, inplace=False
+    aoi, country, osm_data_manager:OsmDataManager, year=None, use_cache=True, inplace=False
 ):
     """Generates features for the AOI based on OSM road data"""
     roads_gdf = osm_data_manager.load_roads(country, year=year, use_cache=use_cache)
