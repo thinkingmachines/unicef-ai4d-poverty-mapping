@@ -25,7 +25,7 @@ This project is part of [Thinking Machines's overall push for open science throu
 which aims to accelerate the development and adoption of effective machine learning (ML) models for 
 development across Southeast Asia.
 
-
+We also publish our interim (work in progress) and final notebooks [here](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping)
 <br/>
 <br/>
 

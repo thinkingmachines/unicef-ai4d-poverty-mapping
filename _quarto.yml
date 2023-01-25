@@ -15,47 +15,12 @@ website:
         text: About
       - href: progress.qmd
         text: Progress
-      - section: "Sprint 1B"
+      - section: "Sprint 1"
         contents:
-          - href: notebooks/2022-01-17-initial-model-ph-mm-tl-kh/model_ph.ipynb
-          - href: notebooks/2022-01-17-initial-model-ph-mm-tl-kh/model_kh.ipynb
-          - href: notebooks/2022-01-17-initial-model-ph-mm-tl-kh/model_mm.ipynb
-          - href: notebooks/2022-01-17-initial-model-ph-mm-tl-kh/model_tl.ipynb
-        
-      - section: "Sprint 1A (archive)"
-        contents:
-          - section: "Data Preparation (DHS)"
-            contents:
-              - test-notebooks/explore_dhs.ipynb
-              - test-notebooks/explore_kh_dhs.ipynb
-              - test-notebooks/explore_mm_dhs.ipynb
-              - test-notebooks/explore_ph_dhs.ipynb
-              - test-notebooks/explore_tl_dhs.ipynb
-          - section: "Data Preparation (Ookla)"
-            contents:
-              - test-notebooks/explore_ookla.ipynb
-              - test-notebooks/explore_ookla_data.ipynb
-              - test-notebooks/explore_kh_ookla.ipynb
-              - test-notebooks/explore_mm_ookla.ipynb
-              - test-notebooks/explore_ph_ookla.ipynb
-              - test-notebooks/explore_tl_ookla.ipynb
-          - section: "Data Preparation (OSM)"
-            contents:
-              - test-notebooks/explore_osm.ipynb
-              - test-notebooks/explore_ph_osm.ipynb
-          - section: "Data Preparation (Night Lights)"
-            contents:
-              - test-notebooks/explore_ph_viirs.ipynb
-          - section: "Data Preparation (Training Data Prep)"
-            contents:
-              - test-notebooks/ph_prepare_train.ipynb
-              - test-notebooks/explore_process_train_test.ipynb
-              - test-notebooks/explore_ph_process_train_test.ipynb
-          - section: "Model Training and Evaluation"
-            contents:
-              - test-notebooks/ph_train.ipynb
-              - test-notebooks/ph_evaluate.ipynb
-
+          - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.ipynb
+          - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_kh.ipynb
+          - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_mm.ipynb
+          - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.ipynb
 
 
 format:
