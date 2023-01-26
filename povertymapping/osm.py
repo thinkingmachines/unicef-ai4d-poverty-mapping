@@ -126,7 +126,7 @@ def add_osm_road_features(
 class OsmDataManager:
     """An instance of this class provides convenience functions for loading and caching OSM data"""
 
-    DEFAULT_CACHE_DIR = "~/.geowrangler/osm"
+    DEFAULT_CACHE_DIR = "~/.geowrangler"
 
     def __init__(self, cache_dir=DEFAULT_CACHE_DIR):
         self.cache_dir = os.path.expanduser(cache_dir)
@@ -175,7 +175,7 @@ class OsmDataManager:
 def download_osm_country_data(country, cache_dir, use_cache=True):
 
     # TODO consider incorporating year or quarter to automatically avoid using stale data
-    country_cache_dir = os.path.join(cache_dir, country)
+    country_cache_dir = os.path.join(cache_dir, "osm", country)
 
     # Check if the cached data is valid. Otherwise, we have to re-download.
     # Temporary quick check now is to see if the country cache folder is non-empty.

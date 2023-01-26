@@ -29,12 +29,12 @@ def get_OoklaFile(filename):
 class OoklaDataManager:
     """An instance of this class provides convenience functoins for loading and caching Ookla data"""
 
-    DEFAULT_CACHE_DIR = "~/.geowrangler/ookla"
+    DEFAULT_CACHE_DIR = "~/.geowrangler"
 
     def __init__(self, cache_dir=DEFAULT_CACHE_DIR):
         self.data_cache = {}
         self.cache_dir = os.path.expanduser(cache_dir)
-        self.processed_cache_dir = os.path.join(self.cache_dir, "processed")
+        self.processed_cache_dir = os.path.join(self.cache_dir,"ookla", "processed")
         Path(self.processed_cache_dir).mkdir(parents=True, exist_ok=True)
 
     def reinitialize_processed_cache(self):
@@ -174,7 +174,7 @@ def download_ookla_year_data(type_, year, cache_dir, use_cache=True):
             f"Ookla Data: Number of available files for {type_} and {year}: {num_expected_ookla_files}"
         )
 
-    type_year_cache_dir = os.path.join(cache_dir, type_, str(year))
+    type_year_cache_dir = os.path.join(cache_dir,"ookla" ,type_, str(year))
 
     # Check if the cached data is valid. Otherwise, we have to re-download.
     # For Ookla, we need to check if we've downloaded all expected files for that year.
