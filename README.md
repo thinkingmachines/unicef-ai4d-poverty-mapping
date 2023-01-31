@@ -31,9 +31,11 @@ We also publish our interim (work in progress) and final notebooks [here](https:
 
 ## Data Access and Downloads
 
-Due to the sensitive nature of the data and the DHS program terms of use, we cannot provide the raw DHS data. You can, however, request for access to raw data yourself on the [DHS website](https://dhsprogram.com/data/new-user-registration.cfm). In that case, you can use GeoWrangler's [DHS processing utils](https://geowrangler.thinkingmachin.es/tutorial.dhs.html) help perform the said pre-processing. 
+Due to the sensitive nature of the data and the DHS program terms of use, we cannot provide the raw DHS data. 
 
-The notebooks assume that the DHS Stata and Shape Files are located in `data/<iso-country-code>/dhs_<iso-country-code>`
+You can, however, request for access to raw data yourself on the [DHS website](https://dhsprogram.com/data/new-user-registration.cfm). In that case, you can use GeoWrangler's [DHS processing utils](https://geowrangler.thinkingmachin.es/tutorial.dhs.html) help perform the said pre-processing. 
+
+The notebooks assume that the DHS Stata and Shape Files are located in `data/dhs/<iso-country-code>/`
 where the `<iso-country-code>` is the two-letter ISO country code. 
 
 The only other data access requirement is the EOG Nightlights Data which requires [registering for an account](https://eogdata.mines.edu/products/register). The nightlights download require the use of these credentials (user name and password) to download the nightlights data automatically.
