@@ -25,10 +25,28 @@ This project is part of [Thinking Machines's overall push for open science throu
 which aims to accelerate the development and adoption of effective machine learning (ML) models for 
 development across Southeast Asia.
 
-
+We also publish our interim (work in progress) and final notebooks [here](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping)
 <br/>
 <br/>
 
+## Data Access and Downloads
+
+Due to the sensitive nature of the data and the DHS program terms of use, we cannot provide the raw DHS data. 
+
+You can, however, request for access to raw data yourself on the [DHS website](https://dhsprogram.com/data/new-user-registration.cfm). In that case, you can use GeoWrangler's [DHS processing utils](https://geowrangler.thinkingmachin.es/tutorial.dhs.html) help perform the said pre-processing. 
+
+The notebooks assume that the DHS Stata and Shape Files are located in `data/dhs/<iso-country-code>/`
+where the `<iso-country-code>` is the two-letter ISO country code. 
+
+The only other data access requirement is the EOG Nightlights Data which requires [registering for an account](https://eogdata.mines.edu/products/register). The nightlights download require the use of these credentials (user name and password) to download the nightlights data automatically.
+
+All the other datasets used in this projects are publically available and the notebooks all provide the code necessary to download as well
+cache the data.
+
+Due to the size of the downloaded datasets, please make sure you have enough disk space (minimum 4OGB-50GB) to accommodate all the datasets used in building the models.
+
+<br/>
+<br/>
 
 # ⚙️ Local Setup for Development
 
@@ -116,3 +134,5 @@ quarto preview --port 4444 --no-browser
 quarto publish gh-pages --no-browser
 ```
 * **Pro-tip** : If you are using VS Code as your code editor, install the [Quarto extension](https://marketplace.visualstudio.com/items?itemName=quarto.quarto) to make editing/previewing the doc site a lot smoother.
+
+

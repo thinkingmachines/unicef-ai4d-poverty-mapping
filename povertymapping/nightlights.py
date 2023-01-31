@@ -12,6 +12,7 @@ import json, contextlib
 import hashlib
 import numpy as np
 
+from urllib.parse import urlparse
 from urllib.error import HTTPError, ContentTooShortError
 from fastcore.net import urlopen, urldest, urlclean
 from loguru import logger
@@ -357,9 +358,12 @@ def generate_clipped_raster(
         process_suffix=process_suffix,
         vcmcfg=vcmcfg
     )
-    viirs_zipped_filename = urlclean(viirs_url)
+    parsed_url = urlparse(viirs_url)
+    viirs_zipped_filename = Path(os.path.basename(parsed_url.path)).name
     viirs_unzip_filename = ".".join(viirs_zipped_filename.split(".")[:-1])  # remove .gz
     viirs_unzip_file = viirs_cache_dir / viirs_unzip_filename
+    logger.info(f"Using viirs global file as source raster: {viirs_unzip_file}")
+
     if not viirs_unzip_file.exists():
         viirs_zip_file = download_url(viirs_url, dest=viirs_cache_dir)
         viirs_unzip_file = unzip_eog_gzip(
