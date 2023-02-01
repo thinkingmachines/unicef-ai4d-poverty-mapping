@@ -20,7 +20,7 @@ from types import SimpleNamespace
 
 DEFAULT_EOG_CREDS_PATH = "~/.eog_creds/eog_access_token"
 EOG_ENV_VAR = "EOG_ACCESS_TOKEN"
-NIGHTLIGHTS_CACHE_DIR = "~/.geowrangler/nightlights"
+NIGHTLIGHTS_CACHE_DIR = "~/.cache/geowrangler/nightlights"
 # Retrieve access token
 def get_eog_access_token(
     username,
@@ -49,9 +49,10 @@ def get_eog_access_token(
         save_path = Path(os.path.expanduser(save_path))
         if not save_path.parent.exists():
             logger.info(f"Creating access token directory {save_path.parent}")
-            save_path.parent.mkdir(mode=510, parents=True, exist_ok=True)
+            save_path.parent.mkdir(mode=500, parents=True, exist_ok=True)
         with open(save_path, "w") as f:
             f.write(access_token)
+        os.chmod(save_path,0o600)
     if set_env:
         logger.info(f"Adding access token to environmentt var {env_token_var}")
         os.environ[env_token_var] = access_token

@@ -126,7 +126,7 @@ def add_osm_road_features(
 class OsmDataManager:
     """An instance of this class provides convenience functions for loading and caching OSM data"""
 
-    DEFAULT_CACHE_DIR = "~/.geowrangler"
+    DEFAULT_CACHE_DIR = "~/.cache/geowrangler"
 
     def __init__(self, cache_dir=DEFAULT_CACHE_DIR):
         self.cache_dir = os.path.expanduser(cache_dir)
