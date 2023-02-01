@@ -5,6 +5,27 @@ from haversine import Direction, inverse_haversine
 from shapely import wkt
 
 
+def generate_dhs_household_level_data(
+    dhs_household_dta_filepath, col_rename_config={}, drop_duplicate_cols=True
+):
+    AVAILABLE_COUNTRIES = ["ph", "kh", "mm", "tl"]
+    if (
+        isinstance(col_rename_config, str)
+        and col_rename_config.lower() in AVAILABLE_COUNTRIES
+    ):
+        col_rename_config = dhs.load_column_config(col_rename_config)
+
+    # Aggregate households according ot their cluster IDs
+    household_df = dhs.load_dhs_file(dhs_household_dta_filepath)
+    household_df = household_df.rename(columns=col_rename_config)
+
+    # Drop duplicated column names (keeps first occurence)
+    if drop_duplicate_cols:
+        household_df = household_df.loc[:, ~household_df.columns.duplicated()]
+
+    return household_df
+
+
 def generate_dhs_cluster_level_data(
     dhs_household_dta_filepath,
     dhs_geo_shp_filepath,
@@ -25,9 +46,12 @@ def generate_dhs_cluster_level_data(
     ):
         col_rename_config = dhs.load_column_config(col_rename_config)
 
+    # Get the household level data
+    household_df = generate_dhs_household_level_data(
+        dhs_household_dta_filepath, col_rename_config=col_rename_config
+    )
+
     # Aggregate households according ot their cluster IDs
-    household_df = dhs.load_dhs_file(dhs_household_dta_filepath)
-    household_df = household_df.rename(columns=col_rename_config)
     cluster_df = (
         household_df[[wealth_col_name, cluster_col_name]]
         .groupby(cluster_col_name)
