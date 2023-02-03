@@ -13,13 +13,13 @@ metadata:
       icon: chat
     - url: https://thinkdatasci.slack.com/archives/C03A2TXBW9G
       title: Slack - UNICEF AI4D Channel
-      icon: dashboard
+      icon: chat
     - url: https://docs.google.com/document/d/1BrVgLLun48z2iitScisOr1F62b2uedWp1ihN3Qqbp0I
       title: Documentation - AI4D Poverty Mapping Research Journal
-      icon: document
+      icon: docs
     - url: https://docs.google.com/document/d/11HT2fePx0znyBkhTTragTxAamorUgAaEAituqWypFfc
       title: "Documentation - Poverty Mapping in SEA Rollout: Challenges"
-      icon: document
+      icon: docs
   tags:
     - gcp
     - geo-ai
