@@ -4,7 +4,6 @@ from geowrangler import dhs
 from haversine import Direction, inverse_haversine
 from shapely import wkt
 from typing import Union
-from loguru import logger
 
 DEFAULT_AVAILABLE_COUNTRIES = ["ph", "kh", "mm", "tl"]
 DEFAULT_DHS_HOUSEHOLD_COLS = [
@@ -312,9 +311,7 @@ class DHSDataManager:
             country_index_list = list(self.household_data.keys())
 
         households_df = self.get_household_level_data_by_country(country_index_list)
-        print("hi")
-        print(households_df[["country_index"] + index_features].value_counts())
-
+        
         households_df[output_col] = dhs.assign_wealth_index(
             households_df[index_features].fillna(0)
         )
