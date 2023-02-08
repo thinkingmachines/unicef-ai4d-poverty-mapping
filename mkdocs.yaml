@@ -1,0 +1,7 @@
+site_name: 'WHO TB TOP CASEYE-DIFF'
+
+nav:
+  - Introduction: 'README.md'
+  
+plugins:
+  - techdocs-core
