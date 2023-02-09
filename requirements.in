@@ -8,7 +8,7 @@ gdal
 geopandas
 # geowrangler
 # use latest version not yet on pypi
-git+https://github.com/thinkingmachines/geowrangler.git
+git+https://github.com/thinkingmachines/geowrangler.git@feat/integrate-new-ookla-features
 haversine
 jupyterlab
 libclang
