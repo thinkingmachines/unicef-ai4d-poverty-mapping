@@ -1,0 +1,62 @@
+---
+title: Cross-country Experiments Report
+---
+<!--# TODO: links-->
+
+# At a glance
+
+This page summarizes our experiments in finding the best approach for training cross-country poverty estimation models for the following DHS countries: Philippines (PH), Cambodia (KH), Timor (TL) Leste, and Myanmar (MM).
+
+Our main goal for these experiments to validate our approach on running models for countries without DHS ground truth data. 
+
+We find that training a model **with both features and wealth index labels scaled per-country** give us the most promising results.
+
+:::{.column-page-right}
+|  	|  	|  	| $r^2$ 	|  	|  	|  	|
+|---	|---	|---	|---	|---	|---	|---	|
+| Train 	| Test 	| Test single-country model 	| raw features and<br>wealth index 	| raw features,<br>recomputed <br>wealth index  	| raw features,<br>scaled per-country <br>wealth index 	| scaled per-country features<br>and wealth index 	|
+| KH, MM, TL 	| PH 	| 0.57  	| 0.19 	| -0.01 	| 0.24 	| 0.42 	|
+| PH, MM, TL 	| KH 	| 0.7 	| 0.62 	| -1.46 	| 0.59 	| 0.65 	|
+| KH, PH, MM 	| TL 	| 0.6 	| 0.37 	| -2.76 	| 0.34 	| 0.55 	|
+| KH, PH, TL 	| MM 	| 0.5 	| 0.46 	| 0.01 	| 0.45 	| 0.32 	|
+|  	| Mean (std) 	| 0.59 	| 0.32 (0.3) 	| -1.06 (1.15) 	| 0.41 (0.13) 	| 0.48 (0.12) 	|
+
+:::
+
+# Experiments
+
+We trained four main types of models:
+
+
+1. Cross-country regressor with raw wealth index 
+2. Cross-country regressor with wealth index normalized per-country
+3. Cross-country regressor with wealth index recalculated using the pooled data for the four countries
+4. Cross-country regressor with both wealth index and input features normalized per-country
+
+Each model was trained and evaluated using a Leave One Country Out strategy, wherein the model was trained on three countries and tested on the fourth country. For example, we train on KH, MM, and TL, and tested on PH. We trained a model for every possible split (4 in total) and calculated the mean $r^2$ across all splits. This strategy emulates the situation wherein we train the poverty estimation model on data with ground truth data and rollout on countries without. 
+
+
+
+
+## Cross-country regressor with raw wealth index
+
+[📒 Notebook link](notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.ipynb)
+
+
+## Cross-country regressor with wealth index normalized per-country
+
+[📒 Notebook link](notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.ipynb)
+
+*Insert commentary*
+
+## Cross-country regressor with wealth index recalculated using the pooled data for the four countries
+
+[📒 Notebook link](notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.ipynb)
+
+*Insert commentary*
+
+## Cross-country regressor with both wealth index and input features normalized per-country
+
+*Insert commentary*
+
+                  
