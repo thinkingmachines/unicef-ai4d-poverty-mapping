@@ -1,5 +1,5 @@
 ---
-title: Cross-country Experiments Report
+title: Cross-country Experiments Summary
 crossref:
   chapters: true
 ---
@@ -16,13 +16,13 @@ We find that training a model **with both features and wealth index labels scale
 :::{.column-page-right}
 |  	|  	|  	| $r^2$ 	|  	|  	|  	|
 |---	|---	|---	|---	|---	|---	|---	|
-| Train 	| Test 	| Test single-country model 	| raw features and<br>wealth index 	| raw features,<br>recomputed <br>wealth index  	| raw features,<br>scaled per-country <br>wealth index 	| scaled per-country features<br>and wealth index 	|
-| KH, MM, TL 	| PH 	| 0.57  	| 0.19 	| -0.01 	| 0.24 	| 0.42 	|
-| PH, MM, TL 	| KH 	| 0.7 	| 0.62 	| -1.46 	| 0.59 	| 0.65 	|
-| KH, PH, MM 	| TL 	| 0.6 	| 0.37 	| -2.76 	| 0.34 	| 0.55 	|
-| KH, PH, TL 	| MM 	| 0.5 	| 0.46 	| 0.01 	| 0.45 	| 0.32 	|
-|  	| Mean (std) 	| 0.59 	| 0.32 (0.3) 	| -1.06 (1.15) 	| 0.41 (0.13) 	| 0.48 (0.12) 	|
-: Test Caption {#tbl-model-r2}
+| Train 	| Test 	| Test single-country model 	| raw features and<br>wealth index 	| recomputed wealth index  	| scaled wealth index 	| scaled features<br>and wealth index 	|
+| KH, MM, TL 	| PH 	| 0.57  	| -0.19 	| -0.01 	| 0.25 	| 0.48 	|
+| PH, MM, TL 	| KH 	| 0.7 	| 0.62 	| -1.46 	| 0.59 	| 0.58 	|
+| KH, PH, MM 	| TL 	| 0.6 	| 0.37 	| -2.76 	| 0.34 	| 0.54 	|
+| KH, PH, TL 	| MM 	| 0.5 	| 0.46 	| 0.01 	| 0.45 	| 0.51 	|
+|  	| Overal Average 	| 0.59  	| 0.32  	| -1.06  	| 0.41  	| 0.52	|
+: Model performance by country split for each experiment, measured using Pearson Correlation Coefficient ($r^2$) {#tbl-model-r2}
 :::
 
 # Experiments
@@ -31,12 +31,10 @@ We trained four main types of models:
 
 
 1. Cross-country regressor with raw wealth index  
-2. Cross-country regressor with wealth index normalized per-country
-3. Cross-country regressor with wealth index recalculated using the pooled data for the four countries
-4. Cross-country regressor with both wealth index and input features normalized per-country
+2. Cross-country regressor with wealth index recalculated using the pooled data for the four countries
+3. Cross-country regressor with both wealth index and input features scaled per-country
 
 @tbl-model-r2 summarizes the model performance for each experiment.  Each experiment was evaluated using a Leave One Country Out strategy, wherein the model was trained on three countries and tested on the fourth country. For example, we train on KH, MM, and TL, and tested on PH. We trained a model for every possible split (4 in total) and calculated the mean $r^2$ across all splits. This strategy emulates the situation wherein we train the poverty estimation model on data with ground truth data and rollout on countries without. 
-
 
 
 
@@ -44,21 +42,43 @@ We trained four main types of models:
 
 [📒 Notebook link](notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.ipynb)
 
+### Learnings
+- Training the model on raw features and wealth index produces inconsistent results which are highly dependent on the left-out country. 
 
-## Cross-country regressor with wealth index normalized per-country {#sec-exp-2}
 
-[📒 Notebook link](notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.ipynb)
-
-*Insert commentary*
-
-## Cross-country regressor with wealth index recalculated using the pooled data for the four countries {#sec-exp-3}
+## Cross-country regressor with wealth index recalculated using the pooled data for the four countries {#sec-exp-2}
 
 [📒 Notebook link](notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.ipynb)
 
-*Insert commentary*
+### Idea
 
-## Cross-country regressor with both wealth index and input features normalized per-country {#sec-exp-4}
+Recomputing the wealth index from pooled country data from all countries will help the model predict better across countries
+
+### Experiment Performed
+
+Combine raw country data and recompute the wealth index using PCA on a base set of features: drinking water, number of rooms, electrification, mobile telephone, radio, television, cars/trucks, refrigeration, motorcycle, floors, toilet
+
+
+### Learnings
+- Aligning features across different countries  makes it very difficult to include all features
+- Recomputed index has poor correlation with original index
+- Index would likely improve if we recompute using a larger dataset
+
+## Cross-country regressor with both wealth index and input features scaled per-country {#sec-exp-3}
 
 [📒 Notebook link](notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.ipynb)
 
-*Insert commentary*
+### Idea
+
+Scaling the features and the DHS wealth index from absolute to relative values corrects country-level variations
+- Ex. 10 mbps download speed -> top 10% speed in that country
+
+### Experiment Performed
+Trained a model using a) scaled features, b) scaled wealth index, and c) both, using different scaling methods
+
+### Learnings
+- Scaling gives us the best cross-country results and works best when both features and labels are scaled
+- Simpler method, but is scalable and already reported in other literature
+- Model only gives us purely relative predictions without an absolute value 
+
+
