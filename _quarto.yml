@@ -15,12 +15,18 @@ website:
         text: About
       - href: progress.qmd
         text: Progress
-      - section: "Sprint 1"
+      - section: "Sprint 1 (Individual DHS Countries)"
         contents:
           - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.ipynb
           - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_kh.ipynb
           - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_mm.ipynb
           - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.ipynb
+      - section: "Sprint 2 (Cross Country Experiments)"
+        contents:
+          - href: notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.ipynb
+          - href: notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.ipynb
+          - href: notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.ipynb
+          - href: notebooks/2023-02-01-index-recalculation-experiments/dhs_crosscountry_refactor_tests.ipynb
 
 
 format:
