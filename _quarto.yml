@@ -26,7 +26,6 @@ website:
           - href: notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.ipynb
           - href: notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.ipynb
           - href: notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.ipynb
-          - href: notebooks/2023-02-01-index-recalculation-experiments/dhs_crosscountry_refactor_tests.ipynb
 
 
 format:
