@@ -14,16 +14,17 @@ DEFAULT_CACHE_DIR = '~/.cache/geowrangler'
 GEOBOUNDARIES_REQUEST_URL = "https://www.geoboundaries.org/gbRequest.html?ISO={}&ADM={}"
 # TODO: cite acknowledgement: https://www.geoboundaries.org/index.html#citation
 #   
-def get_geoboundaries(region, adm='ADM0', dest=None, cache_dir=DEFAULT_CACHE_DIR, use_cache=True, show_progress=True, chunksize=8192):
+def get_geoboundaries(region, adm='ADM0', dest=None, cache_dir=DEFAULT_CACHE_DIR, overwrite=False, show_progress=True, chunksize=8192):
     if type(cache_dir) == str:
         cache_dir = Path(os.path.expanduser(cache_dir))
 
-    iso = get_iso3_code(region.lower())
+    iso = get_iso3_code(region)
     adm = adm.upper()
-    bounds_cache = cache_dir/'geoboundaries'
-    bounds_cache.mkdir(parents=True,exist_ok=True)
     
     if dest is None:
+        bounds_cache = cache_dir/'geoboundaries'
+        bounds_cache.mkdir(parents=True,exist_ok=True)
+
         filename = bounds_cache / f'{iso}_{adm}.geojson'
     else:
         if type(dest) == str:
@@ -34,7 +35,7 @@ def get_geoboundaries(region, adm='ADM0', dest=None, cache_dir=DEFAULT_CACHE_DIR
             dest.parent.mkdir(parents=True,exist_ok=True)
             filename = dest
     
-    if filename.exists() and use_cache:
+    if filename.exists() and not overwrite:
         return filename
     url = GEOBOUNDARIES_REQUEST_URL.format(iso, adm)
     logger.info(f"Downloading geoboundaries for {iso} at admin level {adm} at {url}")
