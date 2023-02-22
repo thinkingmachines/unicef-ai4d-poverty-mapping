@@ -8,7 +8,8 @@ gdal
 geopandas
 # geowrangler
 # use latest version not yet on pypi
-git+https://github.com/thinkingmachines/geowrangler.git
+# git+https://github.com/thinkingmachines/geowrangler.git
+git+https://github.com/thinkingmachines/geowrangler.git@feat/optimize-bingtilegrid
 haversine
 jupyterlab
 libclang
