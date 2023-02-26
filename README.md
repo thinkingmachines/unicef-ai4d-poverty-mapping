@@ -43,7 +43,7 @@ The only other data access requirement is the EOG Nightlights Data which require
 All the other datasets used in this projects are publically available and the notebooks all provide the code necessary to download as well
 cache the data.
 
-Due to the size of the downloaded datasets, please make sure you have enough disk space (minimum 4OGB-50GB) to accommodate all the datasets used in building the models.
+Due to the size of the downloaded datasets, please make sure you have enough disk space (minimum 40GB-50GB) to accommodate all the datasets used in building the models.
 
 <br/>
 <br/>
