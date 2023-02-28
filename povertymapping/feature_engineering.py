@@ -23,7 +23,7 @@ def generate_features(
     features_only: bool = False,
 ) -> pd.DataFrame:
     """Generates the base features for an AOI based on
-    DHS, OSM, Ookla, and VIIRS (nighttime lights) data
+    OSM, Ookla, and VIIRS (nighttime lights) data
 
     Args:
         aoi (pd.DataFrame): The input AOI dataframe.
@@ -105,7 +105,6 @@ def generate_labels(
         aoi (pd.DataFrame): The input AOI dataframe.
         label_col (str): The column to use as the label.
         inplace (bool, optional): Whether to overwrite the original dataframe or not. Defaults to False.
-        data_dir (str, optional): The path to the data directory. Defaults to settings.DATA_DIR.
         fill_na (bool, optional): Whether to fill missing values with fill_na_value or not. Defaults to True.
         fill_na_value (int, optional): The value to fill missing values. Defaults to 0.
         scale (bool, optional): Whether to scale the generated label or not. Defaults to True.
