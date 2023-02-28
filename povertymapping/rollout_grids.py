@@ -23,7 +23,9 @@ def parallel_zonal_stats(batch_item):
 def compute_parallel_raster_zonal_stats(batch, hdx_pop_file, aggregation, extra_args, n_workers):
     batch_items = [(item.copy().reset_index(drop=True), hdx_pop_file, aggregation, extra_args) for item in np.array_split(batch, n_workers)]
     results = fc.parallel(parallel_zonal_stats, batch_items, n_workers=n_workers, threadpool=True, progress=True)
+    logger.info(f'Completed parallel raster zonal stats for {len(results)} threads')
     result = pd.concat(results, ignore_index=True)
+    logger.info(f'Concatenated parallel raster zonal stats for {len(results)} threads')
     result =  gpd.GeoDataFrame(result, geometry='geometry', crs=batch.crs)
     return result
 
@@ -34,20 +36,28 @@ def compute_raster_stats(admin_grids_gdf,
                          max_batch_size=None,
                          n_workers=None):
     "Compute raster stats"
+    fsize = hdx_pop_file.stat().st_size
+    grid_count = len(admin_grids_gdf)
     if max_batch_size is None and n_workers is None:
+        logger.info(f'Creating raster zonal stats for {grid_count} grids for file size {fsize}')
         return rzs.create_raster_zonal_stats(admin_grids_gdf, hdx_pop_file, aggregation=aggregation, extra_args=extra_args)
+    logger.info(f'Batching call to create raster_zonal stats for {grid_count} grids for file size {fsize}')
     grid_count = len(admin_grids_gdf)
     n_splits = grid_count // max_batch_size if max_batch_size < grid_count else 1
-    
     grid_batches = [item.copy().reset_index(drop=True) for item in np.array_split(admin_grids_gdf, n_splits)]
+    logger.info(f'Created {len(grid_batches)} for {n_splits} splits of {max_batch_size}')
     grid_results = []
-    for batch in grid_batches:
+    for i, batch in enumerate(grid_batches):
         if n_workers is None:
+            logger.info(f'Creating raster zonal stats for batch {i} with index ({batch.index.min()}/{batch.index.max()}')
             batch_result = rzs.create_raster_zonal_stats(batch, hdx_pop_file, aggregation=aggregation, extra_args=extra_args)
         else:
+            logger.info(f'Creating raster zonal stats for batch {i} with index ({batch.index.min()}/{batch.index.max()} in {n_workers} parallel threads')
             batch_result = compute_parallel_raster_zonal_stats(batch, hdx_pop_file, aggregation=aggregation, extra_args=extra_args, n_workers=n_workers)
         grid_results.append(batch_result)
+    logger.info(f'Completed raster zonal stats for {len(grid_batches)} batches')
     result_grid = pd.concat(grid_results, ignore_index=True)
+    logger.info(f'Concatenated raster zonal stats for {len(grid_batches)} batches')
     result_grid = gpd.GeoDataFrame(result_grid, geometry='geometry', crs=admin_grids_gdf.crs)
     return result_grid
 
