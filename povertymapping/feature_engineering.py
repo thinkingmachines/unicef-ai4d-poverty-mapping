@@ -1,10 +1,11 @@
-from povertymapping import settings, osm, ookla, nightlights
-from povertymapping.dhs import generate_dhs_cluster_level_data
+from povertymapping import ookla, nightlights, osm
 from povertymapping.osm import OsmDataManager
 from povertymapping.ookla import OoklaDataManager
-from typing import Union, Any
+from typing import Any
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
+
+DEFAULT_CACHE_DIR = "~/.geowrangler"
 
 
 def generate_features(
@@ -13,7 +14,7 @@ def generate_features(
     ookla_year: int,
     nightlights_year: int,
     inplace: bool = False,
-    data_dir: str = settings.DATA_DIR,
+    cache_dir: str = DEFAULT_CACHE_DIR,
     fill_na: bool = True,
     fill_na_value: int = 0,
     scale: bool = True,
@@ -31,11 +32,11 @@ def generate_features(
         ookla_year (int): The year of Ookla data to use. Earliest available is 2019.
         nightlights_year (int): The year of nighttime lights data to use. Earliest available is 2012.
         inplace (bool, optional): Whether to overwrite the original dataframe or not. Defaults to False.
-        data_dir (str, optional): The path to the data directory. Defaults to settings.DATA_DIR.
+        cache_dir (str, optional): The path to the data directory where downloaded data is cached. Defaults to ~/.geowrangler.
         fill_na (bool, optional): Whether to fill missing values with fill_na_value or not. Defaults to True.
         fill_na_value (int, optional): The value to fill missing values. Defaults to 0.
-        scale_features (bool, optional): Whether to scale the generated features or not. Defaults to True.
-        sklearn_scaler (Any, optional): The scikit-learn scaler to use. Defaults to StandardScaler.
+        scale (bool, optional): Whether to scale the generated features or not. Defaults to True.
+        sklearn_scaler (Any, optional): The scikit-learn scaler to use. Only applied if scale_features = True. Defaults to StandardScaler.
         scaled_only (bool, optional): Whether to return only the scaled features or not. Defaults to False.
         features_only (bool, optional): Whether to return only the generated features or not. Defaults to False.
 
@@ -51,8 +52,8 @@ def generate_features(
 
     # Instantiate data managers for Ookla and OSM
     # This auto-caches requested data in RAM, so next fetches of the data are faster.
-    osm_data_manager = OsmDataManager(cache_dir=data_dir / "data_cache")
-    ookla_data_manager = OoklaDataManager(cache_dir=data_dir / "data_cache")
+    osm_data_manager = OsmDataManager(cache_dir=cache_dir)
+    ookla_data_manager = OoklaDataManager(cache_dir=cache_dir)
 
     # Add in OSM features
     aoi = osm.add_osm_poi_features(aoi, country_osm, osm_data_manager)
@@ -63,7 +64,9 @@ def generate_features(
     aoi = ookla.add_ookla_features(aoi, "mobile", ookla_year, ookla_data_manager)
 
     # Add in the nighttime lights features
-    aoi = nightlights.generate_nightlights_feature(aoi, nightlights_year)
+    aoi = nightlights.generate_nightlights_feature(
+        aoi, nightlights_year, cache_dir=f"{cache_dir}/nightlights"
+    )
 
     # Get list of features generated
     feature_cols = [x for x in aoi.columns if x not in input_cols]
@@ -94,7 +97,7 @@ def generate_labels(
     fill_na_value: int = 0,
     scale: bool = True,
     sklearn_scaler: Any = StandardScaler,
-    labels_only: bool = True,
+    labels_only: bool = False,
 ) -> pd.DataFrame:
     """Generates labels for an AOI based on a specified column.
 
@@ -106,8 +109,8 @@ def generate_labels(
         fill_na (bool, optional): Whether to fill missing values with fill_na_value or not. Defaults to True.
         fill_na_value (int, optional): The value to fill missing values. Defaults to 0.
         scale (bool, optional): Whether to scale the generated label or not. Defaults to True.
-        sklearn_scaler (Any, optional): The scikit-learn scaler to use. Defaults to StandardScaler.
-        labels_only (bool, optional): Whether to return only the generated labels or not. Defaults to True.
+        sklearn_scaler (Any, optional): The scikit-learn scaler to use. Only applied if scale = True. Defaults to StandardScaler.
+        labels_only (bool, optional): Whether to return only the generated labels or not. Defaults to False.
 
     Returns:
         aoi (pd.DataFrame): The AOI dataframe with its new labels.
