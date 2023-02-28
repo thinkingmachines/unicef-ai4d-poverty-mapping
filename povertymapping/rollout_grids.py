@@ -124,7 +124,7 @@ def get_region_filtered_bingtile_grids(region: str,
                                                                    func='sum'),
                                                  extra_args=extra_args,
                                                  max_batch_size=max_batch_size,
-                                                 n_workers=n_workers),
+                                                 n_workers=n_workers)
         
         
         logger.info('Filtering unpopulated grids based on population data')
