@@ -1,19 +1,56 @@
-import sys
 from povertymapping.geoboundaries import get_geoboundaries
 from povertymapping.hdx import get_hdx_file
 from geowrangler.grids import BingTileGridGenerator
 import geowrangler.spatialjoin_highest_intersection as sjhi
 import geowrangler.raster_zonal_stats as rzs
 import geopandas as gpd
+import pandas as pd
 import numpy as np
 from pathlib import Path
 import os
 from loguru import logger
-
+import fastcore.all as fc
 
 DEFAULT_ADMIN_LVL = 'ADM2'
 DEFAULT_QUADKEY_LVL = 14
 DEFAULT_CACHE_DIR = '~/.cache/geowrangler'
+
+def parallel_zonal_stats(batch_item):
+    batch, hdx_pop_file, aggregation, extra_args = batch_item
+    result = rzs.create_raster_zonal_stats(batch, hdx_pop_file, aggregation=aggregation, extra_args=extra_args)
+    return result
+
+def compute_parallel_raster_zonal_stats(batch, hdx_pop_file, aggregation, extra_args, n_workers):
+    batch_items = [(item.copy().reset_index(drop=True), hdx_pop_file, aggregation, extra_args) for item in np.array_split(batch, n_workers)]
+    results = fc.parallel(parallel_zonal_stats, batch_items, n_workers=n_workers, threadpool=True, progress=True)
+    result = pd.concat(results, ignore_index=True)
+    result =  gpd.GeoDataFrame(result, geometry='geometry', crs=batch.crs)
+    return result
+
+def compute_raster_stats(admin_grids_gdf, 
+                         hdx_pop_file,
+                         aggregation=dict(column='population', output='pop_count', func='sum'),
+                         extra_args=dict(nodata=np.nan),
+                         max_batch_size=None,
+                         n_workers=None):
+    "Compute raster stats"
+    if max_batch_size is None and n_workers is None:
+        return rzs.create_raster_zonal_stats(admin_grids_gdf, hdx_pop_file, aggregation=aggregation, extra_args=extra_args)
+    grid_count = len(admin_grids_gdf)
+    n_splits = grid_count // max_batch_size if max_batch_size < grid_count else 1
+    
+    grid_batches = [item.copy().reset_index(drop=True) for item in np.array_split(admin_grids_gdf, n_splits)]
+    grid_results = []
+    for batch in grid_batches:
+        if n_workers is None:
+            batch_result = rzs.create_raster_zonal_stats(batch, hdx_pop_file, aggregation=aggregation, extra_args=extra_args)
+        else:
+            batch_result = compute_parallel_raster_zonal_stats(batch, hdx_pop_file, aggregation=aggregation, extra_args=extra_args, n_workers=n_workers)
+        grid_results.append(batch_result)
+    result_grid = pd.concat(grid_results, ignore_index=True)
+    result_grid = gpd.GeoDataFrame(result_grid, geometry='geometry', crs=admin_grids_gdf.crs)
+    return result_grid
+
 
 def get_region_filtered_bingtile_grids(region: str,
                               admin_lvl = DEFAULT_ADMIN_LVL ,
@@ -23,8 +60,10 @@ def get_region_filtered_bingtile_grids(region: str,
                               filter_population=True,
                               assign_grid_admin_area=True,
                               metric_crs='epsg:3857',
-                              extra_args=dict(
-                                nodata=np.nan),
+                              extra_args=dict(nodata=np.nan),
+                              max_batch_size=None,
+                              n_workers=None
+
 ) -> gpd.GeoDataFrame:
     """
     Get a geodataframe consisting of bing tile grids for a region/country at a quadkey level.
@@ -39,7 +78,8 @@ def get_region_filtered_bingtile_grids(region: str,
        assign_grid_admin_area: (default: True) whether to merge the admin level area data to the grids data
        metric_crs: (default: 'epsg:3857') - CRS to use for assigning for admin areas
        extra_args: (default: dict(nodata=np.nan)) - extra arguments passed to raster zonal stats computing
-       
+       max_batch_size: (default:None) - set batch size to limit memory used for raster zonal stats
+       n_workers: (default:None) - set number of workers to parallelize raster zonal stats computation per batch
     """
     directory = Path(os.path.expanduser(cache_dir))/'quadkey_grids'
     directory.mkdir(parents=True,exist_ok=True)
@@ -78,11 +118,14 @@ def get_region_filtered_bingtile_grids(region: str,
         logger.info(f'Getting {region} population data for filtering grids')
         hdx_pop_file = get_hdx_file(region)
         logger.info('Computing population zonal stats per grid')
-        admin_grids_gdf = rzs.create_raster_zonal_stats(admin_grids_gdf, hdx_pop_file,
+        admin_grids_gdf = compute_raster_stats(admin_grids_gdf, hdx_pop_file,
                                                  aggregation=dict(column='population',
                                                                    output='pop_count',
                                                                    func='sum'),
-                                                 extra_args=extra_args)
+                                                 extra_args=extra_args,
+                                                 max_batch_size=max_batch_size,
+                                                 n_workers=n_workers),
+        
         
         logger.info('Filtering unpopulated grids based on population data')
         admin_grids_gdf = admin_grids_gdf[admin_grids_gdf['pop_count'] > 0]
