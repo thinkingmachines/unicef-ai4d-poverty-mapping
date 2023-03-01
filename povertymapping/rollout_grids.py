@@ -43,22 +43,27 @@ def compute_raster_stats(admin_grids_gdf,
         return rzs.create_raster_zonal_stats(admin_grids_gdf, hdx_pop_file, aggregation=aggregation, extra_args=extra_args)
     logger.info(f'Batching call to create raster_zonal stats for {grid_count} grids for file size {fsize}')
     grid_count = len(admin_grids_gdf)
+    admin_grids_crs = admin_grids_gdf.crs
+
     n_splits = grid_count // max_batch_size if max_batch_size < grid_count else 1
     grid_batches = [item.copy().reset_index(drop=True) for item in np.array_split(admin_grids_gdf, n_splits)]
+    batch_count = len(grid_batches)
     logger.info(f'Created {len(grid_batches)} for {n_splits} splits of {max_batch_size}')
     grid_results = []
     for i, batch in enumerate(grid_batches):
         if n_workers is None:
-            logger.info(f'Creating raster zonal stats for batch {i} with index ({batch.index.min()}/{batch.index.max()}')
+            logger.info(f'Creating raster zonal stats for batch {i} with index ({batch.index.min()}/{batch.index.max()})')
             batch_result = rzs.create_raster_zonal_stats(batch, hdx_pop_file, aggregation=aggregation, extra_args=extra_args)
         else:
             logger.info(f'Creating raster zonal stats for batch {i} with index ({batch.index.min()}/{batch.index.max()} in {n_workers} parallel threads')
             batch_result = compute_parallel_raster_zonal_stats(batch, hdx_pop_file, aggregation=aggregation, extra_args=extra_args, n_workers=n_workers)
+        del batch # see if this reduces memory consumption
         grid_results.append(batch_result)
-    logger.info(f'Completed raster zonal stats for {len(grid_batches)} batches')
+    del grid_batches
+    logger.info(f'Completed raster zonal stats for {batch_count} batches')
     result_grid = pd.concat(grid_results, ignore_index=True)
-    logger.info(f'Concatenated raster zonal stats for {len(grid_batches)} batches')
-    result_grid = gpd.GeoDataFrame(result_grid, geometry='geometry', crs=admin_grids_gdf.crs)
+    logger.info(f'Concatenated raster zonal stats for {batch_count} batches')
+    result_grid = gpd.GeoDataFrame(result_grid, geometry='geometry', crs=admin_grids_crs)
     return result_grid
 
 
@@ -94,10 +99,11 @@ def get_region_filtered_bingtile_grids(region: str,
     directory = Path(os.path.expanduser(cache_dir))/'quadkey_grids'
     directory.mkdir(parents=True,exist_ok=True)
     
+    unfiltered_grids_file = directory/f'{region}_{quadkey_lvl}_{admin_lvl}_admin_grids.geojson'
     if filter_population:
-        admin_grids_file = directory/f'{region}_{quadkey_lvl}_populated_admin_grids.geojson'
+        admin_grids_file = directory/f'{region}_{quadkey_lvl}_{admin_lvl}_populated_admin_grids.geojson'
     else: 
-        admin_grids_file = directory/f'{region}_{quadkey_lvl}_admin_grids.geojson'
+        admin_grids_file = unfiltered_grids_file 
     
     if admin_grids_file.exists() and use_cache:
         logger.info(f'Loading cached grids file {admin_grids_file}')
@@ -108,21 +114,29 @@ def get_region_filtered_bingtile_grids(region: str,
         logger.info(f'No cached grids file found. Generating grids file :{admin_grids_file}')
     else:
         logger.info(f'Regenerating grids file {admin_grids_file}')
-        
-    logger.debug(f'Loading boundaries for region {region} and admin level {admin_lvl}')
-    admin_area_file = get_geoboundaries(region, adm=admin_lvl); 
-    admin_gdf = gpd.read_file(admin_area_file)
 
-    logger.info(f'Generating grids for region {region} and admin level {admin_lvl} at quadkey level {quadkey_lvl}')
-    grid_gen = BingTileGridGenerator(quadkey_lvl)
-    admin_grids_gdf = grid_gen.generate_grid_join(admin_gdf)
-    grid_count = len(admin_grids_gdf)
-    logger.info(f'Generated {grid_count} grids for region {region} and admin level {admin_lvl} at quadkey level {quadkey_lvl}')
+    
+    if filter_population and unfiltered_grids_file.exists():
+        logger.info(f'Loading existing grids file {unfiltered_grids_file} and skip gridding')
+        admin_grids_gdf = gpd.read_file(unfiltered_grids_file)
+        grid_count = len(admin_grids_gdf)
+        logger.info(f'Loaded {grid_count} grids for region {region} and admin level {admin_lvl} at quadkey level {quadkey_lvl}')
 
-    # use a metric crs (e.g. epsg:3857) for computing overlaps
-    if assign_grid_admin_area:
-        logger.info(f'Assigning grids to admin areas using metric crs {metric_crs}')
-        admin_grids_gdf = sjhi.get_highest_intersection(admin_grids_gdf, admin_gdf,metric_crs)
+    else:
+        logger.debug(f'Loading boundaries for region {region} and admin level {admin_lvl}')
+        admin_area_file = get_geoboundaries(region, adm=admin_lvl); 
+        admin_gdf = gpd.read_file(admin_area_file)
+
+        logger.info(f'Generating grids for region {region} and admin level {admin_lvl} at quadkey level {quadkey_lvl}')
+        grid_gen = BingTileGridGenerator(quadkey_lvl)
+        admin_grids_gdf = grid_gen.generate_grid_join(admin_gdf)
+        grid_count = len(admin_grids_gdf)
+        logger.info(f'Generated {grid_count} grids for region {region} and admin level {admin_lvl} at quadkey level {quadkey_lvl}')
+
+        # use a metric crs (e.g. epsg:3857) for computing overlaps
+        if assign_grid_admin_area:
+            logger.info(f'Assigning grids to admin areas using metric crs {metric_crs}')
+            admin_grids_gdf = sjhi.get_highest_intersection(admin_grids_gdf, admin_gdf,metric_crs)
 
     if filter_population:
         logger.info(f'Getting {region} population data for filtering grids')
