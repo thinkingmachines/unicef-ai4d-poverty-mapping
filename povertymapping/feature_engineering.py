@@ -112,9 +112,12 @@ def categorize_wealth_index(y, type="quantile", split_quantile=True, retbins=Fal
             _, low_bins = pd.qcut(y[y <= 0], q=5, retbins=True)
             _, high_bins = pd.qcut(y[y > 0], q=5, retbins=True)
             cat_bins = low_bins[::2].tolist() + high_bins[1::2].tolist()
-            y_cat = pd.cut(y, bins=cat_bins, labels=class_label).tolist()
+            print(cat_bins)
+            y_cat = pd.cut(
+                y, bins=cat_bins, labels=class_label, include_lowest=True
+            ).tolist()
         else:
-            y_cat, cat_bins = pd.qcut(y, q=5, labels=class_label, retbins=True).tolist()
+            y_cat, cat_bins = pd.qcut(y, q=5, labels=class_label, retbins=True)
     if retbins:
         return y_cat, cat_bins
     else:
