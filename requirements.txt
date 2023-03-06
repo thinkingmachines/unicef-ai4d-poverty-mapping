@@ -203,7 +203,7 @@ geopandas==0.10.2
     # via
     #   -r requirements.in
     #   geowrangler
-geowrangler @ git+https://github.com/thinkingmachines/geowrangler.git
+geowrangler @ git+https://github.com/thinkingmachines/geowrangler.git@feat/optimize-bingtilegrid
     # via -r requirements.in
 google-api-core==2.10.2
     # via

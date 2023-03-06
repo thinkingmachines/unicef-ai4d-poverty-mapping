@@ -87,3 +87,38 @@ def generate_features(
         aoi = aoi.drop(columns=input_cols)
 
     return aoi
+
+
+def categorize_wealth_index(y, type="quantile", split_quantile=True, retbins=False):
+    """
+    Classifies wealth index into 5 categories (E-poorest, A-richest)
+    Args:
+        y(pd.Series): input wealth index (scaled)
+        type (str): 'fixed' or 'quantile'. `fixed` uses bins spaced by 1 centered at 0, while `quantile` uses the quintiles generated from the input
+        split_quantile (bool): if True, splits the range into positive and negative parts and computes quintiles for each.
+        The resulting final quintile is obtained by taking every other quintile bound from the combined quintiles of the positive and negative parts.
+        If False, use plain quantiles
+        retbins (bool): if True, return the bin bounds used in the categorization.
+    returns:
+        y_cat (list)= list containing the categorized input (E-poorest, A-richest)
+
+    """
+    class_label = ["E", "D", "C", "B", "A"]
+    if type == "fixed":
+        cat_bins = [-10, -1.5, -0.5, 0.5, 1.5, 10]
+        y_cat = pd.cut(y, bins=cat_bins, labels=class_label).tolist()
+    elif type == "quantile":
+        if split_quantile:
+            _, low_bins = pd.qcut(y[y <= 0], q=5, retbins=True)
+            _, high_bins = pd.qcut(y[y > 0], q=5, retbins=True)
+            cat_bins = low_bins[::2].tolist() + high_bins[1::2].tolist()
+            print(cat_bins)
+            y_cat = pd.cut(
+                y, bins=cat_bins, labels=class_label, include_lowest=True
+            ).tolist()
+        else:
+            y_cat, cat_bins = pd.qcut(y, q=5, labels=class_label, retbins=True)
+    if retbins:
+        return y_cat, cat_bins
+    else:
+        return y_cat
