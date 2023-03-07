@@ -189,6 +189,7 @@ def get_region_filtered_bingtile_grids(
     assign_grid_admin_area=True,
     metric_crs="epsg:3857",
     extra_args=dict(nodata=np.nan),
+    group_col=None,
     max_batch_size=None,
     n_workers=None,
 ) -> gpd.GeoDataFrame:
@@ -277,6 +278,7 @@ def get_region_filtered_bingtile_grids(
             hdx_pop_file,
             aggregation=dict(column="population", output="pop_count", func="sum"),
             extra_args=extra_args,
+            group_col=group_col,
             max_batch_size=max_batch_size,
             n_workers=n_workers,
         )
