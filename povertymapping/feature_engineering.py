@@ -1,12 +1,14 @@
-from povertymapping import ookla, nightlights, osm
-from povertymapping.osm import OsmDataManager
-from povertymapping.ookla import OoklaDataManager
 from typing import Any
-from sklearn.preprocessing import StandardScaler
-import numpy as np
+
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
+
+from povertymapping import nightlights, ookla, osm
+from povertymapping.ookla import OoklaDataManager
+from povertymapping.osm import OsmDataManager
 
 DEFAULT_CACHE_DIR = "~/.geowrangler"
+
 
 def generate_features(
     aoi: pd.DataFrame,
@@ -122,18 +124,3 @@ def categorize_wealth_index(y, type="quantile", split_quantile=True, retbins=Fal
         return y_cat, cat_bins
     else:
         return y_cat
-
-def scale_dataframe_column(
-    X: pd.DataFrame,
-    sklearn_scaler: Any = StandardScaler):
-    """
-    Function that enables scaler methods to be applied on a pd.DataFrame column using groupby
-    Args:
-      X: (pd.Series) The input dataframe
-      sklearn_scaler: (Any, optional) The scikit-learn scaler to use. Only applied if scale_features = True. Defaults to StandardScaler.
-    Returns
-        result: (pd.DataFrame) The dataframe containing values after applying the scaler
-    """
-    X_ = np.atleast_2d(X)
-    result = pd.DataFrame(sklearn_scaler().fit_transform(X_), X.index)
-    return result
