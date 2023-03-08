@@ -1,9 +1,11 @@
-from povertymapping import ookla, nightlights, osm
-from povertymapping.osm import OsmDataManager
-from povertymapping.ookla import OoklaDataManager
 from typing import Any
-from sklearn.preprocessing import StandardScaler
+
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
+
+from povertymapping import nightlights, ookla, osm
+from povertymapping.ookla import OoklaDataManager
+from povertymapping.osm import OsmDataManager
 
 DEFAULT_CACHE_DIR = "~/.geowrangler"
 
