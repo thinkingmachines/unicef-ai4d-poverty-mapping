@@ -19,35 +19,6 @@ DEFAULT_QUADKEY_LVL = 14
 DEFAULT_CACHE_DIR = "~/.cache/geowrangler"
 
 
-def parallel_zonal_stats(batch_item):
-    batch, hdx_pop_file, aggregation, extra_args = batch_item
-    result = rzs.create_raster_zonal_stats(
-        batch, hdx_pop_file, aggregation=aggregation, extra_args=extra_args
-    )
-    return result
-
-
-def compute_parallel_raster_zonal_stats(
-    batch, hdx_pop_file, aggregation, extra_args, n_workers
-):
-    batch_items = [
-        (item.copy().reset_index(drop=True), hdx_pop_file, aggregation, extra_args)
-        for item in np.array_split(batch, n_workers)
-    ]
-    results = fc.parallel(
-        parallel_zonal_stats,
-        batch_items,
-        n_workers=n_workers,
-        threadpool=True,
-        progress=True,
-    )
-    logger.info(f"Completed parallel raster zonal stats for {len(results)} threads")
-    result = pd.concat(results, ignore_index=True)
-    logger.info(f"Concatenated parallel raster zonal stats for {len(results)} threads")
-    result = gpd.GeoDataFrame(result, geometry="geometry", crs=batch.crs)
-    return result
-
-
 def compute_raster_stats(
     admin_grids_gdf,
     hdx_pop_file,
@@ -57,7 +28,39 @@ def compute_raster_stats(
     max_batch_size=None,
     n_workers=None,
 ):
-    "Compute raster stats"
+    """Computes the raster statistics for a given set of administrative grids, using the HDX population file.
+
+    Args:
+        admin_grids_gdf (GeoDataFrame): A GeoDataFrame containing administrative grids as polygons.
+        hdx_pop_file (str): The path to the HDX population raster file.
+        aggregation (dict): Specifies how to aggregate raster values in each administrative grid.
+            The dictionary should have three keys: 'column' (the name of the raster file's data column to use),
+            'output' (the name of the resulting column in the output GeoDataFrame), and
+            'func' (the function to use for aggregation, e.g. "mean", "sum", "min", "max", etc.).
+            Default values for these keys are "population", "pop_count", and "sum", respectively.
+        extra_args (dict): Any extra arguments to pass to the `create_raster_zonal_stats()` function.
+            Default is {'nodata': np.nan}
+        group_col (str): If specified, the name of the column in admin_grids_gdf to group the grids by. Raster
+            data will be read on a per-group basis. If set, max_batch_size and n_workers is ignored.
+            Default is None.
+            WARNING: When processing by group, the output GeoDataFrame will have rows ordered by group
+            overriding the original order.
+        max_batch_size (int): If specified, the maximum number of grids to process in each batch.
+            If both max_batch_size and n_workers are specified, the grids are processed in parallel batches.
+            If group_col != None, this option is ignored.
+            Default is None.
+        n_workers(int): If specified, the number of parallel processing workers to use.
+            If both max_batch_size and n_workers are specified, the grids are processed in parallel batches.
+            If group_col != None, this option is ignored.
+            Default is None.
+
+    Returns:
+        GeoDataFrame: A GeoDataFrame containing the computed raster statistics for each administrative grid.
+            The columns include the administrative grid's properties (columns in admin_grids_gdf),
+            the aggregated raster value (named according to `aggregation["output"]`),
+            and the polygon geometry for each grid.
+    """
+
     fsize = hdx_pop_file.stat().st_size
     grid_count = len(admin_grids_gdf)
     admin_grids_crs = admin_grids_gdf.crs
@@ -177,6 +180,35 @@ def compute_windowed_raster_stats(
     return rzs.create_raster_zonal_stats(
         gdf, gdf_population, aggregation=aggregation, extra_args=extra_args
     )
+
+
+def parallel_zonal_stats(batch_item):
+    batch, hdx_pop_file, aggregation, extra_args = batch_item
+    result = rzs.create_raster_zonal_stats(
+        batch, hdx_pop_file, aggregation=aggregation, extra_args=extra_args
+    )
+    return result
+
+
+def compute_parallel_raster_zonal_stats(
+    batch, hdx_pop_file, aggregation, extra_args, n_workers
+):
+    batch_items = [
+        (item.copy().reset_index(drop=True), hdx_pop_file, aggregation, extra_args)
+        for item in np.array_split(batch, n_workers)
+    ]
+    results = fc.parallel(
+        parallel_zonal_stats,
+        batch_items,
+        n_workers=n_workers,
+        threadpool=True,
+        progress=True,
+    )
+    logger.info(f"Completed parallel raster zonal stats for {len(results)} threads")
+    result = pd.concat(results, ignore_index=True)
+    logger.info(f"Concatenated parallel raster zonal stats for {len(results)} threads")
+    result = gpd.GeoDataFrame(result, geometry="geometry", crs=batch.crs)
+    return result
 
 
 def get_region_filtered_bingtile_grids(
