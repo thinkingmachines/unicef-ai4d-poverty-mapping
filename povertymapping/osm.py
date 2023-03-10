@@ -199,7 +199,12 @@ def download_osm_country_data(country, cache_dir, use_cache=True):
 
         # This downloads a zip file to the country cache dir
         logger.info(f"OSM Data: Downloading Geofabrik zip file...")
-        zipfile_path = geofabrik.download_geofabrik_region(country, country_cache_dir)
+        
+        # TODO: quick fix for Malaysia
+        if country in ['singapore','brunei','malaysia']:
+            zipfile_path = geofabrik.download_geofabrik_region("malaysia-singapore-brunei", country_cache_dir)
+        else:
+            zipfile_path = geofabrik.download_geofabrik_region(country, country_cache_dir)
 
         # Unzip the zip file
         logger.info(f"OSM Data: Unzipping the zip file...")
