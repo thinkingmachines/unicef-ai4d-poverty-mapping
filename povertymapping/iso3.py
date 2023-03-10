@@ -14,6 +14,9 @@ def get_iso3_codes():
     return iso3_lookup
 
 def get_iso3_code(region):
+    # TODO: Find more elegant solution to correct country common name to ISO standard spelling
+    iso_standard_region_name_lookup = {"vietnam": "viet nam",
+                            "laos": "lao people's democratic republic"}
     iso3_lookup = get_iso3_codes()
-    iso3_entry = iso3_lookup.get(region, None)
+    iso3_entry = iso3_lookup.get(iso_standard_region_name_lookup.get(region, region))
     return iso3_entry['alpha-3'] if iso3_entry is not None else None
