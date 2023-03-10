@@ -35,7 +35,6 @@ def convert_dset(dset):
 
 def get_hrsl_dataset(region):
     cname = region.lower().replace(' ','-') # For countries with space in name
-    cname = 'vietnam' if cname == 'viet nam' else cname # TO DO: Dirty fix, generalize using fuzzy matching
     dataset_name = f'{cname.lower()}-high-resolution-population-density-maps-demographic-estimates'
     dataset = Dataset.read_from_hdx(dataset_name)
     return dataset
