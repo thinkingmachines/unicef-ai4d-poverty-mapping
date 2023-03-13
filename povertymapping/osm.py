@@ -3,12 +3,19 @@ import shutil
 import uuid
 from pathlib import Path
 from zipfile import ZipFile
+from typing import Union
 
 import geopandas as gpd
 from geowrangler import distance_zonal_stats as dzs
 from geowrangler import vector_zonal_stats as vzs
 from geowrangler.datasets import geofabrik
+from geowrangler.datasets.geofabrik import get_download_filepath
 from loguru import logger
+from geowrangler.datasets.utils import make_report_hook, urlretrieve
+from urllib.request import HTTPError
+from shapely.geometry import MultiPolygon, Polygon
+import requests
+
 
 DEFAULT_POI_TYPES = [
     "atm",
@@ -34,6 +41,10 @@ DEFAULT_POI_TYPES = [
     "supermarket",
     "townhall",
 ]
+
+DEFAULT_INDONESIA_GEOFABRIK_URL = (
+    "https://download.geofabrik.de/asia/indonesia-210101-free.shp.zip"
+)
 
 
 def add_osm_poi_features(
@@ -133,6 +144,7 @@ class OsmDataManager:
         self.pois_cache = {}
         self.roads_cache = {}
 
+    # TODO: add use_dict_cache to seaprate loading into cache
     def load_pois(self, country, use_cache=True):
         # Get from RAM cache if already available
         if country in self.pois_cache:
@@ -193,13 +205,30 @@ def download_osm_country_data(country, cache_dir, use_cache=True):
         logger.info(
             f"OSM Data: Re-initializing OSM country cache dir at {country_cache_dir}..."
         )
+
         # Re-create the country cache dir and start over to fix any corrupted states
         shutil.rmtree(country_cache_dir, ignore_errors=True)
         Path(country_cache_dir).mkdir(parents=True, exist_ok=True)
 
         # This downloads a zip file to the country cache dir
         logger.info(f"OSM Data: Downloading Geofabrik zip file...")
-        zipfile_path = geofabrik.download_geofabrik_region(country, country_cache_dir)
+
+        # For Indonesia, we
+        if country == "indonesia":
+            logger.warning(
+                "For Indonesia, we download the latest available shapefile from 2021 as other years are not available."
+            )
+            logger.info(
+                f"Downloading Indonesia OSM data at {DEFAULT_INDONESIA_GEOFABRIK_URL}"
+            )
+            zipfile_path = _download_indonesia_geofabrik_region(
+                DEFAULT_INDONESIA_GEOFABRIK_URL, country_cache_dir
+            )
+
+        else:
+            zipfile_path = geofabrik.download_geofabrik_region(
+                country, country_cache_dir
+            )
 
         # Unzip the zip file
         logger.info(f"OSM Data: Unzipping the zip file...")
@@ -214,3 +243,109 @@ def download_osm_country_data(country, cache_dir, use_cache=True):
         )
 
     return country_cache_dir
+
+
+def _download_indonesia_geofabrik_region(
+    url: str,
+    directory: str = "data/",
+    overwrite=False,
+    show_progress=True,
+    chunksize=8192,
+) -> Union[Path, None]:
+    """Download Indonesia geofabrik region to path given specified url.
+    This is meant as an internal workaround in povertmapping for
+    using indonesia in download_osm_country_data().
+    Modified from geowrangler.datasets.geofabrik.download_geofabrik_region()
+    """
+    if not os.path.isdir(directory):
+        os.makedirs(directory)
+
+    filepath = get_download_filepath(url, directory)
+
+    if not filepath.exists() or overwrite:
+        reporthook = make_report_hook(show_progress)
+
+        try:
+            filepath, _, _ = urlretrieve(
+                url, filepath, reporthook=reporthook, chunksize=chunksize
+            )
+        except HTTPError as err:
+            if err.code == 404:
+                logger.warning(f"No url found for url: {url} ")
+                return None
+            else:
+                raise err
+
+    return filepath
+
+
+def get_osm_extent(region):
+    """Get the polygon extent file of the specifed OSM region"""
+    geofabrik_info = geofabrik.list_geofabrik_regions()
+    if region not in geofabrik_info:
+        raise ValueError(
+            f"{region} not found in geofabrik. Run list_geofabrik_regions() to learn more about available areas"
+        )
+    url = geofabrik_info[region]
+    url = url.replace("-latest-free.shp.zip", ".poly")
+
+    extent_output = requests.get(url)
+    extent_output = [str(line, "utf-8").strip() for line in extent_output.iter_lines()]
+    extent_poly = _parse_poly(extent_output)
+
+    osm_extent_gdf = gpd.GeoDataFrame(
+        index=[0], crs="epsg:4326", geometry=[extent_poly]
+    )
+    osm_extent_gdf["osm_region"] = region
+
+    return osm_extent_gdf
+
+
+def _parse_poly(lines):
+    """Parse an Osmosis polygon filter file. Adapted from
+    https://wiki.openstreetmap.org/wiki/Osmosis/Polygon_Filter_File_Python_Parsing
+
+    Accept a sequence of lines from a polygon file, return a shapely.geometry.MultiPolygon object.
+
+    http://wiki.openstreetmap.org/wiki/Osmosis/Polygon_Filter_File_Format
+    """
+    in_ring = False
+    coords = []
+
+    for (index, line) in enumerate(lines):
+
+        if index == 0:
+            # first line is junk.
+            continue
+
+        elif index == 1:
+            # second line is the first polygon ring.
+            coords.append([[], []])
+            ring = coords[-1][0]
+            in_ring = True
+
+        elif in_ring and line.strip() == "END":
+            # we are at the end of a ring, perhaps with more to come.
+            in_ring = False
+
+        elif in_ring:
+            # we are in a ring and picking up new coordinates.
+            ring.append(list(map(float, line.split())))
+
+        elif not in_ring and line.strip() == "END":
+            # we are at the end of the whole polygon.
+            break
+
+        elif not in_ring and line.startswith("!"):
+            # we are at the start of a polygon part hole.
+            coords[-1][1].append([])
+            ring = coords[-1][1][-1]
+            in_ring = True
+
+        elif not in_ring:
+            # we are at the start of a polygon part.
+            coords.append([[], []])
+            ring = coords[-1][0]
+            in_ring = True
+
+    return MultiPolygon(coords)
