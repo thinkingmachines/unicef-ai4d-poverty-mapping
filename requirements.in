@@ -44,3 +44,4 @@ pyarrow
 fastparquet
 shap
 hdx-python-api
+contextily
