@@ -213,7 +213,6 @@ def download_osm_country_data(country, cache_dir, use_cache=True):
         # This downloads a zip file to the country cache dir
         logger.info(f"OSM Data: Downloading Geofabrik zip file...")
 
-        # For Indonesia, we
         if country == "indonesia":
             logger.warning(
                 "For Indonesia, we download the latest available shapefile from 2021 as other years are not available."
@@ -226,9 +225,12 @@ def download_osm_country_data(country, cache_dir, use_cache=True):
             )
 
         else:
-            zipfile_path = geofabrik.download_geofabrik_region(
-                country, country_cache_dir
-            )
+            # TODO: Find more elegant solution to Malaysia Singapore Brunei in one osm file
+            osm_standard_country_lookup = {'singapore':"malaysia-singapore-brunei",
+                                           'brunei':"malaysia-singapore-brunei",
+                                           'malaysia':"malaysia-singapore-brunei"}
+
+            zipfile_path = geofabrik.download_geofabrik_region(osm_standard_country_lookup.get(country,country), country_cache_dir)
 
         # Unzip the zip file
         logger.info(f"OSM Data: Unzipping the zip file...")

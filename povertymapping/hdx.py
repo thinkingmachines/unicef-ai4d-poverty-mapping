@@ -34,7 +34,7 @@ def convert_dset(dset):
     return {k:v for k,v in dset.items()}
 
 def get_hrsl_dataset(region):
-    cname = region.lower().replace(' ','-')
+    cname = region.lower().replace(' ','-') # For countries with space in name
     dataset_name = f'{cname.lower()}-high-resolution-population-density-maps-demographic-estimates'
     dataset = Dataset.read_from_hdx(dataset_name)
     return dataset
