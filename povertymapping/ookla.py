@@ -13,6 +13,8 @@ from geowrangler.datasets.ookla import download_ookla_file, OoklaFile, list_ookl
 from loguru import logger
 
 from povertymapping import settings
+import gc
+import pyarrow.parquet as pq
 
 
 def get_OoklaFile(filename):
@@ -34,7 +36,7 @@ class OoklaDataManager:
     def __init__(self, cache_dir=DEFAULT_CACHE_DIR):
         self.data_cache = {}
         self.cache_dir = os.path.expanduser(cache_dir)
-        self.processed_cache_dir = os.path.join(self.cache_dir,"ookla", "processed")
+        self.processed_cache_dir = os.path.join(self.cache_dir, "ookla", "processed")
         Path(self.processed_cache_dir).mkdir(parents=True, exist_ok=True)
 
     def reinitialize_processed_cache(self):
@@ -47,7 +49,14 @@ class OoklaDataManager:
         return response
 
     def load_type_year_data(
-        self, aoi, type_, year, use_cache=True, return_geometry=False
+        self,
+        aoi,
+        type_,
+        year,
+        use_cache=True,
+        return_geometry=False,
+        use_aoi_quadkey=False,
+        aoi_quadkey_col="quadkey",
     ):
         "Load Ookla data across all quarters for a specified aoi, type (fixed, mobile) and year"
 
@@ -58,6 +67,8 @@ class OoklaDataManager:
             str(type_),
             str(year),
             str(return_geometry),
+            str(use_aoi_quadkey),
+            str(aoi_quadkey_col),
         )
         m = hashlib.md5()
         for item in data_tuple:
@@ -107,25 +118,63 @@ class OoklaDataManager:
             use_cache=use_cache,
         )
 
-        # Generate the bing tile quadkeys that intersect with the input aoi
-        bing_tile_grid_generator_no_geom = grids.BingTileGridGenerator(
-            16, return_geometry=False
-        )
-        aoi_quadkeys = bing_tile_grid_generator_no_geom.generate_grid(aoi)[
-            "quadkey"
-        ].tolist()
+        # If use_quadkey. we'll get quadkeys from the input to determine what Ookla data to save
+        if use_aoi_quadkey:
+            logger.debug(
+                f"use_quadkey = True. Using columns in {aoi_quadkey_col} to pull intersecting Ookla data."
+            )
+            input_aoi_quadkeys = aoi[aoi_quadkey_col].to_list()
+            input_aoi_quadkeys = [str(x) for x in input_aoi_quadkeys]
+
+            # Check if zoom level is the same across all items in list
+            input_aoi_quadkeys_iter = iter(input_aoi_quadkeys)
+            first_key_zoom_lvl = len(next(input_aoi_quadkeys_iter))
+            if not all(
+                len(key) == first_key_zoom_lvl for key in input_aoi_quadkeys_iter
+            ):
+                raise ValueError(
+                    f"Not all items in aoi_quadkey_col = {aoi_quadkey_col} are of the same zoom level."
+                )
+
+            input_aoi_quadkey_zoom_lvl = first_key_zoom_lvl
+            logger.debug(
+                f"Quadkeys in {aoi_quadkey_col} are at zoom level {input_aoi_quadkey_zoom_lvl}."
+            )
+
+        # Else, generate the bing tile quadkeys that intersect with the input aoi
+        else:
+            logger.debug(
+                f"Generating quadkeys based on input aoi geometry to pull intersecting Ookla data."
+            )
+            bing_tile_grid_generator_no_geom = grids.BingTileGridGenerator(
+                16, return_geometry=False
+            )
+            aoi_quadkeys = bing_tile_grid_generator_no_geom.generate_grid(aoi)[
+                "quadkey"
+            ].tolist()
 
         # Combine quarterly data for the specified year, filtered to the aoi using quadkey
         # Quarter is inferred from the Ookla filename
         quarter_df_list = []
+
         for ookla_filename in sorted(os.listdir(type_year_cache_dir)):
             quarter = int(getattr(get_OoklaFile(ookla_filename), "quarter"))
             ookla_quarter_filepath = os.path.join(type_year_cache_dir, ookla_filename)
             logger.debug(
                 f"Ookla data for aoi, {type_} {year} {quarter} being loaded from {ookla_quarter_filepath}"
             )
-            quarter_df = pd.read_parquet(ookla_quarter_filepath)
-            quarter_df = quarter_df[quarter_df["quadkey"].isin(aoi_quadkeys)]
+
+            ## When using quadkey optimizations read and filter Ookla parquet
+            ## in batches to circumvent memory issues
+            ## Read: https://stackoverflow.com/questions/59098785/is-it-possible-to-read-parquet-files-in-chunks
+            if use_aoi_quadkey:
+                quarter_df = _read_and_filter_quadkey_parquet_file(
+                    ookla_quarter_filepath, input_aoi_quadkeys, "quadkey"
+                )
+            else:
+                quarter_df = pd.read_parquet(ookla_quarter_filepath)
+                quarter_df = quarter_df[quarter_df["quadkey"].isin(aoi_quadkeys)]
+
             quarter_df["quarter"] = quarter
             quarter_df_list.append(quarter_df)
 
@@ -136,6 +185,8 @@ class OoklaDataManager:
             f"Concatenating quarterly Ookla data for {type_} and {year} into one dataframe"
         )
         df = pd.concat(quarter_df_list, ignore_index=True)
+        del quarter_df_list
+        gc.collect()
 
         # NOTE: Since there will be groupby operations in processing, we don't return
         #       a geodataframe by default since it does not work well with aggregations
@@ -174,7 +225,7 @@ def download_ookla_year_data(type_, year, cache_dir, use_cache=True):
             f"Ookla Data: Number of available files for {type_} and {year}: {num_expected_ookla_files}"
         )
 
-    type_year_cache_dir = os.path.join(cache_dir,"ookla" ,type_, str(year))
+    type_year_cache_dir = os.path.join(cache_dir, "ookla", type_, str(year))
 
     # Check if the cached data is valid. Otherwise, we have to re-download.
     # For Ookla, we need to check if we've downloaded all expected files for that year.
@@ -221,13 +272,20 @@ def add_ookla_features(
     year,
     ookla_data_manager,
     use_cache=True,
+    use_aoi_quadkey=False,
+    aoi_quadkey_col="quadkey",
     metric_crs="epsg:3123",
     inplace=False,
 ):
     """Generates yearly aggregate features for the AOI based on Ookla data for a given type (fixed, mobile) and year."""
 
     ookla = ookla_data_manager.load_type_year_data(
-        aoi, type_, year, use_cache=use_cache
+        aoi,
+        type_,
+        year,
+        use_cache=use_cache,
+        use_aoi_quadkey=use_aoi_quadkey,
+        aoi_quadkey_col=aoi_quadkey_col,
     )
 
     # Create a copy of the AOI gdf if not inplace to avoid modifying the original gdf
@@ -280,3 +338,36 @@ def add_ookla_features(
     aoi = aoi.drop(drop_cols, axis=1)
 
     return aoi
+
+
+def _read_and_filter_quadkey_parquet_file(
+    parquet_file,
+    filter_quadkey_list,
+    input_quadkey_col="quadkey",
+    batch_size=50000,
+):
+    """Read parquet file with a quadkey in batches and filter based on given quadkey list"""
+    parquet_file = pq.ParquetFile(parquet_file)
+
+    # Get the zoom level of the filter quadkey list. All entries must be the same level
+    filter_quadkey_list_iter = iter(filter_quadkey_list)
+    first_key_zoom_lvl = len(next(filter_quadkey_list_iter))
+    if not all(len(key) == first_key_zoom_lvl for key in filter_quadkey_list_iter):
+        raise ValueError(
+            f"Not all items in filter_quadkey_list are of the same zoom level."
+        )
+    filter_quadkey_zoom_lvl = first_key_zoom_lvl
+
+    batch_df_list = []
+    for batch in parquet_file.iter_batches(batch_size):
+        batch_df = batch.to_pandas()
+
+        # Create helper index column to filter out quadkeys at specified zoom level
+        filter_col = f"quadkey_at_zoom_lvl_{filter_quadkey_zoom_lvl}"
+        batch_df[filter_col] = batch_df[input_quadkey_col].str[:filter_quadkey_zoom_lvl]
+        batch_df = batch_df[batch_df[filter_col].isin(filter_quadkey_list)]
+        batch_df_list.append(batch_df)
+
+    output_df = pd.concat(batch_df_list, ignore_index=True)
+
+    return output_df
