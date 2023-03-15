@@ -23,6 +23,9 @@ def generate_features(
     sklearn_scaler: Any = StandardScaler,
     scaled_only: bool = False,
     features_only: bool = False,
+    use_cache=True,
+    use_aoi_quadkey=False,
+    aoi_quadkey_col="quadkey",
 ) -> pd.DataFrame:
     """Generates the base features for an AOI based on
     OSM, Ookla, and VIIRS (nighttime lights) data
@@ -58,12 +61,30 @@ def generate_features(
     ookla_data_manager = OoklaDataManager(cache_dir=cache_dir)
 
     # Add in OSM features
-    aoi = osm.add_osm_poi_features(aoi, country_osm, osm_data_manager)
-    aoi = osm.add_osm_road_features(aoi, country_osm, osm_data_manager)
+    aoi = osm.add_osm_poi_features(
+        aoi, country_osm, osm_data_manager, use_cache=use_cache
+    )
+    aoi = osm.add_osm_road_features(
+        aoi, country_osm, osm_data_manager, use_cache=use_cache
+    )
 
     # Add in Ookla features
-    aoi = ookla.add_ookla_features(aoi, "fixed", ookla_year, ookla_data_manager)
-    aoi = ookla.add_ookla_features(aoi, "mobile", ookla_year, ookla_data_manager)
+    aoi = ookla.add_ookla_features(
+        aoi,
+        "fixed",
+        ookla_year,
+        ookla_data_manager,
+        use_aoi_quadkey=use_aoi_quadkey,
+        aoi_quadkey_col=aoi_quadkey_col,
+    )
+    aoi = ookla.add_ookla_features(
+        aoi,
+        "mobile",
+        ookla_year,
+        ookla_data_manager,
+        use_aoi_quadkey=use_aoi_quadkey,
+        aoi_quadkey_col=aoi_quadkey_col,
+    )
 
     # Add in the nighttime lights features
     aoi = nightlights.generate_nightlights_feature(
