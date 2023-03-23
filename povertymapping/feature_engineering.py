@@ -91,7 +91,7 @@ def generate_features(
     return aoi
 
 
-def categorize_wealth_index(y, type="quantile", split_quantile=True, retbins=False):
+def categorize_wealth_index(y, type="quantile", split_quantile=False, retbins=False):
     """
     Classifies wealth index into 5 categories (E-poorest, A-richest)
     Args:
