@@ -196,3 +196,8 @@ test_data/test_outputs
 /env/
 /.quarto/
 /_site/
+*.PNG
+*.png
+*.html
+*.geojson
+*.pkl
