@@ -27,6 +27,55 @@ website:
           - href: notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.ipynb
           - href: notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.ipynb
           - href: notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.ipynb
+      - section: "Sprint 3 (Model Rollout)"
+        contents:
+          - href: sprint-3-report.qmd
+          - section: "Single-country Rollouts"
+            contents:
+            - section: "Philippines"
+              contents:
+                - href: notebooks/2023-02-21-single-country-rollouts/ph/1_ph_train_model.ipynb
+                - href: notebooks/2023-02-21-single-country-rollouts/ph/2_ph_generate_grids.ipynb
+                - href: notebooks/2023-02-21-single-country-rollouts/ph/3_ph_rollout_model.ipynb
+            - section: "Timor Leste"
+              contents:
+                - href: notebooks/2023-02-21-single-country-rollouts/tl/1_tl_train_model.ipynb
+                - href: notebooks/2023-02-21-single-country-rollouts/tl/2_tl_generate_grids.ipynb
+                - href: notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.ipynb
+            - section: "Myanmar"
+              contents:
+                - href: notebooks/2023-02-21-single-country-rollouts/mm/1_mm_train_model.ipynb
+                - href: notebooks/2023-02-21-single-country-rollouts/mm/2_mm_generate_grids.ipynb
+                - href: notebooks/2023-02-21-single-country-rollouts/mm/3_mm_rollout_model.ipynb
+            - section: "Cambodia"
+              contents:
+                - href: notebooks/2023-02-21-single-country-rollouts/kh/1_kh_train_model.ipynb
+                - href: notebooks/2023-02-21-single-country-rollouts/kh/2_kh_generate_grids.ipynb
+                - href: notebooks/2023-02-21-single-country-rollouts/kh/3_kh_rollout_model.ipynb
+          - section: "Cross-country Rollouts"
+            contents:
+            - href: notebooks/2023-02-21-cross-country-rollouts/1_cross_country_model_train_model.ipynb
+            - section: "Indonesia"
+              contents:
+                - href: notebooks/2023-02-21-cross-country-rollouts/id/2_id_generate_grids.ipynb
+                - href: notebooks/2023-02-21-cross-country-rollouts/id/3_id_rollout_model.ipynb
+            - section: "Malaysia"
+              contents:
+                - href: notebooks/2023-02-21-cross-country-rollouts/my/2_my_generate_grids.ipynb
+                - href: notebooks/2023-02-21-cross-country-rollouts/my/3_my_rollout_model.ipynb
+            - section: "Laos"
+              contents:
+                - href: notebooks/2023-02-21-cross-country-rollouts/la/2_la_generate_grids.ipynb
+                - href: notebooks/2023-02-21-cross-country-rollouts/la/3_la_rollout_model.ipynb
+            - section: "Vietnam"
+              contents:
+                - href: notebooks/2023-02-21-cross-country-rollouts/vn/2_vn_generate_grids.ipynb
+                - href: notebooks/2023-02-21-cross-country-rollouts/vn/3_vn_rollout_model.ipynb
+            - section: "Thailand"
+              contents:
+                - href: notebooks/2023-02-21-cross-country-rollouts/th/2_th_generate_grids.ipynb
+                - href: notebooks/2023-02-21-cross-country-rollouts/th/3_th_rollout_model.ipynb
+            
 
 
 format:
