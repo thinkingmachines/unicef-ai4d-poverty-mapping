@@ -75,7 +75,11 @@ website:
               contents:
                 - href: notebooks/2023-02-21-cross-country-rollouts/th/2_th_generate_grids.ipynb
                 - href: notebooks/2023-02-21-cross-country-rollouts/th/3_th_rollout_model.ipynb
-            
+          - section: "Cross-country Comparisons"
+            contents:
+              - href: notebooks/2023-03-15-rollout-output-comparisons/id/1_id_compare_rank_province.ipynb
+              - href: notebooks/2023-03-15-rollout-output-comparisons/my/1_my_compare_rank_province.ipynb
+              - href: notebooks/2023-03-15-rollout-output-comparisons/la/1_la_compare_rank_province.ipynb
 
 
 format:

@@ -15,11 +15,12 @@ This page summarizes our findings and learnings from developing a cross-country 
 
 The following figure describe our model rollout process for the 9 countries. 
 
-![Rollout Process showing the four main model rollout steps: generating tiles over country, filtering to populated tiles using High Resolution Settlement Layer (HRSL), feature engineering, and model estimateion](assets/rollout_process.png)
+![Rollout Process showing the four main model rollout steps: generating tiles over country, filtering to populated tiles using High Resolution Settlement Layer (HRSL), feature engineering, and model estimation](assets/rollout_process.png)
 
 We were able to successfully use our model to estimate wealth over the 9 countries using this approach. The output wealth estimations captures macro-level urbanization, predicting relatively higher wealth at major urban centers and lower wealth at remote and sparsely populated areas. These results also show good agreement by Meta's RWI, showing that we can achieve good results in poverty estimation using openly-available datasets and methods. 
 
-![Snapshots of estimated relative wealth indexes for various areas in SEA](assets/rollout_results.gif)
+![Snapshots of estimated relative wealth indexes for various areas in SEA](assets/rollout_results.gif){width=80%}
+
 
 ### Validating Results With Reference Data
 
