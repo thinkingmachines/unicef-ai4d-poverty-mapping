@@ -6,9 +6,11 @@ from pathlib import Path
 import requests
 
 from loguru import logger
+import warnings
 from povertymapping.nightlights import urlretrieve
-from povertymapping.iso3 import get_iso3_code
 from fastprogress.fastprogress import progress_bar
+from povertymapping.iso3 import is_valid_country_name, get_iso3_code
+
 
 DEFAULT_CACHE_DIR = '~/.cache/geowrangler'
 GEOBOUNDARIES_REQUEST_URL = "https://www.geoboundaries.org/gbRequest.html?ISO={}&ADM={}"
@@ -18,7 +20,11 @@ def get_geoboundaries(region, adm='ADM0', dest=None, cache_dir=DEFAULT_CACHE_DIR
     if type(cache_dir) == str:
         cache_dir = Path(os.path.expanduser(cache_dir))
 
-    iso = get_iso3_code(region)
+    if is_valid_country_name(region):
+        iso = get_iso3_code(region, code = 'alpha-3').upper()
+    else:
+        warnings.warn(f'Invalid country name. Head to https://www.iso.org/iso-3166-country-codes.html to check the correct country name.')
+        return None
     adm = adm.upper()
     
     if dest is None:

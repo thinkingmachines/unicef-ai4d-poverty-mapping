@@ -64,7 +64,7 @@ def is_hrsl_available(region, year=None, filetype='geotiff', demographic='genera
     resources = get_hrsl_resources(region)
     if resources is None or len(resources) == 0:
         return False
-    iso3 = get_iso3_code(region)
+    iso3 = get_iso3_code(region, code='alpha-3')
     if iso3 is None:
         warnings.warn(f'No iso3 code found for {region}')
         return False
@@ -80,7 +80,7 @@ def get_hrsl_url(region, year=None, filetype='geotiff', demographic='general'):
     if resources is None or len(resources) == 0:
         warnings.warn(f'Non resources found for {region}')
         return None
-    iso3 = get_iso3_code(region)
+    iso3 = get_iso3_code(region, code='alpha-3')
     if iso3 is None:
         warnings.warn(f'No iso3 code found for {region}')
         return None
