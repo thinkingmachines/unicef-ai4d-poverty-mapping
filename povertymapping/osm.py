@@ -228,7 +228,8 @@ def download_osm_country_data(country, cache_dir, use_cache=True):
             # TODO: Find more elegant solution to Malaysia Singapore Brunei in one osm file
             osm_standard_country_lookup = {'singapore':"malaysia-singapore-brunei",
                                            'brunei':"malaysia-singapore-brunei",
-                                           'malaysia':"malaysia-singapore-brunei"}
+                                           'malaysia':"malaysia-singapore-brunei",
+                                           'timor-leste':"east-timor"}
 
             zipfile_path = geofabrik.download_geofabrik_region(osm_standard_country_lookup.get(country,country), country_cache_dir)
 
