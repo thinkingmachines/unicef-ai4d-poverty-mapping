@@ -1,0 +1,73 @@
+---
+title: Model Rollouts Summary
+
+crossref:
+  chapters: true
+---
+
+# At A Glance
+
+This page summarizes our findings and learnings from developing a cross-country poverty estimation model and rolling it out for 9 countries in Southeast Asia 
+
+
+
+## Model Rollout 
+
+The following figure describe our model rollout process for the 9 countries. 
+
+![Rollout Process showing the four main model rollout steps: generating tiles over country, filtering to populated tiles using High Resolution Settlement Layer (HRSL), feature engineering, and model estimation](assets/rollout_process.png)
+
+We were able to successfully train and use models to estimate wealth over the 9 countries using this approach. The output wealth estimations captures macro-level urbanization, predicting relatively higher wealth at major urban centers and lower wealth at remote and sparsely populated areas. These results qualitatively show good agreement by Meta's RWI, showing that we can achieve good results in wealth estimation using only openly-available datasets and ground truth DHS data from 4 countries as our training data. 
+
+![Snapshots of estimated relative wealth indexes for various areas in SEA](assets/rollout_results.gif){width=80%}
+
+Resulting wealth estimates for the 9 SEA countries can be downloaded [here](https://drive.google.com/drive/u/0/folders/1QX0xJc6MHxY7dzIsVMDm5TH0F-NwXhBW).
+
+### Validating Results With Reference Data
+
+We validated our model rollout results with the best available reference wealth data for 3 countries. We took the mean wealth predictions for both model predictions and the reference data per adminstrative boundary and ranked each area from highest to lowest wealth. From this, we created comparison maps and calculated the spearman rank correlation between the predicted and reference wealth rank.
+
+
+
+|Country|Reference Comparison Data|Granularity|# of Evaluation Areas|Spearman Rank Correlation|
+|---|---|---|---|---|
+|Indonesia|[Susenas RWI](https://www.frontiersin.org/articles/10.3389/fdata.2023.1054156/full)|Admin Level 2 (City/Regency)|513|0.72|
+|Malaysia|Relative poverty by State|Admin Level 1 (State / Federal Territory)|16|0.78|
+|Laos|MICS Survey IWI (Asset-based index)|Admin Level 1 (Province)|17|0.75|
+
+![Indonesia Model Map Comparison with Susenas RWI (reference) (Rank Correlation: 0.72)](notebooks/2023-03-15-rollout-output-comparisons/id/id_rank_comparison.png)
+
+![Malaysia Model Map Comparison with Relative Poverty (reference) (Rank Correlation: 0.78)](notebooks/2023-03-15-rollout-output-comparisons/my/my_rank_comparison.png)
+
+![Laos Model Map Comparison with MICS IWI (Rank Correlation: 0.75)](notebooks/2023-03-15-rollout-output-comparisons/la/la_rank_comparison.png)
+
+
+## Scaling
+
+As previously discussed in our [cross-country experiments summary](cross-country-report.qmd), we found that scaling the input features and DHS Wealth Index from absolute to relative values corrects country-level variations. This approach leads to the best cross-country results. 
+
+During training, we found that StandardScaler produced the best metrics and chose it as our model. StandardScaler works by centering the data on the mean and using the standard deviation as the "unit". Our model interprets the data as relative, meaning that if an area has above-average internet speeds or night-time lights, it must also have above-average wealth. 
+
+However, during our rollout, we noticed that many countries had above-zero values, which indicated that the model believed that all areas within the country had above-average wealth. This means that our initial approach resulted in overestimation of relative wealth during rollout. 
+
+We found that the root cause of this issue was that the rollout data had an abundance of remote and sparsely populated areas, with many zero or low values, which pulled down the mean. This meant that the above/below interpretation was significantly different between the training and rollout data. 
+
+![Comparison between StandardScaler and MinMaxScaler. We found MinMaxScaler to perform best when rolling out to countries without training data.](assets/scaler_comparison.png)
+
+
+To address this issue, we decided to switch from `StandardScaler` to `MinMaxScaler`. MinMaxScaler fixes the issue by anchoring the scaling on the minimum and maximum values seen in the rollout data, rather than on the mean and standard deviation. This means that the range is not affected by the many remote areas, and the scaling is much more accurate.
+
+
+## Optimizations for Processing Large Countries
+
+Indonesia posed several challenges due to the scale of the country, which meant that much bigger datasets were required to rollout the model. Indonesia is 3x the size of the second largest country in our target countries (Myanmar), and so processing using the typical workflow used for the other 8 countries ran into memory issues  Thus, it was necessary to optimize our existing workflows in order to process data for large countries, most especially batching the data processing in order to fit into memory
+
+- Quadkey tile indexes allowes us to query neighboring tiles together and intersect them with Ookla internet speed data without expensive geospatial operations. Quadkey-based optimizations are used in the background when `use_aoi_quadkey=True` in relevant functions.
+
+- Indonesia [OpenStreetMap](https://download.geofabrik.de/asia/indonesia.html) data is processed in batches based on major islands: Java, Kalimantan, Maluku, Sulawesi, Sumatra, Papua, Nusa-Tenggara
+
+Links to Indonesia notebooks: 
+
+1. [Generating Rollout Grids](notebooks/2023-02-21-cross-country-rollouts/id/2_id_generate_grids.ipynb)
+
+2. [Model Rollout](notebooks/2023-02-21-cross-country-rollouts/id/3_id_rollout_model.ipynb)
