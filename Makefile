@@ -19,10 +19,5 @@ requirements:
 	pip-sync requirements.txt
 	pip install -e .
 
-requirements-dev:
-	pip-compile requirements-dev.in requirements.txt  -o requirements-dev.txt -v
-	pip-sync requirements-dev.txt
-	pip install -e .
-
 test:
 	pytest tests -v 
