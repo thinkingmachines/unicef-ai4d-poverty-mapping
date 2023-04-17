@@ -35,32 +35,20 @@ def get_eog_access_token(
     env_token_var=EOG_ENV_VAR,
 ):
 
-    # Attempt to load token if it exists
-    try:
-        with open(save_path, "r") as f:
-            access_token = f.read()
-            assert access_token
-        logger.info(f"Loaded access_token from {save_path}")
-    except Exception as e:
-        traceback.print_exc()
-        logger.info(
-            f"Token not found at {save_path}. Requesting access_token from API."
-        )
+    # Get from API if no local cache yet
+    access_token = _get_eog_access_token_from_api(username, password)
 
-        # Get from API if no local cache yet
-        access_token = _get_eog_access_token_from_api(username, password)
-
-        if save_token:
-            logger.info(f"Saving access_token to {save_path}")
-            save_path = Path(os.path.expanduser(save_path))
-            if not save_path.parent.exists():
-                logger.info(f"Creating access token directory {save_path.parent}")
-                save_path.parent.mkdir(mode=510, parents=True, exist_ok=True)
-            with open(save_path, "w") as f:
-                f.write(access_token)
-        if set_env:
-            logger.info(f"Adding access token to environment var {env_token_var}")
-            os.environ[env_token_var] = access_token
+    if save_token:
+        logger.info(f"Saving access_token to {save_path}")
+        save_path = Path(os.path.expanduser(save_path))
+        if not save_path.parent.exists():
+            logger.info(f"Creating access token directory {save_path.parent}")
+            save_path.parent.mkdir(mode=510, parents=True, exist_ok=True)
+        with open(save_path, "w") as f:
+            f.write(access_token)
+    if set_env:
+        logger.info(f"Adding access token to environment var {env_token_var}")
+        os.environ[env_token_var] = access_token
 
     return access_token
 
