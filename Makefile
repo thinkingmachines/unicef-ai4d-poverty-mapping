@@ -25,4 +25,4 @@ requirements-dev:
 	pip install -e .
 
 test:
-	pytest
+	pytest tests -v 
