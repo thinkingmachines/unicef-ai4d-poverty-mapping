@@ -1,47 +1,51 @@
+
+adapt
 black
 branca
+contextily
+countryinfo
 earthengine-api
 fastcore
+fastparquet
+fastprogress
+filprofiler
 fiona
 folium
 gdal
 geopandas
 # geowrangler
-# use latest version not yet on pypi
 # git+https://github.com/thinkingmachines/geowrangler.git
+# use latest version not yet on pypi
 git+https://github.com/thinkingmachines/geowrangler.git@feat/optimize-bingtilegrid
 haversine
+hdx-python-api
 jupyterlab
+jupyterlab-vim
 libclang
 lightgbm
+line-profiler
 loguru
 mapclassify
 matplotlib
+nbdime
 numpy
 osmium
 pandas
 pre-commit
+pyarrow
 pygeos --no-binary pygeos
 pytest
-pytest-mock
 pytest-cov
+pytest-mock
 pytest-xdist
 pyyaml
 rasterio
 rasterstats
+rio-cogeo
 scikit-learn
 seaborn
+shap
 shapely --no-binary shapely
 tqdm
 tune-sklearn
 typed-ast
-xgboost
-adapt
-rio-cogeo
-fastprogress
-countryinfo
-pyarrow
-fastparquet
-shap
-hdx-python-api
-contextily
