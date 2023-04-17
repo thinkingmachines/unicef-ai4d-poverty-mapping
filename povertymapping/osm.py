@@ -2,20 +2,19 @@ import os
 import shutil
 import uuid
 from pathlib import Path
-from zipfile import ZipFile
 from typing import Union
+from urllib.request import HTTPError
+from zipfile import ZipFile
 
 import geopandas as gpd
+import requests
 from geowrangler import distance_zonal_stats as dzs
 from geowrangler import vector_zonal_stats as vzs
 from geowrangler.datasets import geofabrik
 from geowrangler.datasets.geofabrik import get_download_filepath
-from loguru import logger
 from geowrangler.datasets.utils import make_report_hook, urlretrieve
-from urllib.request import HTTPError
+from loguru import logger
 from shapely.geometry import MultiPolygon, Polygon
-import requests
-
 
 DEFAULT_POI_TYPES = [
     "atm",
@@ -225,13 +224,9 @@ def download_osm_country_data(country, cache_dir, use_cache=True):
             )
 
         else:
-            # TODO: Find more elegant solution to Malaysia Singapore Brunei in one osm file
-            osm_standard_country_lookup = {'singapore':"malaysia-singapore-brunei",
-                                           'brunei':"malaysia-singapore-brunei",
-                                           'malaysia':"malaysia-singapore-brunei",
-                                           'timor-leste':"east-timor"}
-
-            zipfile_path = geofabrik.download_geofabrik_region(osm_standard_country_lookup.get(country,country), country_cache_dir)
+            zipfile_path = geofabrik.download_geofabrik_region(
+                country, country_cache_dir
+            )
 
         # Unzip the zip file
         logger.info(f"OSM Data: Unzipping the zip file...")
