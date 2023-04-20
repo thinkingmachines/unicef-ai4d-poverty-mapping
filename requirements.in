@@ -8,6 +8,7 @@ earthengine-api
 fastcore
 fastparquet
 fastprogress
+fasttreeshap
 filprofiler
 fiona
 folium
