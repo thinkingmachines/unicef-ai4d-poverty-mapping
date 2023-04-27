@@ -13,60 +13,104 @@
 
 # 📜 Description
 
-The UNICEF AI4D Poverty Mapping Project aims to develop open datasets and machine learning (ML) models 
-for poverty mapping estimation across nine countries in Southeast Asia (SEA).
+The UNICEF AI4D Poverty Mapping Project aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries in Southeast Asia (SEA).
 
-We also aim to open source all the scripts, experiments and other artifacts used for 
-developing these datasets and models, in order to allow others to replicate our work,
-as well as to collaborate and extend our work for their own use cases.
+We also aim to open source all the scripts, experiments and other artifacts used for developing these datasets and models in order to allow others to replicate our work as well as to collaborate and extend our work for their own use cases.
 
-This project is part of [Thinking Machines's overall push for open science through the AI4D
-(AI for Development) Research Bank](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/) 
-which aims to accelerate the development and adoption of effective machine learning (ML) models for 
+This project is part of [Thinking Machines's overall push for open science through the AI4D (AI for Development) Research Bank](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/) which aims to accelerate the development and adoption of effective machine learning (ML) models for 
 development across Southeast Asia.
 
-We also publish our interim (work in progress) and final notebooks [here](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping)
+Documentation geared towards our methodology and experiments can be found [here](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping).
+
 <br/>
 <br/>
 
-## Data Access and Downloads
+# 💻 Replicating model training and rollout for a country
 
-Due to the sensitive nature of the data and the DHS program terms of use, we cannot provide the raw DHS data. 
+Our final trained models and their use to produce nationwide estimates can replicated through our notebooks, assuming you've followed the `Data` and `Local Development` setup below.
 
-You can, however, request for access to raw data yourself on the [DHS website](https://dhsprogram.com/data/new-user-registration.cfm). In that case, you can use GeoWrangler's [DHS processing utils](https://geowrangler.thinkingmachin.es/tutorial.dhs.html) help perform the said pre-processing. 
 
-The notebooks assume that the DHS Stata and Shape Files are located in `data/dhs/<iso-country-code>/`
-where the `<iso-country-code>` is the two-letter ISO country code. 
+* For countries with available DHS training data (Cambodia, Myanmar, Philippines, and Timor-Leste), please refer to the notebooks here:  https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-single-country-rollouts
 
-The only other data access requirement is the EOG Nightlights Data which requires [registering for an account](https://eogdata.mines.edu/products/register). The nightlights download require the use of these credentials (user name and password) to download the nightlights data automatically.
+* For the other countries without DHS training data (Indonesia, Laos, Malaysia, Thailand, and Vietnam), please refer to the notebooks here: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-cross-country-rollouts
 
-All the other datasets used in this projects are publically available and the notebooks all provide the code necessary to download as well
-cache the data.
 
-Due to the size of the downloaded datasets, please make sure you have enough disk space (minimum 40GB-50GB) to accommodate all the datasets used in building the models.
+All the output files (models, datasets, intermediate files) can all be downloaded from [here](https://drive.google.com/drive/u/0/folders/1QX0xJc6MHxY7dzIsVMDm5TH0F-NwXhBW). 
+
+<br/>
+<br/>
+
+# 📚 Data Setup
+
+## DHS Data
+
+Due to the sensitive nature of the data and the DHS program terms of use, we cannot provide the raw DHS data used in our experiments. 
+
+You will have to request for access to raw data yourself on the [DHS website](https://dhsprogram.com/data/new-user-registration.cfm). 
+
+Generally, for all the experiment notebooks in this repo, they assume that the **DHS Stata and Shape** zip files contents are unzipped to its own folder under `data/dhs/<iso-country-code>/` where the `<iso-country-code>` is the two-letter ISO country code.
+
+For example, from the data for the Philippines will have this directory structure:
+```
+data/
+    dhs/
+        ph/
+            PHGE71FL/
+                DHS_README.txt
+                GPS_Displacement_README.txt
+                PHGE71FL.cpg
+                PHGE71FL.dbf
+                PHGE71FL.prj
+                PHGE71FL.sbn
+                PHGE71FL.sbx
+                PHGE71FL.shp
+                PHGE71FL.shp.xml
+                PHGE71FL.shx
+            PHHR71DT/
+                PHHR71FL.DCT
+                PHHR71FL.DO
+                PHHR71FL.DTA
+                PHHR71FL.FRQ
+                PHHR71FL.FRW
+                PHHR71FL.MAP
+```
+
+*If you create your own notebook, of course you are free to modify these conventions for filepaths yourself. But out-of-the-box, this is what our notebooks assume.*
+<br/>
+<br/>
+## Night Lights from EOG
+
+The only other data access requirement is for the EOG Nightlights Data which requires [registering for an account](https://eogdata.mines.edu/products/register). The notebooks require the use of these credentials (user name and password) to download the nightlights data automatically.
+<br/>
+<br/>
+
+## General Dataset Notes
+All the other datasets used in this project are publically available and the notebooks provide the code necessary to automatically download and cache the data.
+
+Due to the size of the datasets, please make sure you have enough disk space (minimum 40GB-50GB) to accommodate all the data used in building the models.
 
 <br/>
 <br/>
 
 # ⚙️ Local Setup for Development
 
-This repo assumes the use of [conda/mamba](https://github.com/conda-forge/miniforge#mambaforge) for simplicity in installing GDAL.
+This repo assumes the use of miniconda for simplicity in installing GDAL.
 
 
 ## Requirements
 
 1. Python 3.9
 2. make
-3. mamba/conda
+3. miniconda
 
 
 ## 🐍 One-time Set-up
 Run this the very first time you are setting-up the project on a machine to set-up a local Python environment for this project.
 
-1. Install [mamba](https://github.com/conda-forge/miniforge#mambaforge) for your environment if you don't have it yet.
+1. Install [miniconda](https://docs.conda.io/en/latest/miniconda.html) for your environment if you don't have it yet.
 ```bash
-wget "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
-bash Mambaforge-$(uname)-$(uname -m).sh
+wget "https://repo.anaconda.com/miniconda/Miniconda3-latest-$(uname)-$(uname -m).sh"
+bash Miniconda3-latest-$(uname)-$(uname -m).sh
 ```
 
 2. Create a local conda env and activate it. This will create a conda env folder in your project directory.
@@ -80,15 +124,13 @@ conda activate ./env
 make setup
 ```
 
-4. To test if the setup was successful, run the tests.
+4. To test if the setup was successful, run the tests. You should get a message that all the tests passed.
 ```
 make test
 ```
 
-You should get a message that the tests passed.
+At this point, you should be ready to run all the existing notebooks on your local.
 
-## 🐍 Testing
-To run automated tests, simply run `make test`.
 
 ## 📦 Dependencies
 
@@ -112,7 +154,7 @@ When you add new python libs, please do the ff:
 
 ## 📜Documentation 
 
-We are using [Quarto](https://quarto.org/) to maintain the Unicef AI4D Poverty Mapping [documentation site](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/) 
+We are using [Quarto](https://quarto.org/) to maintain the Unicef AI4D Poverty Mapping [documentation site.](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/) 
 
 Here are some quick tips to running quarto/updating the doc site:
 
