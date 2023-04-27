@@ -201,3 +201,5 @@ test_data/test_outputs
 *.html
 *.geojson
 *.pkl
+*.csv
+*.json
