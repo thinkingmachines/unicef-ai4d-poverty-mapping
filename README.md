@@ -156,10 +156,15 @@ When you add new python libs, please do the ff:
 
 We are using [Quarto](https://quarto.org/) to maintain the Unicef AI4D Poverty Mapping [documentation site.](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/) 
 
-Here are some quick tips to running quarto/updating the doc site:
+Here are some quick tips to running quarto/updating the doc site, assuming you're on Linux.
+
+For other platforms, please refer to [Quarto's website](https://quarto.org/docs/get-started/).
+
 
 * Download: 
-[quarto download](https://quarto.org/docs/get-started/)
+```
+wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.2.247/quarto-1.2.247-linux-amd64.deb
+```
 
 * Install:
 ```
