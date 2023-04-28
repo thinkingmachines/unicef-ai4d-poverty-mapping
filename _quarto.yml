@@ -9,11 +9,11 @@ website:
 
   sidebar:
     contents:
-      - href: index.qmd
+      - href: docs/index.qmd
         text: Main
-      - href: about.qmd
+      - href: docs/about.qmd
         text: About
-      - href: progress.qmd
+      - href: docs/progress.qmd
         text: Progress
       - section: "Sprint 1 (Individual DHS Countries)"
         contents:
@@ -23,13 +23,13 @@ website:
           - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.ipynb
       - section: "Sprint 2 (Cross Country Experiments)"
         contents:
-          - href: cross-country-report.qmd 
+          - href: docs/cross-country-report.qmd 
           - href: notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.ipynb
           - href: notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.ipynb
           - href: notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.ipynb
       - section: "Sprint 3 (Model Rollout)"
         contents:
-          - href: sprint-3-report.qmd
+          - href: docs/sprint-3-report.qmd
           - section: "Single-country Rollouts"
             contents:
             - section: "Philippines"
@@ -80,8 +80,6 @@ website:
               - href: notebooks/2023-03-15-rollout-output-comparisons/id/1_id_compare_rank_province.ipynb
               - href: notebooks/2023-03-15-rollout-output-comparisons/my/1_my_compare_rank_province.ipynb
               - href: notebooks/2023-03-15-rollout-output-comparisons/la/1_la_compare_rank_province.ipynb
-
-
 format:
   html:
     theme: cosmo
