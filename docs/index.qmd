@@ -1,22 +1,94 @@
 ---
-title: UNICEF AI4D Poverty Mapping Project
+title: UNICEF AI4D Poverty Mapping
 ---
 
-> an AI4D (AI for Development) Research Bank Component
+Funded by [UNICEF as part of the AI Research Bank for Development (AI4D) program](https://www.unicefinnovationfund.org/broadcast/expert-posts/thinking-machines-build-southeast-asia-ai-research-bank-development-ai4d), this project explored the use of purely open datasets and low-cost Machine Learning models for poverty mapping estimation across 9 Southeast Asian countries:
 
-**note: This page is still a _work-in-progress_**
+- Cambodia
+- Myanmar
+- Philippines
+- Timor-Leste
+- Indonesia
+- Laos
+- Malaysia
+- Thailand
+- Vietnam
 
-The UNICEF AI4D Poverty Mapping Project aims to develop open datasets and machine learning (ML) models  for poverty mapping estimation across nine countries in Southeast Asia (SEA).
+We hope that our work can serve as a baseline for other Data Scientists to further AI x Development research in the region.
 
-We also aim to open source all the scripts, experiments and other artifacts used for 
-developing these datasets and models, in order to allow others to replicate our work,
-as well as to collaborate and extend our work for their own use cases.
+## Quick links
 
-This project is part of [Thinking Machines's overall push for open science through the AI4D
-(AI for Development) Research Bank](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/) 
-which aims to accelerate the development and adoption of effective machine learning (ML) models for 
-development across Southeast Asia.
+- [Web Map Demo]((https://studio.foursquare.com/public/590c4ab2-b855-463a-90dd-9917b97b8b57)) of our wealth estimates.
+- [GitHub Repo](https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping) containing all code needed to replicate model training and rollout for all 9 SEA countries
+- [Google Drive Folder](https://drive.google.com/drive/u/0/folders/1QX0xJc6MHxY7dzIsVMDm5TH0F-NwXhBW) that contains all output data and intermediate artifacts (e.g. training datasets, models)
+    - *Note: These will be hosted on the AI for Development (AI4D) Research Bank, which is still a work-in-progress.*
 
-* The notebooks and code for the project are all available at our [Github repository](https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping)
+## Replicating our work
+If you want to replicate the final models and wealth estimates, go to the ff. notebook folders:
+
+- [2023-02-21-single-country-rollouts](https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-single-country-rollouts)
+- [2023-02-21-cross-country-rollouts](https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-cross-country-rollouts)
+
+These provide the code necessary to replicate our work end-to-end. The earlier notebooks are more experimental as we were developing the methodology.
+Note that to run them properly, you need to get DHS data yourself and set-up your local environment. Just follow the instructions in our [repo's README](https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping).
+
+<!-- ## Methodology Summary
+The exact method and details are better seen in the notebooks. But this diagram summarizes it conceptually. Essentially, we train a model and we use it to estimate wealth across a whole country. -->
 
 
+
+
+
+
+## Summary of Findings
+
+This sections contains a brief summary of our overall main findings. The other pages in this site contain documentation for each of our sprints, reporting on our progress as they happened. 
+
+### DHS Countries: Cambodia, Myanmar, Philippines, Timor-Leste
+
+Training models and using them to produce wealth estimates for countries with DHS survey data are relatively straightforward. We generate features to characterize the neighborhood of the DHS clusters, which we then use to train a model.
+
+The table below shows R^2 values after Repeated 5-fold Cross Validation (5 Repeats; 25 runs in total). 
+
+<table here along with other comparison works>
+
+### Non-DHS Countries: Indonesia, Laos, Malaysia, Thailand, Vietnam
+
+For countries with no usable DHS data for training (either data doesn't exist, no lat/lon coordinates, or data is too old), it was a bit trickier. The main challenges were:
+(1) How can we utilize data from the 4 DHS countries to train a model that we can use for these 5 non-DHS countries?
+
+The first idea might be to simply combine all the data from each country into one big dataset. 
+
+The problem here is that both the target variable (the wealth index) and the feature values are not directly comparable between countries:
+
+- Wealth Index
+    - DHS-calculated relative wealth score based on asset ownership
+    - The first principal component after running PCA on asset-related columnsvalues (e.g. # of cars, # of rooms, etc). In effect, this is a single score that summarizes the other columns and represents the "asset wealth" of a household.
+    - The PCA procedure to calculate this is based on different asset-related columns/values for different countries,
+
+- Features
+    - Features may be interpreted differently from country to country.
+    - For example, 5mbps internet speed might be considered slow for Country A, while it might be considered fast for Country B . 
+    - If we used raw values directly, the model might be confused because the mapping of features to relative wealth is different. That is, 5mbps might be correlated with relatively poorer households in Country A, while it might be correlated with relatively richer households in Country B.
+
+We found that a simple solution was to normalize the features and the wealth index through a MinMaxScaler. The table below shows results that support this hypothesis.
+
+To validate this methodology, we perform leave-one-country-out cross-validation wherein we utilize one country as the test set and use the other 3 as the train set.
+
+<Table here>
+
+Noting some things we tried but didn't work:
+- Re-calculate the wealth index by running PCA on the combined 4 country data, based only on asset-related columns that were common to all 4 countries. (see <X>)
+- Use StandardScaler instead of MinMaxscaler (ok for simulations, not for actual model rollout; many remote areas in a country have 0 values which drag down the mean, making the model think for majority of the areas that they are "above average" in terms of features and wealth).
+
+
+
+(2) How do we validate if the produced wealth estimates for these 5 countries are sensible?
+
+Our leave-one-country-out cross-validation procedure simulates the scenario of training on multiple countries and utilizing it on one that it hasn't seen during training. 
+
+Our next step is to train a final model on all 4 countries' data, and use it on the 5 non-DHS countries. However, how do we check if the results are actually sensible in the absence of ground truth?
+
+(a) Qualitatively, we can see that the results intuitively match known wealthier areas in the countries (e.g. the capitals and major cities).
+
+(b) Quantitatively, we calculate the agreement between province/city rankings according to our model estimates and some reference wealth-related data. These are not apple-to-apple comparisons since the wealth data are not exactly the same, but they should give us some level of confidence that our estimates aren't in total disagreement with other government data.
