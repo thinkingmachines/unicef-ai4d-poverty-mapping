@@ -102,7 +102,7 @@ Our next step is to train a final model on all 4 countries' data, and use it on 
 
 (a) Qualitatively, we can see that the results intuitively match known wealthier areas in the countries (e.g. the capitals and major cities).
 
-![](../assets/sea_wealth_map.png)
+![](/assets/sea_wealth_map.png)
 
 
 (b) Quantitatively, we calculate the agreement between province/city rankings according to our model estimates and some reference wealth-related data. These are not apple-to-apple comparisons since the wealth data are not exactly the same, but they should give us some level of confidence that our estimates aren't in total disagreement with other government data.
