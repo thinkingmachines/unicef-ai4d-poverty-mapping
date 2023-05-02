@@ -40,7 +40,7 @@ We trained four main types of models:
 
 ## Cross-country regressor with raw wealth index {#sec-exp-1}
 
-[📒 Notebook link](notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.ipynb)
+[📒 Notebook link](/notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.ipynb)
 
 ### Learnings
 - Training the model on raw features and wealth index produces inconsistent results which are highly dependent on the left-out country. 
@@ -48,7 +48,7 @@ We trained four main types of models:
 
 ## Cross-country regressor with wealth index recalculated using the pooled data for the four countries {#sec-exp-2}
 
-[📒 Notebook link](notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.ipynb)
+[📒 Notebook link](/notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.ipynb)
 
 ### Idea
 
@@ -66,7 +66,7 @@ Combine raw country data and recompute the wealth index using PCA on a base set 
 
 ## Cross-country regressor with both wealth index and input features scaled per-country {#sec-exp-3}
 
-[📒 Notebook link](notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.ipynb)
+[📒 Notebook link](/notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.ipynb)
 
 ### Idea
 
