@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>UNICEF AI4D Poverty Mapping Project - Indonesia Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</title>
+<title>UNICEF AI4D Poverty Mapping Project - Predict on rollout grids</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -121,9 +121,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../../../styles.css">
@@ -140,7 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Indonesia Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</h1>
+      <h1 class="quarto-secondary-nav-title">Predict on rollout grids</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -259,17 +256,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/1_ph_train_model.html" class="sidebar-item-text sidebar-link">Single-country Model with Normalized Features (Philippines)</a>
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/1_ph_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/2_ph_generate_grids.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/2_ph_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/3_ph_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/3_ph_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
   </div>
 </li>
       </ul>
@@ -284,7 +281,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-single-country-rollouts/tl/1_tl_train_model.html" class="sidebar-item-text sidebar-link">Timor Leste Model Rollout Part 1 (Training Final Single-country Model)</a>
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/tl/1_tl_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -294,7 +291,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
   </div>
 </li>
       </ul>
@@ -309,17 +306,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/1_mm_train_model.html" class="sidebar-item-text sidebar-link">Single-country Model with Normalized Features (Myanmar)</a>
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/1_mm_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/2_mm_generate_grids.html" class="sidebar-item-text sidebar-link">Myanmar Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/2_mm_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/3_mm_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/3_mm_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
   </div>
 </li>
       </ul>
@@ -334,17 +331,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/1_kh_train_model.html" class="sidebar-item-text sidebar-link">Single-country Model with Normalized Features (Cambodia)</a>
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/1_kh_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/2_kh_generate_grids.html" class="sidebar-item-text sidebar-link">Cambodia Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/2_kh_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/3_kh_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/3_kh_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
   </div>
 </li>
       </ul>
@@ -361,7 +358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/1_cross_country_model_train_model.html" class="sidebar-item-text sidebar-link">Cross-country Model with Normalized Features and Labels</a>
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/1_cross_country_model_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -374,12 +371,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/id/2_id_generate_grids.html" class="sidebar-item-text sidebar-link">Indonesia Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/id/2_id_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/id/3_id_rollout_model.html" class="sidebar-item-text sidebar-link active">Indonesia Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/id/3_id_rollout_model.html" class="sidebar-item-text sidebar-link active">Predict on rollout grids</a>
   </div>
 </li>
       </ul>
@@ -394,12 +391,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/my/2_my_generate_grids.html" class="sidebar-item-text sidebar-link">Malaysia Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/my/2_my_generate_grids.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/my/3_my_rollout_model.html" class="sidebar-item-text sidebar-link">Malaysia Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/my/3_my_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
   </div>
 </li>
       </ul>
@@ -414,12 +411,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/la/2_la_generate_grids.html" class="sidebar-item-text sidebar-link">Laos Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/la/2_la_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/la/3_la_rollout_model.html" class="sidebar-item-text sidebar-link">Laos Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/la/3_la_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
   </div>
 </li>
       </ul>
@@ -434,12 +431,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/vn/2_vn_generate_grids.html" class="sidebar-item-text sidebar-link">Vietnam Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/vn/2_vn_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/vn/3_vn_rollout_model.html" class="sidebar-item-text sidebar-link">Vietnam Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/vn/3_vn_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
   </div>
 </li>
       </ul>
@@ -454,12 +451,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/th/2_th_generate_grids.html" class="sidebar-item-text sidebar-link">Vietnam Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/th/2_th_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/th/3_th_rollout_model.html" class="sidebar-item-text sidebar-link">Thailand Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/th/3_th_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
   </div>
 </li>
       </ul>
@@ -502,7 +499,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#indonesia-model-rollout-part-3-feature-engineering-and-model-prediction-on-rollout-grids" id="toc-indonesia-model-rollout-part-3-feature-engineering-and-model-prediction-on-rollout-grids" class="nav-link active" data-scroll-target="#indonesia-model-rollout-part-3-feature-engineering-and-model-prediction-on-rollout-grids">Indonesia Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  <li><a href="#model-prediction-on-rollout-grids-indonesia" id="toc-model-prediction-on-rollout-grids-indonesia" class="nav-link active" data-scroll-target="#model-prediction-on-rollout-grids-indonesia">Model Prediction on Rollout Grids: Indonesia</a>
   <ul class="collapse">
   <li><a href="#set-up-data-access" id="toc-set-up-data-access" class="nav-link" data-scroll-target="#set-up-data-access">Set up Data Access</a></li>
   <li><a href="#set-country-specific-parameters" id="toc-set-country-specific-parameters" class="nav-link" data-scroll-target="#set-country-specific-parameters">Set country-specific parameters</a></li>
@@ -512,20 +509,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#retrieve-base-data" id="toc-retrieve-base-data" class="nav-link" data-scroll-target="#retrieve-base-data">Retrieve base data</a></li>
   <li><a href="#scale-and-clean-features" id="toc-scale-and-clean-features" class="nav-link" data-scroll-target="#scale-and-clean-features">Scale and clean features</a></li>
-  <li><a href="#make-copy-of-aoi-for-rollout" id="toc-make-copy-of-aoi-for-rollout" class="nav-link" data-scroll-target="#make-copy-of-aoi-for-rollout">Make copy of aoi for rollout</a></li>
   </ul></li>
   <li><a href="#inspect-the-generated-features" id="toc-inspect-the-generated-features" class="nav-link" data-scroll-target="#inspect-the-generated-features">Inspect the generated features</a></li>
   <li><a href="#run-model-on-aoi" id="toc-run-model-on-aoi" class="nav-link" data-scroll-target="#run-model-on-aoi">Run Model on AOI</a>
   <ul class="collapse">
   <li><a href="#load-model" id="toc-load-model" class="nav-link" data-scroll-target="#load-model">Load Model</a></li>
   <li><a href="#make-predictions" id="toc-make-predictions" class="nav-link" data-scroll-target="#make-predictions">Make Predictions</a></li>
-  <li><a href="#inspect-predicted-wealth-index-and-output-dataframe" id="toc-inspect-predicted-wealth-index-and-output-dataframe" class="nav-link" data-scroll-target="#inspect-predicted-wealth-index-and-output-dataframe">Inspect predicted wealth index and output dataframe</a></li>
   </ul></li>
-  <li><a href="#binning-predictions-into-wealth-categories" id="toc-binning-predictions-into-wealth-categories" class="nav-link" data-scroll-target="#binning-predictions-into-wealth-categories">Binning predictions into wealth categories</a>
-  <ul class="collapse">
-  <li><a href="#calculate-quintile-wealth-category" id="toc-calculate-quintile-wealth-category" class="nav-link" data-scroll-target="#calculate-quintile-wealth-category">Calculate quintile wealth category</a></li>
-  </ul></li>
+  <li><a href="#binning-predictions-into-wealth-categories" id="toc-binning-predictions-into-wealth-categories" class="nav-link" data-scroll-target="#binning-predictions-into-wealth-categories">Binning predictions into wealth categories</a></li>
   <li><a href="#save-output" id="toc-save-output" class="nav-link" data-scroll-target="#save-output">Save output</a></li>
+  <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a>
+  <ul class="collapse">
+  <li><a href="#inspect-predicted-wealth-index-and-output-dataframe" id="toc-inspect-predicted-wealth-index-and-output-dataframe" class="nav-link" data-scroll-target="#inspect-predicted-wealth-index-and-output-dataframe">Inspect predicted wealth index and output dataframe</a></li>
+  <li><a href="#create-static-maps" id="toc-create-static-maps" class="nav-link" data-scroll-target="#create-static-maps">Create Static Maps</a></li>
+  <li><a href="#create-an-interactive-map" id="toc-create-an-interactive-map" class="nav-link" data-scroll-target="#create-an-interactive-map">Create an Interactive Map</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -535,7 +533,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Indonesia Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</h1>
+<h1 class="title d-none d-lg-block">Predict on rollout grids</h1>
 </div>
 
 
@@ -556,75 +554,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>autoreload <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">"../../../"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> getpass</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, MinMaxScaler</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.rollout_grids <span class="im">import</span> get_region_filtered_bingtile_grids </span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping <span class="im">import</span> settings, nightlights</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.iso3 <span class="im">import</span> get_iso3_code</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.dhs <span class="im">import</span> generate_dhs_cluster_level_data</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.feature_engineering <span class="im">import</span> generate_features, categorize_wealth_index</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.osm <span class="im">import</span> get_osm_extent </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.ookla <span class="im">import</span> OoklaDataManager</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gc</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> loguru <span class="im">import</span> logger</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> cx</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shap</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">"../../../"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gc</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> getpass</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> cx</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> loguru <span class="im">import</span> logger</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler, StandardScaler</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping <span class="im">import</span> nightlights, settings</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.dhs <span class="im">import</span> generate_dhs_cluster_level_data</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.feature_engineering <span class="im">import</span> (</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    categorize_wealth_index,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    generate_features,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.iso3 <span class="im">import</span> get_region_name</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.ookla <span class="im">import</span> OoklaDataManager</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.osm <span class="im">import</span> get_osm_extent</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.rollout_grids <span class="im">import</span> get_region_filtered_bingtile_grids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/home/jc_tm/project_repos/unicef-ai4d-poverty-mapping/env/lib/python3.9/site-packages/tqdm/auto.py:22: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
   from .autonotebook import tqdm as notebook_tqdm</code></pre>
 </div>
 </div>
-<section id="indonesia-model-rollout-part-3-feature-engineering-and-model-prediction-on-rollout-grids" class="level1">
-<h1>Indonesia Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</h1>
-<p>This notebook runs the final model to create relative wealth estimations over populated areas within the given country. The model predictions will have a spatial resolution of 2.4km.</p>
-<p>The <code>predicted relative wealth</code> value is calculated as the number of standard deviations away from the overall country-mean DHS wealth index, and gives us the relative wealth level of that area compared to the rest of the country. For example, an area with <code>y=0</code> is at the average wealth value, while an area with <code>y=1</code> means that it’s richer than the average area by 1 standard deviation.</p>
-<p>The predicted relative wealth value is later binned into 5 wealth categories A-E based on a split quintile approach.</p>
+<section id="model-prediction-on-rollout-grids-indonesia" class="level1">
+<h1>Model Prediction on Rollout Grids: Indonesia</h1>
+<p>This notebook is the final step in the rollout and runs the final model to create relative wealth estimations over populated areas within the given country. The model predictions will have a spatial resolution of 2.4km.</p>
+<p>The <code>predicted relative wealth</code> value gives us the relative wealth level of an area compared to the rest of the country, which fixes the value range from 0 (lowest wealth) to 1 (highest wealth). In between these extremes, each area’s wealth estimate is scaled to a value between 0 and 1.</p>
+<p>The predicted relative wealth value is later binned into 5 wealth categories A-E by dividing the distribution into quintiles (every 20th percentile).</p>
 <section id="set-up-data-access" class="level2">
 <h2 class="anchored" data-anchor-id="set-up-data-access">Set up Data Access</h2>
 <p>The following cell will prompt you to enter your EOG username and password. See <a href="https://eogdata.mines.edu/products/register/">this page</a> to learn how to set-up your EOG account.</p>
-<div class="cell" data-execution_count="3">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log-in using EOG credentials</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>username <span class="op">=</span> os.environ.get(<span class="st">'EOG_USER'</span>,<span class="va">None</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>username <span class="op">=</span> username <span class="cf">if</span> username <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="cf">else</span> <span class="bu">input</span>(<span class="st">'Username?'</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>password <span class="op">=</span> os.environ.get(<span class="st">'EOG_PASSWORD'</span>,<span class="va">None</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>password <span class="op">=</span> password <span class="cf">if</span> password <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="cf">else</span> getpass.getpass(<span class="st">'Password?'</span>) </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>username <span class="op">=</span> os.environ.get(<span class="st">"EOG_USER"</span>, <span class="va">None</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>username <span class="op">=</span> username <span class="cf">if</span> username <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="cf">else</span> <span class="bu">input</span>(<span class="st">"Username?"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>password <span class="op">=</span> os.environ.get(<span class="st">"EOG_PASSWORD"</span>, <span class="va">None</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>password <span class="op">=</span> password <span class="cf">if</span> password <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="cf">else</span> getpass.getpass(<span class="st">"Password?"</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set save_token to True so that access token gets stored in ~/.eog_creds/eog_access_token</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>access_token <span class="op">=</span> nightlights.get_eog_access_token(username,password, save_token<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdin">
-<pre><code>Username? jcnacpil@thinkingmachin.es
-Password? ········</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>2023-03-27 13:58:55.271 | INFO     | povertymapping.nightlights:get_eog_access_token:48 - Saving access_token to ~/.eog_creds/eog_access_token
-2023-03-27 13:58:55.273 | INFO     | povertymapping.nightlights:get_eog_access_token:56 - Adding access token to environmentt var EOG_ACCESS_TOKEN</code></pre>
-</div>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>access_token <span class="op">=</span> nightlights.get_eog_access_token(username, password, save_token<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="set-country-specific-parameters" class="level2">
 <h2 class="anchored" data-anchor-id="set-country-specific-parameters">Set country-specific parameters</h2>
 <p>For Indonesia, we need to process the OSM data per subregion, listed in <code>country_subareas_osm</code></p>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>REGION <span class="op">=</span> <span class="st">"indonesia"</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>country_subareas_osm <span class="op">=</span> country_subareas_osm <span class="op">=</span> [<span class="st">"maluku"</span>,<span class="st">"sulawesi"</span>, <span class="st">"sumatra"</span>, <span class="st">"java"</span>, <span class="st">"kalimantan"</span>,  <span class="st">"nusa-tenggara"</span>, <span class="st">"papua"</span>]</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># country_subareas_osm = country_subareas_osm = ["java"]</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ookla_year <span class="op">=</span> <span class="dv">2019</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>nightlights_year <span class="op">=</span> <span class="dv">2019</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>country_code <span class="op">=</span> get_iso3_code(REGION, code<span class="op">=</span><span class="st">'alpha-2'</span>).lower()</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>rollout_date <span class="op">=</span> <span class="st">'-'</span>.join(os.getcwd().split(<span class="st">'/'</span>)[<span class="op">-</span><span class="dv">2</span>].split(<span class="st">'-'</span>)[:<span class="dv">3</span>])</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>rollout_grids_path <span class="op">=</span> Path(<span class="ss">f'./</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>country_code<span class="sc">}</span><span class="ss">-rollout-grids.geojson'</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>rollout_grids_path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>COUNTRY_CODE <span class="op">=</span> <span class="st">"id"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>COUNTRY_SUBAREAS_OSM <span class="op">=</span> [</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"maluku"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sulawesi"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sumatra"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"java"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"kalimantan"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"nusa-tenggara"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"papua"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>OOKLA_YEAR <span class="op">=</span> <span class="dv">2019</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>NIGHTLIGHTS_YEAR <span class="op">=</span> <span class="dv">2019</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>rollout_date <span class="op">=</span> <span class="st">"-"</span>.join(os.getcwd().split(<span class="st">"/"</span>)[<span class="op">-</span><span class="dv">2</span>].split(<span class="st">"-"</span>)[:<span class="dv">3</span>])</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>rollout_grids_path <span class="op">=</span> Path(<span class="ss">f"./</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>COUNTRY_CODE<span class="sc">}</span><span class="ss">-rollout-grids.geojson"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>rollout_grids_path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>Path('2023-02-21-id-rollout-grids.geojson')</code></pre>
 </div>
@@ -633,8 +635,8 @@ Password? ········</code></pre>
 <section id="set-model-parameters" class="level2">
 <h2 class="anchored" data-anchor-id="set-model-parameters">Set Model Parameters</h2>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model to use for prediction</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>MODEL_SAVE_PATH <span class="op">=</span> Path(<span class="ss">f'../</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-cross-country-model.pkl'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model to use for prediction</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>MODEL_SAVE_PATH <span class="op">=</span> Path(<span class="ss">f"../</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-cross-country-model.pkl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="load-country-rollout-aoi" class="level2">
@@ -642,8 +644,8 @@ Password? ········</code></pre>
 <p>The rollout area of interest is split into 2.4km grid tiles (zoom level 14), matching the areas used during model training. The grids are also filtered to only include populated areas based on Meta’s High Resolution Settlement Layer (HRSL) data.</p>
 <p>Refer to the previous notebook <code>2_id_generate_grids.ipynb</code> for documentation on generating this grid.</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>aoi <span class="op">=</span> gpd.read_file(rollout_grids_path)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>aoi.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aoi <span class="op">=</span> gpd.read_file(rollout_grids_path)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>aoi.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
 RangeIndex: 161230 entries, 0 to 161229
@@ -666,40 +668,44 @@ memory usage: 11.1+ MB</code></pre>
 </section>
 <section id="generate-features-for-rollout-aoi" class="level2">
 <h2 class="anchored" data-anchor-id="generate-features-for-rollout-aoi">Generate Features For Rollout AOI</h2>
+<p>If this is your first time running this notebook for this specific area, expect a long runtime for the following cell as it will download and cache the required datasets. It will then process the relevant features for each area specified. On subsequent runs, the runtime will be much faster as the data is already stored in your filesystem.</p>
 <section id="retrieve-base-data" class="level3">
 <h3 class="anchored" data-anchor-id="retrieve-base-data">Retrieve base data</h3>
-<p>Unlike other rollouts, we will first get the data per subarea, combine them, then scale them afterwards to get the final features set</p>
+<p>Unlike the rollouts for the other countries, we need to generate the features in batches for Indonesia. We will first get the data per subarea, combine them, then scale them afterwards to get the final features set.</p>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>subarea_data_list <span class="op">=</span> []</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> subarea_osm <span class="kw">in</span> country_subareas_osm:</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    subarea_extent <span class="op">=</span> get_osm_extent(subarea_osm)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    aoi_in_subarea <span class="op">=</span> gpd.sjoin(</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        aoi, </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        subarea_extent, </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">'inner'</span>, </span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        predicate<span class="op">=</span><span class="st">'intersects'</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    ).drop(columns<span class="op">=</span>[<span class="st">'index_right'</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    logger.info(<span class="ss">f"Processing aoi grids in osm_region: </span><span class="sc">{</span>subarea_osm<span class="sc">}</span><span class="ss"> (n = </span><span class="sc">{</span><span class="bu">len</span>(aoi_in_subarea)<span class="sc">}</span><span class="ss">)"</span>)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    aoi_in_subarea <span class="op">=</span> generate_features(</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        aoi_in_subarea,</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        subarea_osm,</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        ookla_year,</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        nightlights_year,</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        scale <span class="op">=</span> <span class="va">False</span>,</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        features_only <span class="op">=</span> <span class="va">False</span>,</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        use_aoi_quadkey <span class="op">=</span> <span class="va">True</span>,</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        aoi_quadkey_col <span class="op">=</span> <span class="st">"quadkey"</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    subarea_data_list.append(aoi_in_subarea)</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all country data into a single dataframe</span></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>aoi_data <span class="op">=</span> gpd.GeoDataFrame(pd.concat(subarea_data_list,ignore_index<span class="op">=</span><span class="va">True</span>), crs<span class="op">=</span>subarea_data_list[<span class="dv">0</span>].crs)</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co"># There may be duplicates for rows that are in between two subareas. </span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co"># For now we will just keep the first occurence</span></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>aoi_data <span class="op">=</span> aoi_data.drop_duplicates(<span class="st">"quadkey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>subarea_data_list <span class="op">=</span> []</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> subarea_osm <span class="kw">in</span> COUNTRY_SUBAREAS_OSM:</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    subarea_extent <span class="op">=</span> get_osm_extent(subarea_osm)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    aoi_in_subarea <span class="op">=</span> (</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        gpd.sjoin(aoi, subarea_extent, how<span class="op">=</span><span class="st">"inner"</span>, predicate<span class="op">=</span><span class="st">"intersects"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        .drop(columns<span class="op">=</span>[<span class="st">"index_right"</span>])</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    logger.info(</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Processing aoi grids in osm_region: </span><span class="sc">{</span>subarea_osm<span class="sc">}</span><span class="ss"> (n = </span><span class="sc">{</span><span class="bu">len</span>(aoi_in_subarea)<span class="sc">}</span><span class="ss">)"</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    aoi_in_subarea <span class="op">=</span> generate_features(</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        aoi_in_subarea,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        subarea_osm,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        ookla_year<span class="op">=</span>OOKLA_YEAR,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        nightlights_year<span class="op">=</span>NIGHTLIGHTS_YEAR,</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        scale<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        features_only<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        use_aoi_quadkey<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        aoi_quadkey_col<span class="op">=</span><span class="st">"quadkey"</span>,</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    subarea_data_list.append(aoi_in_subarea)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all country data into a single dataframe</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>aoi_data <span class="op">=</span> gpd.GeoDataFrame(</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    pd.concat(subarea_data_list, ignore_index<span class="op">=</span><span class="va">True</span>), crs<span class="op">=</span>subarea_data_list[<span class="dv">0</span>].crs</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co"># There may be duplicates for rows that are in between two subareas.</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co"># For now we will just keep the first occurence</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>aoi_data <span class="op">=</span> aoi_data.drop_duplicates(<span class="st">"quadkey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>2023-03-27 13:59:24.581 | INFO     | __main__:&lt;module&gt;:10 - Processing aoi grids in osm_region: maluku (n = 5382)
 2023-03-27 13:59:24.604 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for maluku at /home/jc_tm/.geowrangler/osm/maluku? True
@@ -792,7 +798,7 @@ Wall time: 17min 15s</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>aoi_data.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>aoi_data.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
 Int64Index: 161230 entries, 0 to 161238
@@ -878,59 +884,41 @@ memory usage: 88.6+ MB</code></pre>
 <section id="scale-and-clean-features" class="level3">
 <h3 class="anchored" data-anchor-id="scale-and-clean-features">Scale and clean features</h3>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get list of raw features generated </span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>feature_cols <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> aoi_data.columns <span class="cf">if</span> x <span class="kw">not</span> <span class="kw">in</span> <span class="bu">list</span>(aoi.columns) <span class="op">+</span> [<span class="st">"osm_region"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get list of raw features generated</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>feature_cols <span class="op">=</span> [</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    x <span class="cf">for</span> x <span class="kw">in</span> aoi_data.columns <span class="cf">if</span> x <span class="kw">not</span> <span class="kw">in</span> <span class="bu">list</span>(aoi.columns) <span class="op">+</span> [<span class="st">"osm_region"</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> aoi_data[feature_cols].copy()</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> feature_cols:</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    max_val <span class="op">=</span> features[[col]].<span class="bu">max</span>()</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    features[col <span class="op">+</span> <span class="st">"_scaled"</span>] <span class="op">=</span> scaler.fit_transform(features[[col]].clip(upper<span class="op">=</span>max_val, axis<span class="op">=</span><span class="dv">1</span>))</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only scaled columns</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> features[[col <span class="cf">for</span> col <span class="kw">in</span> features.columns <span class="cf">if</span> <span class="st">'_scaled'</span> <span class="kw">in</span> col]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>rollout_aoi <span class="op">=</span> aoi_data[</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    [col <span class="cf">for</span> col <span class="kw">in</span> aoi_data.columns <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> feature_cols]</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>].copy()</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> aoi_data[feature_cols].copy()</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> feature_cols:</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    max_val <span class="op">=</span> features[[col]].<span class="bu">max</span>()</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    features[col <span class="op">+</span> <span class="st">"_scaled"</span>] <span class="op">=</span> scaler.fit_transform(</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        features[[col]].clip(upper<span class="op">=</span>max_val, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>CPU times: user 3.4 s, sys: 0 ns, total: 3.4 s
 Wall time: 3.4 s</code></pre>
 </div>
 </div>
-</section>
-<section id="make-copy-of-aoi-for-rollout" class="level3">
-<h3 class="anchored" data-anchor-id="make-copy-of-aoi-for-rollout">Make copy of aoi for rollout</h3>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi <span class="op">=</span> aoi_data.copy()</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>rollout_aoi <span class="op">=</span> rollout_aoi[[col <span class="cf">for</span> col <span class="kw">in</span> rollout_aoi.columns <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> feature_cols]] <span class="co"># remove raw feature columns</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>rollout_aoi.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
-Int64Index: 161230 entries, 0 to 161238
-Data columns (total 10 columns):
- #   Column          Non-Null Count   Dtype   
----  ------          --------------   -----   
- 0   quadkey         161230 non-null  object  
- 1   shapeName       161230 non-null  object  
- 2   shapeISO        161230 non-null  object  
- 3   shapeID         161230 non-null  object  
- 4   shapeGroup      161230 non-null  object  
- 5   shapeType       161230 non-null  object  
- 6   quadkey_level8  161230 non-null  object  
- 7   pop_count       161230 non-null  float64 
- 8   geometry        161230 non-null  geometry
- 9   osm_region      161230 non-null  object  
-dtypes: float64(1), geometry(1), object(8)
-memory usage: 13.5+ MB</code></pre>
-</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save raw features, can be used for validation</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>raw_features <span class="op">=</span> features[[col <span class="cf">for</span> col <span class="kw">in</span> features.columns <span class="cf">if</span> <span class="st">"_scaled"</span> <span class="kw">not</span> <span class="kw">in</span> col]]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Then keep only scaled columns</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> features[[col <span class="cf">for</span> col <span class="kw">in</span> features.columns <span class="cf">if</span> <span class="st">"_scaled"</span> <span class="kw">in</span> col]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="inspect-the-generated-features" class="level2">
 <h2 class="anchored" data-anchor-id="inspect-the-generated-features">Inspect the generated features</h2>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>features.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>features.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 Int64Index: 161230 entries, 0 to 161238
@@ -1008,169 +996,14 @@ memory usage: 76.3 MB</code></pre>
 <section id="load-model" class="level3">
 <h3 class="anchored" data-anchor-id="load-model">Load Model</h3>
 <div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(MODEL_SAVE_PATH,<span class="st">'rb'</span>) <span class="im">as</span> f:</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> pickle.load(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(MODEL_SAVE_PATH, <span class="st">"rb"</span>) <span class="im">as</span> f:</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> pickle.load(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="make-predictions" class="level3">
 <h3 class="anchored" data-anchor-id="make-predictions">Make Predictions</h3>
 <div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi[<span class="st">'Predicted Relative Wealth Index'</span>] <span class="op">=</span> model.predict(features.values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="inspect-predicted-wealth-index-and-output-dataframe" class="level3">
-<h3 class="anchored" data-anchor-id="inspect-predicted-wealth-index-and-output-dataframe">Inspect predicted wealth index and output dataframe</h3>
-<div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi[[<span class="st">'Predicted Relative Wealth Index'</span>]].hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>array([[&lt;AxesSubplot: title={'center': 'Predicted Relative Wealth Index'}&gt;]],
-      dtype=object)</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="3_id_rollout_model_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<p>The Predicted Relative Wealth Index map should look like this.</p>
-<p>Note: For Indonesia, we do not plot a folium interactive map as the map becomes too slow when loading &gt;100,000 grids.</p>
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.cla()</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>plt.clf()</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>rollout_aoi_plot <span class="op">=</span> rollout_aoi.to_crs(<span class="st">"EPSG:3857"</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> rollout_aoi_plot.plot(<span class="st">"Predicted Relative Wealth Index"</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>), cmap<span class="op">=</span><span class="st">"viridis"</span>, legend<span class="op">=</span><span class="va">True</span>, legend_kwds<span class="op">=</span>{<span class="st">'shrink'</span>: <span class="fl">0.8</span>})</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, source<span class="op">=</span>cx.providers.OpenStreetMap.Mapnik)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Predicted Relative Wealth Index"</span>)</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="ss">f'</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>country_code<span class="sc">}</span><span class="ss">-predicted-wealth-index.png'</span>)</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>&lt;Figure size 640x480 with 0 Axes&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="3_id_rollout_model_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
-
-<div>
-
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>quadkey</th>
-      <th>shapeName</th>
-      <th>shapeISO</th>
-      <th>shapeID</th>
-      <th>shapeGroup</th>
-      <th>shapeType</th>
-      <th>quadkey_level8</th>
-      <th>pop_count</th>
-      <th>geometry</th>
-      <th>osm_region</th>
-      <th>Predicted Relative Wealth Index</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>31011002030001</td>
-      <td>Banggai Laut</td>
-      <td>None</td>
-      <td>IDN-ADM2-3_0_0-B22</td>
-      <td>IDN</td>
-      <td>ADM2</td>
-      <td>31011002</td>
-      <td>231.423157</td>
-      <td>POLYGON ((124.12354 -1.77950, 124.12354 -1.757...</td>
-      <td>maluku</td>
-      <td>0.261664</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>31011002030010</td>
-      <td>Banggai Laut</td>
-      <td>None</td>
-      <td>IDN-ADM2-3_0_0-B22</td>
-      <td>IDN</td>
-      <td>ADM2</td>
-      <td>31011002</td>
-      <td>611.618347</td>
-      <td>POLYGON ((124.14551 -1.77950, 124.14551 -1.757...</td>
-      <td>maluku</td>
-      <td>0.278987</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>31011002031000</td>
-      <td>Pulau Taliabu</td>
-      <td>None</td>
-      <td>IDN-ADM2-3_0_0-B416</td>
-      <td>IDN</td>
-      <td>ADM2</td>
-      <td>31011002</td>
-      <td>16.530226</td>
-      <td>POLYGON ((124.27734 -1.77950, 124.27734 -1.757...</td>
-      <td>maluku</td>
-      <td>0.249601</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>31011002013223</td>
-      <td>Pulau Taliabu</td>
-      <td>None</td>
-      <td>IDN-ADM2-3_0_0-B416</td>
-      <td>IDN</td>
-      <td>ADM2</td>
-      <td>31011002</td>
-      <td>24.795338</td>
-      <td>POLYGON ((124.29932 -1.75754, 124.29932 -1.735...</td>
-      <td>maluku</td>
-      <td>0.249601</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>31011002031001</td>
-      <td>Pulau Taliabu</td>
-      <td>None</td>
-      <td>IDN-ADM2-3_0_0-B416</td>
-      <td>IDN</td>
-      <td>ADM2</td>
-      <td>31011002</td>
-      <td>8.265113</td>
-      <td>POLYGON ((124.29932 -1.77950, 124.29932 -1.757...</td>
-      <td>maluku</td>
-      <td>0.249601</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
-Int64Index: 161230 entries, 0 to 161238
-Data columns (total 11 columns):
- #   Column                           Non-Null Count   Dtype   
----  ------                           --------------   -----   
- 0   quadkey                          161230 non-null  object  
- 1   shapeName                        161230 non-null  object  
- 2   shapeISO                         161230 non-null  object  
- 3   shapeID                          161230 non-null  object  
- 4   shapeGroup                       161230 non-null  object  
- 5   shapeType                        161230 non-null  object  
- 6   quadkey_level8                   161230 non-null  object  
- 7   pop_count                        161230 non-null  float64 
- 8   geometry                         161230 non-null  geometry
- 9   osm_region                       161230 non-null  object  
- 10  Predicted Relative Wealth Index  161230 non-null  float64 
-dtypes: float64(2), geometry(1), object(8)
-memory usage: 14.8+ MB</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi[<span class="st">"Predicted Relative Wealth Index"</span>] <span class="op">=</span> model.predict(features.values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1178,24 +1011,79 @@ memory usage: 14.8+ MB</code></pre>
 <h2 class="anchored" data-anchor-id="binning-predictions-into-wealth-categories">Binning predictions into wealth categories</h2>
 <p>Afterwards, we label the predicted relative wealth by binning them into 5 categories: <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>, and <code>E</code> where <code>A</code> is the highest and <code>E</code> is the lowest.</p>
 <p>We can create these wealth categories by splitting the output <code>Predicted Relative Wealth Index</code> distribution into 5 equally sized <strong>quintiles</strong>, i.e.&nbsp;every 20th percentile.</p>
-<section id="calculate-quintile-wealth-category" class="level3">
-<h3 class="anchored" data-anchor-id="calculate-quintile-wealth-category">Calculate quintile wealth category</h3>
-<div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi[<span class="st">"Predicted Wealth Category (quintile)"</span>] <span class="op">=</span> categorize_wealth_index(</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    rollout_aoi[<span class="st">"Predicted Relative Wealth Index"</span>], split_quantile<span class="op">=</span><span class="va">False</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>).astype(<span class="bu">str</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This categorization may be modified to suit the context of the target country.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi[<span class="st">"Predicted Wealth Category (quintile)"</span>] <span class="op">=</span> categorize_wealth_index(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    rollout_aoi[<span class="st">"Predicted Relative Wealth Index"</span>]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>).astype(<span class="bu">str</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>plt.cla()</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>plt.clf()</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>rollout_aoi_plot <span class="op">=</span> rollout_aoi.to_crs(<span class="st">"EPSG:3857"</span>)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> rollout_aoi_plot.plot(<span class="st">"Predicted Wealth Category (quintile)"</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>), cmap<span class="op">=</span><span class="st">"viridis_r"</span>, legend<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, source<span class="op">=</span>cx.providers.OpenStreetMap.Mapnik)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Predicted Wealth Category"</span>)</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="ss">f'</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>country_code<span class="sc">}</span><span class="ss">-predicted-wealth-bin.png'</span>)</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="save-output" class="level2">
+<h2 class="anchored" data-anchor-id="save-output">Save output</h2>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>rollout_aoi.to_file(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>COUNTRY_CODE<span class="sc">}</span><span class="ss">-rollout-output.geojson"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    driver<span class="op">=</span><span class="st">"GeoJSON"</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 39.8 s, sys: 851 ms, total: 40.7 s
+Wall time: 40.7 s</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join back raw features and save</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>rollout_output_with_features <span class="op">=</span> rollout_aoi.join(raw_features).join(features)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>rollout_output_with_features.to_file(</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>COUNTRY_CODE<span class="sc">}</span><span class="ss">-rollout-output-with-features.geojson"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    driver<span class="op">=</span><span class="st">"GeoJSON"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="visualizations">Visualizations</h2>
+<section id="inspect-predicted-wealth-index-and-output-dataframe" class="level3">
+<h3 class="anchored" data-anchor-id="inspect-predicted-wealth-index-and-output-dataframe">Inspect predicted wealth index and output dataframe</h3>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi[[<span class="st">"Predicted Relative Wealth Index"</span>]].hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>array([[&lt;AxesSubplot: title={'center': 'Predicted Relative Wealth Index'}&gt;]],
+      dtype=object)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3_id_rollout_model_files/figure-html/cell-21-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="create-static-maps" class="level3">
+<h3 class="anchored" data-anchor-id="create-static-maps">Create Static Maps</h3>
+<section id="plot-predicted-relative-wealth-index" class="level4">
+<h4 class="anchored" data-anchor-id="plot-predicted-relative-wealth-index">Plot Predicted Relative Wealth Index</h4>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>plt.cla()</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>plt.clf()</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>rollout_aoi_plot <span class="op">=</span> rollout_aoi.to_crs(<span class="st">"EPSG:3857"</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> rollout_aoi_plot.plot(</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predicted Relative Wealth Index"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>),</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"viridis"</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    legend_kwds<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">0.8</span>},</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, source<span class="op">=</span>cx.providers.OpenStreetMap.Mapnik)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Predicted Relative Wealth Index"</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="ss">f"</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>COUNTRY_CODE<span class="sc">}</span><span class="ss">-predicted-wealth-index.png"</span>)</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>&lt;Figure size 640x480 with 0 Axes&gt;</code></pre>
 </div>
@@ -1203,53 +1091,63 @@ memory usage: 14.8+ MB</code></pre>
 <p><img src="3_id_rollout_model_files/figure-html/cell-22-output-2.png" class="img-fluid"></p>
 </div>
 </div>
+</section>
+<section id="plot-predicted-relative-wealth-index-category" class="level4">
+<h4 class="anchored" data-anchor-id="plot-predicted-relative-wealth-index-category">Plot Predicted Relative Wealth Index Category</h4>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>plt.cla()</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>plt.clf()</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>rollout_aoi_plot <span class="op">=</span> rollout_aoi.to_crs(<span class="st">"EPSG:3857"</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> rollout_aoi_plot.plot(</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predicted Wealth Category (quintile)"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>),</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"viridis_r"</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, source<span class="op">=</span>cx.providers.OpenStreetMap.Mapnik)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Predicted Wealth Category"</span>)</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="ss">f"</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>COUNTRY_CODE<span class="sc">}</span><span class="ss">-predicted-wealth-bin.png"</span>)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 640x480 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3_id_rollout_model_files/figure-html/cell-23-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="create-an-interactive-map" class="level3">
+<h3 class="anchored" data-anchor-id="create-an-interactive-map">Create an Interactive Map</h3>
 <div class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>cols_of_interest <span class="op">=</span> [</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"quadkey"</span>,</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"shapeName"</span>,</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"shapeGroup"</span>,</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pop_count"</span>,</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_mean"</span>,</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mobile_2019_mean_avg_d_kbps_mean"</span>,</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"fixed_2019_mean_avg_d_kbps_mean"</span>,</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"poi_count"</span>,</span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"road_count"</span>,</span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predicted Relative Wealth Index"</span>,</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predicted Wealth Category (quintile)"</span>,</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: This can be a bit laggy due to the large amount of tiles being visualized</span></span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncomment the ff if you want to viz the raw wealth predictions</span></span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="co"># rollout_aoi.explore(column='Predicted Relative Wealth Index', tooltip=cols_of_interest, cmap="viridis")</span></span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncomment the ff if you want to view the quintiles</span></span>
-<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="co"># rollout_aoi.explore(column='Predicted Wealth Category (quintile)', tooltip=cols_of_interest, cmap="viridis_r")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>cols_of_interest <span class="op">=</span> [</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"quadkey"</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"shapeName"</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"shapeGroup"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pop_count"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_mean"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mobile_2019_mean_avg_d_kbps_mean"</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"fixed_2019_mean_avg_d_kbps_mean"</span>,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"poi_count"</span>,</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"road_count"</span>,</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predicted Relative Wealth Index"</span>,</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predicted Wealth Category (quintile)"</span>,</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: This can be a bit laggy due to the large amount of tiles being visualized</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncomment the ff if you want to viz the raw wealth predictions</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="co"># rollout_aoi.explore(column='Predicted Relative Wealth Index', tooltip=cols_of_interest, cmap="viridis")</span></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncomment the ff if you want to view the quintiles</span></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="co"># rollout_aoi.explore(column='Predicted Wealth Category (quintile)', tooltip=cols_of_interest, cmap="viridis_r")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-</section>
-<section id="save-output" class="level2">
-<h2 class="anchored" data-anchor-id="save-output">Save output</h2>
-<div class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>rollout_aoi.to_file(<span class="ss">f'</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>country_code<span class="sc">}</span><span class="ss">-rollout-output.geojson'</span>, driver<span class="op">=</span><span class="st">'GeoJSON'</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 39.8 s, sys: 851 ms, total: 40.7 s
-Wall time: 40.7 s</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join back the features</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>rollout_output_with_unscaled_features <span class="op">=</span> rollout_aoi.join(aoi_data[feature_cols])</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>rollout_output_with_unscaled_features.to_file(<span class="ss">f'</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>country_code<span class="sc">}</span><span class="ss">-rollout-features.geojson'</span>, driver<span class="op">=</span><span class="st">'GeoJSON'</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join back the features</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>rollout_output_with_scaled_features <span class="op">=</span> rollout_aoi.join(features)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>rollout_output_with_scaled_features.to_file(<span class="ss">f'</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>country_code<span class="sc">}</span><span class="ss">-rollout-features-scaled.geojson'</span>, driver<span class="op">=</span><span class="st">'GeoJSON'</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Alternatively, you may also try to visualize this interactively in <a href="https://kepler.gl/demo">Kepler</a> by uploading the rollout output geojson file.</p>
 
 
+</section>
 </section>
 </section>
 
