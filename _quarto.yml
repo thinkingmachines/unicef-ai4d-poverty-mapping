@@ -9,7 +9,7 @@ website:
 
   sidebar:
     contents:
-      - href: docs/index.qmd
+      - href: index.qmd
         text: Main
       - section: "Sprint 1 (Individual DHS Countries)"
         contents:
