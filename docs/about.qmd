@@ -1,7 +1,0 @@
----
-title: "About"
----
-
-**note: this page is still a _work-in-progress_**
-
-About this site
