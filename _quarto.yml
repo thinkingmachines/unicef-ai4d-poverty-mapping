@@ -11,10 +11,6 @@ website:
     contents:
       - href: docs/index.qmd
         text: Main
-      - href: docs/about.qmd
-        text: About
-      - href: docs/progress.qmd
-        text: Progress
       - section: "Sprint 1 (Individual DHS Countries)"
         contents:
           - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.ipynb
