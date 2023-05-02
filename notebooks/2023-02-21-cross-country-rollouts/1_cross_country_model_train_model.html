@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.247">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>UNICEF AI4D Poverty Mapping Project - Cross-country Model with Normalized Features and Labels</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Cross-country Model with Normalized Features and Labels</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Main</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../progress.html" class="sidebar-item-text sidebar-link">Progress</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Sprint 1 (Individual DHS Countries)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_kh.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Cambodia)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_mm.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Myanmar)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Timor Leste)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Sprint 2 (Cross Country Experiments)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../cross-country-report.html" class="sidebar-item-text sidebar-link">Cross-country Experiments Summary</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.html" class="sidebar-item-text sidebar-link">Cross Country Model Training (Initial)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.html" class="sidebar-item-text sidebar-link">Index Recalculation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.html" class="sidebar-item-text sidebar-link">Cross Country Model Training (Normalized)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Sprint 3 (Model Rollout)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sprint-3-report.html" class="sidebar-item-text sidebar-link">Model Rollouts Summary</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Single-country Rollouts</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Philippines</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/ph/1_ph_train_model.html" class="sidebar-item-text sidebar-link">Single-country Model with Normalized Features (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/ph/2_ph_generate_grids.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/ph/3_ph_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Timor Leste</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/tl/1_tl_train_model.html" class="sidebar-item-text sidebar-link">Timor Leste Model Rollout Part 1 (Training Final Single-country Model)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/tl/2_tl_generate_grids.html" class="sidebar-item-text sidebar-link">Timor Leste Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">Myanmar</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/mm/1_mm_train_model.html" class="sidebar-item-text sidebar-link">Single-country Model with Normalized Features (Myanmar)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/mm/2_mm_generate_grids.html" class="sidebar-item-text sidebar-link">Myanmar Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/mm/3_mm_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">Cambodia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/kh/1_kh_train_model.html" class="sidebar-item-text sidebar-link">Single-country Model with Normalized Features (Cambodia)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/kh/2_kh_generate_grids.html" class="sidebar-item-text sidebar-link">Cambodia Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-single-country-rollouts/kh/3_kh_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">Cross-country Rollouts</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-cross-country-rollouts/1_cross_country_model_train_model.html" class="sidebar-item-text sidebar-link active">Cross-country Model with Normalized Features and Labels</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">Indonesia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-cross-country-rollouts/id/2_id_generate_grids.html" class="sidebar-item-text sidebar-link">Indonesia Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-cross-country-rollouts/id/3_id_rollout_model.html" class="sidebar-item-text sidebar-link">Indonesia Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">Malaysia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-cross-country-rollouts/my/2_my_generate_grids.html" class="sidebar-item-text sidebar-link">Malaysia Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-cross-country-rollouts/my/3_my_rollout_model.html" class="sidebar-item-text sidebar-link">Malaysia Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">Laos</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-cross-country-rollouts/la/2_la_generate_grids.html" class="sidebar-item-text sidebar-link">Laos Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-cross-country-rollouts/la/3_la_rollout_model.html" class="sidebar-item-text sidebar-link">Laos Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">Vietnam</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-cross-country-rollouts/vn/2_vn_generate_grids.html" class="sidebar-item-text sidebar-link">Vietnam Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-cross-country-rollouts/vn/3_vn_rollout_model.html" class="sidebar-item-text sidebar-link">Vietnam Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">Thailand</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-cross-country-rollouts/th/2_th_generate_grids.html" class="sidebar-item-text sidebar-link">Vietnam Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-02-21-cross-country-rollouts/th/3_th_rollout_model.html" class="sidebar-item-text sidebar-link">Thailand Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">Cross-country Comparisons</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-03-15-rollout-output-comparisons/id/1_id_compare_rank_province.html" class="sidebar-item-text sidebar-link">Indonesia Evaluation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-03-15-rollout-output-comparisons/my/1_my_compare_rank_province.html" class="sidebar-item-text sidebar-link">Malaysia Evaluation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/2023-03-15-rollout-output-comparisons/la/1_la_compare_rank_province.html" class="sidebar-item-text sidebar-link">Laos Evaluation</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#cross-country-model-for-predicting-scaled-relative-wealth-index" id="toc-cross-country-model-for-predicting-scaled-relative-wealth-index" class="nav-link active" data-scroll-target="#cross-country-model-for-predicting-scaled-relative-wealth-index">Cross-country model for predicting scaled, relative wealth index</a></li>
+  <li><a href="#set-up-data-access-for-eog-nighttime-lights" id="toc-set-up-data-access-for-eog-nighttime-lights" class="nav-link" data-scroll-target="#set-up-data-access-for-eog-nighttime-lights">Set up Data Access for EOG (Nighttime lights)</a></li>
+  <li><a href="#generate-training-data-from-the-combined-4-countries-data" id="toc-generate-training-data-from-the-combined-4-countries-data" class="nav-link" data-scroll-target="#generate-training-data-from-the-combined-4-countries-data">Generate training data from the combined 4 countries’ data</a>
+  <ul class="collapse">
+  <li><a href="#data-config-per-country" id="toc-data-config-per-country" class="nav-link" data-scroll-target="#data-config-per-country">Data config per country</a></li>
+  <li><a href="#generate-scaled-features-labels-per-country-then-combine" id="toc-generate-scaled-features-labels-per-country-then-combine" class="nav-link" data-scroll-target="#generate-scaled-features-labels-per-country-then-combine">Generate scaled features + labels per country, then combine</a></li>
+  <li><a href="#inspect-the-combined-data" id="toc-inspect-the-combined-data" class="nav-link" data-scroll-target="#inspect-the-combined-data">Inspect the combined data</a></li>
+  </ul></li>
+  <li><a href="#model-training" id="toc-model-training" class="nav-link" data-scroll-target="#model-training">Model Training</a>
+  <ul class="collapse">
+  <li><a href="#shap-feature-importance" id="toc-shap-feature-importance" class="nav-link" data-scroll-target="#shap-feature-importance">SHAP Feature Importance</a></li>
+  <li><a href="#save-model" id="toc-save-model" class="nav-link" data-scroll-target="#save-model">Save Model</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Cross-country Model with Normalized Features and Labels</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="cross-country-model-for-predicting-scaled-relative-wealth-index" class="level1">
+<h1>Cross-country model for predicting scaled, relative wealth index</h1>
+<p>This notebook is for re-producing the final model used to estimate wealth for the countries with no DHS ground truth.</p>
+<p>We combine data from 4 countries where we have DHS ground truth (KH, MM, PH, TL) and train one combined model from all these data. The features and wealth indices are scaled per country to make them comparable.</p>
+<p>The output model is a Random Forest regressor trained on scaled labels (DHS Wealth Index) and features (area statistics for OSM, Ookla, and nighttime lights).</p>
+<p>We will not do evaluation in this notebook as we have estimated the performance already through leave-one-out cross-validation procedure in a different notebook (please refer to our doc site).</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">"../../"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uuid</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely <span class="im">import</span> wkt</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping <span class="im">import</span> settings, nightlights</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.dhs <span class="im">import</span> generate_dhs_cluster_level_data</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.feature_engineering <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> getpass</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RepeatedKFold</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> r2_score</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shap</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/jace/workspace/unicef-ai4d-poverty-mapping/env/lib/python3.9/site-packages/geopandas/_compat.py:111: UserWarning: The Shapely GEOS version (3.11.1-CAPI-1.17.1) is incompatible with the GEOS version PyGEOS was compiled with (3.10.1-CAPI-1.16.0). Conversions between both will be slow.
+  warnings.warn(
+/home/jace/workspace/unicef-ai4d-poverty-mapping/env/lib/python3.9/site-packages/tqdm/auto.py:22: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>reload_ext autoreload</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>autoreload <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="set-up-data-access-for-eog-nighttime-lights" class="level1">
+<h1>Set up Data Access for EOG (Nighttime lights)</h1>
+<p>The following cell will prompt you to enter your EOG username and password. See <a href="https://eogdata.mines.edu/products/register/">this page</a> to learn how to set-up your EOG account.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log-in using EOG credentials</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>username <span class="op">=</span> os.environ.get(<span class="st">'EOG_USER'</span>,<span class="va">None</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>username <span class="op">=</span> username <span class="cf">if</span> username <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="cf">else</span> <span class="bu">input</span>(<span class="st">'Username?'</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>password <span class="op">=</span> os.environ.get(<span class="st">'EOG_PASSWORD'</span>,<span class="va">None</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>password <span class="op">=</span> password <span class="cf">if</span> password <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="cf">else</span> getpass.getpass(<span class="st">'Password?'</span>) </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set save_token to True so that access token gets stored in ~/.eog_creds/eog_access_token</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>access_token <span class="op">=</span> nightlights.get_eog_access_token(username,password, save_token<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-03-23 01:09:51.002 | INFO     | povertymapping.nightlights:get_eog_access_token:48 - Saving access_token to ~/.eog_creds/eog_access_token
+2023-03-23 01:09:51.005 | INFO     | povertymapping.nightlights:get_eog_access_token:56 - Adding access token to environmentt var EOG_ACCESS_TOKEN</code></pre>
+</div>
+</div>
+</section>
+<section id="generate-training-data-from-the-combined-4-countries-data" class="level1">
+<h1>Generate training data from the combined 4 countries’ data</h1>
+<p>We normalized each model feature by country to correct country-specific feature quirks, as well as the wealth index.</p>
+<p>This method has been done in a <a href="https://doi.org/10.1073/pnas.2113658119">similar study</a> using DHS as training data and was also documented <a href="https://www.dhsprogram.com/pubs/pdf/MR9/MR9.pdf">here</a>.</p>
+<p>Models recover how relative values of input data (relative to other locations in that country) correlate with relative values of wealth (also relative to other locations in that country).</p>
+<p>The current best model setup involves (1) normalizing all features per country using <code>StandardScaler</code> and (2) scaling the wealth index per country using <code>StandardScaler</code></p>
+<p>If this is your first time running this notebook for this specific area, expect a long runtime for the following cell as it will download and cache the required datasets. It will then process the relevant features for each area specified. On subsequent runs, the runtime will be much faster as the data is already stored in your filesystem.</p>
+<section id="data-config-per-country" class="level2">
+<h2 class="anchored" data-anchor-id="data-config-per-country">Data config per country</h2>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set country-specific variables</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>country_config <span class="op">=</span> {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Philippines'</span>: {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'country_osm'</span>:<span class="st">'philippines'</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'ookla_year'</span>: <span class="dv">2019</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'nightlights_year'</span> : <span class="dv">2017</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">'country_code'</span>: <span class="st">'ph'</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">'dhs_household_dta_path'</span> : settings.DATA_DIR<span class="op">/</span><span class="st">"dhs/ph/PHHR71DT/PHHR71FL.DTA"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">'dhs_geographic_shp_path'</span> : settings.DATA_DIR<span class="op">/</span><span class="st">"dhs/ph/PHGE71FL/PHGE71FL.shp"</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Timor Leste'</span>: {</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">'country_osm'</span>:<span class="st">'east-timor'</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">'ookla_year'</span>: <span class="dv">2019</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">'nightlights_year'</span> : <span class="dv">2016</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">'country_code'</span>: <span class="st">'tl'</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">'dhs_household_dta_path'</span> : settings.DATA_DIR<span class="op">/</span><span class="st">"dhs/tl/TLHR71DT/TLHR71FL.DTA"</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'dhs_geographic_shp_path'</span> : settings.DATA_DIR<span class="op">/</span><span class="st">"dhs/tl/TLGE71FL/TLGE71FL.shp"</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Cambodia'</span>: {</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">'country_osm'</span>:<span class="st">'cambodia'</span>,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">'ookla_year'</span>: <span class="dv">2019</span>,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">'nightlights_year'</span> : <span class="dv">2014</span>,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">'country_code'</span>: <span class="st">'kh'</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">'dhs_household_dta_path'</span> : settings.DATA_DIR<span class="op">/</span><span class="st">"dhs/kh/KHHR73DT/KHHR73FL.DTA"</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">'dhs_geographic_shp_path'</span> : settings.DATA_DIR<span class="op">/</span><span class="st">"dhs/kh/KHGE71FL/KHGE71FL.shp"</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Myanmar'</span>: {</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">'country_osm'</span>:<span class="st">'myanmar'</span>,</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">'ookla_year'</span>: <span class="dv">2019</span>,</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">'nightlights_year'</span> : <span class="dv">2015</span>,</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">'country_code'</span>: <span class="st">'mm'</span>,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">'dhs_household_dta_path'</span> : settings.DATA_DIR<span class="op">/</span><span class="st">"dhs/mm/MMHR71DT/MMHR71FL.DTA"</span>,</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">'dhs_geographic_shp_path'</span> : settings.DATA_DIR<span class="op">/</span><span class="st">"dhs/mm/MMGE71FL/MMGE71FL.shp"</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="generate-scaled-features-labels-per-country-then-combine" class="level2">
+<h2 class="anchored" data-anchor-id="generate-scaled-features-labels-per-country-then-combine">Generate scaled features + labels per country, then combine</h2>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create list of dataframes per country, and list of all columns appearing in DHS columns</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>country_data_list <span class="op">=</span> []</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> country, config <span class="kw">in</span> country_config.items():</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Loading data for </span><span class="sc">{</span>country<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load the DHS cluster data</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    dhs_gdf <span class="op">=</span> generate_dhs_cluster_level_data(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        config[<span class="st">'dhs_household_dta_path'</span>], </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        config[<span class="st">'dhs_geographic_shp_path'</span>], </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        col_rename_config<span class="op">=</span> config[<span class="st">'country_code'</span>],</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        convert_geoms_to_bbox<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        bbox_size_km <span class="op">=</span> <span class="fl">2.4</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    ).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create labels array by scaling the specified label_col (ex. Wealth Index)</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Need to extract this before generating features because we'll be dropping the non-feature columns</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> MinMaxScaler().fit_transform(dhs_gdf[[<span class="st">"Wealth Index"</span>]])</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate features</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    features <span class="op">=</span> generate_features(dhs_gdf,config[<span class="st">'country_osm'</span>],<span class="op">\</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>                                     config[<span class="st">'ookla_year'</span>],config[<span class="st">'nightlights_year'</span>], sklearn_scaler<span class="op">=</span>MinMaxScaler,<span class="op">\</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>                                     scaled_only<span class="op">=</span><span class="va">True</span>, features_only<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create combined GDF containing features and the label</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    country_data <span class="op">=</span> features.copy()</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    country_data[<span class="st">'label'</span>] <span class="op">=</span> labels</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    country_data_list.append(country_data)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all country data into a single dataframe</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>countries_data <span class="op">=</span> gpd.GeoDataFrame(pd.concat(country_data_list,ignore_index<span class="op">=</span><span class="va">True</span>), crs<span class="op">=</span>country_data_list[<span class="dv">0</span>].crs)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the GDF back into features and labels for training</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>feature_cols <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> countries_data.columns <span class="cf">if</span> col <span class="op">!=</span> <span class="st">'label'</span>]</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> countries_data[feature_cols]</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> countries_data[<span class="st">'label'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loading data for Philippines</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-03-23 01:10:34.032 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for philippines at /home/jace/.geowrangler/osm/philippines? True
+2023-03-23 01:10:34.033 | DEBUG    | povertymapping.osm:load_pois:161 - OSM POIs for philippines being loaded from /home/jace/.geowrangler/osm/philippines/gis_osm_pois_free_1.shp
+2023-03-23 01:10:39.433 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for philippines at /home/jace/.geowrangler/osm/philippines? True
+2023-03-23 01:10:39.434 | DEBUG    | povertymapping.osm:load_roads:180 - OSM Roads for philippines being loaded from /home/jace/.geowrangler/osm/philippines/gis_osm_roads_free_1.shp
+2023-03-23 01:11:34.775 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: []
+2023-03-23 01:11:34.776 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jace/.geowrangler/ookla/processed/34fe4bfac0d067b5956eadec4fbd2898.csv? True
+2023-03-23 01:11:34.776 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, fixed 2019 (key: 34fe4bfac0d067b5956eadec4fbd2898) found in filesystem. Loading in cache.
+2023-03-23 01:11:35.175 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: ['34fe4bfac0d067b5956eadec4fbd2898']
+2023-03-23 01:11:35.176 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jace/.geowrangler/ookla/processed/de73d531d4abc99a42bd40916045c924.csv? True
+2023-03-23 01:11:35.177 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, mobile 2019 (key: de73d531d4abc99a42bd40916045c924) found in filesystem. Loading in cache.
+2023-03-23 01:11:35.518 | INFO     | povertymapping.nightlights:get_clipped_raster:414 - Retrieving clipped raster file /home/jace/.geowrangler/nightlights/clip/295bf47ce6753c7f06ab79012b769f2a.tif</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loading data for Timor Leste</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-03-23 01:11:45.874 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for east-timor at /home/jace/.geowrangler/osm/east-timor? True
+2023-03-23 01:11:45.875 | DEBUG    | povertymapping.osm:load_pois:161 - OSM POIs for east-timor being loaded from /home/jace/.geowrangler/osm/east-timor/gis_osm_pois_free_1.shp
+2023-03-23 01:11:46.791 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for east-timor at /home/jace/.geowrangler/osm/east-timor? True
+2023-03-23 01:11:46.792 | DEBUG    | povertymapping.osm:load_roads:180 - OSM Roads for east-timor being loaded from /home/jace/.geowrangler/osm/east-timor/gis_osm_roads_free_1.shp
+2023-03-23 01:11:47.398 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: []
+2023-03-23 01:11:47.399 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jace/.geowrangler/ookla/processed/0006e572a43b79244fb591a51078be7f.csv? True
+2023-03-23 01:11:47.400 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, fixed 2019 (key: 0006e572a43b79244fb591a51078be7f) found in filesystem. Loading in cache.
+2023-03-23 01:11:47.484 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: ['0006e572a43b79244fb591a51078be7f']
+2023-03-23 01:11:47.485 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jace/.geowrangler/ookla/processed/50cac4669b9304f67acf97d6da8c86e9.csv? True
+2023-03-23 01:11:47.485 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, mobile 2019 (key: 50cac4669b9304f67acf97d6da8c86e9) found in filesystem. Loading in cache.
+2023-03-23 01:11:47.585 | INFO     | povertymapping.nightlights:get_clipped_raster:414 - Retrieving clipped raster file /home/jace/.geowrangler/nightlights/clip/b0d0551dd5a67c8eada595334f2655ed.tif</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loading data for Cambodia</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-03-23 01:11:51.556 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for cambodia at /home/jace/.geowrangler/osm/cambodia? True
+2023-03-23 01:11:51.557 | DEBUG    | povertymapping.osm:load_pois:161 - OSM POIs for cambodia being loaded from /home/jace/.geowrangler/osm/cambodia/gis_osm_pois_free_1.shp
+2023-03-23 01:11:53.279 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for cambodia at /home/jace/.geowrangler/osm/cambodia? True
+2023-03-23 01:11:53.280 | DEBUG    | povertymapping.osm:load_roads:180 - OSM Roads for cambodia being loaded from /home/jace/.geowrangler/osm/cambodia/gis_osm_roads_free_1.shp
+2023-03-23 01:11:58.767 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: []
+2023-03-23 01:11:58.768 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jace/.geowrangler/ookla/processed/6bc4328716bb3ab458a001835ee12075.csv? True
+2023-03-23 01:11:58.768 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, fixed 2019 (key: 6bc4328716bb3ab458a001835ee12075) found in filesystem. Loading in cache.
+2023-03-23 01:11:58.957 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: ['6bc4328716bb3ab458a001835ee12075']
+2023-03-23 01:11:58.958 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jace/.geowrangler/ookla/processed/b722d8957949c9a4c24e40c8e75a9f1f.csv? True
+2023-03-23 01:11:58.958 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, mobile 2019 (key: b722d8957949c9a4c24e40c8e75a9f1f) found in filesystem. Loading in cache.
+2023-03-23 01:11:59.151 | INFO     | povertymapping.nightlights:get_clipped_raster:414 - Retrieving clipped raster file /home/jace/.geowrangler/nightlights/clip/4791e78094ba7e323fd5814b3f094a84.tif</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loading data for Myanmar</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-03-23 01:12:04.961 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for myanmar at /home/jace/.geowrangler/osm/myanmar? True
+2023-03-23 01:12:04.962 | DEBUG    | povertymapping.osm:load_pois:161 - OSM POIs for myanmar being loaded from /home/jace/.geowrangler/osm/myanmar/gis_osm_pois_free_1.shp
+2023-03-23 01:12:07.047 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for myanmar at /home/jace/.geowrangler/osm/myanmar? True
+2023-03-23 01:12:07.047 | DEBUG    | povertymapping.osm:load_roads:180 - OSM Roads for myanmar being loaded from /home/jace/.geowrangler/osm/myanmar/gis_osm_roads_free_1.shp
+2023-03-23 01:12:23.648 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: []
+2023-03-23 01:12:23.649 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jace/.geowrangler/ookla/processed/2100117ec1967ae3e6d875971fb23fc6.csv? True
+2023-03-23 01:12:23.649 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, fixed 2019 (key: 2100117ec1967ae3e6d875971fb23fc6) found in filesystem. Loading in cache.
+2023-03-23 01:12:23.785 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: ['2100117ec1967ae3e6d875971fb23fc6']
+2023-03-23 01:12:23.786 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jace/.geowrangler/ookla/processed/df165221cada388b00e5495ceef4d733.csv? True
+2023-03-23 01:12:23.786 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, mobile 2019 (key: df165221cada388b00e5495ceef4d733) found in filesystem. Loading in cache.
+2023-03-23 01:12:23.931 | INFO     | povertymapping.nightlights:get_clipped_raster:414 - Retrieving clipped raster file /home/jace/.geowrangler/nightlights/clip/7a58f067614b6685cd9bb62d4d15a249.tif</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 1min 44s, sys: 47.6 s, total: 2min 31s
+Wall time: 2min 34s</code></pre>
+</div>
+</div>
+</section>
+<section id="inspect-the-combined-data" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-the-combined-data">Inspect the combined data</h2>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>countries_data.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
+RangeIndex: 2720 entries, 0 to 2719
+Data columns (total 62 columns):
+ #   Column                                    Non-Null Count  Dtype  
+---  ------                                    --------------  -----  
+ 0   poi_count_scaled                          2720 non-null   float64
+ 1   atm_count_scaled                          2720 non-null   float64
+ 2   atm_nearest_scaled                        2720 non-null   float64
+ 3   bank_count_scaled                         2720 non-null   float64
+ 4   bank_nearest_scaled                       2720 non-null   float64
+ 5   bus_station_count_scaled                  2720 non-null   float64
+ 6   bus_station_nearest_scaled                2720 non-null   float64
+ 7   cafe_count_scaled                         2720 non-null   float64
+ 8   cafe_nearest_scaled                       2720 non-null   float64
+ 9   charging_station_count_scaled             2720 non-null   float64
+ 10  charging_station_nearest_scaled           2720 non-null   float64
+ 11  courthouse_count_scaled                   2720 non-null   float64
+ 12  courthouse_nearest_scaled                 2720 non-null   float64
+ 13  dentist_count_scaled                      2720 non-null   float64
+ 14  dentist_nearest_scaled                    2720 non-null   float64
+ 15  fast_food_count_scaled                    2720 non-null   float64
+ 16  fast_food_nearest_scaled                  2720 non-null   float64
+ 17  fire_station_count_scaled                 2720 non-null   float64
+ 18  fire_station_nearest_scaled               2720 non-null   float64
+ 19  food_court_count_scaled                   2720 non-null   float64
+ 20  food_court_nearest_scaled                 2720 non-null   float64
+ 21  fuel_count_scaled                         2720 non-null   float64
+ 22  fuel_nearest_scaled                       2720 non-null   float64
+ 23  hospital_count_scaled                     2720 non-null   float64
+ 24  hospital_nearest_scaled                   2720 non-null   float64
+ 25  library_count_scaled                      2720 non-null   float64
+ 26  library_nearest_scaled                    2720 non-null   float64
+ 27  marketplace_count_scaled                  2720 non-null   float64
+ 28  marketplace_nearest_scaled                2720 non-null   float64
+ 29  pharmacy_count_scaled                     2720 non-null   float64
+ 30  pharmacy_nearest_scaled                   2720 non-null   float64
+ 31  police_count_scaled                       2720 non-null   float64
+ 32  police_nearest_scaled                     2720 non-null   float64
+ 33  post_box_count_scaled                     2720 non-null   float64
+ 34  post_box_nearest_scaled                   2720 non-null   float64
+ 35  post_office_count_scaled                  2720 non-null   float64
+ 36  post_office_nearest_scaled                2720 non-null   float64
+ 37  restaurant_count_scaled                   2720 non-null   float64
+ 38  restaurant_nearest_scaled                 2720 non-null   float64
+ 39  social_facility_count_scaled              2720 non-null   float64
+ 40  social_facility_nearest_scaled            2720 non-null   float64
+ 41  supermarket_count_scaled                  2720 non-null   float64
+ 42  supermarket_nearest_scaled                2720 non-null   float64
+ 43  townhall_count_scaled                     2720 non-null   float64
+ 44  townhall_nearest_scaled                   2720 non-null   float64
+ 45  road_count_scaled                         2720 non-null   float64
+ 46  fixed_2019_mean_avg_d_kbps_mean_scaled    2720 non-null   float64
+ 47  fixed_2019_mean_avg_u_kbps_mean_scaled    2720 non-null   float64
+ 48  fixed_2019_mean_avg_lat_ms_mean_scaled    2720 non-null   float64
+ 49  fixed_2019_mean_num_tests_mean_scaled     2720 non-null   float64
+ 50  fixed_2019_mean_num_devices_mean_scaled   2720 non-null   float64
+ 51  mobile_2019_mean_avg_d_kbps_mean_scaled   2720 non-null   float64
+ 52  mobile_2019_mean_avg_u_kbps_mean_scaled   2720 non-null   float64
+ 53  mobile_2019_mean_avg_lat_ms_mean_scaled   2720 non-null   float64
+ 54  mobile_2019_mean_num_tests_mean_scaled    2720 non-null   float64
+ 55  mobile_2019_mean_num_devices_mean_scaled  2720 non-null   float64
+ 56  avg_rad_min_scaled                        2720 non-null   float64
+ 57  avg_rad_max_scaled                        2720 non-null   float64
+ 58  avg_rad_mean_scaled                       2720 non-null   float64
+ 59  avg_rad_std_scaled                        2720 non-null   float64
+ 60  avg_rad_median_scaled                     2720 non-null   float64
+ 61  label                                     2720 non-null   float64
+dtypes: float64(62)
+memory usage: 1.3 MB</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>countries_data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>poi_count_scaled</th>
+      <th>atm_count_scaled</th>
+      <th>atm_nearest_scaled</th>
+      <th>bank_count_scaled</th>
+      <th>bank_nearest_scaled</th>
+      <th>bus_station_count_scaled</th>
+      <th>bus_station_nearest_scaled</th>
+      <th>cafe_count_scaled</th>
+      <th>cafe_nearest_scaled</th>
+      <th>charging_station_count_scaled</th>
+      <th>...</th>
+      <th>mobile_2019_mean_avg_u_kbps_mean_scaled</th>
+      <th>mobile_2019_mean_avg_lat_ms_mean_scaled</th>
+      <th>mobile_2019_mean_num_tests_mean_scaled</th>
+      <th>mobile_2019_mean_num_devices_mean_scaled</th>
+      <th>avg_rad_min_scaled</th>
+      <th>avg_rad_max_scaled</th>
+      <th>avg_rad_mean_scaled</th>
+      <th>avg_rad_std_scaled</th>
+      <th>avg_rad_median_scaled</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.224332</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.107772</td>
+      <td>0.008096</td>
+      <td>0.000651</td>
+      <td>0.001175</td>
+      <td>0.003882</td>
+      <td>0.000679</td>
+      <td>0.001337</td>
+      <td>0.000403</td>
+      <td>0.001404</td>
+      <td>0.374681</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.004082</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>0.007752</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.160264</td>
+      <td>0.065863</td>
+      <td>0.015803</td>
+      <td>0.017085</td>
+      <td>0.004822</td>
+      <td>0.048494</td>
+      <td>0.018562</td>
+      <td>0.066474</td>
+      <td>0.004603</td>
+      <td>0.446489</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.437469</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.376894</td>
+      <td>0.068733</td>
+      <td>0.005963</td>
+      <td>0.006994</td>
+      <td>0.003833</td>
+      <td>0.004762</td>
+      <td>0.002650</td>
+      <td>0.005322</td>
+      <td>0.001867</td>
+      <td>0.310939</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.003259</td>
+      <td>0.000395</td>
+      <td>0.000889</td>
+      <td>0.000283</td>
+      <td>0.000839</td>
+      <td>0.317605</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.873641</td>
+      <td>0.000000</td>
+      <td>0.876264</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.004039</td>
+      <td>0.000542</td>
+      <td>0.001235</td>
+      <td>0.000101</td>
+      <td>0.001166</td>
+      <td>0.253904</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 62 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>features.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>poi_count_scaled</th>
+      <th>atm_count_scaled</th>
+      <th>atm_nearest_scaled</th>
+      <th>bank_count_scaled</th>
+      <th>bank_nearest_scaled</th>
+      <th>bus_station_count_scaled</th>
+      <th>bus_station_nearest_scaled</th>
+      <th>cafe_count_scaled</th>
+      <th>cafe_nearest_scaled</th>
+      <th>charging_station_count_scaled</th>
+      <th>...</th>
+      <th>mobile_2019_mean_avg_d_kbps_mean_scaled</th>
+      <th>mobile_2019_mean_avg_u_kbps_mean_scaled</th>
+      <th>mobile_2019_mean_avg_lat_ms_mean_scaled</th>
+      <th>mobile_2019_mean_num_tests_mean_scaled</th>
+      <th>mobile_2019_mean_num_devices_mean_scaled</th>
+      <th>avg_rad_min_scaled</th>
+      <th>avg_rad_max_scaled</th>
+      <th>avg_rad_mean_scaled</th>
+      <th>avg_rad_std_scaled</th>
+      <th>avg_rad_median_scaled</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.224332</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.052647</td>
+      <td>0.107772</td>
+      <td>0.008096</td>
+      <td>0.000651</td>
+      <td>0.001175</td>
+      <td>0.003882</td>
+      <td>0.000679</td>
+      <td>0.001337</td>
+      <td>0.000403</td>
+      <td>0.001404</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.004082</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>0.007752</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.077665</td>
+      <td>0.160264</td>
+      <td>0.065863</td>
+      <td>0.015803</td>
+      <td>0.017085</td>
+      <td>0.004822</td>
+      <td>0.048494</td>
+      <td>0.018562</td>
+      <td>0.066474</td>
+      <td>0.004603</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.437469</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.279220</td>
+      <td>0.376894</td>
+      <td>0.068733</td>
+      <td>0.005963</td>
+      <td>0.006994</td>
+      <td>0.003833</td>
+      <td>0.004762</td>
+      <td>0.002650</td>
+      <td>0.005322</td>
+      <td>0.001867</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.003259</td>
+      <td>0.000395</td>
+      <td>0.000889</td>
+      <td>0.000283</td>
+      <td>0.000839</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.873641</td>
+      <td>0.000000</td>
+      <td>0.876264</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.004039</td>
+      <td>0.000542</td>
+      <td>0.001235</td>
+      <td>0.000101</td>
+      <td>0.001166</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 61 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>labels.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>0    0.374681
+1    0.446489
+2    0.310939
+3    0.317605
+4    0.253904
+Name: label, dtype: float64</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>labels.hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>&lt;AxesSubplot: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1_cross_country_model_train_model_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="model-training" class="level1">
+<h1>Model Training</h1>
+<p>For training the final model, we train on all the available data.</p>
+<p>As mentioned above, we will not do evaluation in this notebook as we have estimated this methodology’s performance already through leave-one-country-out cross-validation procedure in a different notebook (please refer to our <a href="https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/cross-country-report.html">doc site</a>).</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestRegressor(random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestRegressor</label><div class="sk-toggleable__content"><pre>RandomForestRegressor(random_state=42)</pre></div></div></div></div></div>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>model.fit(features.values, labels.values.ravel())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<style>#sk-container-id-2 {color: black;background-color: white;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestRegressor(random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestRegressor</label><div class="sk-toggleable__content"><pre>RandomForestRegressor(random_state=42)</pre></div></div></div></div></div>
+</div>
+</div>
+<section id="shap-feature-importance" class="level3">
+<h3 class="anchored" data-anchor-id="shap-feature-importance">SHAP Feature Importance</h3>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>explainer <span class="op">=</span> shap.TreeExplainer(model)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>shap_values <span class="op">=</span> explainer.shap_values(features)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>shap.summary_plot(shap_values, features, feature_names<span class="op">=</span>features.columns, plot_type<span class="op">=</span><span class="st">"bar"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="1_cross_country_model_train_model_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>shap.summary_plot(shap_values, features.values, feature_names<span class="op">=</span>features.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>No data for colormapping provided via 'c'. Parameters 'vmin', 'vmax' will be ignored</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1_cross_country_model_train_model_files/figure-html/cell-16-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="save-model" class="level2">
+<h2 class="anchored" data-anchor-id="save-model">Save Model</h2>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>rollout_date <span class="op">=</span> <span class="st">'-'</span>.join(os.getcwd().split(<span class="st">'/'</span>)[<span class="op">-</span><span class="dv">1</span>].split(<span class="st">'-'</span>)[:<span class="dv">3</span>])</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>model_save_path <span class="op">=</span> <span class="ss">f'./</span><span class="sc">{</span>rollout_date<span class="sc">}</span><span class="ss">-cross-country-model.pkl'</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(model_save_path, <span class="st">"wb"</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    pickle.dump(model, <span class="bu">file</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

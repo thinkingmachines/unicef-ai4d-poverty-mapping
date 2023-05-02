@@ -1,0 +1,2813 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.247">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>UNICEF AI4D Poverty Mapping Project - Indonesia Evaluation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Indonesia Evaluation</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">Main</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../progress.html" class="sidebar-item-text sidebar-link">Progress</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Sprint 1 (Individual DHS Countries)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_kh.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Cambodia)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_mm.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Myanmar)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Timor Leste)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Sprint 2 (Cross Country Experiments)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../cross-country-report.html" class="sidebar-item-text sidebar-link">Cross-country Experiments Summary</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.html" class="sidebar-item-text sidebar-link">Cross Country Model Training (Initial)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.html" class="sidebar-item-text sidebar-link">Index Recalculation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.html" class="sidebar-item-text sidebar-link">Cross Country Model Training (Normalized)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Sprint 3 (Model Rollout)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../sprint-3-report.html" class="sidebar-item-text sidebar-link">Model Rollouts Summary</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Single-country Rollouts</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Philippines</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/1_ph_train_model.html" class="sidebar-item-text sidebar-link">Single-country Model with Normalized Features (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/2_ph_generate_grids.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/3_ph_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Timor Leste</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/tl/1_tl_train_model.html" class="sidebar-item-text sidebar-link">Timor Leste Model Rollout Part 1 (Training Final Single-country Model)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/tl/2_tl_generate_grids.html" class="sidebar-item-text sidebar-link">Timor Leste Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">Myanmar</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/1_mm_train_model.html" class="sidebar-item-text sidebar-link">Single-country Model with Normalized Features (Myanmar)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/2_mm_generate_grids.html" class="sidebar-item-text sidebar-link">Myanmar Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/3_mm_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">Cambodia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/1_kh_train_model.html" class="sidebar-item-text sidebar-link">Single-country Model with Normalized Features (Cambodia)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/2_kh_generate_grids.html" class="sidebar-item-text sidebar-link">Cambodia Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/3_kh_rollout_model.html" class="sidebar-item-text sidebar-link">Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">Cross-country Rollouts</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/1_cross_country_model_train_model.html" class="sidebar-item-text sidebar-link">Cross-country Model with Normalized Features and Labels</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">Indonesia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/id/2_id_generate_grids.html" class="sidebar-item-text sidebar-link">Indonesia Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/id/3_id_rollout_model.html" class="sidebar-item-text sidebar-link">Indonesia Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">Malaysia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/my/2_my_generate_grids.html" class="sidebar-item-text sidebar-link">Malaysia Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/my/3_my_rollout_model.html" class="sidebar-item-text sidebar-link">Malaysia Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">Laos</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/la/2_la_generate_grids.html" class="sidebar-item-text sidebar-link">Laos Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/la/3_la_rollout_model.html" class="sidebar-item-text sidebar-link">Laos Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">Vietnam</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/vn/2_vn_generate_grids.html" class="sidebar-item-text sidebar-link">Vietnam Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/vn/3_vn_rollout_model.html" class="sidebar-item-text sidebar-link">Vietnam Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">Thailand</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/th/2_th_generate_grids.html" class="sidebar-item-text sidebar-link">Vietnam Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/th/3_th_rollout_model.html" class="sidebar-item-text sidebar-link">Thailand Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true">Cross-country Comparisons</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-03-15-rollout-output-comparisons/id/1_id_compare_rank_province.html" class="sidebar-item-text sidebar-link active">Indonesia Evaluation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-03-15-rollout-output-comparisons/my/1_my_compare_rank_province.html" class="sidebar-item-text sidebar-link">Malaysia Evaluation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-03-15-rollout-output-comparisons/la/1_la_compare_rank_province.html" class="sidebar-item-text sidebar-link">Laos Evaluation</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#load-boundaries" id="toc-load-boundaries" class="nav-link active" data-scroll-target="#load-boundaries">Load boundaries</a></li>
+  <li><a href="#load-indonesia-model-output" id="toc-load-indonesia-model-output" class="nav-link" data-scroll-target="#load-indonesia-model-output">Load Indonesia model output</a>
+  <ul class="collapse">
+  <li><a href="#aggregate-the-rollout-output-grids-by-adm2" id="toc-aggregate-the-rollout-output-grids-by-adm2" class="nav-link" data-scroll-target="#aggregate-the-rollout-output-grids-by-adm2">Aggregate the rollout output grids by ADM2</a></li>
+  </ul></li>
+  <li><a href="#load-comparison-data-for-indonesia" id="toc-load-comparison-data-for-indonesia" class="nav-link" data-scroll-target="#load-comparison-data-for-indonesia">Load comparison data for Indonesia</a>
+  <ul class="collapse">
+  <li><a href="#temporary-fix-use-hdx-admin-bounds-file-to-attach-the-proper-pcode" id="toc-temporary-fix-use-hdx-admin-bounds-file-to-attach-the-proper-pcode" class="nav-link" data-scroll-target="#temporary-fix-use-hdx-admin-bounds-file-to-attach-the-proper-pcode">Temporary Fix: Use HDX admin bounds file to attach the proper PCODE</a></li>
+  </ul></li>
+  <li><a href="#check-adm2_en-matches" id="toc-check-adm2_en-matches" class="nav-link" data-scroll-target="#check-adm2_en-matches">Check ADM2_EN matches</a></li>
+  <li><a href="#get-rank-correlation" id="toc-get-rank-correlation" class="nav-link" data-scroll-target="#get-rank-correlation">Get rank correlation</a></li>
+  <li><a href="#heatmap" id="toc-heatmap" class="nav-link" data-scroll-target="#heatmap">Heatmap</a></li>
+  <li><a href="#get-scatter-plot" id="toc-get-scatter-plot" class="nav-link" data-scroll-target="#get-scatter-plot">Get scatter plot</a></li>
+  <li><a href="#explore-per-subarea-ranking" id="toc-explore-per-subarea-ranking" class="nav-link" data-scroll-target="#explore-per-subarea-ranking">Explore per subarea ranking</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Indonesia Evaluation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>reload_ext autoreload</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>autoreload <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">"../../../"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.feature_engineering <span class="im">import</span> generate_features</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.osm <span class="im">import</span> get_osm_extent </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> spearmanr</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geowrangler.vector_zonal_stats <span class="im">as</span> vzs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="load-boundaries" class="level2">
+<h2 class="anchored" data-anchor-id="load-boundaries">Load boundaries</h2>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>id_hdx_adm2_filepath <span class="op">=</span> Path(<span class="st">'../../../data/idn_admbnda_adm2_bps_20200401.shp'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>id_adm2_gdf <span class="op">=</span> gpd.read_file(id_hdx_adm2_filepath)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get only the number in PCODE to match the comparison data</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>id_adm2_gdf[<span class="st">'ADM2_PCODE'</span>] <span class="op">=</span> id_adm2_gdf[<span class="st">'ADM2_PCODE'</span>].<span class="bu">str</span>[<span class="dv">2</span>:].astype(<span class="bu">str</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>id_adm2_gdf.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>ADM2_EN</th>
+      <th>ADM2_PCODE</th>
+      <th>ADM2_REF</th>
+      <th>ADM2ALT1EN</th>
+      <th>ADM2ALT2EN</th>
+      <th>ADM1_EN</th>
+      <th>ADM1_PCODE</th>
+      <th>ADM0_EN</th>
+      <th>ADM0_PCODE</th>
+      <th>date</th>
+      <th>validOn</th>
+      <th>validTo</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.360029</td>
+      <td>0.228968</td>
+      <td>Aceh Barat</td>
+      <td>1107</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Aceh</td>
+      <td>ID11</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>POLYGON ((96.26836 4.76800, 96.26822 4.76250, ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.963994</td>
+      <td>0.154136</td>
+      <td>Aceh Barat Daya</td>
+      <td>1112</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Aceh</td>
+      <td>ID11</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>MULTIPOLYGON (((96.80559 3.71758, 96.80444 3.7...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="load-indonesia-model-output" class="level2">
+<h2 class="anchored" data-anchor-id="load-indonesia-model-output">Load Indonesia model output</h2>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>id_rollout_output_filepath <span class="op">=</span> Path(<span class="st">'../../2023-02-21-cross-country-rollouts/id/2023-02-21-id-rollout-output.geojson'</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>id_rollout_output_gdf <span class="op">=</span> gpd.read_file(id_rollout_output_filepath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>id_rollout_output_gdf.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
+RangeIndex: 161230 entries, 0 to 161229
+Data columns (total 12 columns):
+ #   Column                                Non-Null Count   Dtype   
+---  ------                                --------------   -----   
+ 0   quadkey                               161230 non-null  object  
+ 1   shapeName                             161230 non-null  object  
+ 2   shapeISO                              161230 non-null  object  
+ 3   shapeID                               161230 non-null  object  
+ 4   shapeGroup                            161230 non-null  object  
+ 5   shapeType                             161230 non-null  object  
+ 6   quadkey_level8                        161230 non-null  object  
+ 7   pop_count                             161230 non-null  float64 
+ 8   osm_region                            161230 non-null  object  
+ 9   Predicted Relative Wealth Index       161230 non-null  float64 
+ 10  Predicted Wealth Category (quintile)  161230 non-null  object  
+ 11  geometry                              161230 non-null  geometry
+dtypes: float64(2), geometry(1), object(9)
+memory usage: 14.8+ MB</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>id_rollout_output_gdf[<span class="st">'pop_count'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>count    161230.000000
+mean       1696.344622
+std        5556.739326
+min           1.279359
+25%          41.478981
+50%         275.124374
+75%        1296.864624
+max      162671.421875
+Name: pop_count, dtype: float64</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>id_rollout_output_gdf[<span class="st">'pop_count'</span>].hist(bins<span class="op">=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>&lt;AxesSubplot: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1_id_compare_rank_province_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<section id="aggregate-the-rollout-output-grids-by-adm2" class="level3">
+<h3 class="anchored" data-anchor-id="aggregate-the-rollout-output-grids-by-adm2">Aggregate the rollout output grids by ADM2</h3>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>id_rollout_agg_by_adm2 <span class="op">=</span> vzs.create_zonal_stats(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    id_adm2_gdf,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    id_rollout_output_gdf,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    overlap_method<span class="op">=</span><span class="st">"intersects"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    aggregations<span class="op">=</span>[</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"column"</span>: <span class="st">"Predicted Relative Wealth Index"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"func"</span>: <span class="st">"mean"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"output"</span>: <span class="st">"model_wealth_index_mean"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"column"</span>: <span class="st">"Predicted Relative Wealth Index"</span>,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"func"</span>: <span class="st">"median"</span>,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"output"</span>: <span class="st">"model_wealth_index_median"</span>,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>id_rollout_agg_by_adm2[<span class="st">"model_wealth_index_mean"</span>].hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>&lt;AxesSubplot: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1_id_compare_rank_province_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># id_rollout_agg_by_adm2 = aggregate_grids_by_admin_bounds(</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     id_rollout_output_gdf, "indonesia", adm="ADM2", aggregations=aggregation</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># id_rollout_agg_by_adm2['rank'] = id_rollout_agg_by_adm2['model_wealth_index_median'].rank(ascending=False)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="load-comparison-data-for-indonesia" class="level2">
+<h2 class="anchored" data-anchor-id="load-comparison-data-for-indonesia">Load comparison data for Indonesia</h2>
+<p>Note: The csv provided is dirty (has quotations for each line) so we have to clean it before loading as a dataframe</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>id_susenas_csv_filepath <span class="op">=</span> Path(<span class="st">'../../../data/20220706-IDN-Susenas Relative Wealth Index.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Input data is misformatted</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data line per line and store as dataframe</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>data_lines <span class="op">=</span> []</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(id_susenas_csv_filepath, <span class="st">'r'</span>) <span class="im">as</span> csvfile:</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    datareader <span class="op">=</span> csv.reader(csvfile)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, row <span class="kw">in</span> <span class="bu">enumerate</span>(datareader):</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        line <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        line <span class="op">=</span> line.split(<span class="st">','</span>)[<span class="dv">1</span>:]</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>            header <span class="op">=</span> line</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>            data_lines.append(line)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>id_susenas_df <span class="op">=</span> pd.DataFrame(columns<span class="op">=</span>header, data<span class="op">=</span>data_lines)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>id_susenas_df[<span class="st">'ADM2_PCODE'</span>] <span class="op">=</span> id_susenas_df[<span class="st">'ADM2_PCODE'</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> [<span class="st">'wi_est_weighted'</span>, <span class="st">'FWT'</span>, <span class="st">'decile'</span>, <span class="st">'percentile'</span>]</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> num_cols:</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    id_susenas_df[col] <span class="op">=</span> pd.to_numeric(id_susenas_df[col])</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>id_susenas_df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 513 entries, 0 to 512
+Data columns (total 5 columns):
+ #   Column           Non-Null Count  Dtype  
+---  ------           --------------  -----  
+ 0   ADM2_PCODE       513 non-null    object 
+ 1   wi_est_weighted  513 non-null    float64
+ 2   FWT              513 non-null    float64
+ 3   decile           513 non-null    int64  
+ 4   percentile       513 non-null    int64  
+dtypes: float64(2), int64(2), object(1)
+memory usage: 20.2+ KB</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sense check</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>id_susenas_df.sort_values(<span class="st">"wi_est_weighted"</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ADM2_PCODE</th>
+      <th>wi_est_weighted</th>
+      <th>FWT</th>
+      <th>decile</th>
+      <th>percentile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>181</th>
+      <td>3275</td>
+      <td>2.976982</td>
+      <td>822795.057168</td>
+      <td>9</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <th>280</th>
+      <td>5171</td>
+      <td>2.845034</td>
+      <td>291766.005047</td>
+      <td>9</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <th>182</th>
+      <td>3276</td>
+      <td>2.831525</td>
+      <td>666770.841333</td>
+      <td>9</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>1971</td>
+      <td>2.822536</td>
+      <td>59100.144617</td>
+      <td>9</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <th>271</th>
+      <td>3674</td>
+      <td>2.769406</td>
+      <td>462216.548087</td>
+      <td>9</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>1171</td>
+      <td>2.744420</td>
+      <td>78648.391220</td>
+      <td>9</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <th>269</th>
+      <td>3672</td>
+      <td>2.728934</td>
+      <td>105039.098669</td>
+      <td>9</td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <th>363</th>
+      <td>6474</td>
+      <td>2.703631</td>
+      <td>47393.633010</td>
+      <td>9</td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <th>268</th>
+      <td>3671</td>
+      <td>2.698627</td>
+      <td>604716.086515</td>
+      <td>9</td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <th>261</th>
+      <td>3577</td>
+      <td>2.651625</td>
+      <td>51633.042267</td>
+      <td>9</td>
+      <td>98</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<section id="temporary-fix-use-hdx-admin-bounds-file-to-attach-the-proper-pcode" class="level3">
+<h3 class="anchored" data-anchor-id="temporary-fix-use-hdx-admin-bounds-file-to-attach-the-proper-pcode">Temporary Fix: Use HDX admin bounds file to attach the proper PCODE</h3>
+<p>The Indonesia comparison data has no geoms but has a PCODE, which we can use with the official admin boundaries from HDX</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>id_susenas_geoms_df <span class="op">=</span> id_susenas_df.merge(id_adm2_gdf, how<span class="op">=</span><span class="st">'left'</span>, on<span class="op">=</span><span class="st">'ADM2_PCODE'</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>id_susenas_geoms_gdf <span class="op">=</span> gpd.GeoDataFrame(id_susenas_geoms_df, geometry<span class="op">=</span><span class="st">"geometry"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>id_susenas_geoms_gdf.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
+Int64Index: 513 entries, 0 to 512
+Data columns (total 19 columns):
+ #   Column           Non-Null Count  Dtype   
+---  ------           --------------  -----   
+ 0   ADM2_PCODE       513 non-null    object  
+ 1   wi_est_weighted  513 non-null    float64 
+ 2   FWT              513 non-null    float64 
+ 3   decile           513 non-null    int64   
+ 4   percentile       513 non-null    int64   
+ 5   Shape_Leng       513 non-null    float64 
+ 6   Shape_Area       513 non-null    float64 
+ 7   ADM2_EN          513 non-null    object  
+ 8   ADM2_REF         0 non-null      object  
+ 9   ADM2ALT1EN       0 non-null      object  
+ 10  ADM2ALT2EN       0 non-null      object  
+ 11  ADM1_EN          513 non-null    object  
+ 12  ADM1_PCODE       513 non-null    object  
+ 13  ADM0_EN          513 non-null    object  
+ 14  ADM0_PCODE       513 non-null    object  
+ 15  date             513 non-null    object  
+ 16  validOn          513 non-null    object  
+ 17  validTo          0 non-null      object  
+ 18  geometry         513 non-null    geometry
+dtypes: float64(4), geometry(1), int64(2), object(12)
+memory usage: 80.2+ KB</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>id_susenas_geoms_df[<span class="st">'wi_est_weighted'</span>].hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>&lt;AxesSubplot: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1_id_compare_rank_province_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Get rank</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="check-adm2_en-matches" class="level2">
+<h2 class="anchored" data-anchor-id="check-adm2_en-matches">Check ADM2_EN matches</h2>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>id_susenas_area_names <span class="op">=</span> id_susenas_geoms_gdf[<span class="st">'ADM2_EN'</span>].values.tolist()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>id_rollout_agg_area_names <span class="op">=</span> id_rollout_agg_by_adm2[<span class="st">'ADM2_EN'</span>].values.tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>no_matches <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(id_rollout_agg_area_names).difference(id_susenas_area_names))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>no_matches</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>['Danau Toba',
+ 'Kepulauan Seribu',
+ 'Waduk Cirata',
+ 'Wadung Kedungombo',
+ 'Danau',
+ 'Hutan']</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> returnNotMatches(a, b):</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [[x <span class="cf">for</span> x <span class="kw">in</span> a <span class="cf">if</span> x <span class="kw">not</span> <span class="kw">in</span> b], [x <span class="cf">for</span> x <span class="kw">in</span> b <span class="cf">if</span> x <span class="kw">not</span> <span class="kw">in</span> a]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 6 items in the rollout data (out of 519) don't have matches in the comparison data </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We'll drop them in the final comparison</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>returnNotMatches(id_susenas_area_names, id_rollout_agg_area_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>[[],
+ ['Danau',
+  'Danau',
+  'Danau',
+  'Danau',
+  'Danau Toba',
+  'Hutan',
+  'Kepulauan Seribu',
+  'Waduk Cirata',
+  'Wadung Kedungombo']]</code></pre>
+</div>
+</div>
+</section>
+<section id="get-rank-correlation" class="level2">
+<h2 class="anchored" data-anchor-id="get-rank-correlation">Get rank correlation</h2>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># id_susenas_geoms_gdf['shapeName'] = id_susenas_geoms_gdf['ADM2_EN']</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># id_susenas_geoms_gdf.head()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>id_rollout_agg_by_adm2 <span class="op">=</span> id_rollout_agg_by_adm2[<span class="op">~</span>id_rollout_agg_by_adm2[<span class="st">'ADM2_EN'</span>].isin(no_matches)]</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>id_rollout_agg_by_adm2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>ADM2_EN</th>
+      <th>ADM2_PCODE</th>
+      <th>ADM2_REF</th>
+      <th>ADM2ALT1EN</th>
+      <th>ADM2ALT2EN</th>
+      <th>ADM1_EN</th>
+      <th>ADM1_PCODE</th>
+      <th>ADM0_EN</th>
+      <th>ADM0_PCODE</th>
+      <th>date</th>
+      <th>validOn</th>
+      <th>validTo</th>
+      <th>geometry</th>
+      <th>model_wealth_index_mean</th>
+      <th>model_wealth_index_median</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.360029</td>
+      <td>0.228968</td>
+      <td>Aceh Barat</td>
+      <td>1107</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Aceh</td>
+      <td>ID11</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>POLYGON ((96.26836 4.76800, 96.26822 4.76250, ...</td>
+      <td>0.306049</td>
+      <td>0.288863</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.963994</td>
+      <td>0.154136</td>
+      <td>Aceh Barat Daya</td>
+      <td>1112</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Aceh</td>
+      <td>ID11</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>MULTIPOLYGON (((96.80559 3.71758, 96.80444 3.7...</td>
+      <td>0.344363</td>
+      <td>0.329475</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.590182</td>
+      <td>0.236396</td>
+      <td>Aceh Besar</td>
+      <td>1108</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Aceh</td>
+      <td>ID11</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>MULTIPOLYGON (((95.20544 5.28072, 95.20563 5.2...</td>
+      <td>0.346366</td>
+      <td>0.326697</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3.287754</td>
+      <td>0.316161</td>
+      <td>Aceh Jaya</td>
+      <td>1116</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Aceh</td>
+      <td>ID11</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>MULTIPOLYGON (((95.58431 4.61495, 95.58379 4.6...</td>
+      <td>0.298649</td>
+      <td>0.289465</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4.448584</td>
+      <td>0.343038</td>
+      <td>Aceh Selatan</td>
+      <td>1103</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Aceh</td>
+      <td>ID11</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>MULTIPOLYGON (((97.59461 2.80777, 97.59365 2.8...</td>
+      <td>0.313407</td>
+      <td>0.311266</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>517</th>
+      <td>3.508874</td>
+      <td>0.297509</td>
+      <td>Way Kanan</td>
+      <td>1807</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Lampung</td>
+      <td>ID18</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>POLYGON ((104.92793 -4.19234, 104.92823 -4.192...</td>
+      <td>0.312501</td>
+      <td>0.311106</td>
+    </tr>
+    <tr>
+      <th>518</th>
+      <td>2.718402</td>
+      <td>0.157671</td>
+      <td>Wonogiri</td>
+      <td>3312</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Jawa Tengah</td>
+      <td>ID33</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>POLYGON ((111.18204 -7.71237, 111.18242 -7.712...</td>
+      <td>0.389461</td>
+      <td>0.385794</td>
+    </tr>
+    <tr>
+      <th>519</th>
+      <td>1.828518</td>
+      <td>0.081405</td>
+      <td>Wonosobo</td>
+      <td>3307</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Jawa Tengah</td>
+      <td>ID33</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>POLYGON ((109.93000 -7.19465, 109.93017 -7.194...</td>
+      <td>0.385478</td>
+      <td>0.382874</td>
+    </tr>
+    <tr>
+      <th>520</th>
+      <td>5.771801</td>
+      <td>1.190892</td>
+      <td>Yahukimo</td>
+      <td>9416</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Papua</td>
+      <td>ID94</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>POLYGON ((139.96223 -3.60980, 139.96314 -3.609...</td>
+      <td>0.269791</td>
+      <td>0.258099</td>
+    </tr>
+    <tr>
+      <th>521</th>
+      <td>3.014997</td>
+      <td>0.325953</td>
+      <td>Yalimo</td>
+      <td>9432</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Papua</td>
+      <td>ID94</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+      <td>POLYGON ((139.47632 -3.45826, 139.47820 -3.459...</td>
+      <td>0.265563</td>
+      <td>0.258099</td>
+    </tr>
+  </tbody>
+</table>
+<p>513 rows × 17 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>compare_gdf <span class="op">=</span> (</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    id_rollout_agg_by_adm2[</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"ADM2_EN"</span>, <span class="st">"ADM2_PCODE"</span>, <span class="st">"model_wealth_index_mean"</span>, <span class="st">"geometry"</span>]</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    .merge(</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>        id_susenas_geoms_gdf[[<span class="st">"ADM2_EN"</span>, <span class="st">"ADM2_PCODE"</span>, <span class="st">"wi_est_weighted"</span>]],</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>        on<span class="op">=</span><span class="st">"ADM2_PCODE"</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">"inner"</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>        suffixes<span class="op">=</span>[<span class="st">"_model"</span>, <span class="st">"_reference"</span>],</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    .dropna()</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>compare_gdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ADM2_EN_model</th>
+      <th>ADM2_PCODE</th>
+      <th>model_wealth_index_mean</th>
+      <th>geometry</th>
+      <th>ADM2_EN_reference</th>
+      <th>wi_est_weighted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Aceh Barat</td>
+      <td>1107</td>
+      <td>0.306049</td>
+      <td>POLYGON ((96.26836 4.76800, 96.26822 4.76250, ...</td>
+      <td>Aceh Barat</td>
+      <td>1.212825</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Aceh Barat Daya</td>
+      <td>1112</td>
+      <td>0.344363</td>
+      <td>MULTIPOLYGON (((96.80559 3.71758, 96.80444 3.7...</td>
+      <td>Aceh Barat Daya</td>
+      <td>0.445685</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Aceh Besar</td>
+      <td>1108</td>
+      <td>0.346366</td>
+      <td>MULTIPOLYGON (((95.20544 5.28072, 95.20563 5.2...</td>
+      <td>Aceh Besar</td>
+      <td>1.449827</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Aceh Jaya</td>
+      <td>1116</td>
+      <td>0.298649</td>
+      <td>MULTIPOLYGON (((95.58431 4.61495, 95.58379 4.6...</td>
+      <td>Aceh Jaya</td>
+      <td>0.495084</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Aceh Selatan</td>
+      <td>1103</td>
+      <td>0.313407</td>
+      <td>MULTIPOLYGON (((97.59461 2.80777, 97.59365 2.8...</td>
+      <td>Aceh Selatan</td>
+      <td>0.767717</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>508</th>
+      <td>Way Kanan</td>
+      <td>1807</td>
+      <td>0.312501</td>
+      <td>POLYGON ((104.92793 -4.19234, 104.92823 -4.192...</td>
+      <td>Way Kanan</td>
+      <td>-1.824709</td>
+    </tr>
+    <tr>
+      <th>509</th>
+      <td>Wonogiri</td>
+      <td>3312</td>
+      <td>0.389461</td>
+      <td>POLYGON ((111.18204 -7.71237, 111.18242 -7.712...</td>
+      <td>Wonogiri</td>
+      <td>0.501210</td>
+    </tr>
+    <tr>
+      <th>510</th>
+      <td>Wonosobo</td>
+      <td>3307</td>
+      <td>0.385478</td>
+      <td>POLYGON ((109.93000 -7.19465, 109.93017 -7.194...</td>
+      <td>Wonosobo</td>
+      <td>-1.914835</td>
+    </tr>
+    <tr>
+      <th>511</th>
+      <td>Yahukimo</td>
+      <td>9416</td>
+      <td>0.269791</td>
+      <td>POLYGON ((139.96223 -3.60980, 139.96314 -3.609...</td>
+      <td>Yahukimo</td>
+      <td>-6.374596</td>
+    </tr>
+    <tr>
+      <th>512</th>
+      <td>Yalimo</td>
+      <td>9432</td>
+      <td>0.265563</td>
+      <td>POLYGON ((139.47632 -3.45826, 139.47820 -3.459...</td>
+      <td>Yalimo</td>
+      <td>-4.269237</td>
+    </tr>
+  </tbody>
+</table>
+<p>513 rows × 6 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>compare_gdf[<span class="st">'rank_reference'</span>] <span class="op">=</span> compare_gdf[<span class="st">'wi_est_weighted'</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>compare_gdf[<span class="st">'rank_model'</span>] <span class="op">=</span> compare_gdf[<span class="st">'model_wealth_index_mean'</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>coef, p <span class="op">=</span> spearmanr(compare_gdf[<span class="st">'rank_reference'</span>], compare_gdf[<span class="st">'rank_model'</span>])</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>coef, p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>(0.7201497684711131, 3.68129491113764e-83)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 10 based on reference</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>top10_adm2_reference <span class="op">=</span> compare_gdf[[<span class="st">'ADM2_EN_model'</span>, <span class="st">'ADM2_PCODE'</span>,<span class="st">'rank_reference'</span>, <span class="st">'rank_model'</span>]].sort_values(<span class="st">'rank_reference'</span>).head(<span class="dv">10</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>top10_adm2_reference</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ADM2_EN_model</th>
+      <th>ADM2_PCODE</th>
+      <th>rank_reference</th>
+      <th>rank_model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>181</th>
+      <td>Kota Bekasi</td>
+      <td>3275</td>
+      <td>1.0</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>193</th>
+      <td>Kota Denpasar</td>
+      <td>5171</td>
+      <td>2.0</td>
+      <td>12.0</td>
+    </tr>
+    <tr>
+      <th>194</th>
+      <td>Kota Depok</td>
+      <td>3276</td>
+      <td>3.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>229</th>
+      <td>Kota Pangkal Pinang</td>
+      <td>1971</td>
+      <td>4.0</td>
+      <td>50.0</td>
+    </tr>
+    <tr>
+      <th>256</th>
+      <td>Kota Tangerang Selatan</td>
+      <td>3674</td>
+      <td>5.0</td>
+      <td>10.0</td>
+    </tr>
+    <tr>
+      <th>171</th>
+      <td>Kota Banda Aceh</td>
+      <td>1171</td>
+      <td>6.0</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>190</th>
+      <td>Kota Cilegon</td>
+      <td>3672</td>
+      <td>7.0</td>
+      <td>66.0</td>
+    </tr>
+    <tr>
+      <th>188</th>
+      <td>Kota Bontang</td>
+      <td>6474</td>
+      <td>8.0</td>
+      <td>95.0</td>
+    </tr>
+    <tr>
+      <th>255</th>
+      <td>Kota Tangerang</td>
+      <td>3671</td>
+      <td>9.0</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>212</th>
+      <td>Kota Madiun</td>
+      <td>3577</td>
+      <td>10.0</td>
+      <td>34.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 10 based on model</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>top10_adm2_reference <span class="op">=</span> compare_gdf[[<span class="st">'ADM2_EN_model'</span>, <span class="st">'ADM2_PCODE'</span>, <span class="st">'rank_model'</span>,<span class="st">'rank_reference'</span>]].sort_values(<span class="st">'rank_model'</span>).head(<span class="dv">10</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>top10_adm2_reference</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ADM2_EN_model</th>
+      <th>ADM2_PCODE</th>
+      <th>rank_model</th>
+      <th>rank_reference</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>199</th>
+      <td>Kota Jakarta Pusat</td>
+      <td>3173</td>
+      <td>1.0</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>200</th>
+      <td>Kota Jakarta Selatan</td>
+      <td>3171</td>
+      <td>2.0</td>
+      <td>15.0</td>
+    </tr>
+    <tr>
+      <th>198</th>
+      <td>Kota Jakarta Barat</td>
+      <td>3174</td>
+      <td>3.0</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>267</th>
+      <td>Kota Yogyakarta</td>
+      <td>3471</td>
+      <td>4.0</td>
+      <td>87.0</td>
+    </tr>
+    <tr>
+      <th>201</th>
+      <td>Kota Jakarta Timur</td>
+      <td>3172</td>
+      <td>5.0</td>
+      <td>11.0</td>
+    </tr>
+    <tr>
+      <th>202</th>
+      <td>Kota Jakarta Utara</td>
+      <td>3175</td>
+      <td>6.0</td>
+      <td>20.0</td>
+    </tr>
+    <tr>
+      <th>255</th>
+      <td>Kota Tangerang</td>
+      <td>3671</td>
+      <td>7.0</td>
+      <td>9.0</td>
+    </tr>
+    <tr>
+      <th>181</th>
+      <td>Kota Bekasi</td>
+      <td>3275</td>
+      <td>8.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>254</th>
+      <td>Kota Surakarta</td>
+      <td>3372</td>
+      <td>9.0</td>
+      <td>62.0</td>
+    </tr>
+    <tr>
+      <th>256</th>
+      <td>Kota Tangerang Selatan</td>
+      <td>3674</td>
+      <td>10.0</td>
+      <td>5.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bottom 10 based on reference</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>bottom10_adm2_reference <span class="op">=</span> compare_gdf[[<span class="st">'ADM2_EN_model'</span>, <span class="st">'ADM2_PCODE'</span>,<span class="st">'rank_reference'</span>, <span class="st">'rank_model'</span>]].sort_values(<span class="st">'rank_reference'</span>).tail(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bottom 10 based on model</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>compare_gdf[[<span class="st">'ADM2_EN_model'</span>, <span class="st">'ADM2_PCODE'</span>, <span class="st">'rank_model'</span>,<span class="st">'rank_reference'</span>]].sort_values(<span class="st">'rank_model'</span>).tail(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ADM2_EN_model</th>
+      <th>ADM2_PCODE</th>
+      <th>rank_model</th>
+      <th>rank_reference</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>321</th>
+      <td>Mamberamo Tengah</td>
+      <td>9431</td>
+      <td>504.0</td>
+      <td>512.0</td>
+    </tr>
+    <tr>
+      <th>413</th>
+      <td>Puncak Jaya</td>
+      <td>9411</td>
+      <td>505.0</td>
+      <td>506.0</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>Boven Digoel</td>
+      <td>9413</td>
+      <td>506.0</td>
+      <td>387.0</td>
+    </tr>
+    <tr>
+      <th>412</th>
+      <td>Puncak</td>
+      <td>9433</td>
+      <td>507.0</td>
+      <td>503.0</td>
+    </tr>
+    <tr>
+      <th>391</th>
+      <td>Pegunungan Bintang</td>
+      <td>9417</td>
+      <td>508.0</td>
+      <td>500.0</td>
+    </tr>
+    <tr>
+      <th>124</th>
+      <td>Intan Jaya</td>
+      <td>9435</td>
+      <td>509.0</td>
+      <td>510.0</td>
+    </tr>
+    <tr>
+      <th>360</th>
+      <td>Nduga</td>
+      <td>9429</td>
+      <td>510.0</td>
+      <td>513.0</td>
+    </tr>
+    <tr>
+      <th>331</th>
+      <td>Mappi</td>
+      <td>9414</td>
+      <td>511.0</td>
+      <td>499.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Asmat</td>
+      <td>9415</td>
+      <td>512.0</td>
+      <td>504.0</td>
+    </tr>
+    <tr>
+      <th>320</th>
+      <td>Mamberamo Raya</td>
+      <td>9428</td>
+      <td>513.0</td>
+      <td>491.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="heatmap" class="level2">
+<h2 class="anchored" data-anchor-id="heatmap">Heatmap</h2>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> despine(ax):</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"right"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"top"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"left"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"bottom"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>,<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="fl">7.5</span>,<span class="dv">9</span>))</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>compare_gdf.plot(</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span><span class="st">'rank_reference'</span>,</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axs[<span class="dv">0</span>],</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"RdYlGn_r"</span>,</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    legend_kwds<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">0.3</span>, <span class="st">"label"</span>:<span class="st">"rank"</span>},</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>despine(axs[<span class="dv">0</span>])</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>compare_gdf.plot(</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span><span class="st">'rank_model'</span>,</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axs[<span class="dv">1</span>],</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"RdYlGn_r"</span>,</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>    legend_kwds<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">0.3</span>, <span class="st">"label"</span>:<span class="st">"rank"</span>},</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>despine(axs[<span class="dv">1</span>])</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">'Reference'</span>)</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">'Predicted'</span>)</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="1_id_compare_rank_province_files/figure-html/cell-33-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="get-scatter-plot" class="level2">
+<h2 class="anchored" data-anchor-id="get-scatter-plot">Get scatter plot</h2>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> custom_round(x, base<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">int</span>(base <span class="op">*</span> <span class="bu">round</span>(<span class="bu">float</span>(x)<span class="op">/</span>base))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>n<span class="op">=</span><span class="dv">10</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>ranks_rounded_gdf <span class="op">=</span> compare_gdf.copy()</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>ranks_rounded_gdf[<span class="st">'rank_model'</span>] <span class="op">=</span> ranks_rounded_gdf[<span class="st">'rank_model'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: custom_round(x, base<span class="op">=</span>n))</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>ranks_rounded_gdf[<span class="st">'rank_reference'</span>] <span class="op">=</span> ranks_rounded_gdf[<span class="st">'rank_reference'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: custom_round(x, base<span class="op">=</span>n))</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> ranks_rounded_gdf.plot.scatter(<span class="st">'rank_reference'</span>, <span class="st">'rank_model'</span>, c<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="st">'equal'</span>)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Reference Wealth Rank"</span>)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Model Wealth Rank"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>Text(0, 0.5, 'Model Wealth Rank')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1_id_compare_rank_province_files/figure-html/cell-35-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>compare_gdf.plot.scatter(<span class="st">'rank_model'</span>, <span class="st">'rank_reference'</span>, c<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>&lt;AxesSubplot: xlabel='rank_model', ylabel='rank_reference'&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1_id_compare_rank_province_files/figure-html/cell-36-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>bottom_adm2_reference <span class="op">=</span> compare_gdf[[<span class="st">'ADM2_EN_model'</span>, <span class="st">'ADM2_PCODE'</span>,<span class="st">'rank_reference'</span>, <span class="st">'rank_model'</span>]].sort_values(<span class="st">'rank_reference'</span>).tail(<span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> bottom_adm2_reference.plot.scatter(<span class="st">'rank_model'</span>, <span class="st">'rank_reference'</span>, c<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_xlim([450, 530])</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_ylim([450, 530])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="1_id_compare_rank_province_files/figure-html/cell-38-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="explore-per-subarea-ranking" class="level2">
+<h2 class="anchored" data-anchor-id="explore-per-subarea-ranking">Explore per subarea ranking</h2>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(id_rollout_agg_by_adm2[<span class="st">'ADM1_EN'</span>].unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>34</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gc</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>area_list <span class="op">=</span> <span class="bu">list</span>(id_rollout_agg_by_adm2[<span class="st">'ADM1_EN'</span>].unique())</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>area_spearmanr_list <span class="op">=</span> []</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> area <span class="kw">in</span> area_list:</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    area_rollout_output <span class="op">=</span> id_rollout_agg_by_adm2[id_rollout_agg_by_adm2[<span class="st">'ADM1_EN'</span>] <span class="op">==</span> area].copy()</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># area_rollout_output['rank'] = area_rollout_output['model_wealth_index_mean'].rank(ascending=False)</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    area_susenas_gdf <span class="op">=</span> id_susenas_geoms_gdf[id_susenas_geoms_gdf[<span class="st">'ADM1_EN'</span>] <span class="op">==</span> area].copy()</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># area_susenas_gdf['rank'] = area_susenas_gdf['wi_est_weighted'].rank(ascending=False)</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    area_compare_gdf <span class="op">=</span> (</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>        area_rollout_output[</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>            [<span class="st">"ADM2_EN"</span>, <span class="st">"ADM2_PCODE"</span>, <span class="st">"model_wealth_index_median"</span>, <span class="st">"geometry"</span>]</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>        .merge(</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>            area_susenas_gdf[[<span class="st">"ADM2_EN"</span>, <span class="st">"ADM2_PCODE"</span>, <span class="st">"wi_est_weighted"</span>]],</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>            on<span class="op">=</span><span class="st">"ADM2_PCODE"</span>,</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>            how<span class="op">=</span><span class="st">"inner"</span>,</span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>            suffixes<span class="op">=</span>[<span class="st">"_model"</span>, <span class="st">"_reference"</span>],</span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>        .dropna()</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>    area_compare_gdf[<span class="st">'rank_reference'</span>] <span class="op">=</span> area_compare_gdf[<span class="st">'wi_est_weighted'</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>    area_compare_gdf[<span class="st">'rank_model'</span>] <span class="op">=</span> area_compare_gdf[<span class="st">'model_wealth_index_mean'</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)    </span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>    coef, p <span class="op">=</span> spearmanr(area_compare_gdf[<span class="st">'rank_reference'</span>], area_compare_gdf[<span class="st">'rank_model'</span>])</span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>area<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span><span class="bu">len</span>(area_compare_gdf)<span class="sc">}</span><span class="ss">) -- Spearman Rank Correlation: </span><span class="sc">{</span>coef<span class="sc">:.2}</span><span class="ss"> (p-value = </span><span class="sc">{</span>p<span class="sc">:.2}</span><span class="ss">) '</span>)</span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a>    area_spearmanr_list.append(coef)</span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a>gc.collect()</span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a><span class="co"># area_spearmanr_arr = np.array(area_spearmanr_list)</span></span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.hist(area_spearmanr_arr)</span></span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>spearman_by_area <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">'ADM1_EN'</span>: area_list,</span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">'spearman_r'</span>: area_spearmanr_list</span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a>spearman_by_area<span class="op">=</span> spearman_by_area.merge(id_adm2_gdf.dissolve(<span class="st">'ADM1_EN'</span>), how<span class="op">=</span><span class="st">'left'</span>, on<span class="op">=</span><span class="st">'ADM1_EN'</span>)</span>
+<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a>spearman_by_area <span class="op">=</span> gpd.GeoDataFrame(spearman_by_area, geometry<span class="op">=</span><span class="st">"geometry"</span>)</span>
+<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a>spearman_by_area[<span class="st">'spearman_r'</span>].hist(bins<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a>spearman_by_area.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>KeyError: 'model_wealth_index_mean'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>spearman_by_area.loc[spearman_by_area[<span class="st">'spearman_r'</span>] <span class="op">&lt;</span> <span class="fl">0.5</span>].sort_values(<span class="st">'spearman_r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="52">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ADM1_EN</th>
+      <th>spearman_r</th>
+      <th>geometry</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>ADM2_EN</th>
+      <th>ADM2_PCODE</th>
+      <th>ADM2_REF</th>
+      <th>ADM2ALT1EN</th>
+      <th>ADM2ALT2EN</th>
+      <th>ADM1_PCODE</th>
+      <th>ADM0_EN</th>
+      <th>ADM0_PCODE</th>
+      <th>date</th>
+      <th>validOn</th>
+      <th>validTo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>32</th>
+      <td>Dki Jakarta</td>
+      <td>0.000000</td>
+      <td>MULTIPOLYGON (((106.52018 -5.96011, 106.51991 ...</td>
+      <td>1.278015</td>
+      <td>0.000880</td>
+      <td>Kepulauan Seribu</td>
+      <td>3101</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID31</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Bengkulu</td>
+      <td>0.115152</td>
+      <td>MULTIPOLYGON (((102.38683 -5.47139, 102.38707 ...</td>
+      <td>1.598399</td>
+      <td>0.099968</td>
+      <td>Bengkulu Selatan</td>
+      <td>1701</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID17</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Sulawesi Tenggara</td>
+      <td>0.250000</td>
+      <td>MULTIPOLYGON (((121.93669 -5.49323, 121.93652 ...</td>
+      <td>5.421894</td>
+      <td>0.271792</td>
+      <td>Bombana</td>
+      <td>7406</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID74</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Sulawesi Barat</td>
+      <td>0.314286</td>
+      <td>MULTIPOLYGON (((119.00584 -3.53308, 119.00442 ...</td>
+      <td>2.141557</td>
+      <td>0.072523</td>
+      <td>Majene</td>
+      <td>7601</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID76</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Nusa Tenggara Timur</td>
+      <td>0.341615</td>
+      <td>MULTIPOLYGON (((119.54236 -9.75303, 119.54145 ...</td>
+      <td>5.513097</td>
+      <td>0.241630</td>
+      <td>Alor</td>
+      <td>5307</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID53</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Kalimantan Selatan</td>
+      <td>0.362637</td>
+      <td>MULTIPOLYGON (((115.66627 -4.73677, 115.66653 ...</td>
+      <td>2.106946</td>
+      <td>0.154674</td>
+      <td>Balangan</td>
+      <td>6311</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID63</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Sulawesi Selatan</td>
+      <td>0.373913</td>
+      <td>MULTIPOLYGON (((117.20300 -7.75854, 117.20286 ...</td>
+      <td>1.009615</td>
+      <td>0.032547</td>
+      <td>Bantaeng</td>
+      <td>7303</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID73</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>spearman_by_area</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="120">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ADM1_EN</th>
+      <th>spearman_r</th>
+      <th>geometry</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>ADM2_EN</th>
+      <th>ADM2_PCODE</th>
+      <th>ADM2_REF</th>
+      <th>ADM2ALT1EN</th>
+      <th>ADM2ALT2EN</th>
+      <th>ADM1_PCODE</th>
+      <th>ADM0_EN</th>
+      <th>ADM0_PCODE</th>
+      <th>date</th>
+      <th>validOn</th>
+      <th>validTo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Aceh</td>
+      <td>0.500000</td>
+      <td>MULTIPOLYGON (((95.28787 5.12890, 95.28796 5.1...</td>
+      <td>2.360029</td>
+      <td>0.228968</td>
+      <td>Aceh Barat</td>
+      <td>1107</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID11</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Sumatera Barat</td>
+      <td>0.685965</td>
+      <td>MULTIPOLYGON (((99.53782 -2.22114, 99.53735 -2...</td>
+      <td>2.648821</td>
+      <td>0.181812</td>
+      <td>Agam</td>
+      <td>1307</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID13</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Nusa Tenggara Timur</td>
+      <td>0.341615</td>
+      <td>MULTIPOLYGON (((119.54236 -9.75303, 119.54145 ...</td>
+      <td>5.513097</td>
+      <td>0.241630</td>
+      <td>Alor</td>
+      <td>5307</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID53</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Sumatera Utara</td>
+      <td>0.729612</td>
+      <td>MULTIPOLYGON (((97.89210 -0.07667, 97.89186 -0...</td>
+      <td>3.592370</td>
+      <td>0.307542</td>
+      <td>Asahan</td>
+      <td>1208</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID12</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Papua</td>
+      <td>0.580296</td>
+      <td>MULTIPOLYGON (((134.86427 -3.24425, 134.86404 ...</td>
+      <td>7.478910</td>
+      <td>2.041799</td>
+      <td>Asmat</td>
+      <td>9415</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID94</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Bali</td>
+      <td>0.833333</td>
+      <td>MULTIPOLYGON (((115.12494 -8.84731, 115.12502 ...</td>
+      <td>2.337003</td>
+      <td>0.032441</td>
+      <td>Badung</td>
+      <td>5103</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID51</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Kalimantan Selatan</td>
+      <td>0.362637</td>
+      <td>MULTIPOLYGON (((115.66627 -4.73677, 115.66653 ...</td>
+      <td>2.106946</td>
+      <td>0.154674</td>
+      <td>Balangan</td>
+      <td>6311</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID63</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Jawa Barat</td>
+      <td>0.741148</td>
+      <td>MULTIPOLYGON (((107.42275 -7.50549, 107.42249 ...</td>
+      <td>3.093005</td>
+      <td>0.143607</td>
+      <td>Bandung</td>
+      <td>3204</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID32</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Sulawesi Tengah</td>
+      <td>0.681319</td>
+      <td>MULTIPOLYGON (((121.36343 -1.94469, 121.36332 ...</td>
+      <td>7.415261</td>
+      <td>0.675995</td>
+      <td>Banggai</td>
+      <td>7202</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID72</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Kepulauan Bangka Belitung</td>
+      <td>0.964286</td>
+      <td>MULTIPOLYGON (((106.51615 -3.13537, 106.51605 ...</td>
+      <td>3.607618</td>
+      <td>0.245180</td>
+      <td>Bangka</td>
+      <td>1901</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID19</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Jawa Timur</td>
+      <td>0.832148</td>
+      <td>MULTIPOLYGON (((111.51168 -8.37022, 111.51203 ...</td>
+      <td>1.902703</td>
+      <td>0.106667</td>
+      <td>Bangkalan</td>
+      <td>3526</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID35</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Jawa Tengah</td>
+      <td>0.647059</td>
+      <td>MULTIPOLYGON (((108.88336 -7.74827, 108.88348 ...</td>
+      <td>2.326238</td>
+      <td>0.094114</td>
+      <td>Banjarnegara</td>
+      <td>3304</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID33</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Sulawesi Selatan</td>
+      <td>0.373913</td>
+      <td>MULTIPOLYGON (((117.20300 -7.75854, 117.20286 ...</td>
+      <td>1.009615</td>
+      <td>0.032547</td>
+      <td>Bantaeng</td>
+      <td>7303</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID73</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Daerah Istimewa Yogyakarta</td>
+      <td>0.900000</td>
+      <td>MULTIPOLYGON (((110.60430 -8.14786, 110.60444 ...</td>
+      <td>1.832076</td>
+      <td>0.042281</td>
+      <td>Bantul</td>
+      <td>3402</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID34</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Sumatera Selatan</td>
+      <td>0.696078</td>
+      <td>MULTIPOLYGON (((103.93264 -4.88620, 103.93189 ...</td>
+      <td>10.707962</td>
+      <td>0.902916</td>
+      <td>Banyu Asin</td>
+      <td>1607</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID16</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Kalimantan Tengah</td>
+      <td>0.828571</td>
+      <td>MULTIPOLYGON (((113.36194 -3.28663, 113.36193 ...</td>
+      <td>4.518498</td>
+      <td>0.539201</td>
+      <td>Barito Selatan</td>
+      <td>6204</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID62</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Jambi</td>
+      <td>0.736364</td>
+      <td>MULTIPOLYGON (((101.55667 -2.44936, 101.55640 ...</td>
+      <td>4.598857</td>
+      <td>0.444096</td>
+      <td>Batang Hari</td>
+      <td>1504</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID15</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Riau</td>
+      <td>0.678322</td>
+      <td>MULTIPOLYGON (((101.03799 -0.35730, 101.03694 ...</td>
+      <td>7.302387</td>
+      <td>0.691464</td>
+      <td>Bengkalis</td>
+      <td>1408</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID14</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Kalimantan Barat</td>
+      <td>0.837363</td>
+      <td>MULTIPOLYGON (((108.74682 -1.70011, 108.74714 ...</td>
+      <td>5.398739</td>
+      <td>0.457681</td>
+      <td>Bengkayang</td>
+      <td>6102</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID61</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Bengkulu</td>
+      <td>0.115152</td>
+      <td>MULTIPOLYGON (((102.38683 -5.47139, 102.38707 ...</td>
+      <td>1.598399</td>
+      <td>0.099968</td>
+      <td>Bengkulu Selatan</td>
+      <td>1701</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID17</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Kalimantan Timur</td>
+      <td>0.733333</td>
+      <td>MULTIPOLYGON (((116.42979 -2.20352, 116.50644 ...</td>
+      <td>18.412760</td>
+      <td>1.831452</td>
+      <td>Berau</td>
+      <td>6405</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID64</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Nusa Tenggara Barat</td>
+      <td>0.551515</td>
+      <td>MULTIPOLYGON (((115.98652 -8.89059, 115.98627 ...</td>
+      <td>9.154924</td>
+      <td>0.345607</td>
+      <td>Bima</td>
+      <td>5206</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID52</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Kepulauan Riau</td>
+      <td>0.821429</td>
+      <td>MULTIPOLYGON (((103.62747 0.48003, 103.62742 0...</td>
+      <td>8.316409</td>
+      <td>0.108571</td>
+      <td>Bintan</td>
+      <td>2102</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID21</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Gorontalo</td>
+      <td>0.771429</td>
+      <td>MULTIPOLYGON (((121.42485 0.41554, 121.42594 0...</td>
+      <td>3.552539</td>
+      <td>0.149502</td>
+      <td>Boalemo</td>
+      <td>7501</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID75</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Sulawesi Utara</td>
+      <td>0.825000</td>
+      <td>MULTIPOLYGON (((124.35330 0.41773, 124.35316 0...</td>
+      <td>3.396802</td>
+      <td>0.263044</td>
+      <td>Bolaang Mongondow</td>
+      <td>7101</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID71</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Sulawesi Tenggara</td>
+      <td>0.250000</td>
+      <td>MULTIPOLYGON (((121.93669 -5.49323, 121.93652 ...</td>
+      <td>5.421894</td>
+      <td>0.271792</td>
+      <td>Bombana</td>
+      <td>7406</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID74</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Kalimantan Utara</td>
+      <td>0.700000</td>
+      <td>MULTIPOLYGON (((117.49016 3.66952, 117.49028 3...</td>
+      <td>18.165091</td>
+      <td>1.033893</td>
+      <td>Bulungan</td>
+      <td>6502</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID65</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Maluku</td>
+      <td>0.645455</td>
+      <td>MULTIPOLYGON (((128.22516 -8.23555, 128.22592 ...</td>
+      <td>3.398326</td>
+      <td>0.362856</td>
+      <td>Buru</td>
+      <td>8104</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID81</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Papua Barat</td>
+      <td>0.780220</td>
+      <td>MULTIPOLYGON (((129.72514 -1.85501, 129.72377 ...</td>
+      <td>9.412293</td>
+      <td>0.893839</td>
+      <td>Fakfak</td>
+      <td>9101</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID91</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Maluku Utara</td>
+      <td>0.903030</td>
+      <td>MULTIPOLYGON (((124.39346 -2.03358, 124.39360 ...</td>
+      <td>5.301558</td>
+      <td>0.176879</td>
+      <td>Halmahera Barat</td>
+      <td>8201</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID82</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Lampung</td>
+      <td>0.692857</td>
+      <td>MULTIPOLYGON (((104.81786 -5.78283, 104.81885 ...</td>
+      <td>0.319862</td>
+      <td>0.002357</td>
+      <td>Danau</td>
+      <td>1888</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID18</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Banten</td>
+      <td>0.809524</td>
+      <td>MULTIPOLYGON (((105.23979 -6.83767, 105.23988 ...</td>
+      <td>0.980957</td>
+      <td>0.013418</td>
+      <td>Kota Cilegon</td>
+      <td>3672</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID36</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>Dki Jakarta</td>
+      <td>0.000000</td>
+      <td>MULTIPOLYGON (((106.52018 -5.96011, 106.51991 ...</td>
+      <td>1.278015</td>
+      <td>0.000880</td>
+      <td>Kepulauan Seribu</td>
+      <td>3101</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID31</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Sulawesi Barat</td>
+      <td>0.314286</td>
+      <td>MULTIPOLYGON (((119.00584 -3.53308, 119.00442 ...</td>
+      <td>2.141557</td>
+      <td>0.072523</td>
+      <td>Majene</td>
+      <td>7601</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>ID76</td>
+      <td>Indonesia</td>
+      <td>ID</td>
+      <td>2019-12-20</td>
+      <td>2020-04-01</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>spearman_by_area[<span class="st">'spearman_r'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>count    34.000000
+mean      0.643037
+std       0.232603
+min       0.000000
+25%       0.558710
+50%       0.698039
+75%       0.818452
+max       0.964286
+Name: spearman_r, dtype: float64</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># spearman_by_area.explore(</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     'spearman_r',</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     vmin=-0.7,</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     vmax=0.7,</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     cmap='RdYlGn'</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
