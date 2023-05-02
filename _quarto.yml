@@ -19,13 +19,13 @@ website:
           - href: notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.ipynb
       - section: "Sprint 2 (Cross Country Experiments)"
         contents:
-          - href: docs/cross-country-report.qmd 
+          - href: sprint-2-report.qmd 
           - href: notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.ipynb
           - href: notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.ipynb
           - href: notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.ipynb
       - section: "Sprint 3 (Model Rollout)"
         contents:
-          - href: docs/sprint-3-report.qmd
+          - href: sprint-3-report.qmd
           - section: "Single-country Rollouts"
             contents:
             - section: "Philippines"
