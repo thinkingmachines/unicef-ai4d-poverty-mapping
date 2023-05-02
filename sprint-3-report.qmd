@@ -44,7 +44,7 @@ We validated our model rollout results with the best available reference wealth 
 
 ## Scaling
 
-As previously discussed in our [cross-country experiments summary](cross-country-report.qmd), we found that scaling the input features and DHS Wealth Index from absolute to relative values corrects country-level variations. This approach leads to the best cross-country results. 
+As previously discussed in our [cross-country experiments summary](sprint-2-report.qmd), we found that scaling the input features and DHS Wealth Index from absolute to relative values corrects country-level variations. This approach leads to the best cross-country results. 
 
 During training, we found that StandardScaler produced the best metrics and chose it as our model. StandardScaler works by centering the data on the mean and using the standard deviation as the "unit". Our model interprets the data as relative, meaning that if an area has above-average internet speeds or night-time lights, it must also have above-average wealth. 
 
