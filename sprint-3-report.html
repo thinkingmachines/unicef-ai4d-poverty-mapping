@@ -92,16 +92,6 @@ ul.task-list li input[type="checkbox"] {
   <a href="./index.html" class="sidebar-item-text sidebar-link">Main</a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link">About</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./progress.html" class="sidebar-item-text sidebar-link">Progress</a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Sprint 1 (Individual DHS Countries)</a>
@@ -142,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cross-country-report.html" class="sidebar-item-text sidebar-link">Cross-country Experiments Summary</a>
+  <a href="./sprint-2-report.html" class="sidebar-item-text sidebar-link">Cross-country Experiments Summary</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -476,14 +466,14 @@ ul.task-list li input[type="checkbox"] {
 <p>The following figure describe our model rollout process for the 9 countries.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="assets/rollout_process.png" class="img-fluid figure-img"></p>
+<p><img src="./assets/rollout_process.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Rollout Process showing the four main model rollout steps: generating tiles over country, filtering to populated tiles using High Resolution Settlement Layer (HRSL), feature engineering, and model estimation</figcaption><p></p>
 </figure>
 </div>
 <p>We were able to successfully train and use models to estimate wealth over the 9 countries using this approach. The output wealth estimations captures macro-level urbanization, predicting relatively higher wealth at major urban centers and lower wealth at remote and sparsely populated areas. These results qualitatively show good agreement by Meta’s RWI, showing that we can achieve good results in wealth estimation using only openly-available datasets and ground truth DHS data from 4 countries as our training data.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="assets/rollout_results.gif" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="./assets/rollout_results.gif" class="img-fluid figure-img" style="width:80.0%"></p>
 <p></p><figcaption class="figure-caption">Snapshots of estimated relative wealth indexes for various areas in SEA</figcaption><p></p>
 </figure>
 </div>
@@ -527,19 +517,19 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="notebooks/2023-03-15-rollout-output-comparisons/id/id_rank_comparison.png" class="img-fluid figure-img"></p>
+<p><img src="./notebooks/2023-03-15-rollout-output-comparisons/id/id_rank_comparison.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Indonesia Model Map Comparison with Susenas RWI (reference) (Rank Correlation: 0.72)</figcaption><p></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="notebooks/2023-03-15-rollout-output-comparisons/my/my_rank_comparison.png" class="img-fluid figure-img"></p>
+<p><img src="./notebooks/2023-03-15-rollout-output-comparisons/my/my_rank_comparison.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Malaysia Model Map Comparison with Relative Poverty (reference) (Rank Correlation: 0.78)</figcaption><p></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="notebooks/2023-03-15-rollout-output-comparisons/la/la_rank_comparison.png" class="img-fluid figure-img"></p>
+<p><img src="./notebooks/2023-03-15-rollout-output-comparisons/la/la_rank_comparison.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Laos Model Map Comparison with MICS IWI (Rank Correlation: 0.75)</figcaption><p></p>
 </figure>
 </div>
@@ -547,13 +537,13 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="scaling" class="level2">
 <h2 class="anchored" data-anchor-id="scaling">Scaling</h2>
-<p>As previously discussed in our <a href="./cross-country-report.html">cross-country experiments summary</a>, we found that scaling the input features and DHS Wealth Index from absolute to relative values corrects country-level variations. This approach leads to the best cross-country results.</p>
+<p>As previously discussed in our <a href="./sprint-2-report.html">cross-country experiments summary</a>, we found that scaling the input features and DHS Wealth Index from absolute to relative values corrects country-level variations. This approach leads to the best cross-country results.</p>
 <p>During training, we found that StandardScaler produced the best metrics and chose it as our model. StandardScaler works by centering the data on the mean and using the standard deviation as the “unit”. Our model interprets the data as relative, meaning that if an area has above-average internet speeds or night-time lights, it must also have above-average wealth.</p>
 <p>However, during our rollout, we noticed that many countries had above-zero values, which indicated that the model believed that all areas within the country had above-average wealth. This means that our initial approach resulted in overestimation of relative wealth during rollout.</p>
 <p>We found that the root cause of this issue was that the rollout data had an abundance of remote and sparsely populated areas, with many zero or low values, which pulled down the mean. This meant that the above/below interpretation was significantly different between the training and rollout data.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="assets/scaler_comparison.png" class="img-fluid figure-img"></p>
+<p><img src="./assets/scaler_comparison.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Comparison between StandardScaler and MinMaxScaler. We found MinMaxScaler to perform best when rolling out to countries without training data.</figcaption><p></p>
 </figure>
 </div>

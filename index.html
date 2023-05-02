@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>UNICEF AI4D Poverty Mapping Project</title>
+<title>UNICEF AI4D Poverty Mapping Project - UNICEF AI4D Poverty Mapping</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">UNICEF AI4D Poverty Mapping Project</h1>
+      <h1 class="quarto-secondary-nav-title">UNICEF AI4D Poverty Mapping</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -90,16 +90,6 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">Main</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link">About</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./progress.html" class="sidebar-item-text sidebar-link">Progress</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -142,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cross-country-report.html" class="sidebar-item-text sidebar-link">Cross-country Experiments Summary</a>
+  <a href="./sprint-2-report.html" class="sidebar-item-text sidebar-link">Cross-country Experiments Summary</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -432,14 +422,30 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#quick-links" id="toc-quick-links" class="nav-link active" data-scroll-target="#quick-links">Quick links</a></li>
+  <li><a href="#replicating-our-work" id="toc-replicating-our-work" class="nav-link" data-scroll-target="#replicating-our-work">Replicating our work</a></li>
+  <li><a href="#summary-of-findings" id="toc-summary-of-findings" class="nav-link" data-scroll-target="#summary-of-findings">Summary of Findings</a>
+  <ul class="collapse">
+  <li><a href="#dhs-countries-cambodia-myanmar-philippines-timor-leste" id="toc-dhs-countries-cambodia-myanmar-philippines-timor-leste" class="nav-link" data-scroll-target="#dhs-countries-cambodia-myanmar-philippines-timor-leste">DHS Countries: Cambodia, Myanmar, Philippines, Timor-Leste</a></li>
+  <li><a href="#non-dhs-countries-indonesia-laos-malaysia-thailand-vietnam" id="toc-non-dhs-countries-indonesia-laos-malaysia-thailand-vietnam" class="nav-link" data-scroll-target="#non-dhs-countries-indonesia-laos-malaysia-thailand-vietnam">Non-DHS Countries: Indonesia, Laos, Malaysia, Thailand, Vietnam</a>
+  <ul class="collapse">
+  <li><a href="#how-can-we-utilize-data-from-the-4-dhs-countries-to-train-a-model-that-we-can-use-for-these-5-non-dhs-countries" id="toc-how-can-we-utilize-data-from-the-4-dhs-countries-to-train-a-model-that-we-can-use-for-these-5-non-dhs-countries" class="nav-link" data-scroll-target="#how-can-we-utilize-data-from-the-4-dhs-countries-to-train-a-model-that-we-can-use-for-these-5-non-dhs-countries">How can we utilize data from the 4 DHS countries to train a model that we can use for these 5 non-DHS countries?</a></li>
+  <li><a href="#how-do-we-validate-if-the-produced-wealth-estimates-for-these-5-countries-are-sensible" id="toc-how-do-we-validate-if-the-produced-wealth-estimates-for-these-5-countries-are-sensible" class="nav-link" data-scroll-target="#how-do-we-validate-if-the-produced-wealth-estimates-for-these-5-countries-are-sensible">How do we validate if the produced wealth estimates for these 5 countries are sensible?</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">UNICEF AI4D Poverty Mapping Project</h1>
+<h1 class="title d-none d-lg-block">UNICEF AI4D Poverty Mapping</h1>
 </div>
 
 
@@ -454,18 +460,229 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<blockquote class="blockquote">
-<p>an AI4D (AI for Development) Research Bank Component</p>
-</blockquote>
-<p><strong>note: This page is still a <em>work-in-progress</em></strong></p>
-<p>The UNICEF AI4D Poverty Mapping Project aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries in Southeast Asia (SEA).</p>
-<p>We also aim to open source all the scripts, experiments and other artifacts used for developing these datasets and models, in order to allow others to replicate our work, as well as to collaborate and extend our work for their own use cases.</p>
-<p>This project is part of <a href="https://stories.thinkingmachin.es/unicef-ai4d-research-bank/">Thinking Machines’s overall push for open science through the AI4D (AI for Development) Research Bank</a> which aims to accelerate the development and adoption of effective machine learning (ML) models for development across Southeast Asia.</p>
+<p>Funded by <a href="https://www.unicefinnovationfund.org/broadcast/expert-posts/thinking-machines-build-southeast-asia-ai-research-bank-development-ai4d">UNICEF as part of the AI Research Bank for Development (AI4D) program</a>, this project explored the use of purely open datasets and low-cost Machine Learning models for poverty mapping estimation across 9 Southeast Asian countries:</p>
 <ul>
-<li>The notebooks and code for the project are all available at our <a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping">Github repository</a></li>
+<li>Cambodia</li>
+<li>Myanmar</li>
+<li>Philippines</li>
+<li>Timor-Leste</li>
+<li>Indonesia</li>
+<li>Laos</li>
+<li>Malaysia</li>
+<li>Thailand</li>
+<li>Vietnam</li>
 </ul>
+<p>We hope that our work can serve as a baseline for other Data Scientists to further AI x Development research in the region.</p>
+<section id="quick-links" class="level1">
+<h1>Quick links</h1>
+<ul>
+<li><a href="(https://studio.foursquare.com/public/590c4ab2-b855-463a-90dd-9917b97b8b57)">Web Map Demo</a> of our wealth estimates.</li>
+<li><a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping">GitHub Repo</a> containing all code needed to replicate model training and rollout for all 9 SEA countries</li>
+<li><a href="https://drive.google.com/drive/u/0/folders/1QX0xJc6MHxY7dzIsVMDm5TH0F-NwXhBW">Google Drive Folder</a> that contains all output data and intermediate artifacts (e.g.&nbsp;training datasets, models)
+<ul>
+<li><em>Note: These will be hosted on the AI for Development (AI4D) Research Bank, which is still a work-in-progress.</em></li>
+</ul></li>
+</ul>
+</section>
+<section id="replicating-our-work" class="level1">
+<h1>Replicating our work</h1>
+<p>If you want to replicate the final models and wealth estimates, go to the ff.&nbsp;notebook folders:</p>
+<ul>
+<li><a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-single-country-rollouts">2023-02-21-single-country-rollouts</a></li>
+<li><a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-cross-country-rollouts">2023-02-21-cross-country-rollouts</a></li>
+</ul>
+<p>These provide the code necessary to replicate our work end-to-end. The earlier notebooks are more experimental as we were developing the methodology. Note that to run them properly, you need to get DHS data yourself and set-up your local environment. Just follow the instructions in our <a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping">repo’s README</a>.</p>
+<!-- ## Methodology Summary
+The exact method and details are better seen in the notebooks. But this diagram summarizes it conceptually. Essentially, we train a model and we use it to estimate wealth across a whole country. -->
+</section>
+<section id="summary-of-findings" class="level1">
+<h1>Summary of Findings</h1>
+<p>This sections contains a brief summary of our overall main findings. The other pages in this site contain documentation for each of our sprints, reporting on our progress as they happened.</p>
+<section id="dhs-countries-cambodia-myanmar-philippines-timor-leste" class="level2">
+<h2 class="anchored" data-anchor-id="dhs-countries-cambodia-myanmar-philippines-timor-leste">DHS Countries: Cambodia, Myanmar, Philippines, Timor-Leste</h2>
+<p>Training models and using them to produce wealth estimates for countries with DHS survey data are relatively straightforward. We generate features to characterize the neighborhood of the DHS clusters, which we then use to train a model.</p>
+<p>The table below shows R^2 values after Repeated 5-fold Cross Validation (5 Repeats; 25 runs in total).</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Country</th>
+<th style="text-align: right;"># Samples</th>
+<th style="text-align: right;">Repeated 5-fold CV</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cambodia</td>
+<td style="text-align: right;">611</td>
+<td style="text-align: right;">0.70 (±0.06)</td>
+</tr>
+<tr class="even">
+<td>Myanmar</td>
+<td style="text-align: right;">441</td>
+<td style="text-align: right;">0.50 (±0.09)</td>
+</tr>
+<tr class="odd">
+<td>Philippines</td>
+<td style="text-align: right;">1,213</td>
+<td style="text-align: right;">0.57 (±0.03)</td>
+</tr>
+<tr class="even">
+<td>Timor-Leste</td>
+<td style="text-align: right;">455</td>
+<td style="text-align: right;">0.60 (±0.07)</td>
+</tr>
+<tr class="odd">
+<td>Average</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.59</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="non-dhs-countries-indonesia-laos-malaysia-thailand-vietnam" class="level2">
+<h2 class="anchored" data-anchor-id="non-dhs-countries-indonesia-laos-malaysia-thailand-vietnam">Non-DHS Countries: Indonesia, Laos, Malaysia, Thailand, Vietnam</h2>
+<p>For countries with no usable DHS data for training (either data doesn’t exist, no lat/lon coordinates, or data is too old), it wasn’t as straightforward to train models for these.</p>
+<p>The main challenges were:</p>
+<section id="how-can-we-utilize-data-from-the-4-dhs-countries-to-train-a-model-that-we-can-use-for-these-5-non-dhs-countries" class="level3">
+<h3 class="anchored" data-anchor-id="how-can-we-utilize-data-from-the-4-dhs-countries-to-train-a-model-that-we-can-use-for-these-5-non-dhs-countries">How can we utilize data from the 4 DHS countries to train a model that we can use for these 5 non-DHS countries?</h3>
+<p>The first idea might be to simply combine all the data from each country into one big dataset.</p>
+<p>The problem here is that both the target variable (the wealth index) and the feature values are not directly comparable between countries:</p>
+<ul>
+<li>Wealth Index
+<ul>
+<li>DHS-calculated relative wealth score based on asset ownership</li>
+<li>The first principal component after running PCA on asset-related columns/values (e.g.&nbsp;# of cars, # of rooms, etc). In effect, this is a single score that summarizes the other columns and represents the “asset wealth” of a household.</li>
+<li>The PCA procedure to calculate this is based on different asset-related columns/values for different countries.</li>
+</ul></li>
+<li>Features
+<ul>
+<li>Features may be interpreted differently from country to country.</li>
+<li>For example, 5mbps internet speed might be considered slow for Country A, while it might be considered fast for Country B .</li>
+<li>If we used raw values directly, the model might be confused because the mapping of features to relative wealth is different. That is, 5mbps might be correlated with relatively poorer households in Country A, while it might be correlated with relatively wealthier households in Country B.</li>
+</ul></li>
+</ul>
+<p>We found that a simple solution was to normalize the features and the wealth index through a MinMaxScaler. The table below shows results that support this hypothesis. To validate this methodology, we performed leave-one-country-out cross-validation wherein we utilize one country as the test set and use the other 3 as the train set.</p>
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 20%">
+<col style="width: 31%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Test Country</th>
+<th style="text-align: center;"># Samples</th>
+<th style="text-align: center;">Raw Features &amp; Wealth Index</th>
+<th>StandardScaler for Features &amp; Wealth Index</th>
+<th>MinMaxScaler for Features &amp; Wealth Index</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cambodia</td>
+<td style="text-align: center;">611</td>
+<td style="text-align: center;">-0.19</td>
+<td>0.48</td>
+<td>0.53</td>
+</tr>
+<tr class="even">
+<td>Myanmar</td>
+<td style="text-align: center;">441</td>
+<td style="text-align: center;">0.62</td>
+<td>0.58</td>
+<td>0.49</td>
+</tr>
+<tr class="odd">
+<td>Philippines</td>
+<td style="text-align: center;">1,213</td>
+<td style="text-align: center;">0.37</td>
+<td>0.54</td>
+<td>0.36</td>
+</tr>
+<tr class="even">
+<td>Timor-Leste</td>
+<td style="text-align: center;">455</td>
+<td style="text-align: center;">0.46</td>
+<td>0.51</td>
+<td>0.49</td>
+</tr>
+<tr class="odd">
+<td>Average</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0.32</td>
+<td>0.52</td>
+<td>0.47</td>
+</tr>
+</tbody>
+</table>
+<p>Note that we tried other scalers and other methods like re-calculating the wealth indices, but the MinMaxScaler proved to be the best approach in the end. Read more about it in our <a href="https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/cross-country-report.html">Sprint 2</a> and <a href="https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/sprint-3-report.html">Sprint 3</a> reports.</p>
+</section>
+<section id="how-do-we-validate-if-the-produced-wealth-estimates-for-these-5-countries-are-sensible" class="level3">
+<h3 class="anchored" data-anchor-id="how-do-we-validate-if-the-produced-wealth-estimates-for-these-5-countries-are-sensible">How do we validate if the produced wealth estimates for these 5 countries are sensible?</h3>
+<p>Our leave-one-country-out cross-validation procedure simulates the scenario of training on multiple countries and utilizing it on one that it hasn’t seen during training.</p>
+<p>Our next step is to train a final model on all 4 countries’ data, and use it on the 5 non-DHS countries. However, how do we check if the results are actually sensible in the absence of ground truth?</p>
+<ol type="a">
+<li>Qualitatively, we can see that the results intuitively match known wealthier areas in the countries (e.g.&nbsp;the capitals and major cities).</li>
+</ol>
+<p><img src="./assets/sea_wealth_map.png" class="img-fluid"></p>
+<ol start="2" type="a">
+<li>Quantitatively, we calculate the agreement between province/city rankings according to our model estimates and some reference wealth-related data. These are not apple-to-apple comparisons since the wealth data are not exactly the same, but they should give us some level of confidence that our estimates aren’t in total disagreement with other government data.</li>
+</ol>
+<table class="table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 39%">
+<col style="width: 17%">
+<col style="width: 5%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Country</th>
+<th>Reference Data</th>
+<th style="text-align: center;">Admin Level</th>
+<th style="text-align: right;">N</th>
+<th style="text-align: right;">Spearman Rank Correlation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Indonesia</td>
+<td>SUSENAS-derived Relative Wealth Index</td>
+<td style="text-align: center;">City / District</td>
+<td style="text-align: right;">514</td>
+<td style="text-align: right;">0.72</td>
+</tr>
+<tr class="even">
+<td>Laos</td>
+<td>International Wealth Index</td>
+<td style="text-align: center;">Province</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="odd">
+<td>Malaysia</td>
+<td>Poverty Headcount</td>
+<td style="text-align: center;">State</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0.78</td>
+</tr>
+<tr class="even">
+<td>Average</td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.75</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -1,227 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/about.html</loc>
-    <lastmod>2023-05-02T08:30:26.035Z</lastmod>
-  </url>
-  <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/get_populated_grids_indonesia.html</loc>
-    <lastmod>2023-05-02T08:30:28.805Z</lastmod>
+    <lastmod>2023-05-02T08:34:30.225Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/get_populated_grids_indonesia_prewindowed.html</loc>
-    <lastmod>2023-05-02T08:30:34.145Z</lastmod>
+    <lastmod>2023-05-02T08:34:35.585Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/rollout_model_timor_leste.html</loc>
-    <lastmod>2023-05-02T08:30:35.525Z</lastmod>
+    <lastmod>2023-05-02T08:34:37.015Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/new_get_populated_grids_indonesia-5k_batch.html</loc>
-    <lastmod>2023-05-02T08:30:36.105Z</lastmod>
+    <lastmod>2023-05-02T08:34:37.555Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/new_get_populated_grids_indonesia-1k_batch.html</loc>
-    <lastmod>2023-05-02T08:30:36.675Z</lastmod>
+    <lastmod>2023-05-02T08:34:38.085Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/get_populated_grids_timor_leste.html</loc>
-    <lastmod>2023-05-02T08:30:39.365Z</lastmod>
+    <lastmod>2023-05-02T08:34:40.805Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/test_refactors/feature_engg_refactor_test.html</loc>
-    <lastmod>2023-05-02T08:30:40.125Z</lastmod>
+    <lastmod>2023-05-02T08:34:41.515Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/test-notebooks/profile_indonesia_memory_usage.html</loc>
-    <lastmod>2023-05-02T08:30:40.655Z</lastmod>
+    <lastmod>2023-05-02T08:34:42.085Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/CODE_OF_CONDUCT.html</loc>
-    <lastmod>2023-05-02T08:30:41.215Z</lastmod>
-  </url>
-  <url>
-    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/cross-country-report.html</loc>
-    <lastmod>2023-05-02T08:30:41.825Z</lastmod>
+    <lastmod>2023-05-02T08:34:42.665Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/index.html</loc>
-    <lastmod>2023-05-02T08:30:42.365Z</lastmod>
+    <lastmod>2023-05-02T08:34:43.305Z</lastmod>
   </url>
   <url>
-    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/progress.html</loc>
-    <lastmod>2023-05-02T08:30:42.865Z</lastmod>
+    <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/sprint-2-report.html</loc>
+    <lastmod>2023-05-02T08:34:43.885Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.html</loc>
-    <lastmod>2023-05-02T08:30:44.935Z</lastmod>
+    <lastmod>2023-05-02T08:34:46.075Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-01-index-recalculation-experiments/dhs_crosscountry_refactor_tests.html</loc>
-    <lastmod>2023-05-02T08:30:45.705Z</lastmod>
+    <lastmod>2023-05-02T08:34:46.895Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-01-index-recalculation-experiments/eda-on-kh-drinking-water-columns.html</loc>
-    <lastmod>2023-05-02T08:30:46.335Z</lastmod>
+    <lastmod>2023-05-02T08:34:47.525Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-03-15-rollout-output-comparisons/la/1_la_compare_rank_province.html</loc>
-    <lastmod>2023-05-02T08:30:47.015Z</lastmod>
+    <lastmod>2023-05-02T08:34:48.195Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-03-15-rollout-output-comparisons/my/1_my_compare_rank_province.html</loc>
-    <lastmod>2023-05-02T08:30:47.665Z</lastmod>
+    <lastmod>2023-05-02T08:34:48.885Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-03-15-rollout-output-comparisons/id/1_id_compare_rank_province.html</loc>
-    <lastmod>2023-05-02T08:30:48.465Z</lastmod>
+    <lastmod>2023-05-02T08:34:49.695Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/la/3_la_rollout_model.html</loc>
-    <lastmod>2023-05-02T08:30:49.125Z</lastmod>
+    <lastmod>2023-05-02T08:34:50.375Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/la/2_la_generate_grids.html</loc>
-    <lastmod>2023-05-02T08:30:49.655Z</lastmod>
+    <lastmod>2023-05-02T08:34:50.925Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/0_generate_training_data.html</loc>
-    <lastmod>2023-05-02T08:30:50.305Z</lastmod>
+    <lastmod>2023-05-02T08:34:51.545Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/my/3_my_rollout_model.html</loc>
-    <lastmod>2023-05-02T08:30:51.085Z</lastmod>
+    <lastmod>2023-05-02T08:34:52.225Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/my/2_my_generate_grids.html</loc>
-    <lastmod>2023-05-02T08:30:51.655Z</lastmod>
+    <lastmod>2023-05-02T08:34:52.755Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/th/3_th_rollout_model.html</loc>
-    <lastmod>2023-05-02T08:30:52.295Z</lastmod>
+    <lastmod>2023-05-02T08:34:53.435Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/th/2_th_generate_grids.html</loc>
-    <lastmod>2023-05-02T08:30:52.845Z</lastmod>
+    <lastmod>2023-05-02T08:34:53.955Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/1_cross_country_model_train_model.html</loc>
-    <lastmod>2023-05-02T08:30:53.445Z</lastmod>
+    <lastmod>2023-05-02T08:34:54.635Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/vn/3_vn_rollout_model.html</loc>
-    <lastmod>2023-05-02T08:30:54.145Z</lastmod>
+    <lastmod>2023-05-02T08:34:55.435Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/vn/2_vn_generate_grids.html</loc>
-    <lastmod>2023-05-02T08:30:54.855Z</lastmod>
+    <lastmod>2023-05-02T08:34:56.315Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/id/3_id_rollout_model.html</loc>
-    <lastmod>2023-05-02T08:30:55.585Z</lastmod>
+    <lastmod>2023-05-02T08:34:57.135Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-cross-country-rollouts/id/2_id_generate_grids.html</loc>
-    <lastmod>2023-05-02T08:30:56.215Z</lastmod>
+    <lastmod>2023-05-02T08:34:57.755Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/mm/2_mm_generate_grids.html</loc>
-    <lastmod>2023-05-02T08:30:56.815Z</lastmod>
+    <lastmod>2023-05-02T08:34:58.405Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/mm/0_generate_training_data.html</loc>
-    <lastmod>2023-05-02T08:30:57.415Z</lastmod>
+    <lastmod>2023-05-02T08:34:59.145Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/mm/1_mm_train_model.html</loc>
-    <lastmod>2023-05-02T08:30:57.995Z</lastmod>
+    <lastmod>2023-05-02T08:34:59.825Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/mm/3_mm_rollout_model.html</loc>
-    <lastmod>2023-05-02T08:30:58.615Z</lastmod>
+    <lastmod>2023-05-02T08:35:00.495Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/tl/0_generate_training_data.html</loc>
-    <lastmod>2023-05-02T08:30:59.185Z</lastmod>
+    <lastmod>2023-05-02T08:35:01.245Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/tl/2_tl_generate_grids.html</loc>
-    <lastmod>2023-05-02T08:30:59.765Z</lastmod>
+    <lastmod>2023-05-02T08:35:01.855Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/tl/1_tl_train_model.html</loc>
-    <lastmod>2023-05-02T08:31:00.355Z</lastmod>
+    <lastmod>2023-05-02T08:35:02.445Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.html</loc>
-    <lastmod>2023-05-02T08:31:01.055Z</lastmod>
+    <lastmod>2023-05-02T08:35:03.115Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/kh/0_generate_training_data.html</loc>
-    <lastmod>2023-05-02T08:31:01.635Z</lastmod>
+    <lastmod>2023-05-02T08:35:03.675Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/kh/3_kh_rollout_model.html</loc>
-    <lastmod>2023-05-02T08:31:02.325Z</lastmod>
+    <lastmod>2023-05-02T08:35:04.345Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/kh/1_kh_train_model.html</loc>
-    <lastmod>2023-05-02T08:31:02.875Z</lastmod>
+    <lastmod>2023-05-02T08:35:04.925Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/kh/2_kh_generate_grids.html</loc>
-    <lastmod>2023-05-02T08:31:03.445Z</lastmod>
+    <lastmod>2023-05-02T08:35:05.545Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/ph/1_ph_train_model.html</loc>
-    <lastmod>2023-05-02T08:31:04.045Z</lastmod>
+    <lastmod>2023-05-02T08:35:06.255Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/ph/0_generate_training_data.html</loc>
-    <lastmod>2023-05-02T08:31:04.665Z</lastmod>
+    <lastmod>2023-05-02T08:35:06.945Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/ph/2_ph_generate_grids.html</loc>
-    <lastmod>2023-05-02T08:31:05.195Z</lastmod>
+    <lastmod>2023-05-02T08:35:07.635Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-21-single-country-rollouts/ph/3_ph_rollout_model.html</loc>
-    <lastmod>2023-05-02T08:31:05.885Z</lastmod>
+    <lastmod>2023-05-02T08:35:08.575Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.html</loc>
-    <lastmod>2023-05-02T08:31:07.035Z</lastmod>
+    <lastmod>2023-05-02T08:35:09.965Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_mm.html</loc>
-    <lastmod>2023-05-02T08:31:07.875Z</lastmod>
+    <lastmod>2023-05-02T08:35:10.995Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_all.html</loc>
-    <lastmod>2023-05-02T08:31:08.625Z</lastmod>
+    <lastmod>2023-05-02T08:35:12.005Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html</loc>
-    <lastmod>2023-05-02T08:31:09.615Z</lastmod>
+    <lastmod>2023-05-02T08:35:12.975Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_kh.html</loc>
-    <lastmod>2023-05-02T08:31:10.605Z</lastmod>
+    <lastmod>2023-05-02T08:35:13.865Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.html</loc>
-    <lastmod>2023-05-02T08:31:11.445Z</lastmod>
+    <lastmod>2023-05-02T08:35:14.615Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.html</loc>
-    <lastmod>2023-05-02T08:31:13.525Z</lastmod>
+    <lastmod>2023-05-02T08:35:16.685Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-02-15-dhs-cross-country-classifier-experiments/2023-02-15_crosscountry_normalized_classifier.html</loc>
-    <lastmod>2023-05-02T08:31:14.375Z</lastmod>
+    <lastmod>2023-05-02T08:35:17.565Z</lastmod>
   </url>
   <url>
     <loc>https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/sprint-3-report.html</loc>
-    <lastmod>2023-05-02T08:31:14.955Z</lastmod>
+    <lastmod>2023-05-02T08:35:18.175Z</lastmod>
   </url>
 </urlset>
