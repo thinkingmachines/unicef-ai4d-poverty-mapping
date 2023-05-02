@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.247">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>UNICEF AI4D Poverty Mapping Project - UNICEF AI4D Poverty Mapping</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">UNICEF AI4D Poverty Mapping</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../docs/index.html" class="sidebar-item-text sidebar-link active">Main</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Sprint 1 (Individual DHS Countries)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_kh.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Cambodia)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_mm.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Myanmar)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Timor Leste)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Sprint 2 (Cross Country Experiments)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../docs/sprint-2-report.html" class="sidebar-item-text sidebar-link">Cross-country Experiments Summary</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.html" class="sidebar-item-text sidebar-link">Cross Country Model Training (Initial)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.html" class="sidebar-item-text sidebar-link">Index Recalculation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.html" class="sidebar-item-text sidebar-link">Cross Country Model Training (Normalized)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Sprint 3 (Model Rollout)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../docs/sprint-3-report.html" class="sidebar-item-text sidebar-link">Model Rollouts Summary</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Single-country Rollouts</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Philippines</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/ph/1_ph_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/ph/2_ph_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/ph/3_ph_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Timor Leste</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/tl/1_tl_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/tl/2_tl_generate_grids.html" class="sidebar-item-text sidebar-link">Timor Leste Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">Myanmar</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/mm/1_mm_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/mm/2_mm_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/mm/3_mm_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">Cambodia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/kh/1_kh_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/kh/2_kh_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-single-country-rollouts/kh/3_kh_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">Cross-country Rollouts</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-cross-country-rollouts/1_cross_country_model_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">Indonesia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-cross-country-rollouts/id/2_id_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-cross-country-rollouts/id/3_id_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">Malaysia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-cross-country-rollouts/my/2_my_generate_grids.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-cross-country-rollouts/my/3_my_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">Laos</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-cross-country-rollouts/la/2_la_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-cross-country-rollouts/la/3_la_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">Vietnam</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-cross-country-rollouts/vn/2_vn_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-cross-country-rollouts/vn/3_vn_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">Thailand</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-cross-country-rollouts/th/2_th_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-02-21-cross-country-rollouts/th/3_th_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">Cross-country Comparisons</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-03-15-rollout-output-comparisons/id/1_id_compare_rank_province.html" class="sidebar-item-text sidebar-link">Indonesia Evaluation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-03-15-rollout-output-comparisons/my/1_my_compare_rank_province.html" class="sidebar-item-text sidebar-link">Malaysia Evaluation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/2023-03-15-rollout-output-comparisons/la/1_la_compare_rank_province.html" class="sidebar-item-text sidebar-link">Laos Evaluation</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#quick-links" id="toc-quick-links" class="nav-link active" data-scroll-target="#quick-links">Quick links</a></li>
+  <li><a href="#replicating-our-work" id="toc-replicating-our-work" class="nav-link" data-scroll-target="#replicating-our-work">Replicating our work</a></li>
+  <li><a href="#summary-of-findings" id="toc-summary-of-findings" class="nav-link" data-scroll-target="#summary-of-findings">Summary of Findings</a>
+  <ul class="collapse">
+  <li><a href="#dhs-countries-cambodia-myanmar-philippines-timor-leste" id="toc-dhs-countries-cambodia-myanmar-philippines-timor-leste" class="nav-link" data-scroll-target="#dhs-countries-cambodia-myanmar-philippines-timor-leste">DHS Countries: Cambodia, Myanmar, Philippines, Timor-Leste</a></li>
+  <li><a href="#non-dhs-countries-indonesia-laos-malaysia-thailand-vietnam" id="toc-non-dhs-countries-indonesia-laos-malaysia-thailand-vietnam" class="nav-link" data-scroll-target="#non-dhs-countries-indonesia-laos-malaysia-thailand-vietnam">Non-DHS Countries: Indonesia, Laos, Malaysia, Thailand, Vietnam</a>
+  <ul class="collapse">
+  <li><a href="#how-can-we-utilize-data-from-the-4-dhs-countries-to-train-a-model-that-we-can-use-for-these-5-non-dhs-countries" id="toc-how-can-we-utilize-data-from-the-4-dhs-countries-to-train-a-model-that-we-can-use-for-these-5-non-dhs-countries" class="nav-link" data-scroll-target="#how-can-we-utilize-data-from-the-4-dhs-countries-to-train-a-model-that-we-can-use-for-these-5-non-dhs-countries">How can we utilize data from the 4 DHS countries to train a model that we can use for these 5 non-DHS countries?</a></li>
+  <li><a href="#how-do-we-validate-if-the-produced-wealth-estimates-for-these-5-countries-are-sensible" id="toc-how-do-we-validate-if-the-produced-wealth-estimates-for-these-5-countries-are-sensible" class="nav-link" data-scroll-target="#how-do-we-validate-if-the-produced-wealth-estimates-for-these-5-countries-are-sensible">How do we validate if the produced wealth estimates for these 5 countries are sensible?</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">UNICEF AI4D Poverty Mapping</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Funded by <a href="https://www.unicefinnovationfund.org/broadcast/expert-posts/thinking-machines-build-southeast-asia-ai-research-bank-development-ai4d">UNICEF as part of the AI Research Bank for Development (AI4D) program</a>, this project explored the use of purely open datasets and low-cost Machine Learning models for poverty mapping estimation across 9 Southeast Asian countries:</p>
+<ul>
+<li>Cambodia</li>
+<li>Myanmar</li>
+<li>Philippines</li>
+<li>Timor-Leste</li>
+<li>Indonesia</li>
+<li>Laos</li>
+<li>Malaysia</li>
+<li>Thailand</li>
+<li>Vietnam</li>
+</ul>
+<p>We hope that our work can serve as a baseline for other Data Scientists to further AI x Development research in the region.</p>
+<section id="quick-links" class="level1">
+<h1>Quick links</h1>
+<ul>
+<li><a href="(https://studio.foursquare.com/public/590c4ab2-b855-463a-90dd-9917b97b8b57)">Web Map Demo</a> of our wealth estimates.</li>
+<li><a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping">GitHub Repo</a> containing all code needed to replicate model training and rollout for all 9 SEA countries</li>
+<li><a href="https://drive.google.com/drive/u/0/folders/1QX0xJc6MHxY7dzIsVMDm5TH0F-NwXhBW">Google Drive Folder</a> that contains all output data and intermediate artifacts (e.g.&nbsp;training datasets, models)
+<ul>
+<li><em>Note: These will be hosted on the AI for Development (AI4D) Research Bank, which is still a work-in-progress.</em></li>
+</ul></li>
+</ul>
+</section>
+<section id="replicating-our-work" class="level1">
+<h1>Replicating our work</h1>
+<p>If you want to replicate the final models and wealth estimates, go to the ff.&nbsp;notebook folders:</p>
+<ul>
+<li><a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-single-country-rollouts">2023-02-21-single-country-rollouts</a></li>
+<li><a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-cross-country-rollouts">2023-02-21-cross-country-rollouts</a></li>
+</ul>
+<p>These provide the code necessary to replicate our work end-to-end. The earlier notebooks are more experimental as we were developing the methodology. Note that to run them properly, you need to get DHS data yourself and set-up your local environment. Just follow the instructions in our <a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping">repo’s README</a>.</p>
+<!-- ## Methodology Summary
+The exact method and details are better seen in the notebooks. But this diagram summarizes it conceptually. Essentially, we train a model and we use it to estimate wealth across a whole country. -->
+</section>
+<section id="summary-of-findings" class="level1">
+<h1>Summary of Findings</h1>
+<p>This sections contains a brief summary of our overall main findings. The other pages in this site contain documentation for each of our sprints, reporting on our progress as they happened.</p>
+<section id="dhs-countries-cambodia-myanmar-philippines-timor-leste" class="level2">
+<h2 class="anchored" data-anchor-id="dhs-countries-cambodia-myanmar-philippines-timor-leste">DHS Countries: Cambodia, Myanmar, Philippines, Timor-Leste</h2>
+<p>Training models and using them to produce wealth estimates for countries with DHS survey data are relatively straightforward. We generate features to characterize the neighborhood of the DHS clusters, which we then use to train a model.</p>
+<p>The table below shows R^2 values after Repeated 5-fold Cross Validation (5 Repeats; 25 runs in total).</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Country</th>
+<th style="text-align: right;"># Samples</th>
+<th style="text-align: right;">Repeated 5-fold CV</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cambodia</td>
+<td style="text-align: right;">611</td>
+<td style="text-align: right;">0.70 (±0.06)</td>
+</tr>
+<tr class="even">
+<td>Myanmar</td>
+<td style="text-align: right;">441</td>
+<td style="text-align: right;">0.50 (±0.09)</td>
+</tr>
+<tr class="odd">
+<td>Philippines</td>
+<td style="text-align: right;">1,213</td>
+<td style="text-align: right;">0.57 (±0.03)</td>
+</tr>
+<tr class="even">
+<td>Timor-Leste</td>
+<td style="text-align: right;">455</td>
+<td style="text-align: right;">0.60 (±0.07)</td>
+</tr>
+<tr class="odd">
+<td>Average</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.59</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="non-dhs-countries-indonesia-laos-malaysia-thailand-vietnam" class="level2">
+<h2 class="anchored" data-anchor-id="non-dhs-countries-indonesia-laos-malaysia-thailand-vietnam">Non-DHS Countries: Indonesia, Laos, Malaysia, Thailand, Vietnam</h2>
+<p>For countries with no usable DHS data for training (either data doesn’t exist, no lat/lon coordinates, or data is too old), it wasn’t as straightforward to train models for these.</p>
+<p>The main challenges were:</p>
+<section id="how-can-we-utilize-data-from-the-4-dhs-countries-to-train-a-model-that-we-can-use-for-these-5-non-dhs-countries" class="level3">
+<h3 class="anchored" data-anchor-id="how-can-we-utilize-data-from-the-4-dhs-countries-to-train-a-model-that-we-can-use-for-these-5-non-dhs-countries">How can we utilize data from the 4 DHS countries to train a model that we can use for these 5 non-DHS countries?</h3>
+<p>The first idea might be to simply combine all the data from each country into one big dataset.</p>
+<p>The problem here is that both the target variable (the wealth index) and the feature values are not directly comparable between countries:</p>
+<ul>
+<li>Wealth Index
+<ul>
+<li>DHS-calculated relative wealth score based on asset ownership</li>
+<li>The first principal component after running PCA on asset-related columns/values (e.g.&nbsp;# of cars, # of rooms, etc). In effect, this is a single score that summarizes the other columns and represents the “asset wealth” of a household.</li>
+<li>The PCA procedure to calculate this is based on different asset-related columns/values for different countries.</li>
+</ul></li>
+<li>Features
+<ul>
+<li>Features may be interpreted differently from country to country.</li>
+<li>For example, 5mbps internet speed might be considered slow for Country A, while it might be considered fast for Country B .</li>
+<li>If we used raw values directly, the model might be confused because the mapping of features to relative wealth is different. That is, 5mbps might be correlated with relatively poorer households in Country A, while it might be correlated with relatively wealthier households in Country B.</li>
+</ul></li>
+</ul>
+<p>We found that a simple solution was to normalize the features and the wealth index through a MinMaxScaler. The table below shows results that support this hypothesis. To validate this methodology, we performed leave-one-country-out cross-validation wherein we utilize one country as the test set and use the other 3 as the train set.</p>
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 20%">
+<col style="width: 31%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Test Country</th>
+<th style="text-align: center;"># Samples</th>
+<th style="text-align: center;">Raw Features &amp; Wealth Index</th>
+<th>StandardScaler for Features &amp; Wealth Index</th>
+<th>MinMaxScaler for Features &amp; Wealth Index</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cambodia</td>
+<td style="text-align: center;">611</td>
+<td style="text-align: center;">-0.19</td>
+<td>0.48</td>
+<td>0.53</td>
+</tr>
+<tr class="even">
+<td>Myanmar</td>
+<td style="text-align: center;">441</td>
+<td style="text-align: center;">0.62</td>
+<td>0.58</td>
+<td>0.49</td>
+</tr>
+<tr class="odd">
+<td>Philippines</td>
+<td style="text-align: center;">1,213</td>
+<td style="text-align: center;">0.37</td>
+<td>0.54</td>
+<td>0.36</td>
+</tr>
+<tr class="even">
+<td>Timor-Leste</td>
+<td style="text-align: center;">455</td>
+<td style="text-align: center;">0.46</td>
+<td>0.51</td>
+<td>0.49</td>
+</tr>
+<tr class="odd">
+<td>Average</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0.32</td>
+<td>0.52</td>
+<td>0.47</td>
+</tr>
+</tbody>
+</table>
+<p>Note that we tried other scalers and other methods like re-calculating the wealth indices, but the MinMaxScaler proved to be the best approach in the end. Read more about it in our <a href="https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/cross-country-report.html">Sprint 2</a> and <a href="https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/sprint-3-report.html">Sprint 3</a> reports.</p>
+</section>
+<section id="how-do-we-validate-if-the-produced-wealth-estimates-for-these-5-countries-are-sensible" class="level3">
+<h3 class="anchored" data-anchor-id="how-do-we-validate-if-the-produced-wealth-estimates-for-these-5-countries-are-sensible">How do we validate if the produced wealth estimates for these 5 countries are sensible?</h3>
+<p>Our leave-one-country-out cross-validation procedure simulates the scenario of training on multiple countries and utilizing it on one that it hasn’t seen during training.</p>
+<p>Our next step is to train a final model on all 4 countries’ data, and use it on the 5 non-DHS countries. However, how do we check if the results are actually sensible in the absence of ground truth?</p>
+<ol type="a">
+<li>Qualitatively, we can see that the results intuitively match known wealthier areas in the countries (e.g.&nbsp;the capitals and major cities).</li>
+</ol>
+<p><img src="../assets/sea_wealth_map.png" class="img-fluid"></p>
+<ol start="2" type="a">
+<li>Quantitatively, we calculate the agreement between province/city rankings according to our model estimates and some reference wealth-related data. These are not apple-to-apple comparisons since the wealth data are not exactly the same, but they should give us some level of confidence that our estimates aren’t in total disagreement with other government data.</li>
+</ol>
+<table class="table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 39%">
+<col style="width: 17%">
+<col style="width: 5%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Country</th>
+<th>Reference Data</th>
+<th style="text-align: center;">Admin Level</th>
+<th style="text-align: right;">N</th>
+<th style="text-align: right;">Spearman Rank Correlation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Indonesia</td>
+<td>SUSENAS-derived Relative Wealth Index</td>
+<td style="text-align: center;">City / District</td>
+<td style="text-align: right;">514</td>
+<td style="text-align: right;">0.72</td>
+</tr>
+<tr class="even">
+<td>Laos</td>
+<td>International Wealth Index</td>
+<td style="text-align: center;">Province</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="odd">
+<td>Malaysia</td>
+<td>Poverty Headcount</td>
+<td style="text-align: center;">State</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0.78</td>
+</tr>
+<tr class="even">
+<td>Average</td>
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.75</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
