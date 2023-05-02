@@ -15,11 +15,11 @@ This page summarizes our findings and learnings from developing a cross-country 
 
 The following figure describe our model rollout process for the 9 countries. 
 
-![Rollout Process showing the four main model rollout steps: generating tiles over country, filtering to populated tiles using High Resolution Settlement Layer (HRSL), feature engineering, and model estimation](assets/rollout_process.png)
+![Rollout Process showing the four main model rollout steps: generating tiles over country, filtering to populated tiles using High Resolution Settlement Layer (HRSL), feature engineering, and model estimation](/assets/rollout_process.png)
 
-We were able to successfully train and use models to estimate wealth over the 9 countries using this approach. The output wealth estimations captures macro-level urbanization, predicting relatively higher wealth at major urban centers and lower wealth at remote and sparsely populated areas. These results qualitatively show good agreement by Meta's RWI, showing that we can achieve good results in wealth estimation using only openly-available datasets and ground truth DHS data from 4 countries as our training data. 
+We were able to successfully train and use models to estimate wealth over the 9 countries using this approach. The output wealth estimations captures macro-level urbanization, predicting relatively higher wealth at major urban centers and lower wealth at remote and sparsely populated areas. These results qualitatively show good agreement by Meta's RWI, showing that we can achieve good results in wealth estimation using only openly-available datasets and ground truth DHS data from 4 countries as our training data.
 
-![Snapshots of estimated relative wealth indexes for various areas in SEA](assets/rollout_results.gif){width=80%}
+![Snapshots of estimated relative wealth indexes for various areas in SEA](/assets/rollout_results.gif){width=80%}
 
 Resulting wealth estimates for the 9 SEA countries can be downloaded [here](https://drive.google.com/drive/u/0/folders/1QX0xJc6MHxY7dzIsVMDm5TH0F-NwXhBW).
 
@@ -35,11 +35,11 @@ We validated our model rollout results with the best available reference wealth 
 |Malaysia|Relative poverty by State|Admin Level 1 (State / Federal Territory)|16|0.78|
 |Laos|MICS Survey IWI (Asset-based index)|Admin Level 1 (Province)|17|0.75|
 
-![Indonesia Model Map Comparison with Susenas RWI (reference) (Rank Correlation: 0.72)](notebooks/2023-03-15-rollout-output-comparisons/id/id_rank_comparison.png)
+![Indonesia Model Map Comparison with Susenas RWI (reference) (Rank Correlation: 0.72)](/notebooks/2023-03-15-rollout-output-comparisons/id/id_rank_comparison.png)
 
-![Malaysia Model Map Comparison with Relative Poverty (reference) (Rank Correlation: 0.78)](notebooks/2023-03-15-rollout-output-comparisons/my/my_rank_comparison.png)
+![Malaysia Model Map Comparison with Relative Poverty (reference) (Rank Correlation: 0.78)](/notebooks/2023-03-15-rollout-output-comparisons/my/my_rank_comparison.png)
 
-![Laos Model Map Comparison with MICS IWI (Rank Correlation: 0.75)](notebooks/2023-03-15-rollout-output-comparisons/la/la_rank_comparison.png)
+![Laos Model Map Comparison with MICS IWI (Rank Correlation: 0.75)](/notebooks/2023-03-15-rollout-output-comparisons/la/la_rank_comparison.png)
 
 
 ## Scaling
@@ -52,7 +52,7 @@ However, during our rollout, we noticed that many countries had above-zero value
 
 We found that the root cause of this issue was that the rollout data had an abundance of remote and sparsely populated areas, with many zero or low values, which pulled down the mean. This meant that the above/below interpretation was significantly different between the training and rollout data. 
 
-![Comparison between StandardScaler and MinMaxScaler. We found MinMaxScaler to perform best when rolling out to countries without training data.](assets/scaler_comparison.png)
+![Comparison between StandardScaler and MinMaxScaler. We found MinMaxScaler to perform best when rolling out to countries without training data.](/assets/scaler_comparison.png)
 
 
 To address this issue, we decided to switch from `StandardScaler` to `MinMaxScaler`. MinMaxScaler fixes the issue by anchoring the scaling on the minimum and maximum values seen in the rollout data, rather than on the mean and standard deviation. This means that the range is not affected by the many remote areas, and the scaling is much more accurate.
@@ -68,6 +68,6 @@ Indonesia posed several challenges due to the scale of the country, which meant 
 
 Links to Indonesia notebooks: 
 
-1. [Generating Rollout Grids](notebooks/2023-02-21-cross-country-rollouts/id/2_id_generate_grids.ipynb)
+1. [Generating Rollout Grids](/notebooks/2023-02-21-cross-country-rollouts/id/2_id_generate_grids.ipynb)
 
-2. [Model Rollout](notebooks/2023-02-21-cross-country-rollouts/id/3_id_rollout_model.ipynb)
+2. [Model Rollout](/notebooks/2023-02-21-cross-country-rollouts/id/3_id_rollout_model.ipynb)
