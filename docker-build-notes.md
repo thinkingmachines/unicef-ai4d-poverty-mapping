@@ -17,3 +17,8 @@ docker run -it -p 8888:8888 povmap-test /bin/bash
 ```
 jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''
 ```
+* run papermill on test rollout notebook
+```
+papermill ./notebooks/run_rollout_test.ipynb ./output-notebooks/run_rollout_test.ipynb -p REGION philippines -p country_osm philippines -p ookla_year 2020 -p nightlights_year 2020
+```
+
