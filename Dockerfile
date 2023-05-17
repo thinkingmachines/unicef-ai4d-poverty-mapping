@@ -1,11 +1,17 @@
 FROM python:3.9.16
 ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
+WORKDIR /root/povmap
+COPY povertymapping/ povertymapping/
+COPY notebooks/ notebooks/
+COPY scripts/ scripts/
 COPY environment.yml .
 COPY requirements.txt .
 COPY pyproject.toml .
 COPY setup.cfg .
 COPY setup.py .
+COPY LICENSE .
+COPY README.md .
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && mkdir /root/.conda \
     && bash Miniconda3-latest-Linux-x86_64.sh -b \
@@ -18,9 +24,9 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     conda activate ./env && \
     conda install -c conda-forge gdal -y && \
     pip install -r requirements.txt && \
-    pip install -e . && \
-    echo 'import geopandas;print("Hello World!")' > python-app.py
+    pip install papermill && \
+    pip install -e . 
 RUN echo 'conda activate ./env \n\
-alias python-app="python python-app.py"' >> /root/.bashrc
+alias run-rollout="python scripts/run_rollout.py"' >> /root/.bashrc
 ENTRYPOINT [ "/bin/bash", "-l", "-c" ]
-CMD ["python python-app.py"]
+CMD ["python scripts/run_rollout.py"]
