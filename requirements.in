@@ -13,6 +13,7 @@ filprofiler
 fiona
 folium
 gdal
+gdown
 geopandas
 # geowrangler
 # git+https://github.com/thinkingmachines/geowrangler.git
