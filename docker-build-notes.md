@@ -36,3 +36,14 @@ default parameters
 papermill ./notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.ipynb ./output-notebooks/3_tl_rollout_model.ipynb
 ```
 
+## Docker environment
+* Environment variables
+  - EOG_USER, EOG_PASSWORD - register dummy at EOG and hardcode usage
+* Mount volumes:
+  - directories
+  ``` 
+$HOME/.cache/geowrangler
+$HOME/.eog_creds
+$PROJECT/data
+$PROJECT/output-notebooks
+$PROJECT/notebooks
