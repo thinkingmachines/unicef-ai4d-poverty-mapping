@@ -3,7 +3,7 @@ ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
 WORKDIR /root/povmap
 COPY povertymapping/ povertymapping/
-COPY notebooks/ notebooks/
+# COPY notebooks/ notebooks/
 COPY scripts/ scripts/
 COPY environment.yml .
 COPY requirements.txt .
@@ -24,7 +24,6 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     conda activate ./env && \
     conda install -c conda-forge gdal -y && \
     pip install -r requirements.txt && \
-    pip install papermill && \
     pip install -e . 
 RUN echo 'conda activate ./env \n\
 alias run-rollout="python scripts/run_rollout.py"' >> /root/.bashrc
