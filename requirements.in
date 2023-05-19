@@ -33,6 +33,7 @@ nbdime
 numpy
 osmium
 pandas
+papermill
 pre-commit
 pyarrow
 pygeos --no-binary pygeos
