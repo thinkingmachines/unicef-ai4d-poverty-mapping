@@ -77,8 +77,14 @@ docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebook
 
 ### Standardized single country models:
 * Same notebook for all 4 single country models
-* Run 
-
+* Run generate training data for TL
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/0_generate_training_data.ipynb ./output-notebooks/tl_0_generate_training_data.ipynb -p COUNTRY_CODE tl -p COUNTRY_OSM east-timor -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2016 -p DHS_DTA_PREFIX TLHR71DT/TLHR71FL -p DHS_GEO_PREFIX TLGE71FL/TLGE71FL -p ROLLOUT_DATE 2023-05-22"
+```
+* * Run train model for TL
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/0_generate_training_data.ipynb ./output-notebooks/tl_0_generate_training_data.ipynb -p COUNTRY_CODE tl -p COUNTRY_OSM east-timor -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2016 -p DHS_DTA_PREFIX TLHR71DT/TLHR71FL -p DHS_GEO_PREFIX TLGE71FL/TLGE71FL -p ROLLOUT_DATE 2023-05-22"
+```
 ### Simplifying the docker run command
 
 * Create default EOG_USER and EOG_PASSWORD - maybe store token maybe fetch token from github url with auto refresh on scheduled gh action?
