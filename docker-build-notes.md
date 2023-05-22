@@ -75,8 +75,16 @@ docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebook
 docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.ipynb ./output-notebooks/3_tl_rollout_model.ipynb -p COUNTRY_CODE tl -p ROLLOUT_DATE 2023-05-22"
 ```
 
+### Standardized single country models:
+* Same notebook for all 4 single country models
+* Run 
+
 ### Simplifying the docker run command
 
 * Create default EOG_USER and EOG_PASSWORD - maybe store token maybe fetch token from github url with auto refresh on scheduled gh action?
 * Remove eog_cache as external mount?
 * Load notebooks (no need to )
+
+```
+docker run  -v $(pwd)/output-notebooks:/root/povmap/output-notebooks  -v $(pwd)/data:/root/povmap/data povmap-single-country-rollout -e PARAMS="-p COUNTRY_CODE ph -p ROLLOUT_DATE 2023-05-22 -p OSM_COUNTRY "
+```
