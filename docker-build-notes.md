@@ -79,12 +79,40 @@ docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebook
 * Same notebook for all 4 single country models
 * Run generate training data for TL
 ```
-docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/0_generate_training_data.ipynb ./output-notebooks/tl_0_generate_training_data.ipynb -p COUNTRY_CODE tl -p COUNTRY_OSM east-timor -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2016 -p DHS_DTA_PREFIX TLHR71DT/TLHR71FL -p DHS_GEO_PREFIX TLGE71FL/TLGE71FL -p ROLLOUT_DATE 2023-05-22"
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/0_generate_training_data.ipynb ./output-notebooks/tl_0_generate_training_data.ipynb -p COUNTRY_CODE tl -p COUNTRY_OSM east-timor -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2016 -p DHS_DTA_PREFIX TLHR71DT/TLHR71FL -p DHS_GEO_PREFIX TLGE71FL/TLGE71FL -p ROLLOUT_DATE 2023-05-23"
 ```
-* * Run train model for TL
+* Run train model for TL
 ```
-docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/0_generate_training_data.ipynb ./output-notebooks/tl_0_generate_training_data.ipynb -p COUNTRY_CODE tl -p COUNTRY_OSM east-timor -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2016 -p DHS_DTA_PREFIX TLHR71DT/TLHR71FL -p DHS_GEO_PREFIX TLGE71FL/TLGE71FL -p ROLLOUT_DATE 2023-05-22"
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/1_train_model.ipynb ./output-notebooks/tl_1_train_model.ipynb -p COUNTRY_CODE tl -p ROLLOUT_DATE 2023-05-23"
 ```
+* Run generate grids for TL
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/2_generate_grids.ipynb ./output-notebooks/tl_2_generate_grids.ipynb -p COUNTRY_CODE tl -p ROLLOUT_DATE 2023-05-23"
+```
+* Run rollout-model for TL using previously trained model
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/3_rollout_model.ipynb ./output-notebooks/tl_3_rollout_model.ipynb -p COUNTRY_CODE tl -p COUNTRY_OSM east-timor  -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2016 -p ROLLOUT_DATE 2023-05-23"
+```
+
+### Run single country notebook for other countries
+
+* Run generate training data for PH
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/0_generate_training_data.ipynb ./output-notebooks/ph_0_generate_training_data.ipynb -p COUNTRY_CODE ph -p COUNTRY_OSM philippines -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2017 -p DHS_DTA_PREFIX PHHR71DT/PHHR71FL -p DHS_GEO_PREFIX PHGE71FL/PHGE71FL -p ROLLOUT_DATE 2023-05-23"
+```
+* Run train model for PH
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/1_train_model.ipynb ./output-notebooks/ph_1_train_model.ipynb -p COUNTRY_CODE ph -p ROLLOUT_DATE 2023-05-23"
+```
+* Run generate grids for PH
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/2_generate_grids.ipynb ./output-notebooks/ph_2_generate_grids.ipynb -p COUNTRY_CODE ph -p ROLLOUT_DATE 2023-05-23"
+```
+* Run rollout-model for PH using previously trained model
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/3_rollout_model.ipynb ./output-notebooks/ph_3_rollout_model.ipynb -p COUNTRY_CODE ph -p COUNTRY_OSM philippines  -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2017 -p ROLLOUT_DATE 2023-05-23"
+```
+
 ### Simplifying the docker run command
 
 * Create default EOG_USER and EOG_PASSWORD - maybe store token maybe fetch token from github url with auto refresh on scheduled gh action?
