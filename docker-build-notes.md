@@ -113,6 +113,23 @@ docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebook
 docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/3_rollout_model.ipynb ./output-notebooks/ph_3_rollout_model.ipynb -p COUNTRY_CODE ph -p COUNTRY_OSM philippines  -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2017 -p ROLLOUT_DATE 2023-05-23"
 ```
 
+* Run generate training data for KH
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/0_generate_training_data.ipynb ./output-notebooks/kh_0_generate_training_data.ipynb -p COUNTRY_CODE kh -p COUNTRY_OSM cambodia -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2014 -p DHS_DTA_PREFIX KHHR73DT/KHHR73FL -p DHS_GEO_PREFIX KHGE71FL/KHGE71FL -p ROLLOUT_DATE 2023-05-23"
+```
+* Run train model for KH
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/1_train_model.ipynb ./output-notebooks/kh_1_train_model.ipynb -p COUNTRY_CODE kh -p ROLLOUT_DATE 2023-05-23"
+```
+* Run generate grids for KH
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/2_generate_grids.ipynb ./output-notebooks/kh_2_generate_grids.ipynb -p COUNTRY_CODE kh -p ROLLOUT_DATE 2023-05-23"
+```
+* Run rollout-model for KH using previously trained model
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/3_rollout_model.ipynb ./output-notebooks/kh_3_rollout_model.ipynb -p COUNTRY_CODE kh -p COUNTRY_OSM cambodia  -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2014 -p ROLLOUT_DATE 2023-05-23"
+```
+
 ### Simplifying the docker run command
 
 * Create default EOG_USER and EOG_PASSWORD - maybe store token maybe fetch token from github url with auto refresh on scheduled gh action?
