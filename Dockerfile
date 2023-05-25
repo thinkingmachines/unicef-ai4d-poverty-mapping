@@ -3,7 +3,7 @@ ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
 WORKDIR /root/povmap
 COPY povertymapping/ povertymapping/
-# COPY notebooks/ notebooks/
+COPY notebooks/ notebooks/
 COPY scripts/ scripts/
 COPY environment.yml .
 COPY requirements.txt .
@@ -28,4 +28,6 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
 RUN echo 'conda activate ./env \n\
 alias run-rollout="python scripts/run_rollout.py"' >> /root/.bashrc
 ENTRYPOINT [ "/bin/bash", "-l", "-c" ]
-CMD ["python scripts/run_rollout.py"]
+EXPOSE 8888
+# CMD ["python scripts/run_rollout.py"]
+CMD ["jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''"]
