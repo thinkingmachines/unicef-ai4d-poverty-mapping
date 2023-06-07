@@ -1,4 +1,5 @@
 FROM python:3.9.16
+LABEL org.opencontainers.image.source=https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping
 ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
 WORKDIR /root/povmap
@@ -29,12 +30,13 @@ RUN echo 'conda activate ./env \n\
 alias run-rollout="python scripts/run_rollout.py"' >> /root/.bashrc
 ENTRYPOINT [ "/bin/bash", "-l", "-c" ]
 EXPOSE 8888
-RUN mkdir -p /root/povmap/data &&\
- mkdir -p /root/povmap/output-notebooks &&\
- mkdir -p /root/.eog_creds &&\
- mkdir -p /root/.geowrangler &&\
- mkdir -p /root/.cache &&\
- ln -s /root/.geowrangler /root/.cache/geowrangler
-VOLUME /root/povmap/data /root/povmap/output-notebooks /root/.eog_creds /root
+RUN mkdir -p /root/povmap/data/cache/geowrangler &&\
+ ln -s /root/povmap/data/cache/geowrangler /root/.geowrangler &&\
+ ln -s /root/povmap/data/cache /root/.cache &&\  
+ mkdir -p /root/povmap/data/output-notebooks &&\
+ ln -s /root/povmap/data/output-notebooks /root/povmap/output-notebooks &&\
+ mkdir -p /root/povmap/data/eog_creds &&\
+ ln -s /root/povmap/data/eog_creds /root/.eog_creds
+VOLUME /root/povmap/data
 # CMD ["python scripts/run_rollout.py"]
 CMD ["jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''"]
