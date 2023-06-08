@@ -42,6 +42,7 @@ pytest-cov
 pytest-mock
 pytest-xdist
 pyyaml
+pyinquirer
 rasterio
 rasterstats
 rio-cogeo
