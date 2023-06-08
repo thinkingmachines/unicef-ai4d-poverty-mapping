@@ -32,7 +32,7 @@ ENTRYPOINT [ "/bin/bash", "-l", "-c" ]
 EXPOSE 8888
 RUN mkdir -p /root/povmap/data/cache/geowrangler &&\
  ln -s /root/povmap/data/cache/geowrangler /root/.geowrangler &&\
- ln -s /root/povmap/data/cache /root/.cache &&\  
+ ln -s /root/povmap/data/cache/geowrangler /root/.cache/geowrangler &&\  
  mkdir -p /root/povmap/data/output-notebooks &&\
  ln -s /root/povmap/data/output-notebooks /root/povmap/output-notebooks &&\
  mkdir -p /root/povmap/data/eog_creds &&\
