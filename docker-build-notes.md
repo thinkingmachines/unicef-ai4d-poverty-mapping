@@ -130,12 +130,29 @@ docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebook
 docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/3_rollout_model.ipynb ./output-notebooks/kh_3_rollout_model.ipynb -p COUNTRY_CODE kh -p COUNTRY_OSM cambodia  -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2014 -p ROLLOUT_DATE 2023-05-23"
 ```
 
-### Simplifying the docker run command
+### Simplified run docker commands
 
-* Create default EOG_USER and EOG_PASSWORD - maybe store token maybe fetch token from github url with auto refresh on scheduled gh action?
-* Remove eog_cache as external mount?
-* Load notebooks (no need to )
+* Create a persistent volume
 
 ```
-docker run  -v $(pwd)/output-notebooks:/root/povmap/output-notebooks  -v $(pwd)/data:/root/povmap/data povmap-single-country-rollout -e PARAMS="-p COUNTRY_CODE ph -p ROLLOUT_DATE 2023-05-22 -p OSM_COUNTRY "
+docker volume create povmap-data
+
+```
+* Pull povmap-jupyter docke image
+
+```
+docker pull ghcr.io/butchtm/povmap-jupyter:latest
+
+```
+
+* Run jupyter (read-only notebooks with caching)
+
+```
+docker run -v povmap-data:/root/povmap/data -p 8888:8888 ghcr.io/butchtm/povmap-jupyter
+
+```
+* Run generate grids and rollout
+
+```
+docker run -it -v povmap-data:/root/povmap/data ghcr.io/butchtm/povmap-jupyter "python scripts/run_rollout.py"
 ```
