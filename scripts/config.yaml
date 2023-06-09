@@ -1,0 +1,30 @@
+single-country:
+  - name: "timor-leste"
+    code: "tl"
+    country-osm: "east-timor"
+    model-weights-url: "https://drive.google.com"
+    dhs-stata-prefix: "dhs/tl/TLHR71DT/TLHR71DT"
+    dhs-geo-prefix: "dhs/tl/TLGE71FL/TLGE71FL"
+
+  - name: "philippines"
+    code: "ph"
+    country-osm: "philippines"
+    model-weights-url: "https://drive.google.com"
+    dhs-stata-prefix: "dhs/ph/TLHR71DT"
+    dhs-geo-prefix: "dhs/ph/TLGE71FL"
+
+  - name: "cambodia"
+    code: "kh"
+    country-osm: "cambodia"
+    model-weights-url: "https://drive.google.com"
+    dhs-stata-prefix: "dhs/tl/TLHR71DT"
+    dhs-geo-prefix: "dhs/tl/TLGE71FL"
+
+  - name: "philippines"
+    code: "ph"
+    country-osm: "philippines"
+    model-weights-url: "https://drive.google.com"
+    dhs-stata-prefix: "dhs/ph/TLHR71DT"
+    dhs-geo-prefix: "dhs/ph/TLGE71FL"
+
+
