@@ -129,7 +129,16 @@ docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebook
 ```
 docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/3_rollout_model.ipynb ./output-notebooks/kh_3_rollout_model.ipynb -p COUNTRY_CODE kh -p COUNTRY_OSM cambodia  -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2014 -p ROLLOUT_DATE 2023-05-23"
 ```
+## Simplified Run Rollout commands
 
+* Run generate grids for TL
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/2_generate_grids.ipynb ./output-notebooks/tl_2_generate_grids.ipynb -p COUNTRY_CODE tl -p ROLLOUT_DATE 2023-05-23"
+```
+* Run rollout-model for TL using previously trained model
+```
+docker run  -v $(pwd)/notebooks:/root/povmap/notebooks -v $(pwd)/output-notebooks:/root/povmap/output-notebooks -v $HOME/.cache:/root/.cache -v $HOME/.cache/geowrangler:/root/.geowrangler -v $(pwd)/eog_cache:/root/.eog_creds -v $(pwd)/data:/root/povmap/data -e EOG_USER -e EOG_PASSWORD  povmap-test "papermill ./notebooks/single-country/3_rollout_model.ipynb ./output-notebooks/tl_3_rollout_model.ipynb -p COUNTRY_CODE tl -p COUNTRY_OSM east-timor  -p OOKLA_YEAR 2019 -p NIGHTLIGHTS_YEAR 2016 -p ROLLOUT_DATE 2023-05-23"
+```
 ### Simplified run docker commands
 
 * Create a persistent volume
