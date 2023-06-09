@@ -38,5 +38,7 @@ RUN mkdir -p /root/povmap/data/cache/geowrangler &&\
  mkdir -p /root/povmap/data/eog_creds &&\
  ln -s /root/povmap/data/eog_creds /root/.eog_creds
 VOLUME /root/povmap/data
+# ensure pygeos-shapely incompatibility warning goes away 
+ENV USE_PYGEOS=0
 # CMD ["python scripts/run_rollout.py"]
 CMD ["jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''"]
