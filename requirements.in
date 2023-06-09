@@ -21,6 +21,7 @@ geopandas
 git+https://github.com/thinkingmachines/geowrangler.git@feat/optimize-bingtilegrid
 haversine
 hdx-python-api
+ipython==8.14.0
 jupyterlab==3.6.4
 jupyterlab-vim
 libclang
