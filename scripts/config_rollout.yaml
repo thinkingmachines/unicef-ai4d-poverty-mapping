@@ -11,7 +11,7 @@ questions-part1:
   
   - name: "country_name"
     type: "input"
-    message: "Enter country to rollout"
+    message: "Enter country to rollout (in lowercase)"
     default: ""
   - name: "rollout_date"
     type: "input"

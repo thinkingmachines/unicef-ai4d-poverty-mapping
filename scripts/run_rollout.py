@@ -4,7 +4,9 @@ import yaml
 from datetime import datetime
 from PyInquirer.prompt import prompt
 from PyInquirer import print_json
+from prompt_toolkit.validation import Validator, ValidationError
 import povertymapping.iso3 as iso3 
+import re as regex
 
 RUN_CODE = True
 DEBUG = True
@@ -27,6 +29,50 @@ def override_defaults(questions, answers, update_list):
         )
         if question:
             question["default"] = answers[name]
+class CountryNameValidator(Validator):
+    def validate(self, document):
+        ok =  iso3.is_valid_country_name(document.text)
+        if not ok:
+            raise ValidationError(
+                message='Enter a valid country name (lower case only)',
+                cursor_position=len(document.text))  # Move cursor to end
+
+class RequiredValidator(Validator):
+    def validate(self, document):
+        ok =  len(document.text) > 0
+        if not ok:
+            raise ValidationError(
+                message='Enter a value (required)',
+                cursor_position=len(document.text))  # Move cursor to end
+
+date_pat = r"\d{4}-\d{2}-\d{2}"
+class DateFormatValidator(Validator):
+    def validate(self, document):
+        ok =  regex.match(date_pat, document.text)
+        if not ok:
+            raise ValidationError(
+                message='Enter a valid date (yyyy-mm-dd)',
+                cursor_position=len(document.text))  # Move cursor to end
+
+year_pat = r"\d{4}"
+class YearValidator(Validator):
+    def validate(self, document):
+        ok =  regex.match(year_pat, document.text)
+        if not ok:
+            raise ValidationError(
+                message='Enter a valid year (yyyy)',
+                cursor_position=len(document.text))  # Move cursor to end
+
+url_pat = r"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
+# see https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
+
+class UrlValidator(Validator):
+    def validate(self, document):
+        ok =  regex.match(url_pat, document.text)
+        if not ok:
+            raise ValidationError(
+                message='Enter a valid url (https://www.example.com)',
+                cursor_position=len(document.text))  # Move cursor to end
 
 def main():
     if not RUN_CODE:
@@ -56,12 +102,23 @@ def main():
     # prompt for country
     # prompt for rollout_date
     questions1 = config_rollout.get("questions-part1")
+    for q in questions1:
+        q["validate"] = RequiredValidator
     # override defaults
     rollout_date_question = next(
         (q for q in questions1 if q["name"] == "rollout_date"), None
     )
     if rollout_date_question:
         rollout_date_question["default"] = datetime.now().strftime("%Y-%m-%d")
+        rollout_date_question["validate"] = DateFormatValidator
+
+
+    country_name_question = next(
+        (q for q in questions1 if q["name"] == "country_name"), None
+    )
+    if country_name_question:
+        country_name_question["validate"] = CountryNameValidator
+
 
     # print_json(dict(questions=questions))
     answers = prompt(questions1, answers=answers)
@@ -88,6 +145,17 @@ def main():
     print(f"Model type: {model_type}")
     # prompt for country-code, country-osm, model-gdrive-url, nightlights-year, ookla-year
     questions2 = config_rollout.get("questions-part2")
+    for q in questions2:
+        q["validate"] = RequiredValidator
+    model_weights_question = next(
+        (q for q in questions2 if q["name"] == "model_weights_url"), None
+    )
+    if model_weights_question:
+        model_weights_question["validate"] = UrlValidator
+    years_questions = [q for q in questions2 if q["name"] in ["nightlights_year","ookla_year"]]
+    for q in years_questions:
+        q["validate"] = YearValidator
+
     override_defaults(questions2, answers, ["country_code", "country_osm", "model_weights_url", "nightlights_year", "ookla_year"])
     answers = prompt(questions2, answers=answers)
 
