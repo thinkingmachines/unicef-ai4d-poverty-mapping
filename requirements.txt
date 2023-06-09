@@ -670,7 +670,7 @@ pygments==2.15.1
     #   nbdime
     #   pyinquirer
     #   rich
-pyinquirer==1.0.3
+pyinquirer @ git+https://github.com/butchtm/PyInquirer.git
     # via -r requirements.in
 pyopenssl==23.2.0
     # via
@@ -754,8 +754,6 @@ ratelimit==2.2.1
     # via hdx-python-utilities
 ray[tune]==2.4.0
     # via tune-sklearn
-regex==2023.6.3
-    # via pyinquirer
 requests[socks]==2.31.0
     # via
     #   ckanapi

@@ -42,7 +42,9 @@ pytest-cov
 pytest-mock
 pytest-xdist
 pyyaml
-pyinquirer
+# pyinquirer 
+# replace with dev forked version 
+git+https://github.com/butchtm/PyInquirer.git
 rasterio
 rasterstats
 rio-cogeo
