@@ -109,7 +109,7 @@ Our next step is to train a final model on all 4 countries' data, and use it on 
 
 | Country   | Reference Data                        |   Admin Level   |   N | Spearman Rank Correlation |
 |-----------|---------------------------------------|:---------------:|----:|--------------------------:|
-| Indonesia | SUSENAS-derived Relative Wealth Index | City / District | 514 |                      0.72 |
-| Laos      | International Wealth Index            |     Province    |  18 |                      0.75 |
-| Malaysia  | Poverty Headcount                     |      State      |  16 |                      0.78 |
-| Average   |                                       |                 |     |                      0.75 |
+| Indonesia | 2018-2019 SUSENAS-derived Relative Wealth Index | City / District | 514 |                      0.72 |
+| Laos      | 2017 UNICEF MICS-derived International Wealth Index |     Province    |  18 |                      0.84 |
+| Malaysia  | 2016 Household Expenditure Survey (Mean) |      State      |  16 |                      0.76 |
+| Average   |                                       |                 |     |                      0.77 |
