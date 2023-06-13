@@ -31,15 +31,16 @@ We validated our model rollout results with the best available reference wealth 
 
 |Country|Reference Comparison Data|Granularity|# of Evaluation Areas|Spearman Rank Correlation|
 |---|---|---|---|---|
-|Indonesia|[Susenas RWI](https://www.frontiersin.org/articles/10.3389/fdata.2023.1054156/full)|Admin Level 2 (City/Regency)|513|0.72|
-|Malaysia|Relative poverty by State|Admin Level 1 (State / Federal Territory)|16|0.78|
-|Laos|MICS Survey IWI (Asset-based index)|Admin Level 1 (Province)|17|0.75|
+|Indonesia|[2018-2019 SUSENAS-derived Relative Wealth Index](https://www.frontiersin.org/articles/10.3389/fdata.2023.1054156/full)|Admin Level 2 (City/Regency)|513|0.72|
+|Laos|[2017 UNICEF MICS-derived International Wealth Index](https://globaldatalab.org/areadata/table/iwi/)|Admin Level 1 (Province)|17|0.84|
+|Malaysia|[2016 Household Expenditure Survey (Mean)](https://www.epu.gov.my/sites/default/files/2020-08/Jadual%201_Perbelanjaan%20penggunaan%20isi%20rumah%20bulanan%20penengah%20dan%20purata%20mengikut%20negeri%2C%20Malaysia%2C%202004-2019.pdf)|Admin Level 1 (State / Federal Territory)|16|0.76|
 
 ![Indonesia Model Map Comparison with Susenas RWI (reference) (Rank Correlation: 0.72)](/notebooks/2023-03-15-rollout-output-comparisons/id/id_rank_comparison.png)
 
-![Malaysia Model Map Comparison with Relative Poverty (reference) (Rank Correlation: 0.78)](/notebooks/2023-03-15-rollout-output-comparisons/my/my_rank_comparison.png)
+![Laos Model Map Comparison with MICS IWI (Rank Correlation: 0.84)](/notebooks/2023-03-15-rollout-output-comparisons/la/la_rank_comparison.png)
 
-![Laos Model Map Comparison with MICS IWI (Rank Correlation: 0.75)](/notebooks/2023-03-15-rollout-output-comparisons/la/la_rank_comparison.png)
+![Malaysia Model Map Comparison with Relative Poverty (reference) (Rank Correlation: 0.76)](/notebooks/2023-03-15-rollout-output-comparisons/my/my_rank_comparison.png)
+
 
 
 ## Scaling
