@@ -26,7 +26,7 @@ def exec_pm(*args, **kwargs):
         )
         print_json(dict(args=args))
         print_json(dict(kwargs=kwargs))
-        return None
+        # return None
     return pm.execute_notebook(*args, **kwargs)
 
 
