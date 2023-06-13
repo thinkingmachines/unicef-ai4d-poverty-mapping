@@ -9,7 +9,7 @@ import povertymapping.iso3 as iso3
 import re as regex
 
 RUN_CODE = True
-DEBUG = True
+DEBUG = os.environ.get("DEBUG_NB", "False").lower() in ["true","1"]
 
 
 def exec_pm(*args, **kwargs):
