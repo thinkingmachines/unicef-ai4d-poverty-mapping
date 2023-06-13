@@ -212,8 +212,6 @@ fsspec==2023.5.0
     # via fastparquet
 gast==0.4.0
     # via tensorflow
-gdal==3.7.0
-    # via -r requirements.in
 gdown==4.7.1
     # via -r requirements.in
 geographiclib==2.0

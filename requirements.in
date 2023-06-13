@@ -12,7 +12,7 @@ fasttreeshap
 filprofiler
 fiona
 folium
-gdal
+# gdal
 gdown
 geopandas
 # geowrangler
