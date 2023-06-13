@@ -6,7 +6,7 @@ then
     then
         docker pull ghcr.io/butchtm/povmap-jupyter:latest
         docker volume create povmap-data
-        docker run -it --rm --name povmap-rollout -e DEBUG=true -v povmap-data:/root/povmap/data ghcr.io/butchtm/povmap-jupyter:latest "python scripts/run_rollout.py"
+        docker run -it --rm --name povmap-rollout -e DEBUG_NB=true -v povmap-data:/root/povmap/data ghcr.io/butchtm/povmap-jupyter:latest "python scripts/run_rollout.py"
         echo "rollout run completed. please check the rollout and output-notebooks folders in the docker volume povmap-data"
         echo "run 'copy-rollout-to-local.sh' to copy the rollout and output-notebooks to your local machine"
     else
