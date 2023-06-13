@@ -271,7 +271,7 @@ def main():
         # special case indonesia due to grid size
         input_notebook_dir = "notebooks/cross_country/id"
 
-    output_notebook_dir = f"output-notebooks/{model_type}"
+    output_notebook_dir = f"output-notebooks"
 
     stages = ["2_generate_grids", "3_rollout_model"]
     stage_params = {
