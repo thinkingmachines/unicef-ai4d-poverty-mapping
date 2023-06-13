@@ -155,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/index.html" class="sidebar-item-text sidebar-link">Main</a>
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">Main</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -198,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/sprint-2-report.html" class="sidebar-item-text sidebar-link">Cross-country Experiments Summary</a>
+  <a href="../../../sprint-2-report.html" class="sidebar-item-text sidebar-link">Cross-country Experiments Summary</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -228,7 +228,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/sprint-3-report.html" class="sidebar-item-text sidebar-link">Model Rollouts Summary</a>
+  <a href="../../../sprint-3-report.html" class="sidebar-item-text sidebar-link">Model Rollouts Summary</a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -521,53 +521,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>reload_ext autoreload</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>autoreload <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">"../../../"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.rollout_grids <span class="im">import</span> get_region_filtered_bingtile_grids, compute_raster_stats</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.hdx <span class="im">import</span> get_hdx_file</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.iso3 <span class="im">import</span> get_iso3_code</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.geoboundaries <span class="im">import</span> get_geoboundaries</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geowrangler.vector_zonal_stats <span class="im">as</span> vzs</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> spearmanr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/jace/workspace/unicef-ai4d-poverty-mapping/env/lib/python3.9/site-packages/geopandas/_compat.py:111: UserWarning: The Shapely GEOS version (3.11.1-CAPI-1.17.1) is incompatible with the GEOS version PyGEOS was compiled with (3.10.1-CAPI-1.16.0). Conversions between both will be slow.
-  warnings.warn(</code></pre>
-</div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping <span class="im">import</span> settings</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.rollout_grids <span class="im">import</span> get_region_filtered_bingtile_grids, compute_raster_stats</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.hdx <span class="im">import</span> get_hdx_file</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.iso3 <span class="im">import</span> get_iso3_code</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.geoboundaries <span class="im">import</span> get_geoboundaries</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geowrangler.vector_zonal_stats <span class="im">as</span> vzs</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> spearmanr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="set-country-specific-parameters" class="level2">
 <h2 class="anchored" data-anchor-id="set-country-specific-parameters">Set country-specific parameters</h2>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>REGION <span class="op">=</span> <span class="st">'malaysia'</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ADMIN_LVL <span class="op">=</span> <span class="st">'ADM2'</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ZOOM_LEVEL <span class="op">=</span> <span class="dv">14</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>GROUP_ZOOM_LEVEL <span class="op">=</span> <span class="dv">8</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>country_code <span class="op">=</span> get_iso3_code(REGION, code<span class="op">=</span><span class="st">'alpha-2'</span>).lower()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>REGION <span class="op">=</span> <span class="st">'malaysia'</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ADMIN_LVL <span class="op">=</span> <span class="st">'ADM2'</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ZOOM_LEVEL <span class="op">=</span> <span class="dv">14</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>GROUP_ZOOM_LEVEL <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>country_code <span class="op">=</span> get_iso3_code(REGION, code<span class="op">=</span><span class="st">'alpha-2'</span>).lower()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="read-bounds" class="level2">
 <h2 class="anchored" data-anchor-id="read-bounds">Read bounds</h2>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>bounds_file <span class="op">=</span> get_geoboundaries(region<span class="op">=</span>REGION, adm<span class="op">=</span><span class="st">'ADM1'</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>bounds_gdf <span class="op">=</span> gpd.read_file(bounds_file)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>bounds_gdf <span class="op">=</span> bounds_gdf.sort_values(<span class="st">'shapeName'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>bounds_file <span class="op">=</span> get_geoboundaries(region<span class="op">=</span>REGION, adm<span class="op">=</span><span class="st">'ADM1'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>bounds_gdf <span class="op">=</span> gpd.read_file(bounds_file)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>bounds_gdf <span class="op">=</span> bounds_gdf.sort_values(<span class="st">'shapeName'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bounds_gdf.sort_values(<span class="st">'shapeName'</span>)<span class="co">#.explore()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>bounds_gdf.sort_values(<span class="st">'shapeName'</span>)<span class="co">#.explore()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
 
 <div>
 
@@ -733,18 +730,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bounds_gdf[bounds_gdf.columns[:-1]].to_csv("./my-hes-2020.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bounds_gdf[bounds_gdf.columns[:-1]].to_csv("./my-hes-2020.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="read-reference-data" class="level2">
 <h2 class="anchored" data-anchor-id="read-reference-data">Read reference data</h2>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="op">=</span> pd.read_csv(<span class="st">"./my-hes-2020.csv"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_df <span class="op">=</span> bounds_gdf.merge(data_df, left_on<span class="op">=</span><span class="st">'shapeName'</span>, right_on<span class="op">=</span><span class="st">'province_name'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>data_df[<span class="st">'rank'</span>] <span class="op">=</span> data_df[<span class="st">'mean_total_expenditure_2016'</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>data_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="op">=</span> pd.read_csv(<span class="st">"./my-hes-2016.csv"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data_df <span class="op">=</span> bounds_gdf.merge(data_df, left_on<span class="op">=</span><span class="st">'shapeName'</span>, right_on<span class="op">=</span><span class="st">'province_name'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>data_df[<span class="st">'rank'</span>] <span class="op">=</span> data_df[<span class="st">'mean_total_expenditure_2016'</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>data_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
 
 <div>
 
@@ -964,10 +961,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="read-and-process-model-output" class="level2">
 <h2 class="anchored" data-anchor-id="read-and-process-model-output">Read and process model output</h2>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>out_gdf <span class="op">=</span> gpd.read_file(<span class="st">"../../../data/results/my/2023-02-21-my-rollout-output.geojson"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>out_gdf.head()<span class="co">#explore(column='Predicted Relative Wealth Index')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>out_gdf <span class="op">=</span> gpd.read_file(settings.ROOT_DIR<span class="op">/</span><span class="st">"notebooks/2023-02-21-cross-country-rollouts/my/2023-02-21-my-rollout-output.geojson"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>out_gdf.head()<span class="co">#explore(column='Predicted Relative Wealth Index')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
 
 <div>
 
@@ -997,7 +994,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM2</td>
       <td>1948.905696</td>
-      <td>0.376365</td>
+      <td>0.372511</td>
       <td>B</td>
       <td>POLYGON ((101.27197 2.92110, 101.27197 2.94304...</td>
     </tr>
@@ -1010,8 +1007,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM2</td>
       <td>5633.984424</td>
-      <td>0.405243</td>
-      <td>A</td>
+      <td>0.401336</td>
+      <td>B</td>
       <td>POLYGON ((101.27197 2.89915, 101.27197 2.92110...</td>
     </tr>
     <tr>
@@ -1023,8 +1020,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM2</td>
       <td>919.554096</td>
-      <td>0.323968</td>
-      <td>B</td>
+      <td>0.338976</td>
+      <td>C</td>
       <td>POLYGON ((101.27197 2.87721, 101.27197 2.89915...</td>
     </tr>
     <tr>
@@ -1036,8 +1033,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM2</td>
       <td>61.761096</td>
-      <td>0.344436</td>
-      <td>B</td>
+      <td>0.330703</td>
+      <td>C</td>
       <td>POLYGON ((101.29395 2.96498, 101.29395 2.98693...</td>
     </tr>
     <tr>
@@ -1049,7 +1046,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM2</td>
       <td>4659.531576</td>
-      <td>0.456739</td>
+      <td>0.441108</td>
       <td>A</td>
       <td>POLYGON ((101.29395 2.94304, 101.29395 2.96498...</td>
     </tr>
@@ -1058,17 +1055,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get stats for provinces (ADM1)</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>out_gdf <span class="op">=</span> vzs.create_zonal_stats(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    bounds_gdf,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    out_gdf,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    overlap_method<span class="op">=</span><span class="st">"intersects"</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    aggregations<span class="op">=</span>[{<span class="st">"column"</span>:<span class="st">'Predicted Relative Wealth Index'</span>, <span class="st">"func"</span>: <span class="st">"mean"</span>, <span class="st">"output"</span>:<span class="st">"model_wealth_index_mean"</span>}]</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>out_gdf[<span class="st">'rank'</span>] <span class="op">=</span> out_gdf[<span class="st">"model_wealth_index_mean"</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>out_gdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get stats for provinces (ADM1)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>out_gdf <span class="op">=</span> vzs.create_zonal_stats(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    bounds_gdf,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    out_gdf,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    overlap_method<span class="op">=</span><span class="st">"intersects"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    aggregations<span class="op">=</span>[{<span class="st">"column"</span>:<span class="st">'Predicted Relative Wealth Index'</span>, <span class="st">"func"</span>: <span class="st">"mean"</span>, <span class="st">"output"</span>:<span class="st">"model_wealth_index_mean"</span>}]</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>out_gdf[<span class="st">'rank'</span>] <span class="op">=</span> out_gdf[<span class="st">"model_wealth_index_mean"</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>out_gdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
 
 <div>
 
@@ -1095,8 +1092,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((104.06240 2.21794, 104.06217 2...</td>
-      <td>0.381330</td>
-      <td>9.0</td>
+      <td>0.395997</td>
+      <td>10.0</td>
     </tr>
     <tr>
       <th>11</th>
@@ -1106,7 +1103,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((99.72140 6.20837, 99.72192 6.2...</td>
-      <td>0.386537</td>
+      <td>0.408305</td>
       <td>8.0</td>
     </tr>
     <tr>
@@ -1117,8 +1114,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((101.33398 4.69564, 101.33467 4...</td>
-      <td>0.319396</td>
-      <td>14.0</td>
+      <td>0.345490</td>
+      <td>13.0</td>
     </tr>
     <tr>
       <th>2</th>
@@ -1128,7 +1125,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((101.61508 3.15348, 101.61527 3...</td>
-      <td>0.606565</td>
+      <td>0.621844</td>
       <td>1.0</td>
     </tr>
     <tr>
@@ -1139,7 +1136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((115.13150 5.21699, 115.13119 5...</td>
-      <td>0.478113</td>
+      <td>0.495699</td>
       <td>4.0</td>
     </tr>
     <tr>
@@ -1150,7 +1147,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((101.85494 2.41747, 101.86035 2...</td>
-      <td>0.440914</td>
+      <td>0.453636</td>
       <td>6.0</td>
     </tr>
     <tr>
@@ -1161,8 +1158,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((101.71245 2.59533, 101.71259 2...</td>
-      <td>0.379933</td>
-      <td>10.0</td>
+      <td>0.402734</td>
+      <td>9.0</td>
     </tr>
     <tr>
       <th>10</th>
@@ -1172,8 +1169,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((101.33463 4.43296, 101.35839 4...</td>
-      <td>0.323656</td>
-      <td>13.0</td>
+      <td>0.343607</td>
+      <td>14.0</td>
     </tr>
     <tr>
       <th>14</th>
@@ -1183,7 +1180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((100.33822 5.57470, 100.33901 5...</td>
-      <td>0.519304</td>
+      <td>0.531171</td>
       <td>3.0</td>
     </tr>
     <tr>
@@ -1194,7 +1191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((100.63654 4.15716, 100.63688 4...</td>
-      <td>0.364201</td>
+      <td>0.384559</td>
       <td>11.0</td>
     </tr>
     <tr>
@@ -1205,7 +1202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((100.12039 6.42274, 100.12113 6...</td>
-      <td>0.417975</td>
+      <td>0.433818</td>
       <td>7.0</td>
     </tr>
     <tr>
@@ -1216,7 +1213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((101.65969 2.89914, 101.66036 2...</td>
-      <td>0.554501</td>
+      <td>0.575962</td>
       <td>2.0</td>
     </tr>
     <tr>
@@ -1227,7 +1224,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((117.62919 4.20156, 117.63091 4...</td>
-      <td>0.273249</td>
+      <td>0.303807</td>
       <td>15.0</td>
     </tr>
     <tr>
@@ -1238,7 +1235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((110.29745 1.66348, 110.29677 1...</td>
-      <td>0.255029</td>
+      <td>0.290110</td>
       <td>16.0</td>
     </tr>
     <tr>
@@ -1249,7 +1246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((101.24990 2.90772, 101.24699 2...</td>
-      <td>0.454382</td>
+      <td>0.467446</td>
       <td>5.0</td>
     </tr>
     <tr>
@@ -1260,7 +1257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>MYS</td>
       <td>ADM1</td>
       <td>MULTIPOLYGON (((103.67313 4.80327, 103.67341 4...</td>
-      <td>0.347883</td>
+      <td>0.368482</td>
       <td>12.0</td>
     </tr>
   </tbody>
@@ -1271,11 +1268,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="compare-model-output-vs-reference" class="level2">
 <h2 class="anchored" data-anchor-id="compare-model-output-vs-reference">Compare model output vs reference</h2>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>compare_gdf <span class="op">=</span> out_gdf[[<span class="st">'shapeISO'</span>,<span class="st">'shapeName'</span>,<span class="st">'model_wealth_index_mean'</span>,<span class="st">'rank'</span>, <span class="st">'geometry'</span>]].merge(<span class="op">\</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                    data_df[[<span class="st">'shapeISO'</span>,<span class="st">'shapeName'</span>,<span class="st">'mean_total_expenditure_2016'</span>,<span class="st">'rank'</span>]], on<span class="op">=</span><span class="st">'shapeISO'</span>, how<span class="op">=</span><span class="st">'outer'</span>, suffixes<span class="op">=</span>[<span class="st">'_reference'</span>, <span class="st">'_model'</span>]).dropna()</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>compare_gdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>compare_gdf <span class="op">=</span> out_gdf[[<span class="st">'shapeISO'</span>,<span class="st">'shapeName'</span>,<span class="st">'model_wealth_index_mean'</span>,<span class="st">'rank'</span>, <span class="st">'geometry'</span>]].merge(<span class="op">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                    data_df[[<span class="st">'shapeISO'</span>,<span class="st">'shapeName'</span>,<span class="st">'mean_total_expenditure_2016'</span>,<span class="st">'rank'</span>]], on<span class="op">=</span><span class="st">'shapeISO'</span>, how<span class="op">=</span><span class="st">'outer'</span>, suffixes<span class="op">=</span>[<span class="st">'_reference'</span>, <span class="st">'_model'</span>]).dropna()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>compare_gdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
 
 <div>
 
@@ -1298,8 +1295,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>0</th>
       <td>MY-01</td>
       <td>Johor</td>
-      <td>0.381330</td>
-      <td>9.0</td>
+      <td>0.395997</td>
+      <td>10.0</td>
       <td>MULTIPOLYGON (((104.06240 2.21794, 104.06217 2...</td>
       <td>Johor</td>
       <td>4148.38</td>
@@ -1309,7 +1306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>1</th>
       <td>MY-02</td>
       <td>Kedah</td>
-      <td>0.386537</td>
+      <td>0.408305</td>
       <td>8.0</td>
       <td>MULTIPOLYGON (((99.72140 6.20837, 99.72192 6.2...</td>
       <td>Kedah</td>
@@ -1320,8 +1317,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>2</th>
       <td>MY-03</td>
       <td>Kelantan</td>
-      <td>0.319396</td>
-      <td>14.0</td>
+      <td>0.345490</td>
+      <td>13.0</td>
       <td>MULTIPOLYGON (((101.33398 4.69564, 101.33467 4...</td>
       <td>Kelantan</td>
       <td>2874.63</td>
@@ -1331,7 +1328,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>3</th>
       <td>MY-14</td>
       <td>Kuala Lumpur</td>
-      <td>0.606565</td>
+      <td>0.621844</td>
       <td>1.0</td>
       <td>MULTIPOLYGON (((101.61508 3.15348, 101.61527 3...</td>
       <td>Kuala Lumpur</td>
@@ -1342,7 +1339,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>4</th>
       <td>MY-15</td>
       <td>Labuan</td>
-      <td>0.478113</td>
+      <td>0.495699</td>
       <td>4.0</td>
       <td>MULTIPOLYGON (((115.13150 5.21699, 115.13119 5...</td>
       <td>Labuan</td>
@@ -1353,7 +1350,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>5</th>
       <td>MY-04</td>
       <td>Malacca</td>
-      <td>0.440914</td>
+      <td>0.453636</td>
       <td>6.0</td>
       <td>MULTIPOLYGON (((101.85494 2.41747, 101.86035 2...</td>
       <td>Malacca</td>
@@ -1364,8 +1361,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>6</th>
       <td>MY-05</td>
       <td>Negeri Sembilan</td>
-      <td>0.379933</td>
-      <td>10.0</td>
+      <td>0.402734</td>
+      <td>9.0</td>
       <td>MULTIPOLYGON (((101.71245 2.59533, 101.71259 2...</td>
       <td>Negeri Sembilan</td>
       <td>3688.39</td>
@@ -1375,8 +1372,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>7</th>
       <td>MY-06</td>
       <td>Pahang</td>
-      <td>0.323656</td>
-      <td>13.0</td>
+      <td>0.343607</td>
+      <td>14.0</td>
       <td>MULTIPOLYGON (((101.33463 4.43296, 101.35839 4...</td>
       <td>Pahang</td>
       <td>3316.16</td>
@@ -1386,7 +1383,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>8</th>
       <td>MY-07</td>
       <td>Penang</td>
-      <td>0.519304</td>
+      <td>0.531171</td>
       <td>3.0</td>
       <td>MULTIPOLYGON (((100.33822 5.57470, 100.33901 5...</td>
       <td>Penang</td>
@@ -1397,7 +1394,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>9</th>
       <td>MY-08</td>
       <td>Perak</td>
-      <td>0.364201</td>
+      <td>0.384559</td>
       <td>11.0</td>
       <td>MULTIPOLYGON (((100.63654 4.15716, 100.63688 4...</td>
       <td>Perak</td>
@@ -1408,7 +1405,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>10</th>
       <td>MY-09</td>
       <td>Perlis</td>
-      <td>0.417975</td>
+      <td>0.433818</td>
       <td>7.0</td>
       <td>MULTIPOLYGON (((100.12039 6.42274, 100.12113 6...</td>
       <td>Perlis</td>
@@ -1419,7 +1416,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>11</th>
       <td>MY-16</td>
       <td>Putrajaya</td>
-      <td>0.554501</td>
+      <td>0.575962</td>
       <td>2.0</td>
       <td>MULTIPOLYGON (((101.65969 2.89914, 101.66036 2...</td>
       <td>Putrajaya</td>
@@ -1430,7 +1427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>12</th>
       <td>MY-12</td>
       <td>Sabah</td>
-      <td>0.273249</td>
+      <td>0.303807</td>
       <td>15.0</td>
       <td>MULTIPOLYGON (((117.62919 4.20156, 117.63091 4...</td>
       <td>Sabah</td>
@@ -1441,7 +1438,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>13</th>
       <td>MY-13</td>
       <td>Sarawak</td>
-      <td>0.255029</td>
+      <td>0.290110</td>
       <td>16.0</td>
       <td>MULTIPOLYGON (((110.29745 1.66348, 110.29677 1...</td>
       <td>Sarawak</td>
@@ -1452,7 +1449,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>14</th>
       <td>MY-10</td>
       <td>Selangor</td>
-      <td>0.454382</td>
+      <td>0.467446</td>
       <td>5.0</td>
       <td>MULTIPOLYGON (((101.24990 2.90772, 101.24699 2...</td>
       <td>Selangor</td>
@@ -1463,7 +1460,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>15</th>
       <td>MY-11</td>
       <td>Terengganu</td>
-      <td>0.347883</td>
+      <td>0.368482</td>
       <td>12.0</td>
       <td>MULTIPOLYGON (((103.67313 4.80327, 103.67341 4...</td>
       <td>Terengganu</td>
@@ -1475,53 +1472,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>coef, p <span class="op">=</span> spearmanr(compare_gdf[<span class="st">'mean_total_expenditure_2016'</span>], compare_gdf[<span class="st">'model_wealth_index_mean'</span>])</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>0.7823529411764706</code></pre>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coef, p <span class="op">=</span> spearmanr(compare_gdf[<span class="st">'mean_total_expenditure_2016'</span>], compare_gdf[<span class="st">'model_wealth_index_mean'</span>])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<pre><code>0.7588235294117647</code></pre>
 </div>
 </div>
 </section>
 <section id="heatmap" class="level2">
 <h2 class="anchored" data-anchor-id="heatmap">Heatmap</h2>
-<div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> despine(ax):</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"right"</span>].set_visible(<span class="va">False</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"top"</span>].set_visible(<span class="va">False</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"left"</span>].set_visible(<span class="va">False</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"bottom"</span>].set_visible(<span class="va">False</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> despine(ax):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"right"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"top"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"left"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">"bottom"</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="dv">5</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>compare_gdf.plot(</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span><span class="st">'rank_reference'</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axs[<span class="dv">0</span>],</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"RdYlGn_r"</span>,</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    legend_kwds<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">0.3</span>},</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>despine(axs[<span class="dv">0</span>])</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>compare_gdf.plot(</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span><span class="st">'rank_model'</span>,</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axs[<span class="dv">1</span>],</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"RdYlGn_r"</span>,</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    legend_kwds<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">0.3</span>},</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>despine(axs[<span class="dv">1</span>])</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">'Reference'</span>)</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">'Predicted'</span>)</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co"># leg1 = axs[0].get_legend()</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="co"># leg1.set_title("Rank")</span></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co"># leg2 = axs[1].get_legend()</span></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="co"># leg2.set_title("Rank")# </span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="co">#fig.suptitle('Wealth index rank')</span></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="dv">5</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>compare_gdf.plot(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span><span class="st">'rank_reference'</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axs[<span class="dv">0</span>],</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"RdYlGn_r"</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    legend_kwds<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">0.3</span>},</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>despine(axs[<span class="dv">0</span>])</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>compare_gdf.plot(</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span><span class="st">'rank_model'</span>,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axs[<span class="dv">1</span>],</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"RdYlGn_r"</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    legend_kwds<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">0.3</span>},</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>despine(axs[<span class="dv">1</span>])</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">'Reference'</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">'Predicted'</span>)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co"># leg1 = axs[0].get_legend()</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co"># leg1.set_title("Rank")</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co"># leg2 = axs[1].get_legend()</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co"># leg2.set_title("Rank")# </span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co">#fig.suptitle('Wealth index rank')</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>plt.savefig(fname<span class="op">=</span><span class="st">"my_rank_comparison.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="1_my_compare_rank_province_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
 </div>
