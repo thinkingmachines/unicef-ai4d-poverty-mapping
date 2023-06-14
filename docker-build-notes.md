@@ -165,3 +165,9 @@ docker run -v povmap-data:/root/povmap/data -p 8888:8888 ghcr.io/butchtm/povmap-
 ```
 docker run -it -v povmap-data:/root/povmap/data ghcr.io/butchtm/povmap-jupyter "python scripts/run_rollout.py"
 ```
+
+## Run remote localscripts via curl
+```
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/feat/run-in-docker/localscripts/run-povmap-rollout.sh > run-povmap-rollout.sh && \ 
+chmod +x ./run-povmap-rollout.sh && \
+./run-povmap-rollout.sh
