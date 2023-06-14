@@ -183,3 +183,37 @@ quarto publish gh-pages --no-browser
 * **Pro-tip** : If you are using VS Code as your code editor, install the [Quarto extension](https://marketplace.visualstudio.com/items?itemName=quarto.quarto) to make editing/previewing the doc site a lot smoother.
 
 
+## Running in Docker
+
+We have created a docker image (`ghcr.io/butchtm/povmap-jupyter`) of the poverty mapping repo for those who want to view the notebooks or rollout the models for new countries and new data (e.g. new nightlights and ookla years)
+
+To run these docker images please download the following scripts to run on your linux or wsl instances:
+
+* This will run a jupyter notebook environment containing the notebooks at http://localhost:8888
+
+```bash
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/feat/run-in-docker/localscripts/run-povmap-jupyter-notebook.sh > run-povmap-jupyter-notebook.sh && \
+chmod +x run-povmap-jupyter-notebook.sh && \
+./run-povmap-jupyter-notebook.sh
+```
+* This will run an interactive dialog that will rollout the poverty mapping models for different countries
+and different time periods
+
+```bash
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/feat/run-in-docker/localscripts/run-povmap-rollout.sh > run-povmap-rollout.sh && \
+chmod +x run-povmap-rollout.sh && \
+./run-povmap-rollout.sh
+```
+
+* This will copy the contents of the rollout notebooks and rollout data into your current directory (after running a new rollout) to `rollout-data` and `rollout-output-notebooks`
+
+```bash
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/feat/run-in-docker/localscripts/copy-rollout-to-local.sh > copy-rollout-to-local.sh && \
+chmod +x copy-rollout-to-local.sh && \
+./copy-rollout-to-local.sh
+```
+
+> Note: The scripts create and use a docker volume named `povmap-data` which contains the outputs as well as caches the data used for generating the features from public datasets
+
+> Note: Rolling out the notebooks requires downloading EOG nightlights data so a user id and password are required as detailed in the previous section above.
+
