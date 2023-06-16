@@ -37,7 +37,7 @@ pandas
 papermill
 pre-commit
 pyarrow
-pygeos --no-binary pygeos
+pygeos==0.12.0 --no-binary pygeos
 pytest
 pytest-cov
 pytest-mock
@@ -52,7 +52,7 @@ rio-cogeo
 scikit-learn
 seaborn
 shap
-shapely --no-binary shapely
+shapely==1.8.4 --no-binary shapely
 tqdm
 tune-sklearn
 typed-ast

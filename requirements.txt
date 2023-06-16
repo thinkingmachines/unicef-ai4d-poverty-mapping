@@ -548,7 +548,6 @@ numpy==1.23.5
     #   scipy
     #   seaborn
     #   shap
-    #   shapely
     #   snuggs
     #   tensorboard
     #   tensorboardx
@@ -838,7 +837,7 @@ shap==0.41.0
     # via
     #   -r requirements.in
     #   fasttreeshap
-shapely==2.0.1
+shapely==1.8.4
     # via
     #   -r requirements.in
     #   geopandas
