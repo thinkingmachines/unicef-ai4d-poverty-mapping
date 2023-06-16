@@ -12,6 +12,12 @@ RUN_CODE = True
 DEBUG = os.environ.get("DEBUG_NB", "False").lower() in ["true","1"]
 
 
+def encode_password(password):
+    if len(password) > 2:
+        enc_pwd = password[0] + '*' * (len(password)-2) + password[-1] 
+        return enc_pwd
+    return "*" * len(password)
+
 def exec_pm(*args, **kwargs):
     debug = kwargs.pop("debug", False)
     if debug:
@@ -20,7 +26,7 @@ def exec_pm(*args, **kwargs):
             dict(
                 environ=dict(
                     EOG_USER=os.environ.get("EOG_USER", None),
-                    EOG_PASSWORD=os.environ.get("EOG_PASSWORD", None),
+                    EOG_PASSWORD=encode_password(os.environ.get("EOG_PASSWORD", "None")),
                 )
             )
         )
@@ -198,7 +204,7 @@ def prompt_answers(config_rollout, config, answers, use_default=True):
 
 def confirm_answers(answers):
     password = answers["eog_password"]
-    enc_pwd = password[0] + '*'* (len(password)-2) + password[-1] 
+    enc_pwd = encode_password(password)
     confirm_str = f"""
     Your current settings:
     eog_user_id: {answers["eog_user_id"]}
