@@ -213,6 +213,8 @@ chmod +x copy-rollout-to-local.sh && \
 ./copy-rollout-to-local.sh
 ```
 
+> Note: These commands assume that `curl` is installed and will download the scripts, change their permissions to executable as well as run them. After the initial download, you can just rerun the scripts which would would have been downloaded to your current directory.
+
 > Note: The scripts create and use a docker volume named `povmap-data` which contains the outputs as well as caches the data used for generating the features from public datasets
 
 > Note: Rolling out the notebooks requires downloading EOG nightlights data so a user id and password are required as detailed in the previous section above.
