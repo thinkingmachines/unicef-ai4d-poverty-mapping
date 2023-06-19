@@ -183,32 +183,32 @@ quarto publish gh-pages --no-browser
 * **Pro-tip** : If you are using VS Code as your code editor, install the [Quarto extension](https://marketplace.visualstudio.com/items?itemName=quarto.quarto) to make editing/previewing the doc site a lot smoother.
 
 
-## Running in Docker
+## ☸️Running in Docker 
 
-We have created a docker image (`ghcr.io/butchtm/povmap-jupyter`) of the poverty mapping repo for those who want to view the notebooks or rollout the models for new countries and new data (e.g. new nightlights and ookla years)
+We have created a [docker image](https://github.com/butchtm/unicef-ai4d-poverty-mapping/pkgs/container/povmap-jupyter) (`ghcr.io/butchtm/povmap-jupyter`) of the poverty mapping repo for those who want to view the notebooks or rollout the models for new countries and new data (e.g. new nightlights and ookla years)
 
-To run these docker images please download the following scripts to run on your linux or wsl instances:
+To run these docker images please copy and the following scripts to run on your linux, mac or windows (wsl) terminals:
 
-* This will run a jupyter notebook environment containing the notebooks at http://localhost:8888
+* **View Jupyter notebooks (Read-only)** This will run a jupyter notebook environment containing the poverty mapping notebooks at http://localhost:8888/lab/tree/notebooks
 
 ```bash
-curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/feat/run-in-docker/localscripts/run-povmap-jupyter-notebook.sh > run-povmap-jupyter-notebook.sh && \
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/main/localscripts/run-povmap-jupyter-notebook.sh > run-povmap-jupyter-notebook.sh && \
 chmod +x run-povmap-jupyter-notebook.sh && \
 ./run-povmap-jupyter-notebook.sh
 ```
-* This will run an interactive dialog that will rollout the poverty mapping models for different countries
+* **Country-wide rollout** This will run an interactive dialog that will rollout the poverty mapping models for different countries
 and different time periods
 
 ```bash
-curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/feat/run-in-docker/localscripts/run-povmap-rollout.sh > run-povmap-rollout.sh && \
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/main/localscripts/run-povmap-rollout.sh > run-povmap-rollout.sh && \
 chmod +x run-povmap-rollout.sh && \
 ./run-povmap-rollout.sh
 ```
 
-* This will copy the contents of the rollout notebooks and rollout data into your current directory (after running a new rollout) to `rollout-data` and `rollout-output-notebooks`
+* **Copy rollout to local directory** This will copy the contents of the rollout notebooks and rollout data into your current directory (after running a new rollout) to `rollout-data` and `rollout-output-notebooks`
 
 ```bash
-curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/feat/run-in-docker/localscripts/copy-rollout-to-local.sh > copy-rollout-to-local.sh && \
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/main/localscripts/copy-rollout-to-local.sh > copy-rollout-to-local.sh && \
 chmod +x copy-rollout-to-local.sh && \
 ./copy-rollout-to-local.sh
 ```
