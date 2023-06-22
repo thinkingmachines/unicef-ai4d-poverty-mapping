@@ -1,0 +1,45 @@
+questions-part1:
+  - name: "eog_user_id"
+    type: "input"
+    message: "Enter eog user id"
+    default: ""
+
+  - name: "eog_password"
+    type: "password"
+    message: "Enter eog password"
+    default: ""
+  
+  - name: "country_name"
+    type: "input"
+    message: "Enter country to rollout (in lowercase)"
+    default: ""
+  - name: "rollout_date"
+    type: "input"
+    message: "Enter rollout date (yyyy-mm-dd) "
+    default: ""
+
+questions-part2:
+  - name: "country_code"
+    type: "input"
+    message: "Enter country code"
+    default: ""
+
+  - name: "country_osm"
+    type: "input"
+    message: "Enter OSM country name"
+    default: ""
+  
+  - name: "model_weights_url"
+    type: "input"
+    message: "Enter url to model weights"
+    default: ""
+  - name: "ookla_year"
+    type: "input"
+    message: "Enter ookla year"
+    default: ""
+  - name: "nightlights_year"
+    type: "input"
+    message: "Enter nightlights year"
+    default: ""
+
+

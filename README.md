@@ -183,3 +183,39 @@ quarto publish gh-pages --no-browser
 * **Pro-tip** : If you are using VS Code as your code editor, install the [Quarto extension](https://marketplace.visualstudio.com/items?itemName=quarto.quarto) to make editing/previewing the doc site a lot smoother.
 
 
+## ☸️Running in Docker 
+
+We have created a [docker image](https://github.com/butchtm/unicef-ai4d-poverty-mapping/pkgs/container/povmap-jupyter) (`ghcr.io/butchtm/povmap-jupyter`) of the poverty mapping repo for those who want to view the notebooks or rollout the models for new countries and new data (e.g. new nightlights and ookla years)
+
+To run these docker images please copy and paste the following scripts to run on your linux, mac or windows (wsl) terminals:
+
+* **View Jupyter notebooks (Read-only)** This will run a jupyter notebook environment containing the poverty mapping notebooks at http://localhost:8888/lab/tree/notebooks
+
+```bash
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/main/localscripts/run-povmap-jupyter-notebook.sh > run-povmap-jupyter-notebook.sh && \
+chmod +x run-povmap-jupyter-notebook.sh && \
+./run-povmap-jupyter-notebook.sh
+```
+* **Country-wide rollout** This will run an interactive dialog that will rollout the poverty mapping models for different countries
+and different time periods
+
+```bash
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/main/localscripts/run-povmap-rollout.sh > run-povmap-rollout.sh && \
+chmod +x run-povmap-rollout.sh && \
+./run-povmap-rollout.sh
+```
+
+* **Copy rollout to local directory** This will copy the contents of the rollout notebooks and rollout data into your current directory (after running a new rollout) to `rollout-data` and `rollout-output-notebooks`
+
+```bash
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/main/localscripts/copy-rollout-to-local.sh > copy-rollout-to-local.sh && \
+chmod +x copy-rollout-to-local.sh && \
+./copy-rollout-to-local.sh
+```
+
+> Note: These commands assume that `curl` is installed and will download the scripts, change their permissions to executable as well as run them. After the initial download, you can just rerun the scripts which would would have been downloaded to your current directory.
+
+> Note: The scripts create and use a docker volume named `povmap-data` which contains the outputs as well as caches the data used for generating the features from public datasets
+
+> Note: Rolling out the notebooks requires downloading EOG nightlights data so a user id and password are required as detailed in the previous section above.
+

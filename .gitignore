@@ -203,3 +203,4 @@ test_data/test_outputs
 *.pkl
 *.csv
 *.json
+output-notebooks/
