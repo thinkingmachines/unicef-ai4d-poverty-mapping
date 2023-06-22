@@ -187,7 +187,7 @@ quarto publish gh-pages --no-browser
 
 We have created a [docker image](https://github.com/butchtm/unicef-ai4d-poverty-mapping/pkgs/container/povmap-jupyter) (`ghcr.io/butchtm/povmap-jupyter`) of the poverty mapping repo for those who want to view the notebooks or rollout the models for new countries and new data (e.g. new nightlights and ookla years)
 
-To run these docker images please copy and the following scripts to run on your linux, mac or windows (wsl) terminals:
+To run these docker images please copy and paste the following scripts to run on your linux, mac or windows (wsl) terminals:
 
 * **View Jupyter notebooks (Read-only)** This will run a jupyter notebook environment containing the poverty mapping notebooks at http://localhost:8888/lab/tree/notebooks
 
