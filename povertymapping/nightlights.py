@@ -255,6 +255,7 @@ def clip_raster(input_raster_file, dest, bounds, buffer=None):
 
 URLFORM = {
     "annual_v21": "{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp_{year}{year_suffix}_{coverage}_{vcmcfg}_{process_suffix}.{viirs_data_type}.dat.tif.gz",
+    "annual_v22": "{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp-j01_{year}{year_suffix}_{coverage}_{vcmcfg}_{process_suffix}.{viirs_data_type}.dat.tif.gz",
     "annual_v2": "{ntlights_base_url}/{product}/{version}0/{year}/VNL_{version}_npp_{year}{year_suffix}_{coverage}_{vcmcfg}_{process_suffix}.{viirs_data_type}.dat.tif.gz",
 }
 
@@ -272,6 +273,7 @@ EOG_VIIRS_DATA_TYPE = SimpleNamespace(
 EOG_PRODUCT = SimpleNamespace(ANNUAL="annual")
 EOG_PRODUCT_VERSION = SimpleNamespace(
     VER21="v21",
+    VER22="v22"
 )
 EOG_COVERAGE = SimpleNamespace(GLOBAL="global")
 
@@ -287,18 +289,27 @@ def make_url(
     vcmcfg="vcmslcfg",
 ):
     year_suffix = ""
+    
+    if year >= 2022:
+        version = EOG_PRODUCT_VERSION.VER22
+        
     if type(year) != str:
         year = str(year)
 
-    if product == "annual" and version == "v21":
-        if int(year) < 2012 or int(year) > 2021:
-            raise ValueError(f"No {product} {version} EOG data for {year}")
+    if product == "annual":
+        if version == "v21":
+            if int(year) < 2012 or int(year) > 2021:
+                raise ValueError(f"No {product} {version} EOG data for {year}")
+            if year == "2012":
+                year_suffix = "04-201303"
+            if year in ["2012", "2013"]:
+                vcmcfg = "vcmcfg"
+        elif version == "v22":
+            if int(year) < 2021:
+                raise ValueError(f"No {product} {version} EOG data for {year}")
+            if year == "2022":
+                process_suffix = "c202303062300"
 
-        if year == "2012":
-            year_suffix = "04-201303"
-        if year in ["2012", "2013"]:
-            vcmcfg = "vcmcfg"
-    #
     url_format = URLFORM.get(f"{product}_{version}", None)
     if url_format is None:
         raise ValueError(f"Unsupported product version {product} {version}")
@@ -315,7 +326,6 @@ def make_url(
     )
     url = url_format.format(**format_params)
     return url
-
 
 def make_clip_hash(
     year,
@@ -369,6 +379,7 @@ def generate_clipped_raster(
         process_suffix=process_suffix,
         vcmcfg=vcmcfg,
     )
+
     parsed_url = urlparse(viirs_url)
     viirs_zipped_filename = Path(os.path.basename(parsed_url.path)).name
     viirs_unzip_filename = ".".join(viirs_zipped_filename.split(".")[:-1])  # remove .gz
@@ -491,6 +502,9 @@ def generate_nightlights_feature(
     column="avg_rad",
     copy=False,
 ):
+    if year >= 2022:
+        version=EOG_PRODUCT_VERSION.VER22
+    
     clipped_raster_file = get_clipped_raster(
         year,
         aoi.total_bounds,
