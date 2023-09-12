@@ -2,7 +2,7 @@
 title: UNICEF AI4D Relative Wealth
 ---
 
-Funded by [UNICEF as part of the AI Research Bank for Development (AI4D) program](https://www.unicefinnovationfund.org/broadcast/expert-posts/thinking-machines-build-southeast-asia-ai-research-bank-development-ai4d), this project explored the use of purely open datasets and low-cost Machine Learning models for poverty mapping estimation across 9 Southeast Asian countries:
+Funded by [UNICEF as part of the AI ML Web Catalog for Development (AI4D) program](https://www.unicefinnovationfund.org/broadcast/expert-posts/thinking-machines-build-southeast-asia-ai-research-bank-development-ai4d), this project explored the use of purely open datasets and low-cost Machine Learning models for poverty mapping estimation across 9 Southeast Asian countries:
 
 - Cambodia
 - Myanmar
@@ -21,7 +21,7 @@ We hope that our work can serve as a baseline for other Data Scientists to furth
 - [Web Map Demo](https://studio.foursquare.com/public/590c4ab2-b855-463a-90dd-9917b97b8b57) of our wealth estimates.
 - [GitHub Repo](https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping) containing all code needed to replicate model training and rollout for all 9 SEA countries
 - [Google Drive Folder](https://drive.google.com/drive/u/0/folders/1QX0xJc6MHxY7dzIsVMDm5TH0F-NwXhBW) that contains all output data and intermediate artifacts (e.g. training datasets, models)
-    - *Note: These artifacts are also hosted on the [AI for Development (AI4D) Research Bank](https://thinkingmachines.github.io/unicef-ai4d-research-bank) website.*
+    - *Note: These artifacts are also hosted on the [AI for Development (AI4D) ML Web Catalog](https://thinkingmachines.github.io/unicef-ai4d-research-bank) website.*
 
 # Replicating our work
 If you want to replicate the final models and wealth estimates, go to the ff. notebook folders:
