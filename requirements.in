@@ -16,9 +16,8 @@ folium
 gdown
 geopandas
 # geowrangler
-# git+https://github.com/thinkingmachines/geowrangler.git
+git+https://github.com/thinkingmachines/geowrangler.git
 # use latest version not yet on pypi
-git+https://github.com/thinkingmachines/geowrangler.git@feat/optimize-bingtilegrid
 haversine
 hdx-python-api
 ipython>=8.14.0,<9.0
@@ -37,7 +36,6 @@ pandas
 papermill
 pre-commit
 pyarrow
-pygeos==0.12.0 --no-binary pygeos
 pytest
 pytest-cov
 pytest-mock
@@ -52,7 +50,7 @@ rio-cogeo
 scikit-learn
 seaborn
 shap
-shapely==1.8.4 --no-binary shapely
+shapely
 tqdm
 tune-sklearn
 typed-ast
