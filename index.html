@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>UNICEF AI4D Poverty Mapping Project - UNICEF AI4D Poverty Mapping</title>
+<title>UNICEF AI4D Relative Wealth Project - UNICEF AI4D Relative Wealth</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">UNICEF AI4D Poverty Mapping</h1>
+      <h1 class="quarto-secondary-nav-title">UNICEF AI4D Relative Wealth</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -428,6 +428,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#quick-links" id="toc-quick-links" class="nav-link active" data-scroll-target="#quick-links">Quick links</a></li>
   <li><a href="#replicating-our-work" id="toc-replicating-our-work" class="nav-link" data-scroll-target="#replicating-our-work">Replicating our work</a></li>
+  <li><a href="#using-docker" id="toc-using-docker" class="nav-link" data-scroll-target="#using-docker">Using Docker</a></li>
   <li><a href="#summary-of-findings" id="toc-summary-of-findings" class="nav-link" data-scroll-target="#summary-of-findings">Summary of Findings</a>
   <ul class="collapse">
   <li><a href="#dhs-countries-cambodia-myanmar-philippines-timor-leste" id="toc-dhs-countries-cambodia-myanmar-philippines-timor-leste" class="nav-link" data-scroll-target="#dhs-countries-cambodia-myanmar-philippines-timor-leste">DHS Countries: Cambodia, Myanmar, Philippines, Timor-Leste</a></li>
@@ -445,7 +446,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">UNICEF AI4D Poverty Mapping</h1>
+<h1 class="title d-none d-lg-block">UNICEF AI4D Relative Wealth</h1>
 </div>
 
 
@@ -460,7 +461,7 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Funded by <a href="https://www.unicefinnovationfund.org/broadcast/expert-posts/thinking-machines-build-southeast-asia-ai-research-bank-development-ai4d">UNICEF as part of the AI Research Bank for Development (AI4D) program</a>, this project explored the use of purely open datasets and low-cost Machine Learning models for poverty mapping estimation across 9 Southeast Asian countries:</p>
+<p>Funded by <a href="https://stories.thinkingmachin.es/unicef-ai4d-research-bank/">UNICEF as part of the AI for Development (AI4D) program</a>, this project explored the use of purely open datasets and low-cost Machine Learning models for poverty mapping estimation across 9 Southeast Asian countries:</p>
 <ul>
 <li>Cambodia</li>
 <li>Myanmar</li>
@@ -476,11 +477,11 @@ ul.task-list li input[type="checkbox"] {
 <section id="quick-links" class="level1">
 <h1>Quick links</h1>
 <ul>
-<li><a href="(https://studio.foursquare.com/public/590c4ab2-b855-463a-90dd-9917b97b8b57)">Web Map Demo</a> of our wealth estimates.</li>
+<li><a href="https://studio.foursquare.com/public/590c4ab2-b855-463a-90dd-9917b97b8b57">Web Map Demo</a> of our wealth estimates.</li>
 <li><a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping">GitHub Repo</a> containing all code needed to replicate model training and rollout for all 9 SEA countries</li>
 <li><a href="https://drive.google.com/drive/u/0/folders/1QX0xJc6MHxY7dzIsVMDm5TH0F-NwXhBW">Google Drive Folder</a> that contains all output data and intermediate artifacts (e.g.&nbsp;training datasets, models)
 <ul>
-<li><em>Note: These will be hosted on the AI for Development (AI4D) Research Bank, which is still a work-in-progress.</em></li>
+<li><em>Note: These artifacts are also hosted on the <a href="https://thinkingmachines.github.io/unicef-ai4d-research-bank">AI for Development (AI4D) ML Web Catalog</a> website.</em></li>
 </ul></li>
 </ul>
 </section>
@@ -492,6 +493,11 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-cross-country-rollouts">2023-02-21-cross-country-rollouts</a></li>
 </ul>
 <p>These provide the code necessary to replicate our work end-to-end. The earlier notebooks are more experimental as we were developing the methodology. Note that to run them properly, you need to get DHS data yourself and set-up your local environment. Just follow the instructions in our <a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping">repo’s README</a>.</p>
+</section>
+<section id="using-docker" class="level1">
+<h1>Using Docker</h1>
+<p>We have provided a <a href="https://github.com/butchtm/unicef-ai4d-poverty-mapping/pkgs/container/povmap-jupyter">docker image</a> to make it easy to run the jupyter environment we used to build the models and as well as rollout the country-wide results.</p>
+<p>You can view our instructions on how to run the docker images <a href="https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main#running-in-docker">here</a>.</p>
 <!-- ## Methodology Summary
 The exact method and details are better seen in the notebooks. But this diagram summarizes it conceptually. Essentially, we train a model and we use it to estimate wealth across a whole country. -->
 </section>

@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.247">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>UNICEF AI4D Relative Wealth Project - Predict on rollout grids (Indonesia)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Predict on rollout grids (Indonesia)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">Main</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Sprint 1 (Individual DHS Countries)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Philippines)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_kh.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Cambodia)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_mm.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Myanmar)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html" class="sidebar-item-text sidebar-link">Model Training and Evaluation (Timor Leste)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Sprint 2 (Cross Country Experiments)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../sprint-2-report.html" class="sidebar-item-text sidebar-link">Cross-country Experiments Summary</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-24-dhs-cross-country-experiments/2023-01-24_crosscountry_initial.html" class="sidebar-item-text sidebar-link">Cross Country Model Training (Initial)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-01-index-recalculation-experiments/2023-02-06_index_recalculation.html" class="sidebar-item-text sidebar-link">Index Recalculation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.html" class="sidebar-item-text sidebar-link">Cross Country Model Training (Normalized)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Sprint 3 (Model Rollout)</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../sprint-3-report.html" class="sidebar-item-text sidebar-link">Model Rollouts Summary</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Single-country Rollouts</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Philippines</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/1_ph_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/2_ph_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/ph/3_ph_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Timor Leste</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/tl/1_tl_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/tl/2_tl_generate_grids.html" class="sidebar-item-text sidebar-link">Timor Leste Model Rollout Part 2 (Generate Roll-out Grids)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">Myanmar</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/1_mm_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/2_mm_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/mm/3_mm_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">Cambodia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/1_kh_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/2_kh_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-single-country-rollouts/kh/3_kh_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">Cross-country Rollouts</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/1_cross_country_model_train_model.html" class="sidebar-item-text sidebar-link">Train model</a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">Indonesia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/id/2_id_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/id/3_id_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">Malaysia</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/my/2_my_generate_grids.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/my/3_my_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">Laos</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/la/2_la_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/la/3_la_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">Vietnam</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/vn/2_vn_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/vn/3_vn_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">Thailand</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/th/2_th_generate_grids.html" class="sidebar-item-text sidebar-link">Generate rollout grids</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-02-21-cross-country-rollouts/th/3_th_rollout_model.html" class="sidebar-item-text sidebar-link">Predict on rollout grids</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">Cross-country Comparisons</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-03-15-rollout-output-comparisons/id/1_id_compare_rank_province.html" class="sidebar-item-text sidebar-link">Indonesia Evaluation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-03-15-rollout-output-comparisons/my/1_my_compare_rank_province.html" class="sidebar-item-text sidebar-link">Malaysia Evaluation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/2023-03-15-rollout-output-comparisons/la/1_la_compare_rank_province.html" class="sidebar-item-text sidebar-link">Laos Evaluation</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#model-prediction-on-rollout-grids-indonesia" id="toc-model-prediction-on-rollout-grids-indonesia" class="nav-link active" data-scroll-target="#model-prediction-on-rollout-grids-indonesia">Model Prediction on Rollout Grids: Indonesia</a>
+  <ul class="collapse">
+  <li><a href="#set-up-data-access" id="toc-set-up-data-access" class="nav-link" data-scroll-target="#set-up-data-access">Set up Data Access</a></li>
+  <li><a href="#set-country-specific-parameters" id="toc-set-country-specific-parameters" class="nav-link" data-scroll-target="#set-country-specific-parameters">Set country-specific parameters</a></li>
+  <li><a href="#set-model-parameters" id="toc-set-model-parameters" class="nav-link" data-scroll-target="#set-model-parameters">Set Model Parameters</a></li>
+  <li><a href="#load-country-rollout-aoi" id="toc-load-country-rollout-aoi" class="nav-link" data-scroll-target="#load-country-rollout-aoi">Load Country Rollout AOI</a></li>
+  <li><a href="#generate-features-for-rollout-aoi" id="toc-generate-features-for-rollout-aoi" class="nav-link" data-scroll-target="#generate-features-for-rollout-aoi">Generate Features For Rollout AOI</a>
+  <ul class="collapse">
+  <li><a href="#retrieve-base-data" id="toc-retrieve-base-data" class="nav-link" data-scroll-target="#retrieve-base-data">Retrieve base data</a></li>
+  <li><a href="#scale-and-clean-features" id="toc-scale-and-clean-features" class="nav-link" data-scroll-target="#scale-and-clean-features">Scale and clean features</a></li>
+  </ul></li>
+  <li><a href="#inspect-the-generated-features" id="toc-inspect-the-generated-features" class="nav-link" data-scroll-target="#inspect-the-generated-features">Inspect the generated features</a></li>
+  <li><a href="#run-model-on-aoi" id="toc-run-model-on-aoi" class="nav-link" data-scroll-target="#run-model-on-aoi">Run Model on AOI</a>
+  <ul class="collapse">
+  <li><a href="#load-model" id="toc-load-model" class="nav-link" data-scroll-target="#load-model">Load Model</a></li>
+  <li><a href="#make-predictions" id="toc-make-predictions" class="nav-link" data-scroll-target="#make-predictions">Make Predictions</a></li>
+  </ul></li>
+  <li><a href="#binning-predictions-into-wealth-categories" id="toc-binning-predictions-into-wealth-categories" class="nav-link" data-scroll-target="#binning-predictions-into-wealth-categories">Binning predictions into wealth categories</a></li>
+  <li><a href="#save-output" id="toc-save-output" class="nav-link" data-scroll-target="#save-output">Save output</a></li>
+  <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a>
+  <ul class="collapse">
+  <li><a href="#inspect-predicted-wealth-index-and-output-dataframe" id="toc-inspect-predicted-wealth-index-and-output-dataframe" class="nav-link" data-scroll-target="#inspect-predicted-wealth-index-and-output-dataframe">Inspect predicted wealth index and output dataframe</a></li>
+  <li><a href="#create-static-maps" id="toc-create-static-maps" class="nav-link" data-scroll-target="#create-static-maps">Create Static Maps</a></li>
+  <li><a href="#create-an-interactive-map" id="toc-create-an-interactive-map" class="nav-link" data-scroll-target="#create-an-interactive-map">Create an Interactive Map</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Predict on rollout grids (Indonesia)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>reload_ext autoreload</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>autoreload <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">"../../../"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gc</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> getpass</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> cx</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> loguru <span class="im">import</span> logger</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gdown</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping <span class="im">import</span> nightlights, settings</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.dhs <span class="im">import</span> generate_dhs_cluster_level_data</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.feature_engineering <span class="im">import</span> (</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    categorize_wealth_index,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    generate_features,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.iso3 <span class="im">import</span> get_region_name</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.ookla <span class="im">import</span> OoklaDataManager</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.osm <span class="im">import</span> get_osm_extent</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> povertymapping.rollout_grids <span class="im">import</span> get_region_filtered_bingtile_grids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/jc_tm/project_repos/unicef-ai4d-poverty-mapping/env/lib/python3.9/site-packages/tqdm/auto.py:22: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
+</div>
+</div>
+<section id="model-prediction-on-rollout-grids-indonesia" class="level1">
+<h1>Model Prediction on Rollout Grids: Indonesia</h1>
+<p>This notebook is the final step in the rollout and runs the final model to create relative wealth estimations over populated areas within the given country. The model predictions will have a spatial resolution of 2.4km.</p>
+<p>The <code>predicted relative wealth</code> value gives us the relative wealth level of an area compared to the rest of the country, which fixes the value range from 0 (lowest wealth) to 1 (highest wealth). In between these extremes, each area’s wealth estimate is scaled to a value between 0 and 1.</p>
+<p>The predicted relative wealth value is later binned into 5 wealth categories A-E by dividing the distribution into quintiles (every 20th percentile).</p>
+<section id="set-up-data-access" class="level2">
+<h2 class="anchored" data-anchor-id="set-up-data-access">Set up Data Access</h2>
+<p>The following cell will prompt you to enter your EOG username and password. See <a href="https://eogdata.mines.edu/products/register/">this page</a> to learn how to set-up your EOG account.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log-in using EOG credentials</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>username <span class="op">=</span> os.environ.get(<span class="st">"EOG_USER"</span>, <span class="va">None</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>username <span class="op">=</span> username <span class="cf">if</span> username <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="cf">else</span> <span class="bu">input</span>(<span class="st">"Username?"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>password <span class="op">=</span> os.environ.get(<span class="st">"EOG_PASSWORD"</span>, <span class="va">None</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>password <span class="op">=</span> password <span class="cf">if</span> password <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="cf">else</span> getpass.getpass(<span class="st">"Password?"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set save_token to True so that access token gets stored in ~/.eog_creds/eog_access_token</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>access_token <span class="op">=</span> nightlights.get_eog_access_token(username, password, save_token<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="set-country-specific-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="set-country-specific-parameters">Set country-specific parameters</h2>
+<p>For Indonesia, we need to process the OSM data per subregion, listed in <code>country_subareas_osm</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>OOKLA_YEAR <span class="op">=</span> <span class="dv">2019</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>NIGHTLIGHTS_YEAR <span class="op">=</span> <span class="dv">2019</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>MODEL_WEIGHTS_URL <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ROLLOUT_DATE <span class="op">=</span> <span class="va">None</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>COUNTRY_CODE <span class="op">=</span> <span class="st">"id"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>COUNTRY_SUBAREAS_OSM <span class="op">=</span> [</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"maluku"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sulawesi"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sumatra"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"java"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"kalimantan"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"nusa-tenggara"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"papua"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>Path('2023-02-21-id-rollout-grids.geojson')</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>DATA_DIR <span class="op">=</span> settings.DATA_DIR.resolve()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ROLLOUT_DIR <span class="op">=</span> DATA_DIR<span class="op">/</span><span class="ss">f"rollout/</span><span class="sc">{</span>COUNTRY_CODE<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ROLLOUT_DIR.mkdir(parents<span class="op">=</span><span class="va">True</span>,exist_ok<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ROLLOUT_DATE <span class="op">=</span> <span class="st">"-"</span>.join(os.getcwd().split(<span class="st">"/"</span>)[<span class="op">-</span><span class="dv">2</span>].split(<span class="st">"-"</span>)[:<span class="dv">3</span>]) <span class="cf">if</span> ROLLOUT_DATE <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> ROLLOUT_DATE</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>rollout_grids_path <span class="op">=</span> Path(<span class="ss">f"</span><span class="sc">{</span>ROLLOUT_DIR<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>ROLLOUT_DATE<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>COUNTRY_CODE<span class="sc">}</span><span class="ss">-rollout-grids.geojson"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>rollout_grids_path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="set-model-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="set-model-parameters">Set Model Parameters</h2>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model to use for prediction</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>MODEL_SAVE_PATH <span class="op">=</span> Path(<span class="ss">f"</span><span class="sc">{</span>ROLLOUT_DIR<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>ROLLOUT_DATE<span class="sc">}</span><span class="ss">-cross-country-model.pkl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#papermill_description="Load model"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> MODEL_SAVE_PATH.exists() <span class="kw">and</span> MODEL_WEIGHTS_URL <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    MODEL_SAVE_PATH.parent.mkdir(parents<span class="op">=</span><span class="va">True</span>,exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    model_path <span class="op">=</span> gdown.download(url<span class="op">=</span>MODEL_WEIGHTS_URL, fuzzy<span class="op">=</span><span class="va">True</span>, output<span class="op">=</span>MODEL_SAVE_PATH.as_posix())</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Downloaded model from url </span><span class="sc">{</span>MODEL_WEIGHTS_URL<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Using existing model on </span><span class="sc">{</span>MODEL_SAVE_PATH<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-country-rollout-aoi" class="level2">
+<h2 class="anchored" data-anchor-id="load-country-rollout-aoi">Load Country Rollout AOI</h2>
+<p>The rollout area of interest is split into 2.4km grid tiles (zoom level 14), matching the areas used during model training. The grids are also filtered to only include populated areas based on Meta’s High Resolution Settlement Layer (HRSL) data.</p>
+<p>Refer to the previous notebook <code>2_id_generate_grids.ipynb</code> for documentation on generating this grid.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>aoi <span class="op">=</span> gpd.read_file(rollout_grids_path)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>aoi.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
+RangeIndex: 161230 entries, 0 to 161229
+Data columns (total 9 columns):
+ #   Column          Non-Null Count   Dtype   
+---  ------          --------------   -----   
+ 0   quadkey         161230 non-null  object  
+ 1   shapeName       161230 non-null  object  
+ 2   shapeISO        161230 non-null  object  
+ 3   shapeID         161230 non-null  object  
+ 4   shapeGroup      161230 non-null  object  
+ 5   shapeType       161230 non-null  object  
+ 6   quadkey_level8  161230 non-null  object  
+ 7   pop_count       161230 non-null  float64 
+ 8   geometry        161230 non-null  geometry
+dtypes: float64(1), geometry(1), object(7)
+memory usage: 11.1+ MB</code></pre>
+</div>
+</div>
+</section>
+<section id="generate-features-for-rollout-aoi" class="level2">
+<h2 class="anchored" data-anchor-id="generate-features-for-rollout-aoi">Generate Features For Rollout AOI</h2>
+<p>If this is your first time running this notebook for this specific area, expect a long runtime for the following cell as it will download and cache the required datasets. It will then process the relevant features for each area specified. On subsequent runs, the runtime will be much faster as the data is already stored in your filesystem.</p>
+<section id="retrieve-base-data" class="level3">
+<h3 class="anchored" data-anchor-id="retrieve-base-data">Retrieve base data</h3>
+<p>Unlike the rollouts for the other countries, we need to generate the features in batches for Indonesia. We will first get the data per subarea, combine them, then scale them afterwards to get the final features set.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>subarea_data_list <span class="op">=</span> []</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> subarea_osm <span class="kw">in</span> COUNTRY_SUBAREAS_OSM:</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    subarea_extent <span class="op">=</span> get_osm_extent(subarea_osm)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    aoi_in_subarea <span class="op">=</span> (</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        gpd.sjoin(aoi, subarea_extent, how<span class="op">=</span><span class="st">"inner"</span>, predicate<span class="op">=</span><span class="st">"intersects"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        .drop(columns<span class="op">=</span>[<span class="st">"index_right"</span>])</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    logger.info(</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Processing aoi grids in osm_region: </span><span class="sc">{</span>subarea_osm<span class="sc">}</span><span class="ss"> (n = </span><span class="sc">{</span><span class="bu">len</span>(aoi_in_subarea)<span class="sc">}</span><span class="ss">)"</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    aoi_in_subarea <span class="op">=</span> generate_features(</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        aoi_in_subarea,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        subarea_osm,</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        ookla_year<span class="op">=</span>OOKLA_YEAR,</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        nightlights_year<span class="op">=</span>NIGHTLIGHTS_YEAR,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        scale<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        features_only<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        use_aoi_quadkey<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        aoi_quadkey_col<span class="op">=</span><span class="st">"quadkey"</span>,</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    subarea_data_list.append(aoi_in_subarea)</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all country data into a single dataframe</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>aoi_data <span class="op">=</span> gpd.GeoDataFrame(</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    pd.concat(subarea_data_list, ignore_index<span class="op">=</span><span class="va">True</span>), crs<span class="op">=</span>subarea_data_list[<span class="dv">0</span>].crs</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="co"># There may be duplicates for rows that are in between two subareas.</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="co"># For now we will just keep the first occurence</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>aoi_data <span class="op">=</span> aoi_data.drop_duplicates(<span class="st">"quadkey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-03-27 13:59:24.581 | INFO     | __main__:&lt;module&gt;:10 - Processing aoi grids in osm_region: maluku (n = 5382)
+2023-03-27 13:59:24.604 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for maluku at /home/jc_tm/.geowrangler/osm/maluku? True
+2023-03-27 13:59:24.605 | DEBUG    | povertymapping.osm:load_pois:161 - OSM POIs for maluku being loaded from /home/jc_tm/.geowrangler/osm/maluku/gis_osm_pois_free_1.shp
+2023-03-27 13:59:26.544 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for maluku at /home/jc_tm/.geowrangler/osm/maluku? True
+2023-03-27 13:59:26.545 | DEBUG    | povertymapping.osm:load_roads:180 - OSM Roads for maluku being loaded from /home/jc_tm/.geowrangler/osm/maluku/gis_osm_roads_free_1.shp
+2023-03-27 13:59:28.400 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: []
+2023-03-27 13:59:28.401 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/f27d4125b0af2f25de5887b97337dda8.csv? True
+2023-03-27 13:59:28.401 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, fixed 2019 (key: f27d4125b0af2f25de5887b97337dda8) found in filesystem. Loading in cache.
+2023-03-27 13:59:28.615 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: ['f27d4125b0af2f25de5887b97337dda8']
+2023-03-27 13:59:28.616 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/4c62be18f1160e4a59f99103821087e0.csv? True
+2023-03-27 13:59:28.617 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, mobile 2019 (key: 4c62be18f1160e4a59f99103821087e0) found in filesystem. Loading in cache.
+2023-03-27 13:59:28.942 | INFO     | povertymapping.nightlights:get_clipped_raster:414 - Retrieving clipped raster file /home/jc_tm/.geowrangler/nightlights/clip/ed850f7ba44fd077cd10cd6e138b61e6.tif
+2023-03-27 13:59:44.766 | INFO     | __main__:&lt;module&gt;:10 - Processing aoi grids in osm_region: sulawesi (n = 19539)
+2023-03-27 13:59:44.784 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for sulawesi at /home/jc_tm/.geowrangler/osm/sulawesi? True
+2023-03-27 13:59:44.785 | DEBUG    | povertymapping.osm:load_pois:161 - OSM POIs for sulawesi being loaded from /home/jc_tm/.geowrangler/osm/sulawesi/gis_osm_pois_free_1.shp
+2023-03-27 13:59:49.619 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for sulawesi at /home/jc_tm/.geowrangler/osm/sulawesi? True
+2023-03-27 13:59:49.620 | DEBUG    | povertymapping.osm:load_roads:180 - OSM Roads for sulawesi being loaded from /home/jc_tm/.geowrangler/osm/sulawesi/gis_osm_roads_free_1.shp
+2023-03-27 14:00:03.940 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: []
+2023-03-27 14:00:03.941 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/5622e1dd0f31372638f661bbaea40135.csv? True
+2023-03-27 14:00:03.941 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, fixed 2019 (key: 5622e1dd0f31372638f661bbaea40135) found in filesystem. Loading in cache.
+2023-03-27 14:00:04.724 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: ['5622e1dd0f31372638f661bbaea40135']
+2023-03-27 14:00:04.725 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/d84ecb4698fdd8b7451981e2186f43fd.csv? True
+2023-03-27 14:00:04.726 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, mobile 2019 (key: d84ecb4698fdd8b7451981e2186f43fd) found in filesystem. Loading in cache.
+2023-03-27 14:00:06.252 | INFO     | povertymapping.nightlights:get_clipped_raster:414 - Retrieving clipped raster file /home/jc_tm/.geowrangler/nightlights/clip/6011900184199ef125c4b43eb293c9ce.tif
+2023-03-27 14:00:58.617 | INFO     | __main__:&lt;module&gt;:10 - Processing aoi grids in osm_region: sumatra (n = 53233)
+2023-03-27 14:00:58.648 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for sumatra at /home/jc_tm/.geowrangler/osm/sumatra? True
+2023-03-27 14:00:58.650 | DEBUG    | povertymapping.osm:load_pois:161 - OSM POIs for sumatra being loaded from /home/jc_tm/.geowrangler/osm/sumatra/gis_osm_pois_free_1.shp
+2023-03-27 14:01:14.211 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for sumatra at /home/jc_tm/.geowrangler/osm/sumatra? True
+2023-03-27 14:01:14.212 | DEBUG    | povertymapping.osm:load_roads:180 - OSM Roads for sumatra being loaded from /home/jc_tm/.geowrangler/osm/sumatra/gis_osm_roads_free_1.shp
+2023-03-27 14:02:32.869 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: []
+2023-03-27 14:02:32.870 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/aa6272cfeac1d385e496cbf9801c587b.csv? True
+2023-03-27 14:02:32.871 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, fixed 2019 (key: aa6272cfeac1d385e496cbf9801c587b) found in filesystem. Loading in cache.
+2023-03-27 14:02:36.728 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: ['aa6272cfeac1d385e496cbf9801c587b']
+2023-03-27 14:02:36.730 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/6b857fb260ce23ac9d2ccce000c97236.csv? True
+2023-03-27 14:02:36.731 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, mobile 2019 (key: 6b857fb260ce23ac9d2ccce000c97236) found in filesystem. Loading in cache.
+2023-03-27 14:02:42.486 | INFO     | povertymapping.nightlights:get_clipped_raster:414 - Retrieving clipped raster file /home/jc_tm/.geowrangler/nightlights/clip/462205ec17044884a7f2947f4a9c234d.tif
+2023-03-27 14:05:50.721 | INFO     | __main__:&lt;module&gt;:10 - Processing aoi grids in osm_region: java (n = 22410)
+2023-03-27 14:05:50.729 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for java at /home/jc_tm/.geowrangler/osm/java? True
+2023-03-27 14:05:50.730 | DEBUG    | povertymapping.osm:load_pois:161 - OSM POIs for java being loaded from /home/jc_tm/.geowrangler/osm/java/gis_osm_pois_free_1.shp
+2023-03-27 14:05:59.508 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for java at /home/jc_tm/.geowrangler/osm/java? True
+2023-03-27 14:05:59.509 | DEBUG    | povertymapping.osm:load_roads:180 - OSM Roads for java being loaded from /home/jc_tm/.geowrangler/osm/java/gis_osm_roads_free_1.shp
+2023-03-27 14:09:44.680 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: []
+2023-03-27 14:09:44.745 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/ea8a6bb7251081d7365303983f947520.csv? True
+2023-03-27 14:09:44.746 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, fixed 2019 (key: ea8a6bb7251081d7365303983f947520) found in filesystem. Loading in cache.
+2023-03-27 14:09:55.710 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: ['ea8a6bb7251081d7365303983f947520']
+2023-03-27 14:09:55.713 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/f3c66a0775e1c5a4af8c43ac6dca90b5.csv? True
+2023-03-27 14:09:55.716 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, mobile 2019 (key: f3c66a0775e1c5a4af8c43ac6dca90b5) found in filesystem. Loading in cache.
+2023-03-27 14:10:06.291 | INFO     | povertymapping.nightlights:get_clipped_raster:414 - Retrieving clipped raster file /home/jc_tm/.geowrangler/nightlights/clip/3bccf87f95c849414e612bb8612a3133.tif
+2023-03-27 14:11:40.387 | INFO     | __main__:&lt;module&gt;:10 - Processing aoi grids in osm_region: kalimantan (n = 38920)
+2023-03-27 14:11:40.404 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for kalimantan at /home/jc_tm/.geowrangler/osm/kalimantan? True
+2023-03-27 14:11:40.404 | DEBUG    | povertymapping.osm:load_pois:161 - OSM POIs for kalimantan being loaded from /home/jc_tm/.geowrangler/osm/kalimantan/gis_osm_pois_free_1.shp
+2023-03-27 14:11:52.585 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for kalimantan at /home/jc_tm/.geowrangler/osm/kalimantan? True
+2023-03-27 14:11:52.587 | DEBUG    | povertymapping.osm:load_roads:180 - OSM Roads for kalimantan being loaded from /home/jc_tm/.geowrangler/osm/kalimantan/gis_osm_roads_free_1.shp
+2023-03-27 14:12:23.971 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: []
+2023-03-27 14:12:23.972 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/29811a88971fa6c1a87fe17b2cffa8e9.csv? True
+2023-03-27 14:12:23.974 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, fixed 2019 (key: 29811a88971fa6c1a87fe17b2cffa8e9) found in filesystem. Loading in cache.
+2023-03-27 14:12:25.523 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: ['29811a88971fa6c1a87fe17b2cffa8e9']
+2023-03-27 14:12:25.526 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/e9271eff2c0ac6181bd4de2879629cd9.csv? True
+2023-03-27 14:12:25.528 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, mobile 2019 (key: e9271eff2c0ac6181bd4de2879629cd9) found in filesystem. Loading in cache.
+2023-03-27 14:12:28.114 | INFO     | povertymapping.nightlights:get_clipped_raster:414 - Retrieving clipped raster file /home/jc_tm/.geowrangler/nightlights/clip/25512b5099d25dbebc72b632ac347d15.tif
+2023-03-27 14:14:39.138 | INFO     | __main__:&lt;module&gt;:10 - Processing aoi grids in osm_region: nusa-tenggara (n = 10460)
+2023-03-27 14:14:39.144 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for nusa-tenggara at /home/jc_tm/.geowrangler/osm/nusa-tenggara? True
+2023-03-27 14:14:39.146 | DEBUG    | povertymapping.osm:load_pois:161 - OSM POIs for nusa-tenggara being loaded from /home/jc_tm/.geowrangler/osm/nusa-tenggara/gis_osm_pois_free_1.shp
+2023-03-27 14:14:46.071 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for nusa-tenggara at /home/jc_tm/.geowrangler/osm/nusa-tenggara? True
+2023-03-27 14:14:46.072 | DEBUG    | povertymapping.osm:load_roads:180 - OSM Roads for nusa-tenggara being loaded from /home/jc_tm/.geowrangler/osm/nusa-tenggara/gis_osm_roads_free_1.shp
+2023-03-27 14:15:03.166 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: []
+2023-03-27 14:15:03.167 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/c3496f562826bb68fc2387652c1abcd4.csv? True
+2023-03-27 14:15:03.168 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, fixed 2019 (key: c3496f562826bb68fc2387652c1abcd4) found in filesystem. Loading in cache.
+2023-03-27 14:15:03.842 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: ['c3496f562826bb68fc2387652c1abcd4']
+2023-03-27 14:15:03.843 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/e5ce887b5648fec776e45071c5c9de7d.csv? True
+2023-03-27 14:15:03.843 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, mobile 2019 (key: e5ce887b5648fec776e45071c5c9de7d) found in filesystem. Loading in cache.
+2023-03-27 14:15:04.930 | INFO     | povertymapping.nightlights:get_clipped_raster:414 - Retrieving clipped raster file /home/jc_tm/.geowrangler/nightlights/clip/d96c1f5ca075585b2b98d3a6133208f6.tif
+2023-03-27 14:15:38.716 | INFO     | __main__:&lt;module&gt;:10 - Processing aoi grids in osm_region: papua (n = 11295)
+2023-03-27 14:15:38.723 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for papua at /home/jc_tm/.geowrangler/osm/papua? True
+2023-03-27 14:15:38.724 | DEBUG    | povertymapping.osm:load_pois:161 - OSM POIs for papua being loaded from /home/jc_tm/.geowrangler/osm/papua/gis_osm_pois_free_1.shp
+2023-03-27 14:15:42.485 | INFO     | povertymapping.osm:download_osm_country_data:199 - OSM Data: Cached data available for papua at /home/jc_tm/.geowrangler/osm/papua? True
+2023-03-27 14:15:42.486 | DEBUG    | povertymapping.osm:load_roads:180 - OSM Roads for papua being loaded from /home/jc_tm/.geowrangler/osm/papua/gis_osm_roads_free_1.shp
+2023-03-27 14:15:45.547 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: []
+2023-03-27 14:15:45.549 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/c324fe4c202355c02f43820ab90e7e8e.csv? True
+2023-03-27 14:15:45.550 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, fixed 2019 (key: c324fe4c202355c02f43820ab90e7e8e) found in filesystem. Loading in cache.
+2023-03-27 14:15:45.845 | DEBUG    | povertymapping.ookla:load_type_year_data:79 - Contents of data cache: ['c324fe4c202355c02f43820ab90e7e8e']
+2023-03-27 14:15:45.846 | INFO     | povertymapping.ookla:load_type_year_data:94 - Cached data available at /home/jc_tm/.geowrangler/ookla/processed/92b3ee712b9e11813b76cad2700fd9fe.csv? True
+2023-03-27 14:15:45.847 | DEBUG    | povertymapping.ookla:load_type_year_data:99 - Processed Ookla data for aoi, mobile 2019 (key: 92b3ee712b9e11813b76cad2700fd9fe) found in filesystem. Loading in cache.
+2023-03-27 14:15:46.223 | INFO     | povertymapping.nightlights:get_clipped_raster:414 - Retrieving clipped raster file /home/jc_tm/.geowrangler/nightlights/clip/37b7ad633aa40929271999e019b70b8c.tif</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 14min 56s, sys: 1min 51s, total: 16min 48s
+Wall time: 17min 15s</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>aoi_data.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
+Int64Index: 161230 entries, 0 to 161238
+Data columns (total 71 columns):
+ #   Column                             Non-Null Count   Dtype   
+---  ------                             --------------   -----   
+ 0   quadkey                            161230 non-null  object  
+ 1   shapeName                          161230 non-null  object  
+ 2   shapeISO                           161230 non-null  object  
+ 3   shapeID                            161230 non-null  object  
+ 4   shapeGroup                         161230 non-null  object  
+ 5   shapeType                          161230 non-null  object  
+ 6   quadkey_level8                     161230 non-null  object  
+ 7   pop_count                          161230 non-null  float64 
+ 8   geometry                           161230 non-null  geometry
+ 9   osm_region                         161230 non-null  object  
+ 10  poi_count                          161230 non-null  float64 
+ 11  atm_count                          161230 non-null  float64 
+ 12  atm_nearest                        161230 non-null  float64 
+ 13  bank_count                         161230 non-null  float64 
+ 14  bank_nearest                       161230 non-null  float64 
+ 15  bus_station_count                  161230 non-null  float64 
+ 16  bus_station_nearest                161230 non-null  float64 
+ 17  cafe_count                         161230 non-null  float64 
+ 18  cafe_nearest                       161230 non-null  float64 
+ 19  charging_station_count             161230 non-null  float64 
+ 20  charging_station_nearest           161230 non-null  float64 
+ 21  courthouse_count                   161230 non-null  float64 
+ 22  courthouse_nearest                 161230 non-null  float64 
+ 23  dentist_count                      161230 non-null  float64 
+ 24  dentist_nearest                    161230 non-null  float64 
+ 25  fast_food_count                    161230 non-null  float64 
+ 26  fast_food_nearest                  161230 non-null  float64 
+ 27  fire_station_count                 161230 non-null  float64 
+ 28  fire_station_nearest               161230 non-null  float64 
+ 29  food_court_count                   161230 non-null  float64 
+ 30  food_court_nearest                 161230 non-null  float64 
+ 31  fuel_count                         161230 non-null  float64 
+ 32  fuel_nearest                       161230 non-null  float64 
+ 33  hospital_count                     161230 non-null  float64 
+ 34  hospital_nearest                   161230 non-null  float64 
+ 35  library_count                      161230 non-null  float64 
+ 36  library_nearest                    161230 non-null  float64 
+ 37  marketplace_count                  161230 non-null  float64 
+ 38  marketplace_nearest                161230 non-null  float64 
+ 39  pharmacy_count                     161230 non-null  float64 
+ 40  pharmacy_nearest                   161230 non-null  float64 
+ 41  police_count                       161230 non-null  float64 
+ 42  police_nearest                     161230 non-null  float64 
+ 43  post_box_count                     161230 non-null  float64 
+ 44  post_box_nearest                   161230 non-null  float64 
+ 45  post_office_count                  161230 non-null  float64 
+ 46  post_office_nearest                161230 non-null  float64 
+ 47  restaurant_count                   161230 non-null  float64 
+ 48  restaurant_nearest                 161230 non-null  float64 
+ 49  social_facility_count              161230 non-null  float64 
+ 50  social_facility_nearest            161230 non-null  float64 
+ 51  supermarket_count                  161230 non-null  float64 
+ 52  supermarket_nearest                161230 non-null  float64 
+ 53  townhall_count                     161230 non-null  float64 
+ 54  townhall_nearest                   161230 non-null  float64 
+ 55  road_count                         161230 non-null  float64 
+ 56  fixed_2019_mean_avg_d_kbps_mean    161230 non-null  float64 
+ 57  fixed_2019_mean_avg_u_kbps_mean    161230 non-null  float64 
+ 58  fixed_2019_mean_avg_lat_ms_mean    161230 non-null  float64 
+ 59  fixed_2019_mean_num_tests_mean     161230 non-null  float64 
+ 60  fixed_2019_mean_num_devices_mean   161230 non-null  float64 
+ 61  mobile_2019_mean_avg_d_kbps_mean   161230 non-null  float64 
+ 62  mobile_2019_mean_avg_u_kbps_mean   161230 non-null  float64 
+ 63  mobile_2019_mean_avg_lat_ms_mean   161230 non-null  float64 
+ 64  mobile_2019_mean_num_tests_mean    161230 non-null  float64 
+ 65  mobile_2019_mean_num_devices_mean  161230 non-null  float64 
+ 66  avg_rad_min                        161230 non-null  float64 
+ 67  avg_rad_max                        161230 non-null  float64 
+ 68  avg_rad_mean                       161230 non-null  float64 
+ 69  avg_rad_std                        161230 non-null  float64 
+ 70  avg_rad_median                     161230 non-null  float64 
+dtypes: float64(62), geometry(1), object(8)
+memory usage: 88.6+ MB</code></pre>
+</div>
+</div>
+</section>
+<section id="scale-and-clean-features" class="level3">
+<h3 class="anchored" data-anchor-id="scale-and-clean-features">Scale and clean features</h3>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get list of raw features generated</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>feature_cols <span class="op">=</span> [</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    x <span class="cf">for</span> x <span class="kw">in</span> aoi_data.columns <span class="cf">if</span> x <span class="kw">not</span> <span class="kw">in</span> <span class="bu">list</span>(aoi.columns) <span class="op">+</span> [<span class="st">"osm_region"</span>]</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#papermill_description="Generate features for rollout AOI"</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>rollout_aoi <span class="op">=</span> aoi_data[</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    [col <span class="cf">for</span> col <span class="kw">in</span> aoi_data.columns <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> feature_cols]</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>].copy()</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> aoi_data[feature_cols].copy()</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> feature_cols:</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    max_val <span class="op">=</span> features[[col]].<span class="bu">max</span>()</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    features[col <span class="op">+</span> <span class="st">"_scaled"</span>] <span class="op">=</span> scaler.fit_transform(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        features[[col]].clip(upper<span class="op">=</span>max_val, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 3.4 s, sys: 0 ns, total: 3.4 s
+Wall time: 3.4 s</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save raw features, can be used for validation</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>raw_features <span class="op">=</span> features[[col <span class="cf">for</span> col <span class="kw">in</span> features.columns <span class="cf">if</span> <span class="st">"_scaled"</span> <span class="kw">not</span> <span class="kw">in</span> col]]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Then keep only scaled columns</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> features[[col <span class="cf">for</span> col <span class="kw">in</span> features.columns <span class="cf">if</span> <span class="st">"_scaled"</span> <span class="kw">in</span> col]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="inspect-the-generated-features" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-the-generated-features">Inspect the generated features</h2>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>features.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 161230 entries, 0 to 161238
+Data columns (total 61 columns):
+ #   Column                                    Non-Null Count   Dtype  
+---  ------                                    --------------   -----  
+ 0   poi_count_scaled                          161230 non-null  float64
+ 1   atm_count_scaled                          161230 non-null  float64
+ 2   atm_nearest_scaled                        161230 non-null  float64
+ 3   bank_count_scaled                         161230 non-null  float64
+ 4   bank_nearest_scaled                       161230 non-null  float64
+ 5   bus_station_count_scaled                  161230 non-null  float64
+ 6   bus_station_nearest_scaled                161230 non-null  float64
+ 7   cafe_count_scaled                         161230 non-null  float64
+ 8   cafe_nearest_scaled                       161230 non-null  float64
+ 9   charging_station_count_scaled             161230 non-null  float64
+ 10  charging_station_nearest_scaled           161230 non-null  float64
+ 11  courthouse_count_scaled                   161230 non-null  float64
+ 12  courthouse_nearest_scaled                 161230 non-null  float64
+ 13  dentist_count_scaled                      161230 non-null  float64
+ 14  dentist_nearest_scaled                    161230 non-null  float64
+ 15  fast_food_count_scaled                    161230 non-null  float64
+ 16  fast_food_nearest_scaled                  161230 non-null  float64
+ 17  fire_station_count_scaled                 161230 non-null  float64
+ 18  fire_station_nearest_scaled               161230 non-null  float64
+ 19  food_court_count_scaled                   161230 non-null  float64
+ 20  food_court_nearest_scaled                 161230 non-null  float64
+ 21  fuel_count_scaled                         161230 non-null  float64
+ 22  fuel_nearest_scaled                       161230 non-null  float64
+ 23  hospital_count_scaled                     161230 non-null  float64
+ 24  hospital_nearest_scaled                   161230 non-null  float64
+ 25  library_count_scaled                      161230 non-null  float64
+ 26  library_nearest_scaled                    161230 non-null  float64
+ 27  marketplace_count_scaled                  161230 non-null  float64
+ 28  marketplace_nearest_scaled                161230 non-null  float64
+ 29  pharmacy_count_scaled                     161230 non-null  float64
+ 30  pharmacy_nearest_scaled                   161230 non-null  float64
+ 31  police_count_scaled                       161230 non-null  float64
+ 32  police_nearest_scaled                     161230 non-null  float64
+ 33  post_box_count_scaled                     161230 non-null  float64
+ 34  post_box_nearest_scaled                   161230 non-null  float64
+ 35  post_office_count_scaled                  161230 non-null  float64
+ 36  post_office_nearest_scaled                161230 non-null  float64
+ 37  restaurant_count_scaled                   161230 non-null  float64
+ 38  restaurant_nearest_scaled                 161230 non-null  float64
+ 39  social_facility_count_scaled              161230 non-null  float64
+ 40  social_facility_nearest_scaled            161230 non-null  float64
+ 41  supermarket_count_scaled                  161230 non-null  float64
+ 42  supermarket_nearest_scaled                161230 non-null  float64
+ 43  townhall_count_scaled                     161230 non-null  float64
+ 44  townhall_nearest_scaled                   161230 non-null  float64
+ 45  road_count_scaled                         161230 non-null  float64
+ 46  fixed_2019_mean_avg_d_kbps_mean_scaled    161230 non-null  float64
+ 47  fixed_2019_mean_avg_u_kbps_mean_scaled    161230 non-null  float64
+ 48  fixed_2019_mean_avg_lat_ms_mean_scaled    161230 non-null  float64
+ 49  fixed_2019_mean_num_tests_mean_scaled     161230 non-null  float64
+ 50  fixed_2019_mean_num_devices_mean_scaled   161230 non-null  float64
+ 51  mobile_2019_mean_avg_d_kbps_mean_scaled   161230 non-null  float64
+ 52  mobile_2019_mean_avg_u_kbps_mean_scaled   161230 non-null  float64
+ 53  mobile_2019_mean_avg_lat_ms_mean_scaled   161230 non-null  float64
+ 54  mobile_2019_mean_num_tests_mean_scaled    161230 non-null  float64
+ 55  mobile_2019_mean_num_devices_mean_scaled  161230 non-null  float64
+ 56  avg_rad_min_scaled                        161230 non-null  float64
+ 57  avg_rad_max_scaled                        161230 non-null  float64
+ 58  avg_rad_mean_scaled                       161230 non-null  float64
+ 59  avg_rad_std_scaled                        161230 non-null  float64
+ 60  avg_rad_median_scaled                     161230 non-null  float64
+dtypes: float64(61)
+memory usage: 76.3 MB</code></pre>
+</div>
+</div>
+</section>
+<section id="run-model-on-aoi" class="level2">
+<h2 class="anchored" data-anchor-id="run-model-on-aoi">Run Model on AOI</h2>
+<section id="load-model" class="level3">
+<h3 class="anchored" data-anchor-id="load-model">Load Model</h3>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(MODEL_SAVE_PATH, <span class="st">"rb"</span>) <span class="im">as</span> f:</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> pickle.load(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="make-predictions" class="level3">
+<h3 class="anchored" data-anchor-id="make-predictions">Make Predictions</h3>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi[<span class="st">"Predicted Relative Wealth Index"</span>] <span class="op">=</span> model.predict(features.values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="binning-predictions-into-wealth-categories" class="level2">
+<h2 class="anchored" data-anchor-id="binning-predictions-into-wealth-categories">Binning predictions into wealth categories</h2>
+<p>Afterwards, we label the predicted relative wealth by binning them into 5 categories: <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>, and <code>E</code> where <code>A</code> is the highest and <code>E</code> is the lowest.</p>
+<p>We can create these wealth categories by splitting the output <code>Predicted Relative Wealth Index</code> distribution into 5 equally sized <strong>quintiles</strong>, i.e.&nbsp;every 20th percentile.</p>
+<p>This categorization may be modified to suit the context of the target country.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi[<span class="st">"Predicted Wealth Category (quintile)"</span>] <span class="op">=</span> categorize_wealth_index(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    rollout_aoi[<span class="st">"Predicted Relative Wealth Index"</span>]</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>).astype(<span class="bu">str</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="save-output" class="level2">
+<h2 class="anchored" data-anchor-id="save-output">Save output</h2>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>rollout_aoi.to_file(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>ROLLOUT_DIR<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>ROLLOUT_DATE<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>COUNTRY_CODE<span class="sc">}</span><span class="ss">-rollout-output.geojson"</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    driver<span class="op">=</span><span class="st">"GeoJSON"</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 39.8 s, sys: 851 ms, total: 40.7 s
+Wall time: 40.7 s</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join back raw features and save</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>rollout_output_with_features <span class="op">=</span> rollout_aoi.join(raw_features).join(features)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>rollout_output_with_features.to_file(</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>ROLLOUT_DIR<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>ROLLOUT_DATE<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>COUNTRY_CODE<span class="sc">}</span><span class="ss">-rollout-output-with-features.geojson"</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    driver<span class="op">=</span><span class="st">"GeoJSON"</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="visualizations">Visualizations</h2>
+<section id="inspect-predicted-wealth-index-and-output-dataframe" class="level3">
+<h3 class="anchored" data-anchor-id="inspect-predicted-wealth-index-and-output-dataframe">Inspect predicted wealth index and output dataframe</h3>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>rollout_aoi[[<span class="st">"Predicted Relative Wealth Index"</span>]].hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>array([[&lt;AxesSubplot: title={'center': 'Predicted Relative Wealth Index'}&gt;]],
+      dtype=object)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3_rollout_model_files/figure-html/cell-25-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="create-static-maps" class="level3">
+<h3 class="anchored" data-anchor-id="create-static-maps">Create Static Maps</h3>
+<section id="plot-predicted-relative-wealth-index" class="level4">
+<h4 class="anchored" data-anchor-id="plot-predicted-relative-wealth-index">Plot Predicted Relative Wealth Index</h4>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>plt.cla()</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>plt.clf()</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>rollout_aoi_plot <span class="op">=</span> rollout_aoi.to_crs(<span class="st">"EPSG:3857"</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> rollout_aoi_plot.plot(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predicted Relative Wealth Index"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>),</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"viridis"</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    legend_kwds<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">0.8</span>},</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, source<span class="op">=</span>cx.providers.OpenStreetMap.Mapnik)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Predicted Relative Wealth Index"</span>)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="ss">f"</span><span class="sc">{</span>ROLLOUT_DIR<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>ROLLOUT_DATE<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>COUNTRY_CODE<span class="sc">}</span><span class="ss">-predicted-wealth-index.png"</span>)</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 640x480 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3_rollout_model_files/figure-html/cell-26-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="plot-predicted-relative-wealth-index-category" class="level4">
+<h4 class="anchored" data-anchor-id="plot-predicted-relative-wealth-index-category">Plot Predicted Relative Wealth Index Category</h4>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>plt.cla()</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>plt.clf()</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>rollout_aoi_plot <span class="op">=</span> rollout_aoi.to_crs(<span class="st">"EPSG:3857"</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> rollout_aoi_plot.plot(</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predicted Wealth Category (quintile)"</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>),</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"viridis_r"</span>,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>cx.add_basemap(ax, source<span class="op">=</span>cx.providers.OpenStreetMap.Mapnik)</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Predicted Wealth Category"</span>)</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="ss">f"</span><span class="sc">{</span>ROLLOUT_DIR<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>ROLLOUT_DATE<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>COUNTRY_CODE<span class="sc">}</span><span class="ss">-predicted-wealth-bin.png"</span>)</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 640x480 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3_rollout_model_files/figure-html/cell-27-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="create-an-interactive-map" class="level3">
+<h3 class="anchored" data-anchor-id="create-an-interactive-map">Create an Interactive Map</h3>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>cols_of_interest <span class="op">=</span> [</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"quadkey"</span>,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"shapeName"</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"shapeGroup"</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pop_count"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avg_rad_mean"</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mobile_2019_mean_avg_d_kbps_mean"</span>,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"fixed_2019_mean_avg_d_kbps_mean"</span>,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"poi_count"</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"road_count"</span>,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predicted Relative Wealth Index"</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Predicted Wealth Category (quintile)"</span>,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Warning: This can be a bit laggy due to the large amount of tiles being visualized</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncomment the ff if you want to viz the raw wealth predictions</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="co"># rollout_aoi.explore(column='Predicted Relative Wealth Index', tooltip=cols_of_interest, cmap="viridis")</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncomment the ff if you want to view the quintiles</span></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="co"># rollout_aoi.explore(column='Predicted Wealth Category (quintile)', tooltip=cols_of_interest, cmap="viridis_r")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Alternatively, you may also try to visualize this interactively in <a href="https://kepler.gl/demo">Kepler</a> by uploading the rollout output geojson file.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
