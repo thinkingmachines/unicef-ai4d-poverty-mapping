@@ -1,12 +1,12 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: unicef-ai4d-poverty-mapping
+  name: unicef-ai4d-relative-wealth
   title: UNICEF AI4D Relative Wealth Project
   description: The UNICEF AI4D Relative Wealth Project aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries in Southeast Asia (SEA).
   annotations:
     backstage.io/techdocs-ref: dir:.
-    github.com/project-slug: thinkingmachines/unicef-ai4d-poverty-mapping
+    github.com/project-slug: thinkingmachines/unicef-ai4d-relative-wealth
   links:
     - url: https://thinkdatasci.slack.com/archives/C039W6D63CN
       title: Slack - Relative Wealth Channel

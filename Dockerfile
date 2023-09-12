@@ -1,5 +1,5 @@
 FROM python:3.9.16
-LABEL org.opencontainers.image.source=https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping
+LABEL org.opencontainers.image.source=https://github.com/thinkingmachines/unicef-ai4d-relative-wealth
 ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
 WORKDIR /root/povmap

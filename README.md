@@ -20,7 +20,7 @@ We also aim to open source all the scripts, experiments and other artifacts used
 This project is part of [Thinking Machines's overall push for open science through the AI4D (AI for Development) Research Bank](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/) which aims to accelerate the development and adoption of effective machine learning (ML) models for 
 development across Southeast Asia.
 
-Documentation geared towards our methodology and experiments can be found [here](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping).
+Documentation geared towards our methodology and experiments can be found [here](https://thinkingmachines.github.io/unicef-ai4d-relative-wealth).
 
 <br/>
 <br/>
@@ -30,9 +30,9 @@ Documentation geared towards our methodology and experiments can be found [here]
 Our final trained models and their use to produce nationwide estimates can replicated through our notebooks, assuming you've followed the `Data` and `Local Development` setup below.
 
 
-* For countries with available DHS training data (Cambodia, Myanmar, Philippines, and Timor-Leste), please refer to the notebooks here:  https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-single-country-rollouts
+* For countries with available DHS training data (Cambodia, Myanmar, Philippines, and Timor-Leste), please refer to the notebooks here:  https://github.com/thinkingmachines/unicef-ai4d-relative-wealth/tree/main/notebooks/2023-02-21-single-country-rollouts
 
-* For the other countries without DHS training data (Indonesia, Laos, Malaysia, Thailand, and Vietnam), please refer to the notebooks here: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-cross-country-rollouts
+* For the other countries without DHS training data (Indonesia, Laos, Malaysia, Thailand, and Vietnam), please refer to the notebooks here: https://github.com/thinkingmachines/unicef-ai4d-relative-wealth/tree/main/notebooks/2023-02-21-cross-country-rollouts
 
 
 All the output files (models, datasets, intermediate files) can all be downloaded from [here](https://drive.google.com/drive/u/0/folders/1QX0xJc6MHxY7dzIsVMDm5TH0F-NwXhBW). 
@@ -154,7 +154,7 @@ When you add new python libs, please do the ff:
 
 ## 📜Documentation 
 
-We are using [Quarto](https://quarto.org/) to maintain the Unicef AI4D Relative Wealth [documentation site.](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/) 
+We are using [Quarto](https://quarto.org/) to maintain the Unicef AI4D Relative Wealth [documentation site.](https://thinkingmachines.github.io/unicef-ai4d-relative-wealth/) 
 
 Here are some quick tips to running quarto/updating the doc site, assuming you're on Linux.
 
@@ -185,14 +185,14 @@ quarto publish gh-pages --no-browser
 
 ## ☸️Running in Docker 
 
-We have created a [docker image](https://github.com/butchtm/unicef-ai4d-poverty-mapping/pkgs/container/povmap-jupyter) (`ghcr.io/butchtm/povmap-jupyter`) of the poverty mapping repo for those who want to view the notebooks or rollout the models for new countries and new data (e.g. new nightlights and ookla years)
+We have created a [docker image](https://github.com/butchtm/unicef-ai4d-relative-wealth/pkgs/container/povmap-jupyter) (`ghcr.io/butchtm/povmap-jupyter`) of the poverty mapping repo for those who want to view the notebooks or rollout the models for new countries and new data (e.g. new nightlights and ookla years)
 
 To run these docker images please copy and paste the following scripts to run on your linux, mac or windows (wsl) terminals:
 
 * **View Jupyter notebooks (Read-only)** This will run a jupyter notebook environment containing the poverty mapping notebooks at http://localhost:8888/lab/tree/notebooks
 
 ```bash
-curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/main/localscripts/run-povmap-jupyter-notebook.sh > run-povmap-jupyter-notebook.sh && \
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-relative-wealth/main/localscripts/run-povmap-jupyter-notebook.sh > run-povmap-jupyter-notebook.sh && \
 chmod +x run-povmap-jupyter-notebook.sh && \
 ./run-povmap-jupyter-notebook.sh
 ```
@@ -200,7 +200,7 @@ chmod +x run-povmap-jupyter-notebook.sh && \
 and different time periods
 
 ```bash
-curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/main/localscripts/run-povmap-rollout.sh > run-povmap-rollout.sh && \
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-relative-wealth/main/localscripts/run-povmap-rollout.sh > run-povmap-rollout.sh && \
 chmod +x run-povmap-rollout.sh && \
 ./run-povmap-rollout.sh
 ```
@@ -208,7 +208,7 @@ chmod +x run-povmap-rollout.sh && \
 * **Copy rollout to local directory** This will copy the contents of the rollout notebooks and rollout data into your current directory (after running a new rollout) to `rollout-data` and `rollout-output-notebooks`
 
 ```bash
-curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/main/localscripts/copy-rollout-to-local.sh > copy-rollout-to-local.sh && \
+curl -s https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-relative-wealth/main/localscripts/copy-rollout-to-local.sh > copy-rollout-to-local.sh && \
 chmod +x copy-rollout-to-local.sh && \
 ./copy-rollout-to-local.sh
 ```

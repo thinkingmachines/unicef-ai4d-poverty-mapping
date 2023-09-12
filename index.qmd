@@ -19,24 +19,24 @@ We hope that our work can serve as a baseline for other Data Scientists to furth
 # Quick links
 
 - [Web Map Demo](https://studio.foursquare.com/public/590c4ab2-b855-463a-90dd-9917b97b8b57) of our wealth estimates.
-- [GitHub Repo](https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping) containing all code needed to replicate model training and rollout for all 9 SEA countries
+- [GitHub Repo](https://github.com/thinkingmachines/unicef-ai4d-relative-wealth) containing all code needed to replicate model training and rollout for all 9 SEA countries
 - [Google Drive Folder](https://drive.google.com/drive/u/0/folders/1QX0xJc6MHxY7dzIsVMDm5TH0F-NwXhBW) that contains all output data and intermediate artifacts (e.g. training datasets, models)
     - *Note: These artifacts are also hosted on the [AI for Development (AI4D) Research Bank](https://thinkingmachines.github.io/unicef-ai4d-research-bank) website.*
 
 # Replicating our work
 If you want to replicate the final models and wealth estimates, go to the ff. notebook folders:
 
-- [2023-02-21-single-country-rollouts](https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-single-country-rollouts)
-- [2023-02-21-cross-country-rollouts](https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main/notebooks/2023-02-21-cross-country-rollouts)
+- [2023-02-21-single-country-rollouts](https://github.com/thinkingmachines/unicef-ai4d-relative-wealth/tree/main/notebooks/2023-02-21-single-country-rollouts)
+- [2023-02-21-cross-country-rollouts](https://github.com/thinkingmachines/unicef-ai4d-relative-wealth/tree/main/notebooks/2023-02-21-cross-country-rollouts)
 
 These provide the code necessary to replicate our work end-to-end. The earlier notebooks are more experimental as we were developing the methodology.
-Note that to run them properly, you need to get DHS data yourself and set-up your local environment. Just follow the instructions in our [repo's README](https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping).
+Note that to run them properly, you need to get DHS data yourself and set-up your local environment. Just follow the instructions in our [repo's README](https://github.com/thinkingmachines/unicef-ai4d-relative-wealth).
 
 # Using Docker
 
-We have provided a [docker image](https://github.com/butchtm/unicef-ai4d-poverty-mapping/pkgs/container/povmap-jupyter) to make it easy to run the jupyter environment we used to build the models and as well as rollout the country-wide results.
+We have provided a [docker image](https://github.com/butchtm/unicef-ai4d-relative-wealth/pkgs/container/povmap-jupyter) to make it easy to run the jupyter environment we used to build the models and as well as rollout the country-wide results.
 
-You can view our instructions on how to run the docker images [here](https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main#running-in-docker). 
+You can view our instructions on how to run the docker images [here](https://github.com/thinkingmachines/unicef-ai4d-relative-wealth/tree/main#running-in-docker). 
 
 <!-- ## Methodology Summary
 The exact method and details are better seen in the notebooks. But this diagram summarizes it conceptually. Essentially, we train a model and we use it to estimate wealth across a whole country. -->
@@ -91,7 +91,7 @@ We found that a simple solution was to normalize the features and the wealth ind
 | Timor-Leste  |    455    |             0.46            | 0.51                                       | 0.49                                     |
 | Average      |           |             0.32            | 0.52                                       | 0.47                                     |
 
-Note that we tried other scalers and other methods like re-calculating the wealth indices, but the MinMaxScaler proved to be the best approach in the end. Read more about it in our [Sprint 2](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/cross-country-report.html) and [Sprint 3](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/sprint-3-report.html) reports.
+Note that we tried other scalers and other methods like re-calculating the wealth indices, but the MinMaxScaler proved to be the best approach in the end. Read more about it in our [Sprint 2](https://thinkingmachines.github.io/unicef-ai4d-relative-wealth/cross-country-report.html) and [Sprint 3](https://thinkingmachines.github.io/unicef-ai4d-relative-wealth/sprint-3-report.html) reports.
 
 
 
