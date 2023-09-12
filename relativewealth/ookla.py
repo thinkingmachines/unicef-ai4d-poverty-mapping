@@ -12,7 +12,7 @@ from geowrangler.datasets.ookla import download_ookla_file, OoklaFile, list_ookl
 
 from loguru import logger
 
-from povertymapping import settings
+from relativewealth import settings
 import gc
 import pyarrow.parquet as pq
 

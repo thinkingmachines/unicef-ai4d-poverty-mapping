@@ -3,7 +3,7 @@ LABEL org.opencontainers.image.source=https://github.com/thinkingmachines/unicef
 ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
 WORKDIR /root/povmap
-COPY povertymapping/ povertymapping/
+COPY relativewealth/ relativewealth/
 COPY notebooks/ notebooks/
 COPY scripts/ scripts/
 COPY environment.yml .

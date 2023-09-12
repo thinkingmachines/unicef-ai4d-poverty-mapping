@@ -5,7 +5,7 @@ import os
 import geopandas as gpd
 import pandas as pd
 
-from povertymapping.utils.data_utils import get_title_url
+from relativewealth.utils.data_utils import get_title_url
 
 
 # let's write a class that parses tags

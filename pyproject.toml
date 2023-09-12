@@ -1,6 +1,6 @@
 
 [project]
-name = "povertymapping"
+name = "relativewealth"
 version = "0.0.1"
 
 [tool.black]

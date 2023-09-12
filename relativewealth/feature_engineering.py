@@ -3,9 +3,9 @@ from typing import Any
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
-from povertymapping import nightlights, ookla, osm
-from povertymapping.ookla import OoklaDataManager
-from povertymapping.osm import OsmDataManager
+from relativewealth import nightlights, ookla, osm
+from relativewealth.ookla import OoklaDataManager
+from relativewealth.osm import OsmDataManager
 
 DEFAULT_CACHE_DIR = "~/.geowrangler"
 

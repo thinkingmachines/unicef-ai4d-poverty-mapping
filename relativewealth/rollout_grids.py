@@ -1,5 +1,5 @@
-from povertymapping.geoboundaries import get_geoboundaries
-from povertymapping.hdx import get_hdx_file
+from relativewealth.geoboundaries import get_geoboundaries
+from relativewealth.hdx import get_hdx_file
 from geowrangler.grids import BingTileGridGenerator
 import geowrangler.spatialjoin_highest_intersection as sjhi
 import geowrangler.raster_zonal_stats as rzs

@@ -7,9 +7,9 @@ import requests
 
 from loguru import logger
 import warnings
-from povertymapping.nightlights import urlretrieve
+from relativewealth.nightlights import urlretrieve
 from fastprogress.fastprogress import progress_bar
-from povertymapping.iso3 import is_valid_country_name, get_iso3_code
+from relativewealth.iso3 import is_valid_country_name, get_iso3_code
 
 
 DEFAULT_CACHE_DIR = '~/.cache/geowrangler'

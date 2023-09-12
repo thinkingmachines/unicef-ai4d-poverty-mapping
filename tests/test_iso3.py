@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from povertymapping.iso3 import get_iso3_code, get_iso3_codes
+from relativewealth.iso3 import get_iso3_code, get_iso3_codes
 
 
 def test_get_iso3_codes():

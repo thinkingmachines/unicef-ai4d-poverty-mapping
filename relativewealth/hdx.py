@@ -11,8 +11,8 @@ from pathlib import Path
 
 from loguru import logger
 import warnings
-from povertymapping.nightlights import urlretrieve
-from povertymapping.iso3 import get_iso3_code
+from relativewealth.nightlights import urlretrieve
+from relativewealth.iso3 import get_iso3_code
 import os
 
 import re

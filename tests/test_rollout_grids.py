@@ -1,6 +1,6 @@
 import pytest
 
-from povertymapping.rollout_grids import get_region_filtered_bingtile_grids
+from relativewealth.rollout_grids import get_region_filtered_bingtile_grids
 
 
 @pytest.mark.slow

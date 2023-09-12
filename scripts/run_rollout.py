@@ -5,7 +5,7 @@ from datetime import datetime
 from PyInquirer.prompt import prompt
 from PyInquirer import print_json
 from prompt_toolkit.validation import Validator, ValidationError
-import povertymapping.iso3 as iso3
+import relativewealth.iso3 as iso3
 import re as regex
 
 RUN_CODE = True
