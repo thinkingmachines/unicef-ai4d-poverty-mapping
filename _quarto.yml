@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: UNICEF AI4D Poverty Mapping Project
+  title: UNICEF AI4D Relative Wealth Project
   navbar:
     title: false
     background: primary

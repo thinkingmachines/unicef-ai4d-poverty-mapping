@@ -39,7 +39,7 @@ We validated our model rollout results with the best available reference wealth 
 
 ![Laos Model Map Comparison with MICS IWI (Rank Correlation: 0.84)](/notebooks/2023-03-15-rollout-output-comparisons/la/la_rank_comparison.png)
 
-![Malaysia Model Map Comparison with Relative Poverty (reference) (Rank Correlation: 0.76)](/notebooks/2023-03-15-rollout-output-comparisons/my/my_rank_comparison.png)
+![Malaysia Model Map Comparison with Relative Wealth (reference) (Rank Correlation: 0.76)](/notebooks/2023-03-15-rollout-output-comparisons/my/my_rank_comparison.png)
 
 
 

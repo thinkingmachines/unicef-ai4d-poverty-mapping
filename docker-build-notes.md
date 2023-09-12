@@ -1,4 +1,4 @@
-# Notes on building docker images for Poverty Mapping
+# Notes on building docker images for Relative Wealth
 * create a docker image by running the following command
 ```
 docker build .

@@ -1,4 +1,4 @@
-site_name: 'Unicef AI4D Poverty Mapping'
+site_name: 'Unicef AI4D Relative Wealth'
 
 nav:
   - Introduction: 'README.md'

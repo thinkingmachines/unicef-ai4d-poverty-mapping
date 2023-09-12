@@ -2,23 +2,23 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: unicef-ai4d-poverty-mapping
-  title: UNICEF AI4D Poverty Mapping Project
-  description: The UNICEF AI4D Poverty Mapping Project aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries in Southeast Asia (SEA).
+  title: UNICEF AI4D Relative Wealth Project
+  description: The UNICEF AI4D Relative Wealth Project aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries in Southeast Asia (SEA).
   annotations:
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: thinkingmachines/unicef-ai4d-poverty-mapping
   links:
     - url: https://thinkdatasci.slack.com/archives/C039W6D63CN
-      title: Slack - Poverty Mapping Channel
+      title: Slack - Relative Wealth Channel
       icon: chat
     - url: https://thinkdatasci.slack.com/archives/C03A2TXBW9G
       title: Slack - UNICEF AI4D Channel
       icon: chat
     - url: https://docs.google.com/document/d/1BrVgLLun48z2iitScisOr1F62b2uedWp1ihN3Qqbp0I
-      title: Documentation - AI4D Poverty Mapping Research Journal
+      title: Documentation - AI4D Relative Wealth Research Journal
       icon: docs
     - url: https://docs.google.com/document/d/11HT2fePx0znyBkhTTragTxAamorUgAaEAituqWypFfc
-      title: "Documentation - Poverty Mapping in SEA Rollout: Challenges"
+      title: "Documentation - Relative Wealth in SEA Rollout: Challenges"
       icon: docs
   tags:
     - gcp

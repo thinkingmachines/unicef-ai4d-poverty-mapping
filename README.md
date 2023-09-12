@@ -1,6 +1,6 @@
 <div align="center">
 
-# UNICEF AI4D Poverty Mapping Project
+# UNICEF AI4D Relative Wealth Project
 
 </div>
 
@@ -13,7 +13,7 @@
 
 # 📜 Description
 
-The UNICEF AI4D Poverty Mapping Project aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries in Southeast Asia (SEA).
+The UNICEF AI4D Relative Wealth Project aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries in Southeast Asia (SEA).
 
 We also aim to open source all the scripts, experiments and other artifacts used for developing these datasets and models in order to allow others to replicate our work as well as to collaborate and extend our work for their own use cases.
 
@@ -154,7 +154,7 @@ When you add new python libs, please do the ff:
 
 ## 📜Documentation 
 
-We are using [Quarto](https://quarto.org/) to maintain the Unicef AI4D Poverty Mapping [documentation site.](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/) 
+We are using [Quarto](https://quarto.org/) to maintain the Unicef AI4D Relative Wealth [documentation site.](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/) 
 
 Here are some quick tips to running quarto/updating the doc site, assuming you're on Linux.
 
