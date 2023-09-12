@@ -25,8 +25,6 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     conda activate ./env && \
     conda install -c conda-forge gdal -y && \
     pip install -r requirements.txt && \
-    pip uninstall pygeos shapely -y && \
-    pip install pygeos==0.12.0 shapely==1.8.4 --no-binary pygeos --no-binary shapely && \
     pip install -e . 
 RUN echo 'conda activate ./env \n\
 alias run-rollout="python scripts/run_rollout.py"' >> /root/.bashrc
