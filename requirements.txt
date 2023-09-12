@@ -4,9 +4,6 @@
 #
 #    pip-compile --output-file=requirements.txt --resolver=backtracking requirements.in
 #
---no-binary pygeos
---no-binary shapely
-
 absl-py==1.4.0
     # via
     #   tensorboard
@@ -222,7 +219,7 @@ geopandas==0.10.2
     #   geowrangler
 geopy==2.3.0
     # via contextily
-geowrangler @ git+https://github.com/thinkingmachines/geowrangler.git@feat/optimize-bingtilegrid
+geowrangler
     # via -r requirements.in
 gitdb==4.0.10
     # via gitpython
@@ -837,7 +834,7 @@ shap==0.41.0
     # via
     #   -r requirements.in
     #   fasttreeshap
-shapely==1.8.4
+shapely==2.0.1
     # via
     #   -r requirements.in
     #   geopandas
