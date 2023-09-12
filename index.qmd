@@ -2,7 +2,7 @@
 title: UNICEF AI4D Relative Wealth
 ---
 
-Funded by [UNICEF as part of the AI for Development (AI4D) program](https://www.unicefinnovationfund.org/broadcast/expert-posts/thinking-machines-build-southeast-asia-ai-research-bank-development-ai4d), this project explored the use of purely open datasets and low-cost Machine Learning models for poverty mapping estimation across 9 Southeast Asian countries:
+Funded by [UNICEF as part of the AI for Development (AI4D) program](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/), this project explored the use of purely open datasets and low-cost Machine Learning models for poverty mapping estimation across 9 Southeast Asian countries:
 
 - Cambodia
 - Myanmar
