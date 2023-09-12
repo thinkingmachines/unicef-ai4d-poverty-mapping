@@ -17,7 +17,7 @@ The UNICEF AI4D Relative Wealth Project aims to develop open datasets and machin
 
 We also aim to open source all the scripts, experiments and other artifacts used for developing these datasets and models in order to allow others to replicate our work as well as to collaborate and extend our work for their own use cases.
 
-This project is part of [Thinking Machines's overall push for open science through the AI4D (AI for Development) ML Web Catalog](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/) which aims to accelerate the development and adoption of effective machine learning (ML) models for 
+This project is part of [Thinking Machines's overall push for open science through the AI4D (AI for Development) Research Bank](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/) which aims to accelerate the development and adoption of effective machine learning (ML) models for 
 development across Southeast Asia.
 
 Documentation geared towards our methodology and experiments can be found [here](https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping).
