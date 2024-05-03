@@ -256,6 +256,8 @@ def clip_raster(input_raster_file, dest, bounds, buffer=None):
 URLFORM = {
     "annual_v21": "{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp_{year}{year_suffix}_{coverage}_{vcmcfg}_{process_suffix}.{viirs_data_type}.dat.tif.gz",
     "annual_v22": "{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp-j01_{year}{year_suffix}_{coverage}_{vcmcfg}_{process_suffix}.{viirs_data_type}.dat.tif.gz",
+    "annual_v22_2023": "{ntlights_base_url}/{product}/{version}/{year}/VNL_npp_{year}{year_suffix}_{coverage}_{vcmcfg}_v2_{process_suffix}.{viirs_data_type}.dat.tif.gz",
+    "annual_v22_2023_lit_mask": "{ntlights_base_url}/{product}/{version}/{year}/VNL_{version}_npp_{year}{year_suffix}_{coverage}_{vcmcfg}_{process_suffix}.{viirs_data_type}.dat.tif.gz",
     "annual_v2": "{ntlights_base_url}/{product}/{version}0/{year}/VNL_{version}_npp_{year}{year_suffix}_{coverage}_{vcmcfg}_{process_suffix}.{viirs_data_type}.dat.tif.gz",
 }
 
@@ -289,10 +291,15 @@ def make_url(
     vcmcfg="vcmslcfg",
 ):
     year_suffix = ""
+    product_version_data_type = ""
+    product_version_suffix = ""
     
     if year >= 2022:
         version = EOG_PRODUCT_VERSION.VER22
-        
+    
+    if year == 2023:
+        product_version_suffix = f"_2023{product_version_data_type}"
+
     if type(year) != str:
         year = str(year)
 
@@ -309,8 +316,10 @@ def make_url(
                 raise ValueError(f"No {product} {version} EOG data for {year}")
             if year == "2022":
                 process_suffix = "c202303062300"
+            elif year == "2023":
+                process_suffix = "c202402081600"
 
-    url_format = URLFORM.get(f"{product}_{version}", None)
+    url_format = URLFORM.get(f"{product}_{version}{product_version_suffix}", None)
     if url_format is None:
         raise ValueError(f"Unsupported product version {product} {version}")
     format_params = dict(
@@ -388,6 +397,7 @@ def generate_clipped_raster(
 
     if not viirs_unzip_file.exists():
         viirs_zip_file = download_url(viirs_url, dest=viirs_cache_dir)
+        
         viirs_unzip_file = unzip_eog_gzip(
             viirs_zip_file, dest=viirs_cache_dir, delete_src=True
         )

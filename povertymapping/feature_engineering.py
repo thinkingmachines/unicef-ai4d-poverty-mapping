@@ -3,7 +3,7 @@ from typing import Any
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
-from povertymapping import nightlights, ookla, osm
+from povertymapping import hdx, nightlights, ookla, osm
 from povertymapping.ookla import OoklaDataManager
 from povertymapping.osm import OsmDataManager
 
@@ -26,6 +26,7 @@ def generate_features(
     use_cache=True,
     use_aoi_quadkey=False,
     aoi_quadkey_col="quadkey",
+    use_hdx=False,
 ) -> pd.DataFrame:
     """Generates the base features for an AOI based on
     OSM, Ookla, and VIIRS (nighttime lights) data
@@ -44,6 +45,7 @@ def generate_features(
         sklearn_scaler (Any, optional): The scikit-learn scaler to use. Only applied if scale_features = True. Defaults to StandardScaler.
         scaled_only (bool, optional): Whether to return only the scaled features or not. Defaults to False.
         features_only (bool, optional): Whether to return only the generated features or not. Defaults to False.
+        use_hdx (bool, optional): Whether to add the HDX HRSL population as a feature or not. Defaults to False.
 
     Returns:
         aoi (pd.DataFrame): The AOI dataframe with its new features.
@@ -93,6 +95,7 @@ def generate_features(
 
     # Get list of features generated
     feature_cols = [x for x in aoi.columns if x not in input_cols]
+    feature_cols = feature_cols+["pop_count"] if use_hdx else feature_cols
 
     # Scale the features using the provided scaler
     if scale:
@@ -107,7 +110,10 @@ def generate_features(
 
     # Drop the input columns, leaving only the features
     if features_only:
-        aoi = aoi.drop(columns=input_cols)
+        if use_hdx:
+            aoi = aoi.drop(columns=[col for col in input_cols if col != "pop_count"])
+        else:
+            aoi = aoi.drop(columns=input_cols)
 
     return aoi
 

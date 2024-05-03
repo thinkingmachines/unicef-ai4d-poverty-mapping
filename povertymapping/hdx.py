@@ -6,20 +6,19 @@ from urllib.parse import urlparse
 from urllib.error import HTTPError
 
 from typing import Union
-
 from pathlib import Path
 
 from loguru import logger
-import warnings
+import geowrangler.raster_zonal_stats as rzs
+import numpy as np
+import pandas as pd
 from povertymapping.nightlights import urlretrieve
 from povertymapping.iso3 import get_iso3_code
+
 import os
-
 import re
-
-
+import warnings
 from zipfile import ZipFile
-
 
 HDX_CONFIG = []
 
@@ -211,3 +210,31 @@ def get_hdx_file(
     logger.info(f"HDX Data: Successfully downloaded and cached for {region} at {zipfile_path}!")
 
     return unzipped_hdxfile
+
+
+def generate_hdx_features(
+    aoi: pd.DataFrame,
+    region: str,
+    extra_args: dict = dict(nodata=np.nan),
+) -> pd.DataFrame:
+    """
+    Append HRSL population from HDX to existing DataFrame
+
+    Args:
+        aoi (pandas DataFrame): The input AOI dataframe.
+        region (str): Country/territory ISO3 region name (see iso3.get_region_name()).
+        extra_args (dict, optional): Additional arguments to raster zonal stats (see geowrangler.raster_zonal_stats). Defaults to dict(nodata=np.nan).
+    
+    Returns:
+        aoi (pd.DataFrame): The AOI dataframe with its new features.
+    """
+    hdx_pop_file = get_hdx_file(region)
+
+    aoi = rzs.create_raster_zonal_stats(
+        aoi,
+        hdx_pop_file,
+        aggregation=dict(column="population", output="pop_count", func="sum"),
+        extra_args=extra_args,
+    )
+
+    return aoi
