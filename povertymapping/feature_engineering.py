@@ -95,7 +95,8 @@ def generate_features(
 
     # Get list of features generated
     feature_cols = [x for x in aoi.columns if x not in input_cols]
-    feature_cols = feature_cols+["pop_count"] if use_hdx else feature_cols
+    if use_hdx:
+        feature_cols = feature_cols + hdx.POP_FEATURES
 
     # Scale the features using the provided scaler
     if scale:
