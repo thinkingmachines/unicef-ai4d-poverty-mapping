@@ -21,7 +21,6 @@ import warnings
 from zipfile import ZipFile
 
 HDX_CONFIG = []
-POP_FEATURES = ["pop_count", "pop_density"]
 
 
 def init_hdx_config():
@@ -243,10 +242,10 @@ def get_hdx_file(
     return unzipped_hdxfile
 
 
-def generate_hdx_features(
+def generate_hrsl_features(
     aoi: pd.DataFrame,
     region: str,
-    extra_args: dict | None = None,
+    extra_args: dict = None,
 ) -> pd.DataFrame:
     """
     Append HRSL population from HDX to existing DataFrame
@@ -263,22 +262,12 @@ def generate_hdx_features(
         extra_args = dict(nodata=np.nan)
 
     hdx_pop_file = get_hdx_file(region)
-    
-    funcs = ["mean"] if "pop_count" in aoi.columns else ["sum", "mean"]
-    
+
     aoi = rzs.create_raster_zonal_stats(
         aoi,
         hdx_pop_file,
-        aggregation=dict(column="pop", func=funcs),
+        aggregation=dict(output="population_density", func="mean"),
         extra_args=extra_args,
-    )
-
-    aoi.rename(
-        columns={
-            "pop_sum": "pop_count",
-            "pop_mean": "pop_density"
-        }, 
-        inplace=True
     )
 
     return aoi

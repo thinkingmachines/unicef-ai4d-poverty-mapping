@@ -93,10 +93,12 @@ def generate_features(
         aoi, nightlights_year, cache_dir=f"{cache_dir}/nightlights"
     )
 
+    # Add in the population feature
+    if use_hdx:
+        aoi = hdx.generate_hrsl_features(aoi, region=country_osm)
+
     # Get list of features generated
     feature_cols = [x for x in aoi.columns if x not in input_cols]
-    if use_hdx:
-        feature_cols = feature_cols + hdx.POP_FEATURES
 
     # Scale the features using the provided scaler
     if scale:
@@ -111,10 +113,7 @@ def generate_features(
 
     # Drop the input columns, leaving only the features
     if features_only:
-        if use_hdx:
-            aoi = aoi.drop(columns=[col for col in input_cols if col != "pop_count"])
-        else:
-            aoi = aoi.drop(columns=input_cols)
+        aoi = aoi.drop(columns=input_cols)
 
     return aoi
 
