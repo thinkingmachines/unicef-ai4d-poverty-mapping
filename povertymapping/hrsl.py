@@ -115,7 +115,7 @@ def get_hrsl_url(region, year=None, filetype="geotiff", demographic="general"):
 DEFAULT_CACHE_DIR = "~/.cache/geowrangler"
 
 
-def download_hdx(
+def download_hrsl(
     region,
     year=None,
     filetype="geotiff",
@@ -126,7 +126,7 @@ def download_hdx(
     chunksize=1024 * 1024,
 ) -> Union[Path, None]:
     """Download hrsl file to path"""
-    directory = Path(os.path.expanduser(cache_dir)) / "hdx"
+    directory = Path(os.path.expanduser(cache_dir)) / "hrsl"
     directory.mkdir(parents=True, exist_ok=True)
 
     url = get_hrsl_url(region, year=year, filetype=filetype, demographic=demographic)
@@ -171,7 +171,7 @@ def download_hdx(
     return filepath
 
 
-def get_unzipped_hdxfile(
+def get_unzipped_hrslfile(
     region,
     year=None,
     filetype="geotiff",
@@ -180,7 +180,7 @@ def get_unzipped_hdxfile(
 ):
     url = get_hrsl_url(region, year=year, filetype=filetype, demographic=demographic)
     if type(cache_dir) == str:
-        cache_dir = Path(os.path.expanduser(cache_dir)) / "hdx"
+        cache_dir = Path(os.path.expanduser(cache_dir)) / "hrsl"
     zipfile_path = Path(url)
     ext = ".tif" if filetype == "geotiff" else ".csv"
     unzipped_name = zipfile_path.stem.replace("_" + filetype, "") + ext
@@ -188,7 +188,7 @@ def get_unzipped_hdxfile(
     return unzipfile
 
 
-def get_hdx_file(
+def get_hrsl_file(
     region,
     year=None,
     filetype="geotiff",
@@ -198,7 +198,7 @@ def get_hdx_file(
     show_progress=True,
     chunksize=1024 * 1024,
 ):
-    unzipped_hdxfile = get_unzipped_hdxfile(
+    unzipped_hrslfile = get_unzipped_hrslfile(
         region,
         year=year,
         filetype=filetype,
@@ -206,10 +206,10 @@ def get_hdx_file(
         cache_dir=cache_dir,
     )
 
-    if unzipped_hdxfile.exists() and use_cache:
-        return unzipped_hdxfile
+    if unzipped_hrslfile.exists() and use_cache:
+        return unzipped_hrslfile
 
-    zipfile_path = download_hdx(
+    zipfile_path = download_hrsl(
         region,
         year=year,
         filetype=filetype,
@@ -223,23 +223,23 @@ def get_hdx_file(
     if zipfile_path is None:
         return None
         # Unzip the zip file
-    logger.info(f"HDX Data: Unzipping the zip file {zipfile_path}...")
+    logger.info(f"HRSL Data: Unzipping the zip file {zipfile_path}...")
     with ZipFile(zipfile_path, "r") as zip_object:
-        unzipped_hdxfile.parent.mkdir(parents=True, exist_ok=True)
-        zip_object.extractall(unzipped_hdxfile.parent)
+        unzipped_hrslfile.parent.mkdir(parents=True, exist_ok=True)
+        zip_object.extractall(unzipped_hrslfile.parent)
 
-    if not unzipped_hdxfile.exists():
+    if not unzipped_hrslfile.exists():
         raise ValueError(
-            f"Something went wrong in unzipping {zipfile_path}, {unzipped_hdxfile} not created"
+            f"Something went wrong in unzipping {zipfile_path}, {unzipped_hrslfile} not created"
         )
 
     zipfile_path.unlink()
 
     logger.info(
-        f"HDX Data: Successfully downloaded and cached for {region} at {zipfile_path}!"
+        f"HRSL Data: Successfully downloaded and cached for {region} at {zipfile_path}!"
     )
 
-    return unzipped_hdxfile
+    return unzipped_hrslfile
 
 
 def generate_hrsl_features(
@@ -261,11 +261,11 @@ def generate_hrsl_features(
     if extra_args is None:
         extra_args = dict(nodata=np.nan)
 
-    hdx_pop_file = get_hdx_file(region)
+    hrsl_pop_file = get_hrsl_file(region)
 
     aoi = rzs.create_raster_zonal_stats(
         aoi,
-        hdx_pop_file,
+        hrsl_pop_file,
         aggregation=dict(output="population_density", func="mean"),
         extra_args=extra_args,
     )

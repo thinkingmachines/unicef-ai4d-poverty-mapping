@@ -3,7 +3,7 @@ from typing import Any
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
-from povertymapping import hdx, nightlights, ookla, osm
+from povertymapping import hrsl, nightlights, ookla, osm
 from povertymapping.ookla import OoklaDataManager
 from povertymapping.osm import OsmDataManager
 
@@ -26,7 +26,7 @@ def generate_features(
     use_cache=True,
     use_aoi_quadkey=False,
     aoi_quadkey_col="quadkey",
-    use_hdx=False,
+    use_hrsl=False,
 ) -> pd.DataFrame:
     """Generates the base features for an AOI based on
     OSM, Ookla, and VIIRS (nighttime lights) data
@@ -45,7 +45,7 @@ def generate_features(
         sklearn_scaler (Any, optional): The scikit-learn scaler to use. Only applied if scale_features = True. Defaults to StandardScaler.
         scaled_only (bool, optional): Whether to return only the scaled features or not. Defaults to False.
         features_only (bool, optional): Whether to return only the generated features or not. Defaults to False.
-        use_hdx (bool, optional): Whether to add the HDX HRSL population as a feature or not. Defaults to False.
+        use_hrsl (bool, optional): Whether to add the HDX HRSL population as a feature or not. Defaults to False.
 
     Returns:
         aoi (pd.DataFrame): The AOI dataframe with its new features.
@@ -94,8 +94,8 @@ def generate_features(
     )
 
     # Add in the population feature
-    if use_hdx:
-        aoi = hdx.generate_hrsl_features(aoi, region=country_osm)
+    if use_hrsl:
+        aoi = hrsl.generate_hrsl_features(aoi, region=country_osm)
 
     # Get list of features generated
     feature_cols = [x for x in aoi.columns if x not in input_cols]
