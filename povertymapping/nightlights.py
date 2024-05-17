@@ -25,6 +25,7 @@ DEFAULT_EOG_CREDS_PATH = HOME_FOLDER / ".eog_creds/eog_access_token.txt"
 EOG_ENV_VAR = "EOG_ACCESS_TOKEN"
 NIGHTLIGHTS_CACHE_DIR = HOME_FOLDER / ".geowrangler/nightlights"
 
+
 # Retrieve access token
 def get_eog_access_token(
     username,
@@ -34,7 +35,6 @@ def get_eog_access_token(
     set_env=True,
     env_token_var=EOG_ENV_VAR,
 ):
-
     # Get from API if no local cache yet
     access_token = _get_eog_access_token_from_api(username, password)
 
@@ -54,7 +54,6 @@ def get_eog_access_token(
 
 
 def _get_eog_access_token_from_api(username, password):
-
     params = {
         "client_id": "eogdata_oidc",
         "client_secret": "2677ad81-521b-4869-8480-6d05b9e57d48",
@@ -198,7 +197,6 @@ def download_url(
 
 
 def unzip_eog_gzip(gz_file, dest=None, delete_src=False):
-
     if gz_file is None:
         raise ValueError("gz_file cannot be empty")
 
@@ -273,10 +271,7 @@ EOG_VIIRS_DATA_TYPE = SimpleNamespace(
     MINIMUM="minimum",
 )
 EOG_PRODUCT = SimpleNamespace(ANNUAL="annual")
-EOG_PRODUCT_VERSION = SimpleNamespace(
-    VER21="v21",
-    VER22="v22"
-)
+EOG_PRODUCT_VERSION = SimpleNamespace(VER21="v21", VER22="v22")
 EOG_COVERAGE = SimpleNamespace(GLOBAL="global")
 
 
@@ -293,10 +288,10 @@ def make_url(
     year_suffix = ""
     product_version_data_type = ""
     product_version_suffix = ""
-    
+
     if year >= 2022:
         version = EOG_PRODUCT_VERSION.VER22
-    
+
     if year == 2023:
         product_version_suffix = f"_2023{product_version_data_type}"
 
@@ -335,6 +330,7 @@ def make_url(
     )
     url = url_format.format(**format_params)
     return url
+
 
 def make_clip_hash(
     year,
@@ -397,7 +393,7 @@ def generate_clipped_raster(
 
     if not viirs_unzip_file.exists():
         viirs_zip_file = download_url(viirs_url, dest=viirs_cache_dir)
-        
+
         viirs_unzip_file = unzip_eog_gzip(
             viirs_zip_file, dest=viirs_cache_dir, delete_src=True
         )
@@ -507,14 +503,20 @@ def generate_nightlights_feature(
     cache_dir=NIGHTLIGHTS_CACHE_DIR,
     process_suffix="c202205302300",
     vcmcfg="vcmslcfg",
-    extra_args=dict(band_num=1, nodata=-999),
-    func=["min", "max", "mean", "median", "std"],
+    extra_args=None,
+    func=None,
     column="avg_rad",
     copy=False,
 ):
     if year >= 2022:
-        version=EOG_PRODUCT_VERSION.VER22
-    
+        version = EOG_PRODUCT_VERSION.VER22
+
+    if extra_args is None:
+        extra_args = dict(band_num=1, nodata=-999)
+
+    if func is None:
+        func = ["min", "max", "mean", "median", "std"]
+
     clipped_raster_file = get_clipped_raster(
         year,
         aoi.total_bounds,

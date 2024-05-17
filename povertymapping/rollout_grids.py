@@ -22,8 +22,8 @@ DEFAULT_CACHE_DIR = "~/.cache/geowrangler"
 def compute_raster_stats(
     admin_grids_gdf,
     hrsl_pop_file,
-    aggregation=dict(column="population", output="pop_count", func="sum"),
-    extra_args=dict(nodata=np.nan),
+    aggregation=None,
+    extra_args=None,
     group_col=None,
     max_batch_size=None,
     n_workers=None,
@@ -37,9 +37,9 @@ def compute_raster_stats(
             The dictionary should have three keys: 'column' (the name of the raster file's data column to use),
             'output' (the name of the resulting column in the output GeoDataFrame), and
             'func' (the function to use for aggregation, e.g. "mean", "sum", "min", "max", etc.).
-            Default values for these keys are "population", "pop_count", and "sum", respectively.
+            Default is None and values for these keys will be "population", "pop_count", and "sum", respectively.
         extra_args (dict): Any extra arguments to pass to the `create_raster_zonal_stats()` function.
-            Default is {'nodata': np.nan}
+            Default is None and will be replaced with {'nodata': np.nan}
         group_col (str): If specified, the name of the column in admin_grids_gdf to group the grids by. Raster
             data will be read on a per-group basis. If set, max_batch_size and n_workers is ignored.
             Default is None.
@@ -60,6 +60,12 @@ def compute_raster_stats(
             the aggregated raster value (named according to `aggregation["output"]`),
             and the polygon geometry for each grid.
     """
+
+    if aggregation is None:
+        aggregation = dict(column="population", output="pop_count", func="sum")
+
+    if extra_args is None:
+        extra_args = dict(nodata=np.nan)
 
     fsize = hrsl_pop_file.stat().st_size
     grid_count = len(admin_grids_gdf)
@@ -220,7 +226,7 @@ def get_region_filtered_bingtile_grids(
     filter_population=True,
     assign_grid_admin_area=True,
     metric_crs="epsg:3857",
-    extra_args=dict(nodata=np.nan),
+    extra_args=None,
     group_col=None,
     max_batch_size=None,
     n_workers=None,
@@ -237,10 +243,13 @@ def get_region_filtered_bingtile_grids(
        filter_population: (default: True) - whether to filter out grids with zero population counts
        assign_grid_admin_area: (default: True) whether to merge the admin level area data to the grids data
        metric_crs: (default: 'epsg:3857') - CRS to use for assigning for admin areas
-       extra_args: (default: dict(nodata=np.nan)) - extra arguments passed to raster zonal stats computing
+       extra_args: (default:None) - extra arguments passed to raster zonal stats computing, default becomes dict(nodata=np.nan)
        max_batch_size: (default:None) - set batch size to limit memory used for raster zonal stats
        n_workers: (default:None) - set number of workers to parallelize raster zonal stats computation per batch
     """
+    if extra_args is None:
+        extra_args = dict(nodata=np.nan)
+
     directory = Path(os.path.expanduser(cache_dir)) / "quadkey_grids"
     directory.mkdir(parents=True, exist_ok=True)
 
