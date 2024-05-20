@@ -55,24 +55,24 @@ For example, from the data for the Philippines will have this directory structur
 data/
     dhs/
         ph/
-            PHGE71FL/
+            PHGE81FL/
                 DHS_README.txt
                 GPS_Displacement_README.txt
-                PHGE71FL.cpg
-                PHGE71FL.dbf
-                PHGE71FL.prj
-                PHGE71FL.sbn
-                PHGE71FL.sbx
-                PHGE71FL.shp
-                PHGE71FL.shp.xml
-                PHGE71FL.shx
-            PHHR71DT/
-                PHHR71FL.DCT
-                PHHR71FL.DO
-                PHHR71FL.DTA
-                PHHR71FL.FRQ
-                PHHR71FL.FRW
-                PHHR71FL.MAP
+                PHGE81FL.cpg
+                PHGE81FL.dbf
+                PHGE81FL.prj
+                PHGE81FL.sbn
+                PHGE81FL.sbx
+                PHGE81FL.shp
+                PHGE81FL.shp.xml
+                PHGE81FL.shx
+            PHHR82DT/
+                PHHR82FL.DCT
+                PHHR82FL.DO
+                PHHR82FL.DTA
+                PHHR82FL.FRQ
+                PHHR82FL.FRW
+                PHHR82FL.MAP
 ```
 
 *If you create your own notebook, of course you are free to modify these conventions for filepaths yourself. But out-of-the-box, this is what our notebooks assume.*

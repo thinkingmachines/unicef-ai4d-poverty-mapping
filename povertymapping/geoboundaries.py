@@ -13,7 +13,7 @@ from povertymapping.iso3 import is_valid_country_name, get_iso3_code
 
 
 DEFAULT_CACHE_DIR = '~/.cache/geowrangler'
-GEOBOUNDARIES_REQUEST_URL = "https://www.geoboundaries.org/gbRequest.html?ISO={}&ADM={}"
+GEOBOUNDARIES_REQUEST_URL = "https://www.geoboundaries.org/api/current/gbOpen/{}/{}"
 # TODO: cite acknowledgement: https://www.geoboundaries.org/index.html#citation
 #   
 def get_geoboundaries(region, adm='ADM0', dest=None, cache_dir=DEFAULT_CACHE_DIR, overwrite=False, show_progress=True, chunksize=8192):
@@ -48,10 +48,10 @@ def get_geoboundaries(region, adm='ADM0', dest=None, cache_dir=DEFAULT_CACHE_DIR
 
     r = requests.get(url)
     respjson = r.json()
-    if respjson is None or len(respjson) < 1 or 'gjDownloadURL' not in respjson[0]:
+    if respjson is None or len(respjson) < 1 or 'gjDownloadURL' not in respjson:
         raise ValueError(f'Invalid results returned from reqest {url} : response is {respjson}')
 
-    dl_path = respjson[0]["gjDownloadURL"]
+    dl_path = respjson["simplifiedGeometryGeoJSON"]
 
     logger.info(f"Download path for {iso} at admin level {adm} found at {dl_path}")
 

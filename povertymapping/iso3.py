@@ -5,7 +5,8 @@ import warnings
 # ISO3166 source list
 # see https://github.com/lukes//ISO-3166-Countries-with-Regional-Codes
 
-ISO3_URL = "https://datahub.io/core/country-codes/r/country-codes.csv"
+# Link below taken from https://datahub.io/core/country-codes
+ISO3_URL = "https://r2.datahub.io/clt97y5hy0000jz087j66iiuk/master/raw/data/country-codes.csv"
 
 @lru_cache(maxsize=None)
 def get_iso3_codes():

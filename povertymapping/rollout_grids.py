@@ -1,5 +1,5 @@
 from povertymapping.geoboundaries import get_geoboundaries
-from povertymapping.hdx import get_hdx_file
+from povertymapping.hrsl import get_hrsl_file
 from geowrangler.grids import BingTileGridGenerator
 import geowrangler.spatialjoin_highest_intersection as sjhi
 import geowrangler.raster_zonal_stats as rzs
@@ -21,25 +21,25 @@ DEFAULT_CACHE_DIR = "~/.cache/geowrangler"
 
 def compute_raster_stats(
     admin_grids_gdf,
-    hdx_pop_file,
-    aggregation=dict(column="population", output="pop_count", func="sum"),
-    extra_args=dict(nodata=np.nan),
+    hrsl_pop_file,
+    aggregation=None,
+    extra_args=None,
     group_col=None,
     max_batch_size=None,
     n_workers=None,
 ):
-    """Computes the raster statistics for a given set of administrative grids, using the HDX population file.
+    """Computes the raster statistics for a given set of administrative grids, using the HRSL population file.
 
     Args:
         admin_grids_gdf (GeoDataFrame): A GeoDataFrame containing administrative grids as polygons.
-        hdx_pop_file (str): The path to the HDX population raster file.
+        hrsl_pop_file (str): The path to the HRSL population raster file.
         aggregation (dict): Specifies how to aggregate raster values in each administrative grid.
             The dictionary should have three keys: 'column' (the name of the raster file's data column to use),
             'output' (the name of the resulting column in the output GeoDataFrame), and
             'func' (the function to use for aggregation, e.g. "mean", "sum", "min", "max", etc.).
-            Default values for these keys are "population", "pop_count", and "sum", respectively.
+            Default is None and values for these keys will be "population", "pop_count", and "sum", respectively.
         extra_args (dict): Any extra arguments to pass to the `create_raster_zonal_stats()` function.
-            Default is {'nodata': np.nan}
+            Default is None and will be replaced with {'nodata': np.nan}
         group_col (str): If specified, the name of the column in admin_grids_gdf to group the grids by. Raster
             data will be read on a per-group basis. If set, max_batch_size and n_workers is ignored.
             Default is None.
@@ -61,7 +61,13 @@ def compute_raster_stats(
             and the polygon geometry for each grid.
     """
 
-    fsize = hdx_pop_file.stat().st_size
+    if aggregation is None:
+        aggregation = dict(column="population", output="pop_count", func="sum")
+
+    if extra_args is None:
+        extra_args = dict(nodata=np.nan)
+
+    fsize = hrsl_pop_file.stat().st_size
     grid_count = len(admin_grids_gdf)
     admin_grids_crs = admin_grids_gdf.crs
 
@@ -81,7 +87,7 @@ def compute_raster_stats(
                 admin_grids_gdf[group_col] == group
             ].reset_index(drop=True)
             group_result = compute_windowed_raster_stats(
-                group_gdf, hdx_pop_file, aggregation=aggregation, extra_args=extra_args
+                group_gdf, hrsl_pop_file, aggregation=aggregation, extra_args=extra_args
             )
             group_results.append(group_result)
             del group_gdf
@@ -100,7 +106,7 @@ def compute_raster_stats(
         )
         return rzs.create_raster_zonal_stats(
             admin_grids_gdf,
-            hdx_pop_file,
+            hrsl_pop_file,
             aggregation=aggregation,
             extra_args=extra_args,
         )
@@ -126,7 +132,7 @@ def compute_raster_stats(
                 f"Creating raster zonal stats for batch {i} with index ({batch.index.min()}/{batch.index.max()})"
             )
             batch_result = rzs.create_raster_zonal_stats(
-                batch, hdx_pop_file, aggregation=aggregation, extra_args=extra_args
+                batch, hrsl_pop_file, aggregation=aggregation, extra_args=extra_args
             )
         else:
             logger.info(
@@ -134,7 +140,7 @@ def compute_raster_stats(
             )
             batch_result = compute_parallel_raster_zonal_stats(
                 batch,
-                hdx_pop_file,
+                hrsl_pop_file,
                 aggregation=aggregation,
                 extra_args=extra_args,
                 n_workers=n_workers,
@@ -152,7 +158,7 @@ def compute_raster_stats(
 
 
 def compute_windowed_raster_stats(
-    gdf, hdx_pop_file, aggregation, extra_args, verbose=False
+    gdf, hrsl_pop_file, aggregation, extra_args, verbose=False
 ):
     "Helper function to calculate raster stats based on data windowed from gdf bounds"
     # Get geometries and bounds for the specified chunk
@@ -163,7 +169,7 @@ def compute_windowed_raster_stats(
 
     # Get the data (np.array, affine transform) for the
     # window specified by the chunk bounds
-    with rio.open(hdx_pop_file) as dst:
+    with rio.open(hrsl_pop_file) as dst:
         window = rio.windows.from_bounds(left, bottom, right, top, dst.transform)
         window_transform = dst.window_transform(window)
         gdf_population = dst.read(1, window=window)
@@ -183,18 +189,18 @@ def compute_windowed_raster_stats(
 
 
 def parallel_zonal_stats(batch_item):
-    batch, hdx_pop_file, aggregation, extra_args = batch_item
+    batch, hrsl_pop_file, aggregation, extra_args = batch_item
     result = rzs.create_raster_zonal_stats(
-        batch, hdx_pop_file, aggregation=aggregation, extra_args=extra_args
+        batch, hrsl_pop_file, aggregation=aggregation, extra_args=extra_args
     )
     return result
 
 
 def compute_parallel_raster_zonal_stats(
-    batch, hdx_pop_file, aggregation, extra_args, n_workers
+    batch, hrsl_pop_file, aggregation, extra_args, n_workers
 ):
     batch_items = [
-        (item.copy().reset_index(drop=True), hdx_pop_file, aggregation, extra_args)
+        (item.copy().reset_index(drop=True), hrsl_pop_file, aggregation, extra_args)
         for item in np.array_split(batch, n_workers)
     ]
     results = fc.parallel(
@@ -220,7 +226,7 @@ def get_region_filtered_bingtile_grids(
     filter_population=True,
     assign_grid_admin_area=True,
     metric_crs="epsg:3857",
-    extra_args=dict(nodata=np.nan),
+    extra_args=None,
     group_col=None,
     max_batch_size=None,
     n_workers=None,
@@ -237,10 +243,13 @@ def get_region_filtered_bingtile_grids(
        filter_population: (default: True) - whether to filter out grids with zero population counts
        assign_grid_admin_area: (default: True) whether to merge the admin level area data to the grids data
        metric_crs: (default: 'epsg:3857') - CRS to use for assigning for admin areas
-       extra_args: (default: dict(nodata=np.nan)) - extra arguments passed to raster zonal stats computing
+       extra_args: (default:None) - extra arguments passed to raster zonal stats computing, default becomes dict(nodata=np.nan)
        max_batch_size: (default:None) - set batch size to limit memory used for raster zonal stats
        n_workers: (default:None) - set number of workers to parallelize raster zonal stats computation per batch
     """
+    if extra_args is None:
+        extra_args = dict(nodata=np.nan)
+
     directory = Path(os.path.expanduser(cache_dir)) / "quadkey_grids"
     directory.mkdir(parents=True, exist_ok=True)
 
@@ -303,11 +312,11 @@ def get_region_filtered_bingtile_grids(
 
     if filter_population:
         logger.info(f"Getting {region} population data for filtering grids")
-        hdx_pop_file = get_hdx_file(region)
+        hrsl_pop_file = get_hrsl_file(region)
         logger.info("Computing population zonal stats per grid")
         admin_grids_gdf = compute_raster_stats(
             admin_grids_gdf,
-            hdx_pop_file,
+            hrsl_pop_file,
             aggregation=dict(column="population", output="pop_count", func="sum"),
             extra_args=extra_args,
             group_col=group_col,

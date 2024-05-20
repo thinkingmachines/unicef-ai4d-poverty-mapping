@@ -99,7 +99,6 @@ class DHSDataManager:
         return
 
     def view_cache_keys(self, cache_type: str = None):
-
         if cache_type is None:
             print(
                 "Household: ",
@@ -168,7 +167,7 @@ class DHSDataManager:
         country_index: str,
         dhs_household_dta_filepath: str,
         dhs_geo_shp_filepath,
-        col_rename_config={},
+        col_rename_config=None,
         wealth_col_name="Wealth Index",
         cluster_col_name="DHSCLUST",
         lat_col="LATNUM",
@@ -180,6 +179,8 @@ class DHSDataManager:
         overwrite_cache=False,
         return_data=True,
     ):
+        if col_rename_config is None:
+            col_rename_config = {}
 
         if (
             isinstance(col_rename_config, str)
@@ -311,7 +312,7 @@ class DHSDataManager:
             country_index_list = list(self.household_data.keys())
 
         households_df = self.get_household_level_data_by_country(country_index_list)
-        
+
         households_df[output_col] = dhs.assign_wealth_index(
             households_df[index_features].fillna(0)
         )
@@ -324,7 +325,6 @@ class DHSDataManager:
         index_features: list = DEFAULT_INDEX_FEATURES,
         output_col: str = "Recomputed Wealth Index",
     ):
-
         if country_index_list is None:
             country_index_list = list(self.cluster_data.keys())
 
@@ -356,8 +356,11 @@ class DHSDataManager:
 
 
 def generate_dhs_household_level_data(
-    dhs_household_dta_filepath, col_rename_config={}, drop_duplicate_cols=True
+    dhs_household_dta_filepath, col_rename_config=None, drop_duplicate_cols=True
 ):
+    if col_rename_config is None:
+        col_rename_config = {}
+
     AVAILABLE_COUNTRIES = ["ph", "kh", "mm", "tl"]
     if (
         isinstance(col_rename_config, str)
@@ -379,7 +382,7 @@ def generate_dhs_household_level_data(
 def generate_dhs_cluster_level_data(
     dhs_household_dta_filepath,
     dhs_geo_shp_filepath,
-    col_rename_config={},
+    col_rename_config=None,
     wealth_col_name="Wealth Index",
     cluster_col_name="DHSCLUST",
     lat_col="LATNUM",
@@ -388,6 +391,8 @@ def generate_dhs_cluster_level_data(
     convert_geoms_to_bbox=True,
     bbox_size_km=2,
 ):
+    if col_rename_config is None:
+        col_rename_config = {}
 
     AVAILABLE_COUNTRIES = ["ph", "kh", "mm", "tl"]
     if (
